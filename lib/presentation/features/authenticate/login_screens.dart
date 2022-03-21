@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Form(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -58,60 +59,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     space,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Visibility(
-                          visible: false,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 3.0, color: Colors.grey),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                child: const SizedBox(width: 12, height: 12),
-                              ),
-                              const SizedBox(width: 5),
-                              const Text(
-                                'Remember me',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Text('Forgot your Password?',
+                              style: Theme.of(context).textTheme.bodyText1),
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Navigator.of(context)
-                        //         .pushNamed(RouteList.forgotPassword);
-                        //   },
-                        //   child: Text(
-                        //     'Forgot your Password?',
-                        //     style: Theme.of(context)
-                        //         .textTheme
-                        //         .bodyText1
-                        //         .copyWith(
-                        //           color: Colors.red,
-                        //           fontWeight: FontWeight.bold,
-                        //           decoration: TextDecoration.underline,
-                        //         ),
-                        //   ),
-                        // ),
-                      ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    space,
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: ElevatedButton(
-		      style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor),
                         child: const Text('Sign in'),
                         onPressed: () {},
                       ),
