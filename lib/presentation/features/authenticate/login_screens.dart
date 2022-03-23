@@ -1,5 +1,5 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,7 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final SizedBox space = SizedBox(height: 10);
+    final l10n = context.l10n;
+    final SizedBox space = const SizedBox(height: 10);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -54,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   _visiblePass = !_visiblePass;
                                 });
                               },
-                              icon: Icon(Icons.remove_red_eye)),
+                              icon: const Icon(Icons.remove_red_eye)),
                         ),
                       ],
                     ),
@@ -66,18 +67,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: GestureDetector(
                           onTap: () {},
                           child: Text(
-                              AppLocalizations.of(context)!.forgotPassword,
+                              l10n.forgotPassword,
                               style: Theme.of(context).textTheme.bodyText1),
                         ),
                       ),
                     ),
                     space,
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor),
-                        child: Text(AppLocalizations.of(context)!.login),
+                        child: Text(l10n.login),
                         onPressed: () {},
                       ),
                     ),

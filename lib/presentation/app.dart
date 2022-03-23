@@ -1,7 +1,8 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'features/routes.dart';
 
@@ -12,6 +13,11 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //DevicePreview
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      //DevicePreview
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
