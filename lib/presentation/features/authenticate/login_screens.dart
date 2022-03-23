@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {},
-                          child: Text('Forgot your Password?',
+                          child: Text(
+                              AppLocalizations.of(context)!.forgotPassword,
                               style: Theme.of(context).textTheme.bodyText1),
                         ),
                       ),
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor),
-                        child: const Text('Sign in'),
+                        child: Text(AppLocalizations.of(context)!.login),
                         onPressed: () {},
                       ),
                     ),

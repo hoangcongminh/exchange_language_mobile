@@ -1,0 +1,10 @@
+{
+    "login": "Log in",
+    "@login": {
+      "description": "login"
+    },
+    "forgotPassword": "Forgot your password?",
+    "@forgotPassword": {
+      "description": "forgotPassword"
+    }
+}
