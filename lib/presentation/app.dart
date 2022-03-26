@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class Application extends StatelessWidget {
         Locale('en', ''), // English, no country code
         Locale('vi', ''), // Spanish, no country code
       ],
-      initialRoute: Routes.login,
+      initialRoute: RouteConstants.login,
       onGenerateRoute: Routes.generateRoute,
       theme: defaultTheme(),
     );

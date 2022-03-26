@@ -1,0 +1,26 @@
+{
+    "login": "Log in",
+    "@login": {
+      "description": "login"
+    },
+    "enterEmail": "Enter email",
+    "@enterEmail": {
+      "description": "enterEmal"
+    },
+    "enterPassword": "Enter password",
+    "@enterPassword": {
+      "description": "enterPassword"
+    },
+    "password": "PASSWORD",
+    "@password": {
+      "description": "password"
+    },
+    "forgotPassword": "forgot your password?",
+    "@forgotPassword": {
+      "description": "forgotpassword"
+    },
+    "signUp": "Sign up",
+    "@signUp": {
+      "description": "signUp"
+    }
+}

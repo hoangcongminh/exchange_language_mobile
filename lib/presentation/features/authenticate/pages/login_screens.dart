@@ -1,6 +1,7 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'widgets/textfield_widget.dart';
+import '../../../../common/constants/route_constants.dart';
+import '../widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final SizedBox space = const SizedBox(height: 10);
+    const SizedBox space = SizedBox(height: 10);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -33,8 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextfieldWidget(
                       keyboardType: TextInputType.emailAddress,
-                      labelText: 'EMAIL ADDRESS',
-                      hintText: 'Enter Email',
+                      labelText: 'EMAIL',
+                      hintText: l10n.enterEmail,
                       controller: _editingControllerEmail,
                     ),
                     space,
@@ -42,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextfieldWidget(
                           keyboardType: TextInputType.text,
-                          labelText: 'PASSWORD',
-                          hintText: 'Enter password',
+                          labelText: l10n.password,
+                          hintText: l10n.enterPassword,
                           obscureText: !_visiblePass,
                           controller: _editingControllerPass,
                         ),
@@ -66,8 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {},
-                          child: Text(
-                              l10n.forgotPassword,
+                          child: Text(l10n.forgotPassword,
                               style: Theme.of(context).textTheme.bodyText1),
                         ),
                       ),
@@ -84,6 +84,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text(
+                    'Don`t have an account? ',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteConstants.signUp);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Register Now',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -21,6 +21,7 @@ dependencies:
   retrofit: ^3.0.1+1
 
   device_preview: 1.0.0
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -29,7 +30,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   retrofit_generator: ^3.0.1+1 
   build_runner: ^2.1.8 
-  json_serializable: '>4.4.0'
+  json_serializable: ^6.1.5
 
 flutter:
 
