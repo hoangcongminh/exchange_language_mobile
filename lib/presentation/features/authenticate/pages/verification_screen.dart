@@ -51,6 +51,8 @@ class VerificationScreen extends StatelessWidget {
                       VerificationTextField(),
                       VerificationTextField(),
                       VerificationTextField(),
+                      VerificationTextField(),
+                      VerificationTextField(),
                     ],
                   ),
                 ),
@@ -114,8 +116,8 @@ class VerificationTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 70,
-      height: 70,
+      width: 40,
+      height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F4F4),

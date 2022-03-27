@@ -1,5 +1,7 @@
-import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+
 import '../../../../common/constants/route_constants.dart';
 import '../widgets/textfield_widget.dart';
 
@@ -79,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor),
                         child: Text(l10n.login),
-                        onPressed: () {},
+                        onPressed: () async {},
                       ),
                     ),
                   ],

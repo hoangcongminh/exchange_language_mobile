@@ -14,17 +14,23 @@ class _AuthRestClient implements AuthRestClient {
   String? baseUrl;
 
   @override
-  Future<void> login() async {
+  Future<ApiResponseModel<String>> login(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.fetch<void>(_setStreamType<void>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/auth/login',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    _data.addAll(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<String>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/users/login',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
+    );
+    return value;
   }
 
   @override
@@ -39,6 +45,25 @@ class _AuthRestClient implements AuthRestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
+  }
+
+  @override
+  Future<ApiResponseModel<UserModel>> refreshToken() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<UserModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/users/refresh-token',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
