@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/entities/user.dart';
+
 part 'user_model.g.dart';
 
 @JsonSerializable()
@@ -23,4 +25,10 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  User toEntity() => User(
+        id: id,
+        fullname: fullName,
+        email: email,
+      );
 }

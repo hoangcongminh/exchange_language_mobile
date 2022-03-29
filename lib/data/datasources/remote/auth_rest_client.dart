@@ -15,9 +15,19 @@ abstract class AuthRestClient {
     @Body() Map<String, dynamic> body,
   );
 
-  @POST('/auth/logout')
-  Future<void> logout();
-
   @GET('/users/refresh-token')
   Future<ApiResponseModel<UserModel>> refreshToken();
+
+  @POST('/verify/sendOTP')
+  Future<void> sendOTP(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/users/register')
+  Future<void> register(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/auth/logout')
+  Future<void> logout();
 }
