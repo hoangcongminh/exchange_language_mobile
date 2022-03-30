@@ -23,8 +23,13 @@ abstract class AuthRestClient {
     @Body() Map<String, dynamic> body,
   );
 
+  @POST('/verify/verifyOTP')
+  Future<void> verifyOTP(
+    @Body() Map<String, dynamic> body,
+  );
+
   @POST('/users/register')
-  Future<void> register(
+  Future<ApiResponseModel<String>> register(
     @Body() Map<String, dynamic> body,
   );
 
