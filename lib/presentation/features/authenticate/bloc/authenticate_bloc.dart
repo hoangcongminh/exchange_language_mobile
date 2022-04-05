@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
+import 'package:exchange_language_mobile/data/failure.dart';
 import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
 import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/common-bloc/application/application_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../data/failure.dart';
 
 part 'authenticate_event.dart';
 part 'authenticate_state.dart';

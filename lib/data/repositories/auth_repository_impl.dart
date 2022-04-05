@@ -1,12 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/app_api_service.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/auth_rest_client.dart';
 import 'package:exchange_language_mobile/data/exception.dart';
 import 'package:exchange_language_mobile/data/failure.dart';
-import 'package:dartz/dartz.dart';
 import 'package:exchange_language_mobile/domain/entities/user.dart';
-
-import '../../domain/repository/auth_repository.dart';
-import '../datasources/local/user_local_data.dart';
-import '../datasources/remote/app_api_service.dart';
-import '../datasources/remote/auth_rest_client.dart';
+import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRestClient _authRestClient = AppApiService().authRestClient;

@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:exchange_language_mobile/data/models/api_response_model.dart';
 import 'package:exchange_language_mobile/data/models/user_model.dart';
 import 'package:retrofit/http.dart';
-
-import '../../models/api_response_model.dart';
 
 part 'auth_rest_client.g.dart';
 

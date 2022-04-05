@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:exchange_language_mobile/common/constants/app_constants.dart';
 import 'package:exchange_language_mobile/common/constants/http_constants.dart';
-
-import '../../../common/constants/app_constants.dart';
-import 'auth_rest_client.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/auth_rest_client.dart';
 
 class AppApiService {
   final dio = Dio();

@@ -4,13 +4,12 @@ import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart'
 import 'package:exchange_language_mobile/presentation/common-bloc/application/application_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/pages/login_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/pages/dashboard_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/routes.dart';
 import 'package:exchange_language_mobile/presentation/features/splash/splash_screen.dart';
 import 'package:exchange_language_mobile/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'features/routes.dart';
 
 class Application extends StatefulWidget {
   const Application({Key? key}) : super(key: key);
