@@ -12,5 +12,6 @@ abstract class AuthRepository {
 
   Future<Either<Failure, void>> verifyOTP(String email, String otp);
 
-  Future<Either<Failure, String>> register(String email, String password, String fullName);
+  Future<Either<Failure, String>> register(
+      String email, String password, String fullName);
 }

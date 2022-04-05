@@ -7,8 +7,6 @@ abstract class AuthenticateEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthenticationCheck extends AuthenticateEvent {}
-
 class LoginEvent extends AuthenticateEvent {
   final String email;
   final String password;
@@ -19,20 +17,34 @@ class LoginEvent extends AuthenticateEvent {
   });
 }
 
-class SignUpEvent extends AuthenticateEvent {
+class RegisterEvent extends AuthenticateEvent {
+  final String email;
+  final String password;
+  final String fullName;
+
+  const RegisterEvent({
+    required this.email,
+    required this.password,
+    required this.fullName,
+  });
+}
+
+class SendOTPEvent extends AuthenticateEvent {
   final String email;
 
-  const SignUpEvent({
+  const SendOTPEvent({
     required this.email,
   });
 }
 
-class LogoutEvent extends AuthenticateEvent {}
+class VerifyOTPEvent extends AuthenticateEvent {
+  final String email;
+  final String otp;
 
-class VerifyEvent extends AuthenticateEvent {
-  final String verificationCode;
-
-  const VerifyEvent({
-    required this.verificationCode,
+  const VerifyOTPEvent({
+    required this.email,
+    required this.otp,
   });
 }
+
+class LogoutEvent extends AuthenticateEvent {}

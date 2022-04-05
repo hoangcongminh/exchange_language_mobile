@@ -9,7 +9,7 @@ class TextfieldWidget extends StatefulWidget {
   final bool? obscureText;
   final double? height;
   final TextCapitalization? textCapitalization;
-  final String Function(String?)? validator;
+  final String? Function(String?)? validator;
   final Function(String)? onChanged;
 
   const TextfieldWidget({
@@ -77,7 +77,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           color: Colors.grey,
           fontSize: 14,
         ),
-        contentPadding: EdgeInsets.all(12),
+        contentPadding: const EdgeInsets.all(12),
         errorBorder: _inputBorder(Colors.blue),
         focusedErrorBorder: _inputBorder(Colors.blue),
         labelText: widget.labelText,

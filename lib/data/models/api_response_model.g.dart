@@ -21,7 +21,7 @@ Map<String, dynamic> _$ApiResponseModelToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'error': instance.success,
+      'error': instance.error,
       'data': _$nullableGenericToJson(instance.data, toJsonT),
       'message': instance.message,
     };

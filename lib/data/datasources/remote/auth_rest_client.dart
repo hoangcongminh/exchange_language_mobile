@@ -19,17 +19,22 @@ abstract class AuthRestClient {
   Future<ApiResponseModel<UserModel>> refreshToken();
 
   @POST('/verify/sendOTP')
-  Future<void> sendOTP(
+  Future<ApiResponseModel> sendOTP(
     @Body() Map<String, dynamic> body,
   );
 
   @POST('/verify/verifyOTP')
-  Future<void> verifyOTP(
+  Future<ApiResponseModel> verifyOTP(
     @Body() Map<String, dynamic> body,
   );
 
   @POST('/users/register')
   Future<ApiResponseModel<String>> register(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/users/reset-password')
+  Future<ApiResponseModel> resetPassword(
     @Body() Map<String, dynamic> body,
   );
 

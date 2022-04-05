@@ -1,23 +1,25 @@
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
+import 'package:exchange_language_mobile/common/helpers/utils/validator_utils.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/constants/route_constants.dart';
-import '../widgets/textfield_widget.dart';
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class InputEmailScreen extends StatefulWidget {
+  const InputEmailScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<InputEmailScreen> createState() => _InputEmailScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final _editingControllerEmail = TextEditingController();
+class _InputEmailScreenState extends State<InputEmailScreen> {
+  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final SizedBox space = const SizedBox(height: 10);
+    const SizedBox space = SizedBox(height: 10);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -26,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Form(
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -35,16 +38,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       keyboardType: TextInputType.emailAddress,
                       labelText: 'EMAIL',
                       hintText: l10n.enterEmail,
-                      controller: _editingControllerEmail,
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        } else if (!ValidatorUtils.isEmail(value)) {
+                          return 'Email is invalid';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     space,
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).primaryColor),
-                        child: Text(l10n.signUp),
-                        onPressed: () {},
+                      child: AuthButtonWidget(
+                        label: l10n.signUp,
+                        onPressed: () {
+                          final _isValid = _formKey.currentState!.validate();
+                          if (_isValid) {
+                            Navigator.of(context).pushNamed(
+                                RouteConstants.verification,
+                                arguments: _emailController.text.trim());
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -60,12 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          RouteConstants.login,
-                          (route) => route == RouteConstants.login);
-                    },
+                    onTap: () => Navigator.of(context).pop(),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

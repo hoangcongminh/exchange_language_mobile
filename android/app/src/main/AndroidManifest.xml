@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.exchange_language_mobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
-        android:label="exchange_language_mobile"
+        android:label="Exchange language"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

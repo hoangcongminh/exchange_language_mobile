@@ -11,8 +11,14 @@ class AuthenticateInitial extends AuthenticateState {}
 
 class AuthenticationSuccess extends AuthenticateState {}
 
-class AuthenticationFail extends AuthenticateState {}
+class AuthenticationFail extends AuthenticateState {
+  final String error;
+  const AuthenticationFail({
+    required this.error,
+  });
 
-class Verifying extends AuthenticateState {}
+  @override
+  List<Object> get props => [error];
+}
 
 class Authenticating extends AuthenticateState {}

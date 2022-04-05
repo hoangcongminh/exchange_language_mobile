@@ -4,6 +4,8 @@ class RouteConstants {
 
   //authenticate
   static const login = "/login";
-  static const signUp = "/signUp";
+  static const inputEmail = "/inputEmail";
+  static const register = "/register";
+  static const forgotPassword = "/forgotPassword";
   static const verification = "/verification";
 }
