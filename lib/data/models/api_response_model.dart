@@ -9,7 +9,7 @@ class ApiResponseModel<T> {
   @JsonKey(name: 'data')
   final T? data;
   @JsonKey(name: 'message')
-  final String? message;
+  final String message;
 
   ApiResponseModel(this.error, this.data, this.message);
 

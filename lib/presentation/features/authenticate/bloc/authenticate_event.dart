@@ -31,9 +31,11 @@ class RegisterEvent extends AuthenticateEvent {
 
 class SendOTPEvent extends AuthenticateEvent {
   final String email;
+  final bool isForgotPassword;
 
   const SendOTPEvent({
     required this.email,
+    required this.isForgotPassword,
   });
 }
 
@@ -46,5 +48,7 @@ class VerifyOTPEvent extends AuthenticateEvent {
     required this.otp,
   });
 }
+
+class RefreshTokenEvent extends AuthenticateEvent {}
 
 class LogoutEvent extends AuthenticateEvent {}

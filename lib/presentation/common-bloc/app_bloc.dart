@@ -16,4 +16,8 @@ class AppBloc {
       create: (context) => authenticateBloc,
     ),
   ];
+
+  static void initialHomeBloc() {
+    authenticateBloc.add(RefreshTokenEvent());
+  }
 }

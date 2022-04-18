@@ -6,10 +6,12 @@ import 'package:exchange_language_mobile/presentation/features/authenticate/widg
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/error_dialog_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
-import 'package:flutter/material.dart';
 
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -39,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    const SizedBox space = SizedBox(height: 10);
+    final SizedBox space = SizedBox(height: 10.sp);
     return BlocConsumer<AuthenticateBloc, AuthenticateState>(
         listener: (context, state) {
       if (state is AuthenticationFail) {
@@ -54,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(10.sp),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -113,11 +115,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           space,
                           Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
+                            padding: EdgeInsets.only(right: 5.sp),
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () => AppNavigator().push(
+                                  RouteConstants.inputEmail,
+                                  arguments: {'isForgotPassword': true},
+                                ),
                                 child: Text(l10n.forgotPassword,
                                     style:
                                         Theme.of(context).textTheme.bodyText1),
@@ -126,13 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           space,
                           Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              child: AuthButtonWidget(
-                                label: l10n.login,
-                                onPressed: () async {
-                                  await _login();
-                                },
-                              )),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: AuthButtonWidget(
+                              label: l10n.login,
+                              onPressed: () async {
+                                await _login();
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -147,11 +153,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteConstants.inputEmail);
+                            AppNavigator().push(
+                              RouteConstants.inputEmail,
+                              arguments: {'isForgotPassword': false},
+                            );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.sp),
                             child: Text(
                               'Register Now',
                               style: Theme.of(context).textTheme.bodyText1,

@@ -1,144 +1,132 @@
+import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/verification_code_widget.dart';
+import 'package:exchange_language_mobile/presentation/widgets/error_dialog_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 
-class VerificationScreen extends StatelessWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+class VerificationScreen extends StatefulWidget {
+  final String email;
+  const VerificationScreen({Key? key, required this.email}) : super(key: key);
 
+  @override
+  State<VerificationScreen> createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  String code = '';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              children: [
-                const Text(
-                  'Enter your verification code',
+    Future<void> _onSubmit() async {
+      if (code.trim() != '') {
+        AppBloc.authenticateBloc.add(
+          VerifyOTPEvent(
+            email: widget.email,
+            otp: code.trim(),
+          ),
+        );
+      }
+    }
+
+    return BlocConsumer<AuthenticateBloc, AuthenticateState>(
+        listener: (context, state) {
+      if (state is VerificationFail) {
+        showDialog(
+          context: context,
+          builder: (context) => ErrorDialog(
+              errorTitle: 'Verification error', errorMessage: state.error),
+        );
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: CupertinoNavigationBarBackButton(
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                const Text(
-                  'Enter the 4-digit code we have sent to',
-                  textAlign: TextAlign.center,
-                ),
-                const Text(
-                  '+1 206-312-9956',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                const SizedBox(
-                  height: 70,
-                ),
-                Container(
-                  height: 70,
-                  width: size.width,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                  decoration: BoxDecoration(
-                    // color: Colors.purple,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      VerificationTextField(),
-                      VerificationTextField(),
-                      VerificationTextField(),
-                      VerificationTextField(),
-                      VerificationTextField(),
-                      VerificationTextField(),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30.sp),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Enter the 6-digit code we have sent to',
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        widget.email,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      SizedBox(height: 20.sp),
+                      Container(
+                        height: 70,
+                        width: size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 0),
+                        decoration: BoxDecoration(
+                          // color: Colors.purple,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: VerificationCode(
+                          isSecure: true,
+                          length: 6,
+                          autofocus: true,
+                          onCompleted: (text) {
+                            setState(() {
+                              code = text;
+                            });
+                          },
+                          onEditing: (bool value) {},
+                        ),
+                      ),
+                      SizedBox(height: 30.sp),
+                      const Text(
+                        'Didn’t receive the code?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const Text(
+                        'Resend code',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 41),
-                const Text(
-                  'Didn’t receive the code?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                  ),
+              ),
+              SizedBox(height: 30.h),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30.sp),
+                width: double.infinity,
+                child: AuthButtonWidget(
+                  label: 'Continue',
+                  onPressed: () async => _onSubmit(),
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Resend code',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(
-            // color: Colors.blue,
-            height: size.height / 3.5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF161616),
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    fixedSize: const Size(325, 50),
-                  ),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class VerificationTextField extends StatelessWidget {
-  const VerificationTextField({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF4F4F4),
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.6),
-            spreadRadius: 2,
-            blurRadius: 2,
-            offset: Offset.zero,
-          ),
-        ],
-      ),
-      child: const TextField(
-        textAlign: TextAlign.center,
-        maxLength: 1,
-        style: TextStyle(),
-        decoration: InputDecoration(
-          counterText: "",
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -13,6 +13,10 @@ class UserLocal {
     box.put(StorageKey.TOKEN, accessToken);
   }
 
+  void clearAccessToken() {
+    box.delete(StorageKey.TOKEN);
+  }
+
   User? getUser() {
     var _user = box.get(StorageKey.USER);
     if (_user == null) {

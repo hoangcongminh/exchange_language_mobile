@@ -18,14 +18,14 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       } else {
         emit(ApplicationUnauthorized());
       }
-
-      // AppBloc.authenticateBloc.add(AuthenticationCheck());
-
-      // emit(ApplicationCompleted());
     });
 
     on<OnLoggedIn>((event, emit) async {
       emit(ApplicationAuthorized());
+    });
+
+    on<OnLoggedOut>((event, emit) async {
+      emit(ApplicationUnauthorized());
     });
   }
 

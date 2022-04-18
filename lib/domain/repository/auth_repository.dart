@@ -7,10 +7,12 @@ abstract class AuthRepository {
 
   Future<Either<Failure, User>> refreshToken();
 
-  Future<Either<Failure, void>> sendOTP(String email);
+  Future<Either<Failure, String>> sendOTP(String email);
 
-  Future<Either<Failure, void>> verifyOTP(String email, String otp);
+  Future<Either<Failure, String>> verifyOTP(String email, String otp);
 
   Future<Either<Failure, String>> register(
       String email, String password, String fullName);
+
+  Future<void> logout();
 }

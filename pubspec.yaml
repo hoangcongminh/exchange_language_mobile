@@ -27,6 +27,7 @@ dependencies:
   logger: ^1.1.0
   dartz: ^0.10.1
   sizer: ^2.0.15
+  image_picker: ^0.8.5
 
 dev_dependencies:
   build_runner: ^2.1.8

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 ThemeData defaultTheme() {
   return ThemeData(
+    appBarTheme: const AppBarTheme(
+      color: AppColors.primaryColor,
+    ),
     primaryColor: AppColors.primaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );

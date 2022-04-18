@@ -1,5 +1,5 @@
 class RouteConstants {
-  static const initial = "/";
+  static const root = "/";
   static const home = "/home";
 
   //authenticate

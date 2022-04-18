@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/data/failure.dart';
 import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
 import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/common-bloc/application/application_bloc.dart';
+import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'authenticate_event.dart';
@@ -42,7 +44,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
           (failue) {
             emit(AuthenticationFail(error: failue.message));
           },
-          (token) {
+          (token) async {
             emit(AuthenticationSuccess());
             AppBloc.applicationBloc.add(OnLoggedIn());
           },
@@ -50,7 +52,17 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
       },
     );
 
+    on<LogoutEvent>(
+      (event, emit) async {
+        emit(Authenticating());
+        await _authRepository.logout();
+        AppBloc.applicationBloc.add(OnLoggedOut());
+        emit(AuthenticateInitial());
+      },
+    );
+
     on<SendOTPEvent>((event, emit) async {
+      emit(Authenticating());
       Either<Failure, void> result = await _authRepository.sendOTP(event.email);
       result.fold(
         (failue) {
@@ -58,6 +70,8 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
         },
         (data) {
           emit(AuthenticationSuccess());
+          _navigator.push(RouteConstants.verification,
+              arguments: {'email': event.email});
         },
       );
     });
@@ -67,16 +81,16 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
           await _authRepository.verifyOTP(event.email, event.otp);
       result.fold(
         (failue) {
-          emit(AuthenticationFail(error: failue.message));
+          emit(VerificationFail(error: failue.message));
         },
         (data) {
-          emit(AuthenticationSuccess());
+          emit(VerificationSuccess());
+          _navigator.push(RouteConstants.register);
         },
       );
     });
-
-    on<LogoutEvent>((event, emit) async {});
   }
 
   final AuthRepository _authRepository;
+  final AppNavigator _navigator = AppNavigator();
 }

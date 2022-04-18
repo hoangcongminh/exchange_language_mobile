@@ -23,7 +23,7 @@ class AppApiService {
     dio.options.headers[HttpConstants.contentType] = 'application/json';
     dio.options.connectTimeout = 15000;
     dio.options.receiveTimeout = 13000;
-    dio.options.headers[HttpConstants.authorization] =
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNmZmM2ZmQ5OTBkNDRjM2YxMzVlZjYiLCJpYXQiOjE2NDgzNzQ5MTV9._kP-XnMJQqFzIBUzqY2IEtwlYi8FfzkOVfq1toPAzik';
+    /* dio.options.headers[HttpConstants.authorization] = */
+    /*     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNmZmM2ZmQ5OTBkNDRjM2YxMzVlZjYiLCJpYXQiOjE2NDgzNzQ5MTV9._kP-XnMJQqFzIBUzqY2IEtwlYi8FfzkOVfq1toPAzik'; */
   }
 }
