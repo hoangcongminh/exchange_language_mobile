@@ -68,7 +68,8 @@ class _ApplicationState extends State<Application> {
                 onGenerateRoute: (settings) =>
                     AppNavigator().getRoute(settings),
                 navigatorObservers: [AppNavigatorObserver()],
-                home: _screen,
+                // home: _screen,
+                home: DashboardScreen(),
               );
             },
           );

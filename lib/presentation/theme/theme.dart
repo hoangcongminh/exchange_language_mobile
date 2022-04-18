@@ -6,6 +6,7 @@ ThemeData defaultTheme() {
     appBarTheme: const AppBarTheme(
       color: AppColors.primaryColor,
     ),
+    scaffoldBackgroundColor: AppColors.scaffoldBackground,
     primaryColor: AppColors.primaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );

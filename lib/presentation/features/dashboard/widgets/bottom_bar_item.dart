@@ -8,7 +8,8 @@ class BottomBarItem extends StatelessWidget {
   final IconData activeIcon;
   final IconData inactiveIcon;
   final int index;
-  const BottomBarItem(
+  // ignore: prefer_const_constructors_in_immutables
+  BottomBarItem(
       {Key? key,
       required this.index,
       required this.activeIcon,
@@ -18,10 +19,10 @@ class BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
-        onTap: () =>
+      child: IconButton(
+        onPressed: () =>
             AppBloc.dashboardBloc.add(OnChangeIndexEvent(index: index)),
-        child: BlocBuilder<DashboardBloc, DashboardState>(
+        icon: BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
           int _currentIndex = state.index;
           return Icon(
