@@ -13,6 +13,13 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    // AppBloc.initialHomeBloc();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -44,11 +51,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           child: Row(
             children: [
-              const BottomBarItem(icon: Icons.chat),
-              const BottomBarItem(icon: Icons.notifications),
+              const BottomBarItem(
+                  activeIcon: Icons.chat,
+                  inactiveIcon: Icons.chat_outlined,
+                  index: 0),
+              const BottomBarItem(
+                  activeIcon: Icons.notifications,
+                  inactiveIcon: Icons.notifications_outlined,
+                  index: 1),
               SizedBox(width: 51.sp),
-              const BottomBarItem(icon: Icons.people),
-              const BottomBarItem(icon: Icons.person),
+              const BottomBarItem(
+                  activeIcon: Icons.people,
+                  inactiveIcon: Icons.people_outline,
+                  index: 2),
+              const BottomBarItem(
+                  activeIcon: Icons.person,
+                  inactiveIcon: Icons.person_outline,
+                  index: 3),
             ],
           ),
         ),
