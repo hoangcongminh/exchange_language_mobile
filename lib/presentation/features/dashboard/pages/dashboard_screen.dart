@@ -1,5 +1,3 @@
-import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/chat/pages/chat_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/widgets/bottom_bar_item.dart';

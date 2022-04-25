@@ -1,4 +1,4 @@
-import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:flutter/material.dart';
 

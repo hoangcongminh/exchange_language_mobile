@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/app_api_service.dart';
@@ -50,10 +52,15 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> register(
-      String email, String password, String fullName) async {
+      String email, String password, String fullName, File avatar) async {
     try {
-      final response = await _authRestClient.register(
-          {'email': email, 'password': password, 'fullName': fullName});
+      final response = await _authRestClient.register({
+        'email': email,
+        'password': password,
+        'fullname': fullName,
+        'avatar': avatar,
+      });
+
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
         return Right(response.data!);

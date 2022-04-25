@@ -22,17 +22,3 @@ class AuthenticationFail extends AuthenticateState {
 }
 
 class Authenticating extends AuthenticateState {}
-
-class Loading extends AuthenticateState {}
-
-class VerificationSuccess extends AuthenticateState {}
-
-class VerificationFail extends AuthenticateState {
-  final String error;
-  const VerificationFail({
-    required this.error,
-  });
-
-  @override
-  List<Object> get props => [error];
-}

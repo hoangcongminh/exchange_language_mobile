@@ -1,9 +1,12 @@
 import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/presentation/app.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/input_email_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/pages/forgot_password_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/pages/conversation_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/filter/pages/result_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/verification/pages/input_email_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/pages/login_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/pages/register_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/verification_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/verification/pages/verification_screen.dart';
 import 'package:exchange_language_mobile/routes/scaffold_wrapper.dart';
 import 'package:exchange_language_mobile/routes/app_navigator_observer.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +57,17 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.forgotPassword:
         return _buildRoute(
           settings,
-          const RegisterScreen(),
+          const ForgotPasswordScreen(),
+        );
+      case RouteConstants.filterResult:
+        return _buildRoute(
+          settings,
+          const ResultScreen(),
+        );
+      case RouteConstants.conversation:
+        return _buildRoute(
+          settings,
+          const ConversationScreen(),
         );
       default:
         return _buildRoute(settings, const LoginScreen());

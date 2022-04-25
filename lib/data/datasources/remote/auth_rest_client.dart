@@ -28,6 +28,7 @@ abstract class AuthRestClient {
   );
 
   @POST('/users/register')
+  @MultiPart()
   Future<ApiResponseModel<String>> register(
     @Body() Map<String, dynamic> body,
   );

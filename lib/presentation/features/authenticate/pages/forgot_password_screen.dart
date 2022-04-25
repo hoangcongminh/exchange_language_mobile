@@ -99,7 +99,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Padding(
                         padding: EdgeInsets.symmetric(vertical: 10.sp),
                         child: AuthButtonWidget(
-                          label: '',
+                          label: 'Reset Password',
                           onPressed: () async {},
                         )),
                   ],

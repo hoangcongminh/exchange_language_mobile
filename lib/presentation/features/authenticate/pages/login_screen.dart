@@ -1,6 +1,6 @@
 import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/common/helpers/utils/validator_utils.dart';
-import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';

@@ -8,4 +8,8 @@ class RouteConstants {
   static const register = "/register";
   static const forgotPassword = "/forgotPassword";
   static const verification = "/verification";
+  // home
+  static const filterResult = "/filterResult";
+  //chat
+  static const conversation = "/conversation";
 }

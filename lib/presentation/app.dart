@@ -1,7 +1,7 @@
 import 'package:exchange_language_mobile/common/helpers/device_orientation_helper.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common-bloc/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/common-bloc/application/application_bloc.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/common/application/application_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/pages/login_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/pages/dashboard_screen.dart';
 import 'package:exchange_language_mobile/routes/scaffold_wrapper.dart';
@@ -38,10 +38,10 @@ class _ApplicationState extends State<Application> {
         builder: (context, state) {
           Widget _screen = const ScaffoldWrapper(child: LoginScreen());
           if (state is ApplicationStart) {
-            _screen = const SplashScreen();
+            _screen = const ScaffoldWrapper(child: SplashScreen());
           }
           if (state is ApplicationAuthorized) {
-            _screen = const DashboardScreen();
+            _screen = const ScaffoldWrapper(child: DashboardScreen());
           }
           return Sizer(
             builder: (context, orientation, deviceType) {
@@ -68,8 +68,7 @@ class _ApplicationState extends State<Application> {
                 onGenerateRoute: (settings) =>
                     AppNavigator().getRoute(settings),
                 navigatorObservers: [AppNavigatorObserver()],
-                // home: _screen,
-                home: DashboardScreen(),
+                home: _screen,
               );
             },
           );

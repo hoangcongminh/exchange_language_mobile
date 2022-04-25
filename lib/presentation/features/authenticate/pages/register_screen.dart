@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/custom_image_picker.dart';
@@ -37,14 +39,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      /* CustomImagePicker() */
-                      /*     .getImage(context: context) */
-                      /*     .then((file) { */
-                      /*   setState(() { */
-                      /*     _imagePicked = File(file.path); */
-                      /*   }); */
-                      /* }); */
-                      CustomImagePicker().openImagePicker(context: context);
+                      CustomImagePicker().openImagePicker(
+                          context: context,
+                          handleFinish: (file) {
+                            setState(() {
+                              _imagePicked = File(file.path);
+                            });
+                          });
                     },
                     child: _imagePicked != null
                         ? Container(
@@ -154,7 +155,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: AuthButtonWidget(
                               label: l10n.signUp,
-                              onPressed: () {},
+                              onPressed: () {
+                                AppBloc.authenticateBloc.add(RegisterEvent(
+                                    email: 'nguoidung3@gmail.com',
+                                    fullName: _nameController.text.trim(),
+                                    password: _passwordController.text.trim(),
+                                    avatar: _imagePicked!));
+                              },
                             )),
                       ],
                     ),

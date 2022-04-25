@@ -5,9 +5,11 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      key: ValueKey('home_LoadingWidget'),
-      child: CupertinoActivityIndicator(),
+    return const AbsorbPointer(
+      child: Center(
+        key: ValueKey('home_LoadingWidget'),
+        child: CupertinoActivityIndicator(),
+      ),
     );
   }
 }

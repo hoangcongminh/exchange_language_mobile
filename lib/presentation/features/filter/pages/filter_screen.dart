@@ -1,3 +1,6 @@
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
+import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
+import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,9 +14,9 @@ class FilterScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         mini: true,
         backgroundColor: Colors.white,
-        child: Icon(Icons.close, color: Colors.black),
+        child: const Icon(Icons.close, color: Colors.black),
         onPressed: () {
-          Navigator.of(context).pop();
+          AppNavigator().pop();
         },
       ),
       body: Padding(
@@ -41,9 +44,38 @@ class FilterScreen extends StatelessWidget {
               SizedBox(height: 20.sp),
               Image.asset(
                 'assets/images/looking_for_partner.jpg',
-                width: 50.w,
-                height: 50.w,
+                width: 40.w,
+                height: 40.w,
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Your partners'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppButtonWidget(
+                            label: 'Student', onPressed: () {}, width: 42.w),
+                        AppButtonWidget(
+                            label: 'Teacher', onPressed: () {}, width: 42.w),
+                      ],
+                    ),
+                    Text('Location'),
+                    TextFormField(),
+                    Text('Learning'),
+                    TextFormField(),
+                    Text('Speaking'),
+                    TextFormField(),
+                    AppButtonWidget(
+                        label: 'Search',
+                        onPressed: () {
+                          AppNavigator().push(RouteConstants.filterResult);
+                        }),
+                  ],
+                ),
+              )
             ],
           ),
         ),

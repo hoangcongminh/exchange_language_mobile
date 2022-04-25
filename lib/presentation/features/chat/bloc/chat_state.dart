@@ -9,6 +9,6 @@ abstract class ChatState extends Equatable {
 
 class ConversationInitial extends ChatState {}
 
-class GettingConversation extends ChatState {}
+class ConversationLoading extends ChatState {}
 
-class GetConversationDone extends ChatState {}
+class ConversationLoaded extends ChatState {}

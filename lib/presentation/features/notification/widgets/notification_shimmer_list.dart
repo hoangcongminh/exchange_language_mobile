@@ -8,7 +8,7 @@ class NotificationShimmerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 6,
+      itemCount: 10,
       itemBuilder: (context, index) => const NotificationShimmerItem(),
     );
   }
