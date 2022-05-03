@@ -1,4 +1,4 @@
 class AppConstants {
-  static const String baseUrl = 'http://exchangelanguage.tk/api/v1';
-  static const String socketUrl = '';
+  static const String baseUrl = 'https://exchangelanguage.tk/api/v1';
+  static const String socketUrl = 'https://exchangelanguage.tk';
 }

@@ -7,15 +7,22 @@ io.Socket? socket;
 void connectAndListen() {
   disconnectBeforeConnect();
   String socketUrl = AppConstants.socketUrl;
-  socket = io.io(socketUrl);
+  socket = io.io(
+    socketUrl,
+    io.OptionBuilder().enableForceNew().setTransports(['websocket']).setAuth({
+      'authorization':
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYyMTRhNjk2NTYyODI4ZmI0OTU3OWQiLCJpYXQiOjE2NTA2MDI4NTR9.-is2QYqTN1AwTsNiofgwoDrpe_a-cyn21-bvwQAgRRs'
+    }).build(),
+  );
+
+  socket!
+    ..onConnect((_) => debugPrint('Connected to socket server'))
+    ..onConnecting((_) => debugPrint('onConnecting'))
+    ..onConnectError((a) => debugPrint('onConnectError: $a'))
+    ..onConnectTimeout((a) => debugPrint('onConnectTimeout: $a'))
+    ..onDisconnect((_) => debugPrint('disconnect'));
 
   socket!.connect();
-
-  socket!.onConnect((_) {
-    debugPrint('Connected to socket server');
-  });
-
-  socket!.onDisconnect((_) => debugPrint('disconnect'));
 }
 
 void disconnectBeforeConnect() {

@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/presentation/theme/chat_style.dart';
+import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -28,14 +29,11 @@ class _ChatItemState extends State<ChatItem> {
                 Expanded(
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 20.sp,
-                        child: Image.network(
-                          // widget.conversation.users.first.email,
-                          'https://www.w3schools.com/howto/img_avatar.png',
-                          width: 20.sp,
-                          height: 20.sp,
-                        ),
+                      AvatarWidget(
+                        // imageUrl:
+                        //     'https://www.w3schools.com/howto/img_avatar.png',
+                        width: 40.sp,
+                        height: 40.sp,
                       ),
                       SizedBox(width: 12.sp),
                       Expanded(

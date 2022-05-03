@@ -16,7 +16,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: AppColors.conversationAppBar,
         titleTextStyle: Theme.of(context).textTheme.headline6,
         centerTitle: false,
         title: const Text('Jenny Huỳnh'),

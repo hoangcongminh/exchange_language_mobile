@@ -1,4 +1,6 @@
+import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/discover/widgets/colored_tabbar.dart';
+import 'package:exchange_language_mobile/presentation/features/group/group_screen.dart';
 import 'package:flutter/material.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -31,13 +33,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         ),
         body: TabBarView(
           children: [
-            Center(
-              child: Text('Discover'),
-            ),
-            Center(
-              child: Text('Discover2'),
-            ),
+            GroupScreen(),
+            BlogScreen(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: () {},
+          child: Icon(Icons.add),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_item.dart';
 import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_shimmer_list.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: AppBar(
         title: const Text('Notification'),
       ),
-      body: const NotificationShimmerList(),
+      // body: const NotificationShimmerList(),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return NotificationItem();
+        },
+      ),
     );
   }
 }
