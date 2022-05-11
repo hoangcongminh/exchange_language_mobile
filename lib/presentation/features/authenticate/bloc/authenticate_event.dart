@@ -31,6 +31,16 @@ class RegisterEvent extends AuthenticateEvent {
   });
 }
 
+class ResetPasswordEvent extends AuthenticateEvent {
+  final String email;
+  final String password;
+
+  const ResetPasswordEvent({
+    required this.email,
+    required this.password,
+  });
+}
+
 class RefreshTokenEvent extends AuthenticateEvent {}
 
 class LogoutEvent extends AuthenticateEvent {}

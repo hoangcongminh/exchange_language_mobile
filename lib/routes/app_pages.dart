@@ -38,7 +38,9 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.register:
         return _buildRoute(
           settings,
-          const RegisterScreen(),
+          RegisterScreen(
+            email: arguments?['email'],
+          ),
         );
       case RouteConstants.inputEmail:
         return _buildRoute(
@@ -57,7 +59,9 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.forgotPassword:
         return _buildRoute(
           settings,
-          const ForgotPasswordScreen(),
+          ForgotPasswordScreen(
+            email: arguments?['email'],
+          ),
         );
       case RouteConstants.filterResult:
         return _buildRoute(

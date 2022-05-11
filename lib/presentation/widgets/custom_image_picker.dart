@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:exchange_language_mobile/common/helpers/photo_helper.dart';
 import 'package:exchange_language_mobile/presentation/widgets/dialog/dialog_loading.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +85,7 @@ class CustomImagePickerItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final ImageSource source;
-  Function? handleFinish;
+  final Function? handleFinish;
   CustomImagePickerItem({
     Key? key,
     required this.index,
@@ -108,7 +110,9 @@ class CustomImagePickerItem extends StatelessWidget {
               await getImage(context: AppNavigator().context, source: source);
           showDialogLoading();
           if (image != null) {
-            handleFinish?.call(image);
+            File? compressedImage =
+                await PhotoHelper().compressImage(image.path);
+            handleFinish?.call(compressedImage);
             AppNavigator().pop();
           }
         } catch (exception) {

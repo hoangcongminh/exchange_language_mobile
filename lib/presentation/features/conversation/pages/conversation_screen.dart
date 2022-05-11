@@ -1,6 +1,5 @@
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/conversation_input.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/conversation_list_shimmer.dart';
-import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -23,8 +22,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
       body: SafeArea(
         bottom: false,
         child: Column(
-          children: [
-            Expanded(child: const ConversationListShimmer()),
+          children: const [
+            Expanded(child: ConversationListShimmer()),
             ConversationInput(),
           ],
         ),

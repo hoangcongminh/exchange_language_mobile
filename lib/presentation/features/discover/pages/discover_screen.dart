@@ -17,21 +17,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Discover'),
-          bottom: ColoredTabBar(
+          title: const Text('Discover'),
+          bottom: const ColoredTabBar(
             color: Colors.white,
             tabBar: TabBar(
-              indicatorColor: Colors.black,
-              unselectedLabelColor: Colors.black,
-              labelColor: Theme.of(context).primaryColor,
-              tabs: const [
+              tabs: [
                 Tab(text: 'Group'),
                 Tab(text: 'Blog'),
               ],
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             GroupScreen(),
             BlogScreen(),
@@ -40,7 +37,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {},
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
     );

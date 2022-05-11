@@ -52,7 +52,7 @@ class FilterScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Your partners'),
+                    const Text('Your partners'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -62,11 +62,11 @@ class FilterScreen extends StatelessWidget {
                             label: 'Teacher', onPressed: () {}, width: 42.w),
                       ],
                     ),
-                    Text('Location'),
+                    const Text('Location'),
                     TextFormField(),
-                    Text('Learning'),
+                    const Text('Learning'),
                     TextFormField(),
-                    Text('Speaking'),
+                    const Text('Speaking'),
                     TextFormField(),
                     AppButtonWidget(
                         label: 'Search',

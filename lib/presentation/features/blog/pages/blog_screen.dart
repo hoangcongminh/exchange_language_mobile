@@ -18,7 +18,7 @@ class _BlogScreenState extends State<BlogScreen> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemBuilder: (context, index) => BlogItem(),
+              itemBuilder: (context, index) => const BlogItem(),
               itemCount: 10,
             ),
           ),

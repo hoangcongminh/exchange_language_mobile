@@ -22,13 +22,13 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(height: 12.sp),
-          Container(
+          SizedBox(
             height: 10.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,

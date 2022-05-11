@@ -9,7 +9,8 @@ import 'package:exchange_language_mobile/presentation/widgets/custom_image_picke
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  final String email;
+  const RegisterScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -43,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context: context,
                           handleFinish: (file) {
                             setState(() {
-                              _imagePicked = File(file.path);
+                              _imagePicked = file;
                             });
                           });
                     },
@@ -98,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Password is required';
                                 } else if (value.trim().length < 6) {
-                                  return 'Password is13 at least 6 characters';
+                                  return 'Password is at least 6 characters';
                                 } else {
                                   return null;
                                 }
@@ -152,17 +153,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         space,
                         Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            child: AuthButtonWidget(
-                              label: l10n.signUp,
-                              onPressed: () {
-                                AppBloc.authenticateBloc.add(RegisterEvent(
-                                    email: 'nguoidung3@gmail.com',
-                                    fullName: _nameController.text.trim(),
-                                    password: _passwordController.text.trim(),
-                                    avatar: _imagePicked!));
-                              },
-                            )),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: AuthButtonWidget(
+                            label: l10n.signUp,
+                            onPressed: () {
+                              AppBloc.authenticateBloc.add(RegisterEvent(
+                                  email: widget.email,
+                                  fullName: _nameController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                  avatar: _imagePicked!));
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),

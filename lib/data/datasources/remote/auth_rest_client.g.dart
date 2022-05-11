@@ -93,12 +93,22 @@ class _AuthRestClient implements AuthRestClient {
   }
 
   @override
-  Future<ApiResponseModel<String>> register(body) async {
+  Future<ApiResponseModel<String>> register(
+      {required email,
+      required password,
+      required fullName,
+      required avatar}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
+    final _data = FormData();
+    _data.fields.add(MapEntry('email', email));
+    _data.fields.add(MapEntry('password', password));
+    _data.fields.add(MapEntry('fullname', fullName));
+    _data.files.add(MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(avatar.path,
+            filename: avatar.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponseModel<String>>(Options(
                 method: 'POST',

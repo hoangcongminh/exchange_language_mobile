@@ -31,7 +31,7 @@ class _ConversationInputState extends State<ConversationInput> {
                     fontSize: 12.sp,
                   ),
                   keyboardType: TextInputType.multiline,
-                  inputFormatters: [
+                  inputFormatters: const [
                     // MessageFormatter(),
                   ],
                   minLines: 1,

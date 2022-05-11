@@ -1,5 +1,4 @@
 import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_item.dart';
-import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_shimmer_list.dart';
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
-          return NotificationItem();
+          return const NotificationItem();
         },
       ),
     );

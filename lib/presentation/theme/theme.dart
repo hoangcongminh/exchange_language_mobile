@@ -9,5 +9,17 @@ ThemeData defaultTheme() {
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
     primaryColor: AppColors.primaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    tabBarTheme: const TabBarTheme(
+      indicator: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.primaryColor,
+            width: 2,
+          ),
+        ),
+      ),
+      labelColor: AppColors.primaryColor,
+      unselectedLabelColor: Colors.black,
+    ),
   );
 }

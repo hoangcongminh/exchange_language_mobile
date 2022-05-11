@@ -20,10 +20,10 @@ class BlogItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...'),
                 SizedBox(height: 8.sp),
-                Text('May 22 2017'),
+                const Text('May 22 2017'),
               ],
             ),
           ),

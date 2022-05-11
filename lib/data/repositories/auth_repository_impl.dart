@@ -54,12 +54,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, String>> register(
       String email, String password, String fullName, File avatar) async {
     try {
-      final response = await _authRestClient.register({
-        'email': email,
-        'password': password,
-        'fullname': fullName,
-        'avatar': avatar,
-      });
+      final response = await _authRestClient.register(
+        email: email,
+        password: password,
+        fullName: fullName,
+        avatar: avatar,
+      );
 
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
@@ -74,9 +74,37 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> sendOTP(String email) async {
+  Future<Either<Failure, String>> resetPassword(
+      String email, String password) async {
     try {
-      final response = await _authRestClient.sendOTP({'email': email});
+      final response = await _authRestClient.resetPassword(
+        {
+          'email': email,
+          'password': password,
+        },
+      );
+      if (response.error == false) {
+        return Right(response.message);
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> sendOTP(String email,
+      {bool isForgotPassword = false}) async {
+    try {
+      late Map<String, dynamic> body;
+      if (isForgotPassword) {
+        body = {'email': email, 'checkExist': false};
+      } else {
+        body = {'email': email};
+      }
+      final response = await _authRestClient.sendOTP(body);
       if (response.error == false) {
         return Right(response.message);
       } else {

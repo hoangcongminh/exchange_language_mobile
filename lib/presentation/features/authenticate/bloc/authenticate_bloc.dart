@@ -7,7 +7,6 @@ import 'package:exchange_language_mobile/data/failure.dart';
 import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/common/application/application_bloc.dart';
-import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'authenticate_event.dart';
@@ -17,6 +16,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   AuthenticateBloc(this._authRepository) : super(AuthenticateInitial()) {
     on<RegisterEvent>(
       (event, emit) async {
+        emit(Authenticating());
         Either<Failure, String> result = await _authRepository.register(
           event.email,
           event.password,
@@ -32,8 +32,6 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
             emit(AuthenticationSuccess());
           },
         );
-
-        emit(AuthenticationSuccess());
       },
     );
 
@@ -54,6 +52,8 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
       },
     );
 
+    on<ResetPasswordEvent>((event, emit) async {});
+
     on<LogoutEvent>(
       (event, emit) async {
         emit(Authenticating());
@@ -65,5 +65,4 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   }
 
   final AuthRepository _authRepository;
-  final AppNavigator _navigator = AppNavigator();
 }

@@ -47,7 +47,8 @@ class VerificationCode extends StatefulWidget {
   ///accept only digit inputs from keyboard
   final bool digitsOnly;
 
-  VerificationCode({
+  const VerificationCode({
+    Key? key,
     required this.onCompleted,
     required this.onEditing,
     this.keyboardType = TextInputType.number,
@@ -63,7 +64,7 @@ class VerificationCode extends StatefulWidget {
     this.clearAll,
     this.isSecure = false,
     this.digitsOnly = false,
-  });
+  }) : super(key: key);
 
   @override
   _VerificationCodeState createState() => _VerificationCodeState();
@@ -74,7 +75,7 @@ class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
       <TextEditingController>[];
-  List<String> _code = [];
+  final List<String> _code = [];
   int _currentIndex = 0;
 
   @override
@@ -150,22 +151,22 @@ class _VerificationCodeState extends State<VerificationCode> {
         ),
         //      textInputAction: TextInputAction.previous,
         onChanged: (String value) {
-          if ((_currentIndex + 1) == widget.length && value.length > 0) {
+          if ((_currentIndex + 1) == widget.length && value.isNotEmpty) {
             widget.onEditing(false);
           } else {
             widget.onEditing(true);
           }
 
-          if (value.length == 0 && index >= 0) {
+          if (value.isNotEmpty && index >= 0) {
             _prev(index);
             return;
           }
 
-          if (value.length > 0) {
+          if (value.isNotEmpty) {
             String _value = value;
             int _index = index;
 
-            while (_value.length > 0 && _index < widget.length) {
+            while (_value.isNotEmpty && _index < widget.length) {
               _listControllerText[_index].value =
                   TextEditingValue(text: _value[0]);
               _next(_index++);

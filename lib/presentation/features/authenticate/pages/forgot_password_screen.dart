@@ -1,11 +1,14 @@
 import 'package:exchange_language_mobile/common/helpers/utils/validator_utils.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  final String email;
+  const ForgotPasswordScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -44,7 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           controller: _passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Email is required';
+                              return 'New password is required';
                             } else if (!ValidatorUtils.isEmail(value)) {
                               return 'Email is invalid';
                             } else {
@@ -77,7 +80,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             if (value == null || value.isEmpty) {
                               return 'Password is required';
                             } else if (value.trim().length < 6) {
-                              return 'Password is13 at least 6 characters';
+                              return 'Password is at least 6 characters';
+                            } else if (_passwordController.text != value) {
+                              return 'Password does not match';
                             } else {
                               return null;
                             }
@@ -100,7 +105,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         padding: EdgeInsets.symmetric(vertical: 10.sp),
                         child: AuthButtonWidget(
                           label: 'Reset Password',
-                          onPressed: () async {},
+                          onPressed: () async {
+                            AppBloc.authenticateBloc.add(ResetPasswordEvent(
+                              email: widget.email,
+                              password: _passwordController.text.trim(),
+                            ));
+                          },
                         )),
                   ],
                 ),

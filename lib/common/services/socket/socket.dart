@@ -9,9 +9,11 @@ void connectAndListen() {
   String socketUrl = AppConstants.socketUrl;
   socket = io.io(
     socketUrl,
-    io.OptionBuilder().enableForceNew().setTransports(['websocket']).setAuth({
+    io.OptionBuilder()
+        .disableAutoConnect()
+        .setTransports(['websocket']).setAuth({
       'authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYyMTRhNjk2NTYyODI4ZmI0OTU3OWQiLCJpYXQiOjE2NTA2MDI4NTR9.-is2QYqTN1AwTsNiofgwoDrpe_a-cyn21-bvwQAgRRs'
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYyMTRhZjk2NTYyODI4ZmI0OTU3YTIiLCJpYXQiOjE2NTA2MDI3NzN9.lvNJd2SnHd0UMeTuDVtEr1q3wDLSO1H--eXVBnzpMX4'
     }).build(),
   );
 

@@ -1,4 +1,3 @@
-import 'package:exchange_language_mobile/common/services/socket/socket.dart';
 import 'package:exchange_language_mobile/presentation/features/chat/pages/chat_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/dashboard/widgets/bottom_bar_item.dart';
@@ -22,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     debugPrint('DashboardScreen initState');
-    connectAndListen();
+    // connectAndListen();
     // AppBloc.initialHomeBloc();
   }
 
@@ -40,14 +39,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => FilterScreen()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const FilterScreen()));
         },
         child: const Icon(Icons.person_add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Container(
           height: 40.sp,
           padding: EdgeInsets.symmetric(horizontal: 6.5.sp),

@@ -9,8 +9,8 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: AvatarWidget(height: 40.sp, width: 40.sp),
-      title: Text('Notification'),
-      subtitle: Text('Notification'),
+      title: const Text('Notification'),
+      subtitle: const Text('Notification'),
     );
   }
 }

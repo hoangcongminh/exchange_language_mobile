@@ -13,8 +13,9 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
   VerificationBloc(this._authRepository) : super(VerificationInitial()) {
     on<SendOTPEvent>((event, emit) async {
       emit(VerificationLoading());
-      Either<Failure, void> result = await _authRepository.sendOTP(event.email);
       isForgotPassword = event.isForgotPassword;
+      Either<Failure, void> result = await _authRepository.sendOTP(event.email,
+          isForgotPassword: isForgotPassword);
       result.fold(
         (failue) {
           emit(SendOtpFail(error: failue.message));
@@ -41,7 +42,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
             _navigator.push(RouteConstants.forgotPassword,
                 arguments: {'email': event.email});
           } else {
-            _navigator.push(RouteConstants.register);
+            _navigator.push(RouteConstants.register,
+                arguments: {'email': event.email});
           }
         },
       );
