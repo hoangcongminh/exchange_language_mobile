@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (value == null || value.isEmpty) {
                                     return 'Password is required';
                                   } else if (value.trim().length < 6) {
-                                    return 'Password is13 at least 6 characters';
+                                    return 'Password is at least 6 characters';
                                   } else {
                                     return null;
                                   }
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          'Don`t have an account? ',
+                          l10n.dontHaveAccount,
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         GestureDetector(
@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Padding(
                             padding: EdgeInsets.all(8.sp),
                             child: Text(
-                              'Register Now',
+                              l10n.registerNow,
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ),

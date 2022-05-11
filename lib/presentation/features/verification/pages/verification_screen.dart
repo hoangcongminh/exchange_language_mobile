@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/features/verification/bloc/verification_bloc.dart';
@@ -21,6 +22,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   String code = '';
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     Size size = MediaQuery.of(context).size;
 
     Future<void> _onSubmit() async {
@@ -123,7 +125,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       margin: EdgeInsets.symmetric(horizontal: 30.sp),
                       width: double.infinity,
                       child: AuthButtonWidget(
-                        label: 'Continue',
+                        label: l10n.cont,
                         onPressed: () async => _onSubmit(),
                       ),
                     ),

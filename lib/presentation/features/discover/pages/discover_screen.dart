@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/discover/widgets/colored_tabbar.dart';
 import 'package:exchange_language_mobile/presentation/features/group/group_screen.dart';
@@ -13,11 +14,13 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Discover'),
+          title: Text(l10n.notification),
           bottom: const ColoredTabBar(
             color: Colors.white,
             tabBar: TabBar(

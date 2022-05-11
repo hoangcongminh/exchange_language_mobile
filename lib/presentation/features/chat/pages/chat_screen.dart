@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/constants/route_constants.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/domain/entities/conversation.dart';
 import 'package:exchange_language_mobile/presentation/features/chat/bloc/chat_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/chat/widgets/chat_item.dart';
@@ -20,9 +21,10 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat'),
+        title: Text(l10n.chat),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

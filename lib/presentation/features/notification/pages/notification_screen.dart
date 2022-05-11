@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_item.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,11 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notification'),
+        title: Text(l10n.notification),
       ),
       // body: const NotificationShimmerList(),
       body: ListView.builder(

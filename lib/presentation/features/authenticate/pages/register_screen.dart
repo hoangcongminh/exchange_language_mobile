@@ -122,8 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             TextfieldWidget(
                               keyboardType: TextInputType.text,
-                              labelText: l10n.password,
-                              hintText: l10n.enterPassword,
+                              labelText: l10n.retypePassword.toUpperCase(),
+                              hintText: l10n.retypePassword,
                               obscureText: !_visiblePass,
                               controller: _retypePasswordController,
                               validator: (value) {

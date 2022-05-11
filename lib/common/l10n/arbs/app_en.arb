@@ -11,6 +11,10 @@
     "@enterPassword": {
       "description": "enterPassword"
     },
+    "retypePassword": "Retype password",
+    "@retypePassword": {
+      "description": "retypePassword"
+    },
     "password": "PASSWORD",
     "@password": {
       "description": "password"
@@ -19,8 +23,49 @@
     "@forgotPassword": {
       "description": "forgotpassword"
     },
+    "resetPassword": "Reset Password",
+    "@resetPassword": {
+      "description": "resetPassword"
+    },
     "signUp": "Sign up",
     "@signUp": {
       "description": "signUp"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+      "description": "confirm"
+    },
+    "dontHaveAccount": "Don`t have an account?",
+    "@dontHaveAccount": {
+      "description": "dontHaveAccount"
+    },
+    "registerNow": "Register Now",
+    "@registerNow": {
+      "description": "registerNow"
+    },
+    "alreadyHaveAccount": "Already have an account?",
+    "@alreadyHaveAccount": {
+      "description": "alreadyHaveAccount"
+    },
+    "cont": "Continue",
+    "@continue": {
+      "description": "continue"
+    },
+
+    "chat": "Chat",
+    "@chat": {
+      "description": "chat"
+    },
+    "notification": "Notification",
+    "@notification": {
+      "description": "notification"
+    },
+    "discover": "Discover",
+    "@discover": {
+      "description": "discover"
+    },
+    "profile": "User profile",
+    "@profile": {
+      "description": "profile"
     }
 }

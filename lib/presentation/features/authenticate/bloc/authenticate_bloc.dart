@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/data/failure.dart';
 import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/common/application/application_bloc.dart';
+import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'authenticate_event.dart';
@@ -52,7 +54,17 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
       },
     );
 
-    on<ResetPasswordEvent>((event, emit) async {});
+    on<ResetPasswordEvent>((event, emit) async {
+      emit(Authenticating());
+      Either<Failure, String> result =
+          await _authRepository.resetPassword(event.email, event.password);
+      result.fold((failue) {
+        emit(AuthenticationFail(error: failue.message));
+      }, (success) {
+        _navigator.pushNamedAndRemoveUntil(RouteConstants.login);
+        emit(AuthenticateInitial());
+      });
+    });
 
     on<LogoutEvent>(
       (event, emit) async {
@@ -65,4 +77,5 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   }
 
   final AuthRepository _authRepository;
+  final AppNavigator _navigator = AppNavigator();
 }

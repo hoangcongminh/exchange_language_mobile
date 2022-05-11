@@ -3,6 +3,18 @@
     "password": "MẬT KHẨU",
     "enterEmail": "Nhập email",
     "enterPassword": "Nhập mật khẩu",
+    "retypePassword": "Nhập lại mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
-    "signUp": "Đăng ký"
+    "resetPassword": "Đổi mật khẩu",
+    "signUp": "Đăng ký",
+    "confirm": "Xác nhận",
+    "dontHaveAccount": "Chưa có tài khoản?",
+    "registerNow": "Đăng ký ngay",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "cont": "Tiếp tục",
+
+    "chat": "Tin nhắn",
+    "notification": "Thông báo",
+    "discover": "Khám phá",
+    "profile": "Hồ sơ"
 }

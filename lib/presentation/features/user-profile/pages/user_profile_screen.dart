@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_screen.dart';
@@ -17,12 +18,14 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text('User Profile'),
+          title: Text(l10n.profile),
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),

@@ -94,7 +94,7 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
                                         vertical: 12),
                                     child: AuthButtonWidget(
                                       label: widget.isForgotPassword
-                                          ? 'Confirm'
+                                          ? l10n.confirm
                                           : l10n.signUp,
                                       onPressed: () {
                                         final _isValid =
@@ -115,7 +115,7 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Text(
-                                    'Already have an account?',
+                                    l10n.alreadyHaveAccount,
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),
@@ -124,7 +124,7 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        'Log in',
+                                        l10n.login,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1,
