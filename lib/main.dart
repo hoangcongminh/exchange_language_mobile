@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/bootstrap.dart';
-import 'package:exchange_language_mobile/presentation/app.dart';
 import 'package:flutter/material.dart';
+
+import 'bootstrap.dart';
+import 'presentation/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

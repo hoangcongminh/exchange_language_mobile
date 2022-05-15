@@ -1,5 +1,6 @@
-import 'package:exchange_language_mobile/domain/entities/user.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../domain/entities/user.dart';
 
 part 'user_model.g.dart';
 

@@ -1,12 +1,11 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
-import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
-import 'package:exchange_language_mobile/data/datasources/remote/app_api_service.dart';
-import 'package:exchange_language_mobile/data/datasources/remote/auth_rest_client.dart';
-import 'package:exchange_language_mobile/data/failure.dart';
-import 'package:exchange_language_mobile/domain/entities/user.dart';
-import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
+
+import '../../domain/entities/user.dart';
+import '../../domain/repository/auth_repository.dart';
+import '../datasources/local/user_local_data.dart';
+import '../datasources/remote/app_api_service.dart';
+import '../datasources/remote/auth_rest_client.dart';
+import '../failure.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRestClient _authRestClient = AppApiService().authRestClient;
@@ -20,6 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
           await _authRestClient.login({'email': email, 'password': password});
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
+        AppApiService().addDioHeaders(token: response.data!);
         return Right(response.data!);
       } else {
         String message = response.message;
@@ -52,14 +52,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> register(
-      String email, String password, String fullName, File avatar) async {
+      String email, String password, String fullName, String avatarId) async {
     try {
-      final response = await _authRestClient.register(
-        email: email,
-        password: password,
-        fullName: fullName,
-        avatar: avatar,
-      );
+      final response = await _authRestClient.register({
+        'email': email,
+        'password': password,
+        'fullname': fullName,
+        'avatar': avatarId,
+      });
 
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
@@ -95,16 +95,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> sendOTP(String email,
-      {bool isForgotPassword = false}) async {
+  Future<Either<Failure, String>> sendOTP(
+      String email, isForgotPassword) async {
     try {
-      late Map<String, dynamic> body;
-      if (isForgotPassword) {
-        body = {'email': email, 'checkExist': false};
-      } else {
-        body = {'email': email};
-      }
-      final response = await _authRestClient.sendOTP(body);
+      final response = await _authRestClient.sendOTP({
+        'email': email,
+        'isForgotPassword': isForgotPassword,
+      });
       if (response.error == false) {
         return Right(response.message);
       } else {

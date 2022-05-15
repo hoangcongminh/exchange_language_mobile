@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../widgets/avatar_widget.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({Key? key}) : super(key: key);

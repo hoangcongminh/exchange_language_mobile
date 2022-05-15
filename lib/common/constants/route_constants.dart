@@ -12,4 +12,6 @@ class RouteConstants {
   static const filterResult = "/filterResult";
   //chat
   static const conversation = "/conversation";
+  //setting
+  static const setting = "/setting";
 }

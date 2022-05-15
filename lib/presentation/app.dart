@@ -1,19 +1,20 @@
-import 'package:exchange_language_mobile/common/helpers/device_orientation_helper.dart';
-import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/common/application/application_bloc.dart';
-import 'package:exchange_language_mobile/presentation/common/locale/cubit/locale_cubit.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/login_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/dashboard/pages/dashboard_screen.dart';
-import 'package:exchange_language_mobile/routes/scaffold_wrapper.dart';
-import 'package:exchange_language_mobile/presentation/features/splash/splash_screen.dart';
-import 'package:exchange_language_mobile/presentation/theme/theme.dart';
-import 'package:exchange_language_mobile/routes/app_navigator_observer.dart';
-import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
+
+import '../common/helpers/device_orientation_helper.dart';
+import '../common/l10n/l10n.dart';
+import '../routes/app_navigator_observer.dart';
+import '../routes/app_pages.dart';
+import '../routes/scaffold_wrapper.dart';
+import 'common/app_bloc.dart';
+import 'common/application/application_bloc.dart';
+import 'common/locale/cubit/locale_cubit.dart';
+import 'features/authenticate/pages/login_screen.dart';
+import 'features/dashboard/pages/dashboard_screen.dart';
+import 'features/splash/splash_screen.dart';
+import 'theme/theme.dart';
 
 class Application extends StatefulWidget {
   const Application({Key? key}) : super(key: key);
@@ -35,51 +36,54 @@ class _ApplicationState extends State<Application> {
     return MultiBlocProvider(
       providers: AppBloc.providers,
       child: BlocBuilder<LocaleCubit, LocaleState>(
-          builder: (context, localeState) {
-        return BlocBuilder<ApplicationBloc, ApplicationState>(
-          buildWhen: (previous, current) => previous != current,
-          builder: (context, state) {
-            Widget _screen = const ScaffoldWrapper(child: LoginScreen());
-            if (state is ApplicationStart) {
-              _screen = const ScaffoldWrapper(child: SplashScreen());
-            }
-            if (state is ApplicationAuthorized) {
-              _screen = const ScaffoldWrapper(child: DashboardScreen());
-            }
-            return Sizer(
-              builder: (context, orientation, deviceType) {
-                return MaterialApp(
-                  navigatorKey: AppNavigator().navigatorKey,
-                  debugShowCheckedModeBanner: false,
-                  title: 'Exchange Language',
-                  //DevicePreview
-                  /* useInheritedMediaQuery: true, */
-                  /* locale: DevicePreview.locale(context), */
-                  /* builder: DevicePreview.appBuilder, */
-                  //DevicePreview
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en', ''), // English, no country code
-                    Locale('vi', ''), // Spanish, no country code
-                  ],
-                  locale: localeState.locale,
-                  theme: defaultTheme(),
-                  onGenerateRoute: (settings) =>
-                      AppNavigator().getRoute(settings),
-                  navigatorObservers: [AppNavigatorObserver()],
-                  home: _screen,
-                  // home: const ScaffoldWrapper(child: DashboardScreen()),
-                );
-              },
-            );
-          },
-        );
-      }),
+        builder: (context, localeState) {
+          return BlocBuilder<ApplicationBloc, ApplicationState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              Widget _screen = const ScaffoldWrapper(child: LoginScreen());
+              if (state is ApplicationStart) {
+                _screen = const ScaffoldWrapper(child: SplashScreen());
+              }
+              if (state is ApplicationAuthorized) {
+                _screen = const ScaffoldWrapper(child: DashboardScreen());
+              }
+              return Sizer(
+                builder: (context, orientation, deviceType) {
+                  return MaterialApp(
+                    navigatorKey: AppNavigator().navigatorKey,
+                    debugShowCheckedModeBanner: false,
+                    title: 'Exchange Language',
+                    //DevicePreview
+                    /* useInheritedMediaQuery: true, */
+                    /* locale: DevicePreview.locale(context), */
+                    /* builder: DevicePreview.appBuilder, */
+                    //DevicePreview
+                    theme: defaultTheme(),
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: const [
+                      Locale('en', ''), // English, no country code
+                      Locale('vi', ''), // Spanish, no country code
+                    ],
+                    locale: localeState.locale,
+                    onGenerateRoute: (settings) =>
+                        AppNavigator().getRoute(settings),
+                    navigatorObservers: [
+                      AppNavigatorObserver(),
+                    ],
+                    home: _screen,
+                    // home: const ScaffoldWrapper(child: DashboardScreen()),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

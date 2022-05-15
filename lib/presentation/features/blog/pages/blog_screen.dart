@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/features/blog/widgets/blog_item.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../widgets/blog_item.dart';
 
 class BlogScreen extends StatefulWidget {
   const BlogScreen({Key? key}) : super(key: key);

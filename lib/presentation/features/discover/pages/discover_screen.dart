@@ -1,8 +1,9 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/discover/widgets/colored_tabbar.dart';
-import 'package:exchange_language_mobile/presentation/features/group/group_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../blog/pages/blog_screen.dart';
+import '../../group/group_screen.dart';
+import '../widgets/colored_tabbar.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);

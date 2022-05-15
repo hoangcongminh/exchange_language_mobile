@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:exchange_language_mobile/data/models/api_response_model.dart';
-import 'package:exchange_language_mobile/data/models/conversation_model.dart';
 import 'package:retrofit/http.dart';
+
+import '../../models/api_response_model.dart';
+import '../../models/conversation_model.dart';
 
 part 'chat_rest_client.g.dart';
 

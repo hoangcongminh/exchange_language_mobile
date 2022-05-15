@@ -1,15 +1,14 @@
-import 'dart:math';
-
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/error_dialog_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../common/app_bloc.dart';
+import '../../../widgets/error_dialog_widget.dart';
+import '../../../widgets/loading_widget.dart';
+import '../bloc/authenticate_bloc.dart';
+import '../widgets/auth_button_widget.dart';
+import '../widgets/textfield_widget.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   final String email;

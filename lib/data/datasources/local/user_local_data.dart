@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/common/constants/storage_key.dart';
-import 'package:exchange_language_mobile/domain/entities/user.dart';
 import 'package:hive/hive.dart';
+
+import '../../../common/constants/storage_key.dart';
+import '../../../domain/entities/user.dart';
 
 class UserLocal {
   var box = Hive.box(StorageKey.BOX_USER);

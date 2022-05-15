@@ -21,13 +21,13 @@ class RegisterEvent extends AuthenticateEvent {
   final String email;
   final String password;
   final String fullName;
-  final File avatar;
+  final File? avatar;
 
   const RegisterEvent({
     required this.email,
     required this.password,
     required this.fullName,
-    required this.avatar,
+    this.avatar,
   });
 }
 

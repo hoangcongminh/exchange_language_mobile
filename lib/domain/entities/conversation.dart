@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:exchange_language_mobile/domain/entities/user.dart';
+
+import 'user.dart';
 
 class Conversation extends Equatable {
   final String id;

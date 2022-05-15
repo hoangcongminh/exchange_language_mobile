@@ -1,6 +1,7 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_item.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/notification_item.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);

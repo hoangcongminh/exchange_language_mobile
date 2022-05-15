@@ -4,24 +4,24 @@ class AppButtonWidget extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double? width;
+  final OutlinedBorder? shape;
   const AppButtonWidget({
     Key? key,
     required this.label,
     required this.onPressed,
     this.width,
+    this.shape,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).primaryColor,
-        ),
-        child: Text(label),
-        onPressed: onPressed,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Theme.of(context).primaryColor,
+        shape: shape,
       ),
+      child: Text(label),
+      onPressed: onPressed,
     );
   }
 }

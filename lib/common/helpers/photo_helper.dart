@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:exchange_language_mobile/common/helpers/path_helper.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+
+import 'path_helper.dart';
 
 class PhotoHelper {
   Future<File?> compressImage(String imagePath) async {

@@ -1,13 +1,15 @@
-import 'package:exchange_language_mobile/presentation/features/chat/pages/chat_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/dashboard/bloc/dashboard_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/dashboard/widgets/bottom_bar_item.dart';
-import 'package:exchange_language_mobile/presentation/features/discover/pages/discover_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/filter/pages/filter_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/notification/pages/notification_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/user-profile/pages/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../common/app_bloc.dart';
+import '../../chat/pages/chat_screen.dart';
+import '../../discover/pages/discover_screen.dart';
+import '../../filter/pages/filter_screen.dart';
+import '../../notification/pages/notification_screen.dart';
+import '../../user-profile/pages/user_profile_screen.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../widgets/bottom_bar_item.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -20,9 +22,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    // AppBloc.initialHomeBloc();
     debugPrint('DashboardScreen initState');
     // connectAndListen();
-    // AppBloc.initialHomeBloc();
   }
 
   final List<Widget> _tabs = const [

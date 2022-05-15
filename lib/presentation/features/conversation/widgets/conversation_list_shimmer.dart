@@ -1,9 +1,10 @@
 import 'dart:math';
 
-import 'package:exchange_language_mobile/presentation/theme/chat_style.dart';
-import 'package:exchange_language_mobile/presentation/widgets/shimmer/app_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../theme/chat_style.dart';
+import '../../../widgets/shimmer/app_shimmer.dart';
 
 class ConversationListShimmer extends StatelessWidget {
   const ConversationListShimmer({Key? key}) : super(key: key);

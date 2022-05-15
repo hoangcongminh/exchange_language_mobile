@@ -1,15 +1,18 @@
-import 'package:exchange_language_mobile/common/constants/route_constants.dart';
-import 'package:exchange_language_mobile/presentation/app.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/forgot_password_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/conversation/pages/conversation_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/filter/pages/result_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/verification/pages/input_email_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/login_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/pages/register_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/verification/pages/verification_screen.dart';
-import 'package:exchange_language_mobile/routes/scaffold_wrapper.dart';
-import 'package:exchange_language_mobile/routes/app_navigator_observer.dart';
 import 'package:flutter/material.dart';
+
+import '../common/constants/route_constants.dart';
+import '../presentation/app.dart';
+import '../presentation/features/authenticate/pages/forgot_password_screen.dart';
+import '../presentation/features/authenticate/pages/login_screen.dart';
+import '../presentation/features/authenticate/pages/register_screen.dart';
+import '../presentation/features/conversation/pages/conversation_screen.dart';
+import '../presentation/features/dashboard/pages/dashboard_screen.dart';
+import '../presentation/features/filter/pages/result_screen.dart';
+import '../presentation/features/setting/setting_screen.dart';
+import '../presentation/features/verification/pages/input_email_screen.dart';
+import '../presentation/features/verification/pages/verification_screen.dart';
+import 'app_navigator_observer.dart';
+import 'scaffold_wrapper.dart';
 
 class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
   static final _instance = AppNavigator._();
@@ -29,6 +32,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const Application(),
+        );
+      case RouteConstants.home:
+        return _buildRoute(
+          settings,
+          const ScaffoldWrapper(child: DashboardScreen()),
         );
       case RouteConstants.login:
         return _buildRoute(
@@ -72,6 +80,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const ConversationScreen(),
+        );
+      case RouteConstants.setting:
+        return _buildRoute(
+          settings,
+          const SettingScreen(),
         );
       default:
         return _buildRoute(settings, const LoginScreen());

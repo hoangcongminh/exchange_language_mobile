@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/data/models/user_model.dart';
-import 'package:exchange_language_mobile/domain/entities/conversation.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../domain/entities/conversation.dart';
+import 'user_model.dart';
 
 part 'conversation_model.g.dart';
 

@@ -1,7 +1,8 @@
-import 'package:exchange_language_mobile/domain/entities/conversation.dart';
-import 'package:exchange_language_mobile/data/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:exchange_language_mobile/domain/repository/chat_repository.dart';
+
+import '../../domain/entities/conversation.dart';
+import '../../domain/repository/chat_repository.dart';
+import '../failure.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   @override

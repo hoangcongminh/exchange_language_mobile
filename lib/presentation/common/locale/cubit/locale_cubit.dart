@@ -1,14 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 
 part 'locale_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {
   LocaleCubit() : super(const SelectedLocale(Locale('vi')));
+  String language = 'Vietnamese';
 
-  void toEnglish() => emit(const SelectedLocale(Locale('en')));
+  void toEnglish() {
+    language = 'English';
+    emit(const SelectedLocale(Locale('en')));
+  }
 
-  void toVietnamese() => emit(const SelectedLocale(Locale('vi')));
+  void toVietnamese() {
+    language = 'Vietnamese';
+    emit(const SelectedLocale(Locale('vi')));
+  }
 }

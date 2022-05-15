@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/common/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
+
+import '../../constants/app_constants.dart';
 
 io.Socket? socket;
 

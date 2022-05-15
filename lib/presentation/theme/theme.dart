@@ -1,5 +1,6 @@
-import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'colors.dart';
 
 ThemeData defaultTheme() {
   return ThemeData(

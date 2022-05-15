@@ -1,7 +1,8 @@
-import 'package:exchange_language_mobile/presentation/theme/chat_style.dart';
-import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../theme/chat_style.dart';
+import '../../../widgets/avatar_widget.dart';
 
 class ChatItem extends StatefulWidget {
   // final Conversation conversation;

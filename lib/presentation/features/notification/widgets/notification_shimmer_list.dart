@@ -1,5 +1,6 @@
-import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_shimmer_item.dart';
 import 'package:flutter/material.dart';
+
+import 'notification_shimmer_item.dart';
 
 class NotificationShimmerList extends StatelessWidget {
   const NotificationShimmerList({Key? key}) : super(key: key);

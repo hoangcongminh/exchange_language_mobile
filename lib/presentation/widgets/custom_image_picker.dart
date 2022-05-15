@@ -114,6 +114,8 @@ class CustomImagePickerItem extends StatelessWidget {
                 await PhotoHelper().compressImage(image.path);
             handleFinish?.call(compressedImage);
             AppNavigator().pop();
+          } else {
+            AppNavigator().pop();
           }
         } catch (exception) {
           log(exception.toString());

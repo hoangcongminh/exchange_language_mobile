@@ -1,6 +1,8 @@
-import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../widgets/app_button_widget.dart';
+import '../../../widgets/avatar_widget.dart';
 
 class GroupItem extends StatelessWidget {
   const GroupItem({Key? key}) : super(key: key);
@@ -37,7 +39,13 @@ class GroupItem extends StatelessWidget {
                   const Icon(Icons.chat_bubble_rounded),
                   const Text('4'),
                   const Spacer(),
-                  ElevatedButton(onPressed: () {}, child: const Text('Join'))
+                  AppButtonWidget(
+                    label: 'Join',
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.sp),
+                    ),
+                  ),
                 ],
               ),
             )

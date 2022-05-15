@@ -1,12 +1,14 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/discover/widgets/colored_tabbar.dart';
-import 'package:exchange_language_mobile/presentation/features/group/group_screen.dart';
-import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
+import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../common/constants/route_constants.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../widgets/avatar_widget.dart';
+import '../../blog/pages/blog_screen.dart';
+import '../../discover/widgets/colored_tabbar.dart';
+import '../../group/group_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -25,16 +27,48 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text(l10n.profile),
+          title: Text(UserLocal().getUser()?.fullname ?? l10n.profile),
           actions: [
             IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                AppBloc.authenticateBloc.add(LogoutEvent());
-              },
+              icon: const Icon(Icons.settings),
+              onPressed: () => AppNavigator().push(RouteConstants.setting),
             ),
           ],
         ),
+        // body: NestedScrollView(
+        //   headerSliverBuilder: (context, innerBoxIsScrolled) {
+        //     return [
+        //       SliverAppBar(
+        //         elevation: 0,
+        //         title: Text(l10n.profile),
+        //         actions: [
+        //           IconButton(
+        //             icon: const Icon(Icons.settings),
+        //             onPressed: () =>
+        //                 AppNavigator().push(RouteConstants.setting),
+        //           ),
+        //         ],
+        //         bottom: const ColoredTabBar(
+        //           color: Colors.white,
+        //           tabBar: TabBar(
+        //             tabs: [
+        //               Tab(text: 'Group'),
+        //               Tab(text: 'Blog'),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ];
+        //   },
+        //   body: const Expanded(
+        //     child: TabBarView(
+        //       children: [
+        //         GroupScreen(),
+        //         BlogScreen(),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         body: Column(
           children: [
             Column(

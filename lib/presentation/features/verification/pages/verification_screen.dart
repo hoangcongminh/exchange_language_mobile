@@ -1,14 +1,15 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
-import 'package:exchange_language_mobile/presentation/features/verification/bloc/verification_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/verification/widgets/verification_code_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/error_dialog_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../common/app_bloc.dart';
+import '../../../widgets/error_dialog_widget.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../authenticate/widgets/auth_button_widget.dart';
+import '../bloc/verification_bloc.dart';
+import '../widgets/verification_code_widget.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String email;

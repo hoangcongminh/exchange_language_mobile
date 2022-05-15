@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/common/constants/storage_key.dart';
-import 'package:exchange_language_mobile/common/helpers/path_helper.dart';
 import 'package:hive/hive.dart';
+
+import '../../../common/constants/storage_key.dart';
+import '../../../common/helpers/path_helper.dart';
 
 class BaseLocalData {
   static Future<void> initialBox() async {

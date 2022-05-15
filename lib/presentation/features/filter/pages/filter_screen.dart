@@ -1,8 +1,9 @@
-import 'package:exchange_language_mobile/common/constants/route_constants.dart';
-import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
-import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../common/constants/route_constants.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../widgets/app_button_widget.dart';
 
 class FilterScreen extends StatelessWidget {
   const FilterScreen({Key? key}) : super(key: key);
@@ -50,16 +51,20 @@ class FilterScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.sp),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Text('Your partners'),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppButtonWidget(
-                            label: 'Student', onPressed: () {}, width: 42.w),
-                        AppButtonWidget(
-                            label: 'Teacher', onPressed: () {}, width: 42.w),
+                        Expanded(
+                          child: AppButtonWidget(
+                              label: 'Student', onPressed: () {}, width: 42.w),
+                        ),
+                        SizedBox(width: 12.sp),
+                        Expanded(
+                          child: AppButtonWidget(
+                              label: 'Teacher', onPressed: () {}, width: 42.w),
+                        ),
                       ],
                     ),
                     const Text('Location'),

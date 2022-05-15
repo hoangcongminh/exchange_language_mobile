@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:exchange_language_mobile/data/models/api_response_model.dart';
-import 'package:exchange_language_mobile/data/models/user_model.dart';
 import 'package:retrofit/http.dart';
+
+import '../../models/api_response_model.dart';
+import '../../models/user_model.dart';
 
 part 'auth_rest_client.g.dart';
 
@@ -30,18 +29,16 @@ abstract class AuthRestClient {
   );
 
   @POST('/users/register')
-  @MultiPart()
-  Future<ApiResponseModel<String>> register({
-    @Part(name: 'email') required String email,
-    @Part(name: 'password') required String password,
-    @Part(name: 'fullname') required String fullName,
-    @Part(name: 'avatar') required File avatar,
-  });
+  Future<ApiResponseModel<String>> register(
+    @Body() Map<String, dynamic> body,
+  );
 
   @POST('/users/reset-password')
   Future<ApiResponseModel> resetPassword(
     @Body() Map<String, dynamic> body,
   );
+
+  
 
   @POST('/auth/logout')
   Future<void> logout();

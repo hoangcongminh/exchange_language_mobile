@@ -1,17 +1,17 @@
-import 'package:exchange_language_mobile/common/constants/route_constants.dart';
-import 'package:exchange_language_mobile/common/helpers/utils/validator_utils.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/bloc/authenticate_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/auth_button_widget.dart';
-import 'package:exchange_language_mobile/presentation/features/authenticate/widgets/textfield_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/error_dialog_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
-
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../common/constants/route_constants.dart';
+import '../../../../common/helpers/utils/validator_utils.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
+import '../../../widgets/error_dialog_widget.dart';
+import '../../../widgets/loading_widget.dart';
+import '../bloc/authenticate_bloc.dart';
+import '../widgets/auth_button_widget.dart';
+import '../widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -42,17 +42,18 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final SizedBox space = SizedBox(height: 10.sp);
-    return BlocConsumer<AuthenticateBloc, AuthenticateState>(
-        listener: (context, state) {
-      if (state is AuthenticationFail) {
-        showDialog(
-            context: context,
-            builder: (context) => ErrorDialog(
-                errorTitle: 'Login error', errorMessage: state.error));
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-        body: Stack(
+
+    return Scaffold(
+      body: BlocConsumer<AuthenticateBloc, AuthenticateState>(
+          listener: (context, state) {
+        if (state is AuthenticationFail) {
+          showDialog(
+              context: context,
+              builder: (context) => ErrorDialog(
+                  errorTitle: 'Login error', errorMessage: state.error));
+        }
+      }, builder: (context, state) {
+        return Stack(
           children: [
             Center(
               child: Padding(
@@ -174,8 +175,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             if (state is Authenticating) const LoadingWidget()
           ],
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

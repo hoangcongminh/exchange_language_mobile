@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exchange_language_mobile/common/constants/route_constants.dart';
-import 'package:exchange_language_mobile/data/failure.dart';
-import 'package:exchange_language_mobile/domain/repository/auth_repository.dart';
-import 'package:exchange_language_mobile/routes/app_pages.dart';
+
+import '../../../../common/constants/route_constants.dart';
+import '../../../../data/failure.dart';
+import '../../../../domain/repository/auth_repository.dart';
+import '../../../../routes/app_pages.dart';
 
 part 'verification_event.dart';
 part 'verification_state.dart';
@@ -14,8 +15,8 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
     on<SendOTPEvent>((event, emit) async {
       emit(VerificationLoading());
       isForgotPassword = event.isForgotPassword;
-      Either<Failure, void> result = await _authRepository.sendOTP(event.email,
-          isForgotPassword: isForgotPassword);
+      Either<Failure, void> result =
+          await _authRepository.sendOTP(event.email, isForgotPassword);
       result.fold(
         (failue) {
           emit(SendOtpFail(error: failue.message));
@@ -39,10 +40,10 @@ class VerificationBloc extends Bloc<VerificationEvent, VerificationState> {
         (data) {
           emit(VerificationSuccess());
           if (isForgotPassword) {
-            _navigator.push(RouteConstants.forgotPassword,
+            _navigator.pushNamedAndRemoveUntil(RouteConstants.forgotPassword,
                 arguments: {'email': event.email});
           } else {
-            _navigator.push(RouteConstants.register,
+            _navigator.pushNamedAndRemoveUntil(RouteConstants.register,
                 arguments: {'email': event.email});
           }
         },

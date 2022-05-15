@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../widgets/app_button_widget.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({Key? key}) : super(key: key);

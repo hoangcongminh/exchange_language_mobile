@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/features/conversation/widgets/conversation_input.dart';
-import 'package:exchange_language_mobile/presentation/features/conversation/widgets/conversation_list_shimmer.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/conversation_input.dart';
+import '../widgets/conversation_list_shimmer.dart';
 
 class ConversationScreen extends StatefulWidget {
   const ConversationScreen({Key? key}) : super(key: key);

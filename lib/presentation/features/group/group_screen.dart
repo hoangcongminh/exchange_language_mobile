@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/features/group/widget/group_item.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import 'widget/group_item.dart';
 
 class GroupScreen extends StatefulWidget {
   const GroupScreen({Key? key}) : super(key: key);

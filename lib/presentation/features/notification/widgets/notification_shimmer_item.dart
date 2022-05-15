@@ -1,6 +1,7 @@
-import 'package:exchange_language_mobile/presentation/widgets/shimmer/app_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../widgets/shimmer/app_shimmer.dart';
 
 class NotificationShimmerItem extends StatelessWidget {
   const NotificationShimmerItem({Key? key}) : super(key: key);
