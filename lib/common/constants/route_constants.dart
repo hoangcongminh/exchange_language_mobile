@@ -1,4 +1,5 @@
 class RouteConstants {
+  // home
   static const root = "/";
   static const home = "/home";
 
@@ -8,10 +9,12 @@ class RouteConstants {
   static const register = "/register";
   static const forgotPassword = "/forgotPassword";
   static const verification = "/verification";
-  // home
-  static const filterResult = "/filterResult";
+
   //chat
   static const conversation = "/conversation";
   //setting
   static const setting = "/setting";
+  //filter
+  static const filterResult = "/filterResult";
+  static const filterSelect = "/filterSelect";
 }

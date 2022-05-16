@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/filter/pages/select_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/constants/route_constants.dart';
@@ -75,6 +76,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const ResultScreen(),
+        );
+      case RouteConstants.filterSelect:
+        return _buildRoute(
+          settings,
+          const SelectScreen(),
         );
       case RouteConstants.conversation:
         return _buildRoute(

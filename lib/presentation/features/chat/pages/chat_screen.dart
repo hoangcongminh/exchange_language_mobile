@@ -6,10 +6,10 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/route_constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/search_box.dart';
 import '../bloc/chat_bloc.dart';
 import '../widgets/chat_item.dart';
 import '../widgets/chat_list_shimmer.dart';
-import '../widgets/search_box.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../common/app_bloc.dart';
 import '../../chat/pages/chat_screen.dart';
 import '../../discover/pages/discover_screen.dart';
 import '../../filter/pages/filter_screen.dart';

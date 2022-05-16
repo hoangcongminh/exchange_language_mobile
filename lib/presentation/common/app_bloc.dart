@@ -5,6 +5,7 @@ import '../../data/repositories/media_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
+import '../features/filter/bloc/filter_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
 import 'application/application_bloc.dart';
 import 'locale/cubit/locale_cubit.dart';
@@ -17,6 +18,7 @@ class AppBloc {
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
   static final chatBloc = ChatBloc();
+  static final filterBloc = FilterBloc();
 
   static final List<BlocProvider> providers = [
     BlocProvider<LocaleCubit>(
@@ -36,6 +38,9 @@ class AppBloc {
     ),
     BlocProvider<ChatBloc>(
       create: (context) => chatBloc,
+    ),
+    BlocProvider<FilterBloc>(
+      create: (context) => filterBloc,
     ),
   ];
 

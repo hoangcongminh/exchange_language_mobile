@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../theme/chat_style.dart';
+import '../theme/chat_style.dart';
 
 class SearchBox extends StatefulWidget {
   const SearchBox({Key? key}) : super(key: key);

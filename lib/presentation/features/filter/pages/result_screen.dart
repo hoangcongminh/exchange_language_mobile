@@ -17,18 +17,19 @@ class _ResultScreenState extends State<ResultScreen> {
       appBar: AppBar(
         title: const Text('Result'),
       ),
-      body: SizedBox(
-        width: double.infinity,
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+          padding: EdgeInsets.symmetric(horizontal: 12.sp),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 10.h),
               Image.asset(
                 'assets/images/no_data.jpg',
-                width: 40.w,
-                height: 80.w,
+                width: 30.w,
+                height: 70.w,
               ),
+              SizedBox(height: 20.sp),
               Text(
                 'User not found...',
                 style: Theme.of(context)
