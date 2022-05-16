@@ -25,8 +25,8 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _onSubmit() async {
-    final _isValid = _formKey.currentState!.validate();
-    if (_isValid) {
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
       AppBloc.verificationBloc.add(SendOTPEvent(
           email: _emailController.text,
           isForgotPassword: widget.isForgotPassword));
@@ -98,9 +98,9 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
                                           ? l10n.confirm
                                           : l10n.signUp,
                                       onPressed: () {
-                                        final _isValid =
+                                        final isValid =
                                             _formKey.currentState!.validate();
-                                        if (_isValid) {
+                                        if (isValid) {
                                           _onSubmit();
                                         }
                                       },

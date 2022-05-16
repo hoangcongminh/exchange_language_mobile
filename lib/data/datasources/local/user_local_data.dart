@@ -19,11 +19,11 @@ class UserLocal {
   }
 
   User? getUser() {
-    var _user = box.get(StorageKey.USER);
-    if (_user == null) {
+    var user = box.get(StorageKey.USER);
+    if (user == null) {
       return null;
     }
-    return _user;
+    return user;
   }
 
   void setUser(User user) {

@@ -40,12 +40,12 @@ class _ApplicationState extends State<Application> {
           return BlocBuilder<ApplicationBloc, ApplicationState>(
             buildWhen: (previous, current) => previous != current,
             builder: (context, state) {
-              Widget _screen = const ScaffoldWrapper(child: LoginScreen());
+              Widget screen = const ScaffoldWrapper(child: LoginScreen());
               if (state is ApplicationStart) {
-                _screen = const ScaffoldWrapper(child: SplashScreen());
+                screen = const ScaffoldWrapper(child: SplashScreen());
               }
               if (state is ApplicationAuthorized) {
-                _screen = const ScaffoldWrapper(child: DashboardScreen());
+                screen = const ScaffoldWrapper(child: DashboardScreen());
               }
               return Sizer(
                 builder: (context, orientation, deviceType) {
@@ -75,7 +75,7 @@ class _ApplicationState extends State<Application> {
                     navigatorObservers: [
                       AppNavigatorObserver(),
                     ],
-                    home: _screen,
+                    home: screen,
                     // home: const ScaffoldWrapper(child: DashboardScreen()),
                   );
                 },

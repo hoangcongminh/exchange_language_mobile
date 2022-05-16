@@ -27,8 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    final _isValid = _formKey.currentState!.validate();
-    if (_isValid) {
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
       AppBloc.authenticateBloc.add(
         LoginEvent(
           email: _emailController.text.trim(),

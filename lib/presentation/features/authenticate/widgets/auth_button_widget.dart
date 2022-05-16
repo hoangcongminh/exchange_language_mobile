@@ -13,8 +13,8 @@ class AuthButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-      child: Text(label),
       onPressed: onPressed,
+      child: Text(label),
     );
   }
 }

@@ -20,8 +20,8 @@ class AppButtonWidget extends StatelessWidget {
         primary: Theme.of(context).primaryColor,
         shape: shape,
       ),
-      child: Text(label),
       onPressed: onPressed,
+      child: Text(label),
     );
   }
 }

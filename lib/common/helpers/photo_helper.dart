@@ -9,7 +9,7 @@ class PhotoHelper {
     final dir = await PathHelper.tempDir;
     File? compressedFile = await FlutterImageCompress.compressAndGetFile(
       imagePath,
-      dir.path + '/temp.jpg',
+      '${dir.path} /temp.jpg',
     );
     if (compressedFile != null) {
       return compressedFile;

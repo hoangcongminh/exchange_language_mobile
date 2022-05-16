@@ -25,12 +25,12 @@ class BottomBarItem extends StatelessWidget {
             AppBloc.dashboardBloc.add(OnChangeIndexEvent(index: index)),
         icon: BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
-          int _currentIndex = state.index;
+          int currentIndex = state.index;
           return Icon(
-            _currentIndex == index ? activeIcon : inactiveIcon,
+            currentIndex == index ? activeIcon : inactiveIcon,
             size: 21.sp,
             color:
-                _currentIndex == index ? Theme.of(context).primaryColor : null,
+                currentIndex == index ? Theme.of(context).primaryColor : null,
           );
         }),
       ),
