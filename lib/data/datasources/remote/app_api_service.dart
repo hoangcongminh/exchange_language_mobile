@@ -28,6 +28,7 @@ class AppApiService {
     dio.options.connectTimeout = 15000;
     dio.options.receiveTimeout = 13000;
   }
+
   void setToken(String authToken) {
     dio.options.headers['Authorization'] = 'Bearer $authToken';
   }
@@ -38,17 +39,4 @@ class AppApiService {
       dio.options.headers['Authorization'] = 'Bearer $authToken';
     }
   }
-
-  // // void addDioHeaders({Map<String, String>? headers}) {
-  // void addDioHeaders({String? token}) {
-  //   dio.options.headers.clear();
-  //   dio.options.headers[HttpConstants.contentType] = 'application/json';
-  //   dio.options.connectTimeout = 15000;
-  //   dio.options.receiveTimeout = 13000;
-  //   if (token != null) {
-  //     dio.options.headers[HttpConstants.authorization] = 'Bearer $token';
-  //   }
-  //   /* dio.options.headers[HttpConstants.authorization] = */
-  //   /*     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjNmZmM2ZmQ5OTBkNDRjM2YxMzVlZjYiLCJpYXQiOjE2NDgzNzQ5MTV9._kP-XnMJQqFzIBUzqY2IEtwlYi8FfzkOVfq1toPAzik'; */
-  // }
 }

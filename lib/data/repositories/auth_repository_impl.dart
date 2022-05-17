@@ -19,6 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
           await _authRestClient.login({'email': email, 'password': password});
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
+        await AppApiService().clientSetup();
         return Right(response.data!);
       } else {
         String message = response.message;
