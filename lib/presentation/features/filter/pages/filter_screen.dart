@@ -3,7 +3,9 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../widgets/app_button_widget.dart';
+import '../bloc/filter_bloc.dart';
 import '../widgets/pick_select_widget.dart';
 
 enum FilterScreenType {
@@ -14,6 +16,11 @@ enum FilterScreenType {
 class FilterScreen extends StatelessWidget {
   final type = FilterScreenType.student;
   const FilterScreen({Key? key}) : super(key: key);
+
+  void onTapSelectLanguage() {
+    AppBloc.filterBloc.add(SelectLanguageEvent());
+    AppNavigator().push(RouteConstants.filterSelect);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +90,14 @@ class FilterScreen extends StatelessWidget {
                         SizedBox(height: 12.sp),
                         const Text('Speaking'),
                         PickSelectWidget(
-                            title: 'Enter speaking',
-                            onTap: () {
-                              AppNavigator().push(RouteConstants.filterSelect);
-                            }),
+                          title: 'Enter speaking',
+                          onTap: onTapSelectLanguage,
+                        ),
                         const Text('Language'),
                         PickSelectWidget(
-                            title: 'Enter language',
-                            onTap: () {
-                              AppNavigator().push(RouteConstants.filterSelect);
-                            }),
+                          title: 'Enter language',
+                          onTap: onTapSelectLanguage,
+                        ),
                         const Spacer(),
                         AppButtonWidget(
                             label: 'Search',

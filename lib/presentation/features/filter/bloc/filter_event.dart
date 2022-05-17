@@ -7,4 +7,4 @@ abstract class FilterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SelectLanguage extends FilterEvent {}
+class SelectLanguageEvent extends FilterEvent {}
