@@ -38,6 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        key: const Key('homeFab'),
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {

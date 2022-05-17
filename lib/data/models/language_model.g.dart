@@ -19,5 +19,5 @@ Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) =>
       '_id': instance.id,
       'name': instance.name,
       'code': instance.code,
-      'thumbnail': instance.thumbnail,
+      'thumbnail': instance.thumbnail.toJson(),
     };

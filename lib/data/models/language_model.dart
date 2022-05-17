@@ -5,7 +5,7 @@ import 'media_model.dart';
 
 part 'language_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class LanguageModel {
   @JsonKey(name: '_id')
   final String id;
