@@ -46,7 +46,6 @@ class AppBloc {
   ];
 
   static void initialHomeBloc() {
-    print('initialHomeBloc');
     authenticateBloc.add(RefreshTokenEvent());
   }
 }

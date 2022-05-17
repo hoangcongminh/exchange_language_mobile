@@ -1,9 +1,10 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
+import '../../../../data/datasources/local/user_local_data.dart';
+import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../blog/pages/blog_screen.dart';
@@ -21,13 +22,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    User? user = UserLocal().getUser();
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text(UserLocal().getUser()?.fullname ?? l10n.profile),
+          title: Text(user?.fullname ?? l10n.profile),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
@@ -101,7 +103,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                           child: AvatarWidget(
                             imageUrl:
-                                'https://www.w3schools.com/howto/img_avatar.png',
+                                'https://exchangelanguage.tk${user?.avatar.src ?? 'https://picsum.photos/200'}',
                             width: 90.sp,
                             height: 90.sp,
                           ),

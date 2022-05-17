@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/constants/route_constants.dart';
@@ -87,6 +88,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
       (event, emit) async {
         Either<Failure, User> result = await _authRepository.refreshToken();
         await result.fold((failure) async {
+          debugPrint(failure.message);
           await _authRepository.logout();
           AppBloc.applicationBloc.add(OnLoggedOut());
           emit(AuthenticateInitial());

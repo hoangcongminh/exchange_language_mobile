@@ -19,6 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
           await _authRestClient.login({'email': email, 'password': password});
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
+        await AppApiService().clientSetup();
         return Right(response.data!);
       } else {
         String message = response.message;
@@ -39,7 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _authRestClient.refreshToken();
       if (response.error == false) {
-        UserLocal().setUser(response.data!.toEntity());
+        UserLocal().setUser(response.data!);
         return Right(response.data!.toEntity());
       } else {
         return const Left(ServerFailure('Refresh token failed'));

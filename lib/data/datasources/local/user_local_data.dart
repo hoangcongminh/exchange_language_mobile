@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 import '../../../common/constants/storage_key.dart';
 import '../../../domain/entities/user.dart';
+import '../../models/user_model.dart';
 
 class UserLocal {
   var box = Hive.box(StorageKey.BOX_USER);
@@ -19,14 +20,14 @@ class UserLocal {
   }
 
   User? getUser() {
-    var user = box.get(StorageKey.USER);
+    final user = box.get(StorageKey.USER);
     if (user == null) {
       return null;
     }
-    return user;
+    return UserModel.fromJson(user).toEntity();
   }
 
-  void setUser(User user) {
-    box.put(StorageKey.USER, user);
+  void setUser(UserModel user) {
+    box.put(StorageKey.USER, user.toJson());
   }
 }

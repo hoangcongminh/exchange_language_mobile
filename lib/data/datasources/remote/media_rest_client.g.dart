@@ -6,6 +6,8 @@ part of 'media_rest_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 class _MediaRestClient implements MediaRestClient {
   _MediaRestClient(this._dio, {this.baseUrl});
 

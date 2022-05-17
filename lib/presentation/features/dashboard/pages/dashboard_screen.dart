@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../common/app_bloc.dart';
 import '../../chat/pages/chat_screen.dart';
 import '../../discover/pages/discover_screen.dart';
 import '../../filter/pages/filter_screen.dart';
@@ -21,7 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    // AppBloc.initialHomeBloc();
+    AppBloc.initialHomeBloc();
     debugPrint('DashboardScreen initState');
     // connectAndListen();
   }
@@ -37,6 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        key: const Key('homeFab'),
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {

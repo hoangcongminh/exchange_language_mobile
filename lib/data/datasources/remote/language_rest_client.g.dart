@@ -6,6 +6,8 @@ part of 'language_rest_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 class _LanguageRestClient implements LanguageRestClient {
   _LanguageRestClient(this._dio, {this.baseUrl});
 
@@ -26,11 +28,12 @@ class _LanguageRestClient implements LanguageRestClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponseModel<List<LanguageModel>>.fromJson(
-        _result.data!,
-        (json) => (json as List<dynamic>)
-            .map<LanguageModel>(
-                (i) => LanguageModel.fromJson(i as Map<String, dynamic>))
-            .toList());
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<LanguageModel>(
+              (i) => LanguageModel.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
     return value;
   }
 
