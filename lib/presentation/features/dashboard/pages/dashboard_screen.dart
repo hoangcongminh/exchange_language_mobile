@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/services/socket/socket.dart';
 import '../../../common/app_bloc.dart';
 import '../../chat/pages/chat_screen.dart';
 import '../../discover/pages/discover_screen.dart';
@@ -22,9 +23,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+
+    connectAndListen();
     AppBloc.initialHomeBloc();
     debugPrint('DashboardScreen initState');
-    // connectAndListen();
   }
 
   final List<Widget> _tabs = const [
