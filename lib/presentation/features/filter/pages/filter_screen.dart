@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
@@ -39,76 +40,83 @@ class FilterScreen extends StatelessWidget {
           padding: EdgeInsets.only(top: 12.h),
           child: SizedBox(
             width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'Looking for your partner...',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      ?.copyWith(fontWeight: FontWeight.w800, fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 12.sp),
-                const Text(
-                  'Helping you connect with people \n around the world ',
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20.sp),
-                Image.asset(
-                  'assets/images/looking_for_partner.jpg',
-                  width: 40.w,
-                  height: 40.w,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const Text('Your partners'),
-                        Row(
+            child: BlocBuilder<FilterBloc, FilterState>(
+              builder: (context, state) {
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Looking for your partner...',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.w800, fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 12.sp),
+                    const Text(
+                      'Helping you connect with people \n around the world ',
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20.sp),
+                    Image.asset(
+                      'assets/images/looking_for_partner.jpg',
+                      width: 40.w,
+                      height: 40.w,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Expanded(
-                              child: AppButtonWidget(
-                                  label: 'Student',
-                                  onPressed: () {},
-                                  width: 42.w),
+                            const Text('Your partners'),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: AppButtonWidget(
+                                      label: 'Student',
+                                      onPressed: () {},
+                                      width: 42.w),
+                                ),
+                                SizedBox(width: 12.sp),
+                                Expanded(
+                                  child: AppButtonWidget(
+                                      label: 'Teacher',
+                                      onPressed: () {},
+                                      width: 42.w),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 12.sp),
-                            Expanded(
-                              child: AppButtonWidget(
-                                  label: 'Teacher',
-                                  onPressed: () {},
-                                  width: 42.w),
+                            SizedBox(height: 12.sp),
+                            const Text('Speaking'),
+                            PickSelectWidget(
+                              title: 'Enter speaking',
+                              selectedLanguages: state.selectedLanguages,
+                              onTap: onTapSelectLanguage,
                             ),
+                            const Text('Language'),
+                            PickSelectWidget(
+                              title: 'Enter language',
+                              selectedLanguages: state.selectedLanguages,
+                              onTap: onTapSelectLanguage,
+                            ),
+                            const Spacer(),
+                            AppButtonWidget(
+                                label: 'Search',
+                                onPressed: () {
+                                  AppNavigator()
+                                      .push(RouteConstants.filterResult);
+                                }),
                           ],
                         ),
-                        SizedBox(height: 12.sp),
-                        const Text('Speaking'),
-                        PickSelectWidget(
-                          title: 'Enter speaking',
-                          onTap: onTapSelectLanguage,
-                        ),
-                        const Text('Language'),
-                        PickSelectWidget(
-                          title: 'Enter language',
-                          onTap: onTapSelectLanguage,
-                        ),
-                        const Spacer(),
-                        AppButtonWidget(
-                            label: 'Search',
-                            onPressed: () {
-                              AppNavigator().push(RouteConstants.filterResult);
-                            }),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                  ],
+                );
+              },
             ),
           ),
         ),

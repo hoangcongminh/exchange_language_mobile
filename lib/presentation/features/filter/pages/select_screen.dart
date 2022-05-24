@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/domain/entities/language.dart';
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,21 @@ class SelectScreen extends StatefulWidget {
 }
 
 class _SelectScreenState extends State<SelectScreen> {
-  final List<Language> _selectedLanguage = [];
+  final List<Language> _selectedLanguage = AppBloc.filterBloc.selectedLanguage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Language'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.check))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              AppBloc.filterBloc
+                  .add(SelectLanguageDoneEvent(languages: _selectedLanguage));
+            },
+            icon: const Icon(Icons.check),
+          ),
+        ],
       ),
       body: Column(
         children: [

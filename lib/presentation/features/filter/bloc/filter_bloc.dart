@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data/failure.dart';
@@ -10,7 +11,8 @@ part 'filter_event.dart';
 part 'filter_state.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
-  FilterBloc(this._languageRepository) : super(FilterInitial()) {
+  FilterBloc(this._languageRepository)
+      : super(const FilterInitial(selectedLanguages: [])) {
     on<FilterEvent>((event, emit) {
       // TODO: implement event handler
     });
@@ -20,14 +22,22 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           await _languageRepository.getLanguages();
       result.fold(
         (failure) {
-          emit(FilterFailure());
+          emit(FilterFailure(selectedLanguages: selectedLanguage));
         },
         (languages) {
           emit(SelectLanguageState(languages: languages));
         },
       );
     });
+
+    on<SelectLanguageDoneEvent>((event, emit) {
+      selectedLanguage = event.languages;
+      emit(FilterInitial(selectedLanguages: selectedLanguage));
+
+      AppNavigator().pop();
+    });
   }
 
+  List<Language> selectedLanguage = [];
   final LanguageRepository _languageRepository;
 }
