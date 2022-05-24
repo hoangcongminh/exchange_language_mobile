@@ -45,13 +45,14 @@ class _SelectScreenState extends State<SelectScreen> {
                     itemCount: state.languages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 8.sp),
                         child: Column(
                           children: [
                             ListTile(
                               leading: AvatarWidget(
-                                  height: 30.sp,
-                                  width: 30.sp,
+                                  shape: BoxShape.rectangle,
+                                  height: 20.sp,
+                                  width: 20.sp,
                                   imageUrl:
                                       'https://exchangelanguage.tk${state.languages[index].thumbnail.src}'),
                               title: Text(state.languages[index].name),
