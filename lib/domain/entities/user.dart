@@ -1,16 +1,21 @@
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/domain/entities/language.dart';
 
 class User extends Equatable {
   final String id;
   final String fullname;
-  final String email;
+  final String? email;
   final Avatar avatar;
+  final List<Language>? learningLanguage;
+  final List<Language>? speakingLanguage;
 
   const User({
     required this.id,
     required this.fullname,
-    required this.email,
+    this.email,
     required this.avatar,
+    this.learningLanguage,
+    this.speakingLanguage,
   });
 
   @override

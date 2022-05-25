@@ -1,23 +1,25 @@
-import 'package:exchange_language_mobile/domain/entities/language.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/widgets/avatar_widget.dart';
-import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../domain/entities/language.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/loading_widget.dart';
 import '../../../widgets/search_box.dart';
 import '../bloc/filter_bloc.dart';
 
 class SelectScreen extends StatefulWidget {
-  const SelectScreen({Key? key}) : super(key: key);
+  final List<Language> selectedLanguage;
+
+  const SelectScreen({Key? key, required this.selectedLanguage})
+      : super(key: key);
 
   @override
   State<SelectScreen> createState() => _SelectScreenState();
 }
 
 class _SelectScreenState extends State<SelectScreen> {
-  final List<Language> _selectedLanguage = AppBloc.filterBloc.selectedLanguage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +28,14 @@ class _SelectScreenState extends State<SelectScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              AppBloc.filterBloc
-                  .add(SelectLanguageDoneEvent(languages: _selectedLanguage));
+              AppNavigator().pop(arguments: widget.selectedLanguage);
             },
             icon: const Icon(Icons.check),
           ),
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 8.sp),
           const SearchBox(),
@@ -42,6 +44,7 @@ class _SelectScreenState extends State<SelectScreen> {
               if (state is SelectLanguageState) {
                 return Expanded(
                   child: ListView.builder(
+                    shrinkWrap: true,
                     itemCount: state.languages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
@@ -57,16 +60,16 @@ class _SelectScreenState extends State<SelectScreen> {
                                       'https://exchangelanguage.tk${state.languages[index].thumbnail.src}'),
                               title: Text(state.languages[index].name),
                               trailing: Checkbox(
-                                value: _selectedLanguage
+                                value: widget.selectedLanguage
                                     .contains(state.languages[index]),
                                 onChanged: (value) {
                                   setState(() {
-                                    if (_selectedLanguage
+                                    if (widget.selectedLanguage
                                         .contains(state.languages[index])) {
-                                      _selectedLanguage
+                                      widget.selectedLanguage
                                           .remove(state.languages[index]);
                                     } else {
-                                      _selectedLanguage
+                                      widget.selectedLanguage
                                           .add(state.languages[index]);
                                     }
                                   });

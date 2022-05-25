@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/data/models/language_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/user.dart';
@@ -12,17 +13,25 @@ class UserModel {
   @JsonKey(name: 'fullname')
   final String fullName;
 
-  @JsonKey(name: 'email')
-  final String email;
+  @JsonKey(name: 'email', includeIfNull: false)
+  final String? email;
 
   @JsonKey(name: 'avatar')
   final AvatarModel avatar;
+
+  @JsonKey(name: 'learn')
+  final List<LanguageModel>? learningLanguage;
+
+  @JsonKey(name: 'speak')
+  final List<LanguageModel>? speakingLanguage;
 
   UserModel(
     this.id,
     this.fullName,
     this.email,
     this.avatar,
+    this.learningLanguage,
+    this.speakingLanguage,
   );
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +44,8 @@ class UserModel {
         fullname: fullName,
         email: email,
         avatar: avatar.toEntity(),
+        learningLanguage: learningLanguage?.map((e) => e.toEntity()).toList(),
+        speakingLanguage: speakingLanguage?.map((e) => e.toEntity()).toList(),
       );
 }
 
@@ -57,4 +68,17 @@ class AvatarModel {
         id: id,
         src: src,
       );
+}
+
+@JsonSerializable()
+class UserSearchResponse {
+  @JsonKey(name: 'data')
+  final List<UserModel> data;
+
+  UserSearchResponse(this.data);
+
+  factory UserSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserSearchResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserSearchResponseToJson(this);
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/filter_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/language_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/media_rest_client.dart';
 
@@ -15,6 +16,8 @@ class AppApiService {
       MediaRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final LanguageRestClient languageRestClient =
       LanguageRestClient(dio, baseUrl: AppConstants.baseUrl);
+  late final FilterRestClient filterRestClient =
+      FilterRestClient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 

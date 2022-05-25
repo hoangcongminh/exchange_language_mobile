@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/auth_repository_impl.dart';
+import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
@@ -19,7 +20,8 @@ class AppBloc {
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
   static final chatBloc = ChatBloc();
-  static final filterBloc = FilterBloc(LanguageRepositoryImpl());
+  static final filterBloc =
+      FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
 
   static final List<BlocProvider> providers = [
     BlocProvider<LocaleCubit>(

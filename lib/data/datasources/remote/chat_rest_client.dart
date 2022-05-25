@@ -10,6 +10,16 @@ part 'chat_rest_client.g.dart';
 abstract class ChatRestCient {
   factory ChatRestCient(Dio dio, {String baseUrl}) = _ChatRestCient;
 
-  @GET('/conversations')
-  Future<ApiResponseModel<ConversationModel>> getConversation();
+  @POST('/conversation')
+  Future<ApiResponseModel> createConversation(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET('/conversation')
+  Future<ApiResponseModel<List<ConversationModel>>> getConversation();
+
+  @GET('/conversation/get-messages/{conversationId}')
+  Future<ApiResponseModel<ConversationModel>> getMessageByConversation(
+    @Path('conversationId') String conversationId,
+  );
 }

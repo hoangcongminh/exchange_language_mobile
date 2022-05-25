@@ -4,12 +4,14 @@ class AppButtonWidget extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double? width;
+  final Color? color;
   final OutlinedBorder? shape;
   const AppButtonWidget({
     Key? key,
     required this.label,
     required this.onPressed,
     this.width,
+    this.color,
     this.shape,
   }) : super(key: key);
 
@@ -17,7 +19,7 @@ class AppButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Theme.of(context).primaryColor,
+        primary: color ?? Theme.of(context).primaryColor,
         shape: shape,
       ),
       onPressed: onPressed,

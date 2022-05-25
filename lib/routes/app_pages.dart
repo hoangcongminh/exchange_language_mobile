@@ -80,7 +80,9 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.filterSelect:
         return _buildRoute(
           settings,
-          const SelectScreen(),
+          SelectScreen(
+            selectedLanguage: arguments?['selectedLanguage'],
+          ),
         );
       case RouteConstants.conversation:
         return _buildRoute(
@@ -137,9 +139,9 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
     state.popUntil(ModalRoute.withName(route));
   }
 
-  void pop() {
+  void pop({Object? arguments}) {
     if (canPop) {
-      state.pop();
+      state.pop(arguments);
     }
   }
 

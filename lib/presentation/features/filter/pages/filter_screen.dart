@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
+import '../../../../domain/entities/language.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/app_button_widget.dart';
@@ -14,13 +15,33 @@ enum FilterScreenType {
   teacher,
 }
 
-class FilterScreen extends StatelessWidget {
-  final type = FilterScreenType.student;
+class FilterScreen extends StatefulWidget {
   const FilterScreen({Key? key}) : super(key: key);
 
-  void onTapSelectLanguage() {
+  @override
+  State<FilterScreen> createState() => _FilterScreenState();
+}
+
+class _FilterScreenState extends State<FilterScreen> {
+  FilterScreenType type = FilterScreenType.student;
+  List<Language> learning = [];
+  List<Language> speaking = [];
+
+  void onTapSelectLanguage(bool isSelectSpeaking) async {
     AppBloc.filterBloc.add(SelectLanguageEvent());
-    AppNavigator().push(RouteConstants.filterSelect);
+    final result = await AppNavigator().push(RouteConstants.filterSelect,
+        arguments: {
+          'selectedLanguage': isSelectSpeaking ? speaking : learning
+        });
+    setState(() {
+      if (result is List<Language>) {
+        if (isSelectSpeaking) {
+          speaking = result;
+        } else {
+          learning = result;
+        }
+      }
+    });
   }
 
   @override
@@ -77,15 +98,29 @@ class FilterScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: AppButtonWidget(
+                                      color: type == FilterScreenType.student
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.grey,
                                       label: 'Student',
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                          type = FilterScreenType.student;
+                                        });
+                                      },
                                       width: 42.w),
                                 ),
                                 SizedBox(width: 12.sp),
                                 Expanded(
                                   child: AppButtonWidget(
+                                      color: type == FilterScreenType.teacher
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.grey,
                                       label: 'Teacher',
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                          type = FilterScreenType.teacher;
+                                        });
+                                      },
                                       width: 42.w),
                                 ),
                               ],
@@ -94,21 +129,21 @@ class FilterScreen extends StatelessWidget {
                             const Text('Speaking'),
                             PickSelectWidget(
                               title: 'Enter speaking',
-                              selectedLanguages: state.selectedLanguages,
-                              onTap: onTapSelectLanguage,
+                              selectedLanguages: speaking,
+                              onTap: () => onTapSelectLanguage(true),
                             ),
-                            const Text('Language'),
+                            const Text('Learning'),
                             PickSelectWidget(
                               title: 'Enter language',
-                              selectedLanguages: state.selectedLanguages,
-                              onTap: onTapSelectLanguage,
+                              selectedLanguages: learning,
+                              onTap: () => onTapSelectLanguage(false),
                             ),
                             const Spacer(),
                             AppButtonWidget(
                                 label: 'Search',
                                 onPressed: () {
-                                  AppNavigator()
-                                      .push(RouteConstants.filterResult);
+                                  AppBloc.filterBloc
+                                      .add(const SearchUserEvent([], []));
                                 }),
                           ],
                         ),

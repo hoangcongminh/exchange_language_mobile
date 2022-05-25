@@ -1,29 +1,24 @@
 part of 'filter_bloc.dart';
 
 abstract class FilterState extends Equatable {
-  final List<Language> selectedLanguages;
-  const FilterState({required this.selectedLanguages});
-
   @override
-  List<Object> get props => [selectedLanguages];
+  List<Object> get props => [];
 }
 
-class FilterInitial extends FilterState {
-  const FilterInitial({required List<Language> selectedLanguages})
-      : super(selectedLanguages: selectedLanguages);
-}
+class FilterInitial extends FilterState {}
 
 class SelectLanguageState extends FilterState {
   final List<Language> languages;
 
-  const SelectLanguageState({required this.languages})
-      : super(selectedLanguages: languages);
+  SelectLanguageState({required this.languages});
 
   @override
   List<Object> get props => [languages];
 }
 
-class FilterFailure extends FilterState {
-  const FilterFailure({required List<Language> selectedLanguages})
-      : super(selectedLanguages: selectedLanguages);
+class FilterResult extends FilterState {
+  final List<User> users;
+  FilterResult({required this.users});
 }
+
+class FilterFailure extends FilterState {}

@@ -9,11 +9,9 @@ abstract class FilterEvent extends Equatable {
 
 class SelectLanguageEvent extends FilterEvent {}
 
-class SelectLanguageDoneEvent extends FilterEvent {
-  final List<Language> languages;
+class SearchUserEvent extends FilterEvent {
+  final List<Language> speakingLanguages;
+  final List<Language> learningLanguage;
 
-  const SelectLanguageDoneEvent({required this.languages});
-
-  @override
-  List<Object> get props => [languages];
+  const SearchUserEvent(this.speakingLanguages, this.learningLanguage);
 }

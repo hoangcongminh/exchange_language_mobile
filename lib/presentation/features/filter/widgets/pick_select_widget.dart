@@ -64,7 +64,7 @@ class SelectedLanguageItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 1.sp),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Colors.grey,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(

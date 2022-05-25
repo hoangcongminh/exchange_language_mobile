@@ -4,6 +4,7 @@ import 'colors.dart';
 
 ThemeData defaultTheme() {
   return ThemeData(
+    // useMaterial3: true,
     appBarTheme: const AppBarTheme(
       color: AppColors.primaryColor,
     ),
