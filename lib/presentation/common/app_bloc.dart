@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/auth_repository_impl.dart';
+import '../../data/repositories/chat_repository_impl.dart';
 import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
@@ -19,7 +20,7 @@ class AppBloc {
   static final verificationBloc = VerificationBloc(AuthRepositoryImpl());
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
-  static final chatBloc = ChatBloc();
+  static final chatBloc = ChatBloc(ChatRepositoryImpl());
   static final filterBloc =
       FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
 
@@ -49,5 +50,6 @@ class AppBloc {
 
   static void initialHomeBloc() {
     authenticateBloc.add(RefreshTokenEvent());
+    chatBloc.add(FetchConversations());
   }
 }

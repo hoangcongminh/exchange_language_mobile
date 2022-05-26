@@ -7,6 +7,7 @@ import 'package:exchange_language_mobile/data/datasources/remote/media_rest_clie
 import '../../../common/constants/app_constants.dart';
 import '../../../common/constants/http_constants.dart';
 import 'auth_rest_client.dart';
+import 'chat_rest_client.dart';
 
 class AppApiService {
   final dio = Dio();
@@ -18,6 +19,8 @@ class AppApiService {
       LanguageRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final FilterRestClient filterRestClient =
       FilterRestClient(dio, baseUrl: AppConstants.baseUrl);
+  late final ChatRestCient chatRestCient =
+      ChatRestCient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 

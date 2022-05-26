@@ -5,14 +5,16 @@ import 'user.dart';
 class Conversation extends Equatable {
   final String id;
   final String conversationName;
-  final List<User> users;
+  final List<User> members;
+  final String modifiedAt;
 
   const Conversation({
     required this.id,
     required this.conversationName,
-    required this.users,
+    required this.members,
+    required this.modifiedAt,
   });
 
   @override
-  List<Object?> get props => [id, conversationName, users];
+  List<Object?> get props => [id, conversationName, members, modifiedAt];
 }

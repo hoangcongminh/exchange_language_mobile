@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../domain/entities/conversation.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
 
 class ChatItem extends StatefulWidget {
-  // final Conversation conversation;
-  // const ChatItem({Key? key, required this.conversation}) : super(key: key);
-  const ChatItem({
-    Key? key,
-  }) : super(key: key);
+  final Conversation conversation;
+  const ChatItem({Key? key, required this.conversation}) : super(key: key);
+  // const ChatItem({
+  //   Key? key,
+  // }) : super(key: key);
 
   @override
   State<ChatItem> createState() => _ChatItemState();
@@ -31,8 +33,8 @@ class _ChatItemState extends State<ChatItem> {
                   child: Row(
                     children: [
                       AvatarWidget(
-                        // imageUrl:
-                        //     'https://www.w3schools.com/howto/img_avatar.png',
+                        imageUrl:
+                            'https://exchangelanguage.tk${widget.conversation.members.first.avatar.src}',
                         width: 40.sp,
                         height: 40.sp,
                       ),
@@ -43,8 +45,7 @@ class _ChatItemState extends State<ChatItem> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              // widget.conversation.conversationName,
-                              'test 1',
+                              widget.conversation.conversationName,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -69,8 +70,8 @@ class _ChatItemState extends State<ChatItem> {
                 ),
                 SizedBox(width: 10.sp),
                 Text(
-                  // DateFormat('hh:mm a').format(widget.conversationModel.latestMessage.createdAt),
-                  '12:00 PM',
+                  DateFormat('hh:mm a')
+                      .format(DateTime.parse(widget.conversation.modifiedAt)),
                   style: TextStyle(
                     color: colorTimeChat,
                     fontSize: 9.sp,

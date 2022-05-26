@@ -13,11 +13,13 @@ ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
       (json['members'] as List<dynamic>)
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['modifiedAt'] as String,
     );
 
 Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'name': instance.conversationName,
-      'members': instance.users,
+      'members': instance.members,
+      'modifiedAt': instance.modifiedAt,
     };

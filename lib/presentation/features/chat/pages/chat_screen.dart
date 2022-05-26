@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
+import '../../../../domain/entities/conversation.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/search_box.dart';
@@ -26,54 +27,63 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: Text(l10n.chat),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10.h,
-              child: Center(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return AvatarWidget(
-                      imageUrl:
-                          'https://www.w3schools.com/howto/img_avatar.png',
-                      height: 40.sp,
-                      width: 40.sp,
-                      margin: EdgeInsets.symmetric(horizontal: 12.sp),
-                    );
-                  },
-                  itemCount: 10,
+      body: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          if (state is ConversationLoaded) {
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 10.h,
+                    child: Center(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return AvatarWidget(
+                            imageUrl:
+                                'https://www.w3schools.com/howto/img_avatar.png',
+                            height: 40.sp,
+                            width: 40.sp,
+                            margin: EdgeInsets.symmetric(horizontal: 12.sp),
+                          );
+                        },
+                        itemCount: 10,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                SizedBox(height: 8.sp),
-                const SearchBox(),
-                SizedBox(height: 8.sp),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 8.sp),
+                      const SearchBox(),
+                      SizedBox(height: 8.sp),
+                    ],
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return GestureDetector(
+                        onLongPress: () {},
+                        onTap: () {
+                          AppNavigator().push(
+                            RouteConstants.conversation,
+                          );
+                        },
+                        child:
+                            ChatItem(conversation: state.conversations[index]),
+                      );
+                    },
+                    childCount: state.conversations.length, // 1000 list items
+                  ),
+                ),
               ],
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return GestureDetector(
-                  onLongPress: () {},
-                  onTap: () {
-                    AppNavigator().push(
-                      RouteConstants.conversation,
-                    );
-                  },
-                  child: const ChatItem(),
-                );
-              },
-              childCount: 10, // 1000 list items
-            ),
-          ),
-        ],
+            );
+          } else {
+            return const ChatListShimmer();
+          }
+        },
       ),
       // body: Column(
       //   mainAxisSize: MainAxisSize.max,

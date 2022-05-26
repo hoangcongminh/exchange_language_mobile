@@ -12,9 +12,12 @@ class ConversationModel {
   @JsonKey(name: 'name')
   final String conversationName;
   @JsonKey(name: 'members')
-  final List<UserModel> users;
+  final List<UserModel> members;
+  @JsonKey(name: 'modifiedAt')
+  final String modifiedAt;
 
-  ConversationModel(this.id, this.conversationName, this.users);
+  ConversationModel(
+      this.id, this.conversationName, this.members, this.modifiedAt);
 
   factory ConversationModel.fromJson(Map<String, dynamic> json) =>
       _$ConversationModelFromJson(json);
@@ -24,6 +27,7 @@ class ConversationModel {
   Conversation toEntity() => Conversation(
         id: id,
         conversationName: conversationName,
-        users: users.map((e) => e.toEntity()).toList(),
+        members: members.map((e) => e.toEntity()).toList(),
+        modifiedAt: modifiedAt,
       );
 }
