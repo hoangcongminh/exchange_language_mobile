@@ -30,8 +30,10 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     });
 
     on<SearchUserEvent>(((event, emit) async {
-      Either<Failure, List<User>> result =
-          await _filterRepository.searchUsers();
+      Either<Failure, List<User>> result = await _filterRepository.searchUsers(
+        speakingLanguages: event.speakingLanguages,
+        learningLanguages: event.learningLanguage,
+      );
       result.fold(
         (failue) {
           emit(FilterFailure());

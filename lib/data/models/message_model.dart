@@ -1,6 +1,7 @@
 import 'package:exchange_language_mobile/data/models/conversation_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../domain/entities/message.dart';
 import 'user_model.dart';
 
 part 'message_model.g.dart';
@@ -29,15 +30,23 @@ class MessageItemModel {
   @JsonKey(name: 'author')
   final UserModel author;
   @JsonKey(name: 'IDConversation')
-  final String idConversation;
-  @JsonKey(name: 'content')
-  final String content;
+  final String conversationId;
+  @JsonKey(name: 'content', includeIfNull: false)
+  final String? content;
 
   MessageItemModel(
-      this.createdAt, this.id, this.author, this.idConversation, this.content);
+      this.createdAt, this.id, this.author, this.conversationId, this.content);
 
   factory MessageItemModel.fromJson(Map<String, dynamic> json) =>
       _$MessageItemModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MessageItemModelToJson(this);
+
+  Message toEntity() => Message(
+        createdAt: createdAt,
+        id: id,
+        author: author.toEntity(),
+        conversationId: conversationId,
+        content: content,
+      );
 }

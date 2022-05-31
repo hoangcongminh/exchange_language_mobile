@@ -102,6 +102,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
       (event, emit) async {
         emit(Authenticating());
         await _authRepository.logout();
+        AppBloc.cleanBloc();
         AppBloc.applicationBloc.add(OnLoggedOut());
         emit(AuthenticateInitial());
       },

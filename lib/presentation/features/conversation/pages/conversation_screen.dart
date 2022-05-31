@@ -1,5 +1,10 @@
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../theme/chat_style.dart';
+import '../bloc/conversation_bloc.dart';
 import '../widgets/conversation_input.dart';
 import '../widgets/conversation_list_shimmer.dart';
 
@@ -16,16 +21,37 @@ class _ConversationScreenState extends State<ConversationScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: appBarColor,
         titleTextStyle: Theme.of(context).textTheme.headline6,
+        elevation: 0.5,
         centerTitle: false,
         title: const Text('Jenny Huỳnh'),
       ),
       body: SafeArea(
         bottom: false,
         child: Column(
-          children: const [
-            Expanded(child: ConversationListShimmer()),
-            ConversationInput(),
+          children: [
+            Expanded(
+              child: BlocBuilder<ConversationBloc, ConversationState>(
+                builder: (context, state) {
+                  if (state is ConversationLoaded) {
+                    return ListView.builder(
+                        itemCount: state.messages.length,
+                        itemBuilder: (context, index) {
+                          return MessageBubble(message: state.messages[index]);
+                        });
+                  }
+                  return const ConversationListShimmer();
+                },
+              ),
+            ),
+            ConversationInput(
+              onSend: (content) {
+                AppBloc.conversationBloc
+                    .add(SendMessage("6285df6a453cd9b71396fd95", content));
+              },
+            ),
           ],
         ),
       ),

@@ -1,0 +1,83 @@
+import 'package:exchange_language_mobile/presentation/theme/chat_style.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../../domain/entities/message.dart';
+import '../../../widgets/avatar_widget.dart';
+
+class MessageBubble extends StatefulWidget {
+  final Message message;
+  final bool isShowAvatar;
+  const MessageBubble({
+    Key? key,
+    required this.message,
+    this.isShowAvatar = false,
+  }) : super(key: key);
+
+  @override
+  State<MessageBubble> createState() => _MessageBubbleState();
+}
+
+class _MessageBubbleState extends State<MessageBubble> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Container(
+          //   padding: EdgeInsets.only(top: 20.sp, bottom: 12.sp),
+          //   child: Text(
+          //     DateFormat('dd/MM/yyyy HH:mm')
+          //         .format(DateTime.parse(widget.message.createdAt)),
+          //     style: TextStyle(
+          //       // color: colorTimeChat,
+          //       fontSize: 10.sp,
+          //     ),
+          //   ),
+          // ),
+          Row(
+            mainAxisAlignment: widget.message.isMe
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: 5.sp),
+              !widget.message.isMe
+                  ? AvatarWidget(
+                      height: 20.sp,
+                      width: 20.sp,
+                      imageUrl:
+                          'https://exchangelanguage.tk${widget.message.author.avatar.src}',
+                    )
+                  : SizedBox(height: 20.sp, width: 20.sp),
+              Container(
+                margin: EdgeInsets.only(
+                  right: 8.sp,
+                  left: 5.sp,
+                  bottom: 8.sp,
+                ),
+                constraints: BoxConstraints(
+                  maxWidth: 65.w,
+                ),
+                decoration: BoxDecoration(
+                  color: widget.message.isMe
+                      ? colorBackgroundmMessageSender
+                      : colorBackgroundmMessageReiceiver,
+                  borderRadius: BorderRadius.all(Radius.circular(10.sp)),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.sp, vertical: 12.sp),
+                  child: Text(widget.message.content ?? ''),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

@@ -143,7 +143,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                 label: 'Search',
                                 onPressed: () {
                                   AppBloc.filterBloc
-                                      .add(const SearchUserEvent([], []));
+                                      .add(SearchUserEvent(speaking, learning));
                                 }),
                           ],
                         ),

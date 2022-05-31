@@ -45,7 +45,7 @@ class _ChatItemState extends State<ChatItem> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              widget.conversation.conversationName,
+                              widget.conversation.members.first.fullname,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(

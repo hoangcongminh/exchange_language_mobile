@@ -7,6 +7,7 @@ import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
+import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
 import '../features/filter/bloc/filter_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
@@ -21,6 +22,7 @@ class AppBloc {
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
+  static final conversationBloc = ConversationBloc(ChatRepositoryImpl());
   static final filterBloc =
       FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
 
@@ -46,10 +48,26 @@ class AppBloc {
     BlocProvider<FilterBloc>(
       create: (context) => filterBloc,
     ),
+    BlocProvider<ConversationBloc>(
+      create: (context) => conversationBloc,
+    ),
   ];
 
   static void initialHomeBloc() {
     authenticateBloc.add(RefreshTokenEvent());
     chatBloc.add(FetchConversations());
   }
+
+  static void cleanBloc() {
+    dashboardBloc.add(const OnChangeIndexEvent(index: 0));
+  }
+
+  ///Singleton factory
+  static final AppBloc _instance = AppBloc._internal();
+
+  factory AppBloc() {
+    return _instance;
+  }
+
+  AppBloc._internal();
 }

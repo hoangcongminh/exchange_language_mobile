@@ -7,18 +7,18 @@ abstract class ChatState extends Equatable {
   List<Object> get props => [];
 }
 
-class ConversationInitial extends ChatState {}
+class ChatInitial extends ChatState {}
 
-class ConversationLoading extends ChatState {}
+class ChatLoading extends ChatState {}
 
-class ConversationLoaded extends ChatState {
+class ChatLoaded extends ChatState {
   final List<Conversation> conversations;
 
-  const ConversationLoaded(this.conversations);
+  const ChatLoaded(this.conversations);
 }
 
-class ConversationFailure extends ChatState {
+class ChatFailure extends ChatState {
   final String error;
 
-  const ConversationFailure(this.error);
+  const ChatFailure(this.error);
 }

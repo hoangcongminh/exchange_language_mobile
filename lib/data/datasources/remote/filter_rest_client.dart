@@ -11,5 +11,8 @@ abstract class FilterRestClient {
   factory FilterRestClient(Dio dio, {String baseUrl}) = _FilterRestClient;
 
   @GET('/users/search')
-  Future<ApiResponseModel<UserSearchResponse>> searchUsers();
+  Future<ApiResponseModel<UserSearchResponse>> searchUsers(
+    @Query('speak') List<String> speakingLanguages,
+    @Query('learn') List<String> learningLanguage,
+  );
 }

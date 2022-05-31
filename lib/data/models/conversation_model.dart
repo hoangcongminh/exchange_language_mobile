@@ -9,8 +9,8 @@ part 'conversation_model.g.dart';
 class ConversationModel {
   @JsonKey(name: '_id')
   final String id;
-  @JsonKey(name: 'name')
-  final String conversationName;
+  @JsonKey(name: 'name', includeIfNull: false)
+  final String? conversationName;
   @JsonKey(name: 'members')
   final List<UserModel> members;
   @JsonKey(name: 'modifiedAt')

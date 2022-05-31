@@ -10,15 +10,15 @@ part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc(this.chatRepository) : super(ConversationInitial()) {
+  ChatBloc(this.chatRepository) : super(ChatInitial()) {
     on<FetchConversations>((event, emit) async {
-      emit(ConversationLoading());
+      emit(ChatLoading());
       Either<Failure, List<Conversation>> result =
           await chatRepository.getConversations();
       result.fold((failue) {
-        emit(ConversationFailure(failue.toString()));
+        emit(ChatFailure(failue.toString()));
       }, (conversations) {
-        emit(ConversationLoaded(conversations));
+        emit(ChatLoaded(conversations));
       });
     });
   }

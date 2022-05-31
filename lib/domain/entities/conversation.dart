@@ -4,13 +4,13 @@ import 'user.dart';
 
 class Conversation extends Equatable {
   final String id;
-  final String conversationName;
+  final String? conversationName;
   final List<User> members;
   final String modifiedAt;
 
   const Conversation({
     required this.id,
-    required this.conversationName,
+    this.conversationName,
     required this.members,
     required this.modifiedAt,
   });

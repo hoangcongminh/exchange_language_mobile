@@ -26,14 +26,23 @@ MessageItemModel _$MessageItemModelFromJson(Map<String, dynamic> json) =>
       json['_id'] as String,
       UserModel.fromJson(json['author'] as Map<String, dynamic>),
       json['IDConversation'] as String,
-      json['content'] as String,
+      json['content'] as String?,
     );
 
-Map<String, dynamic> _$MessageItemModelToJson(MessageItemModel instance) =>
-    <String, dynamic>{
-      'createdAt': instance.createdAt,
-      '_id': instance.id,
-      'author': instance.author,
-      'IDConversation': instance.idConversation,
-      'content': instance.content,
-    };
+Map<String, dynamic> _$MessageItemModelToJson(MessageItemModel instance) {
+  final val = <String, dynamic>{
+    'createdAt': instance.createdAt,
+    '_id': instance.id,
+    'author': instance.author,
+    'IDConversation': instance.conversationId,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('content', instance.content);
+  return val;
+}

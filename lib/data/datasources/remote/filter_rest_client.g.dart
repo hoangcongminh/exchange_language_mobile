@@ -16,9 +16,13 @@ class _FilterRestClient implements FilterRestClient {
   String? baseUrl;
 
   @override
-  Future<ApiResponseModel<UserSearchResponse>> searchUsers() async {
+  Future<ApiResponseModel<UserSearchResponse>> searchUsers(
+      speakingLanguages, learningLanguage) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'speak': speakingLanguages,
+      r'learn': learningLanguage
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

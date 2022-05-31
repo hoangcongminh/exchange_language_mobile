@@ -58,22 +58,22 @@ class _ChatRestCient implements ChatRestCient {
   }
 
   @override
-  Future<ApiResponseModel<ConversationModel>> getMessageByConversation(
+  Future<ApiResponseModel<MessageModel>> getMessageByConversation(
       conversationId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponseModel<ConversationModel>>(Options(
+        _setStreamType<ApiResponseModel<MessageModel>>(Options(
                 method: 'GET', headers: _headers, extra: _extra)
             .compose(
                 _dio.options, '/conversation/get-messages/${conversationId}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponseModel<ConversationModel>.fromJson(
+    final value = ApiResponseModel<MessageModel>.fromJson(
       _result.data!,
-      (json) => ConversationModel.fromJson(json as Map<String, dynamic>),
+      (json) => MessageModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

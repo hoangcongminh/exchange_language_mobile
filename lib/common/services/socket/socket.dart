@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../../../data/datasources/local/user_local_data.dart';
+import '../../../data/models/message_model.dart';
+import '../../../presentation/common/app_bloc.dart';
+import '../../../presentation/features/conversation/bloc/conversation_bloc.dart';
 import '../../constants/app_constants.dart';
+import '../../constants/socket_events.dart';
+import 'socket_safety.dart';
 
 io.Socket? socket;
 
@@ -17,6 +22,7 @@ void connectAndListen() {
           .setTransports(['websocket']).setExtraHeaders(
               {'authorization': 'Bearer $token'}).build());
 
+  socket!.connect();
   socket!
     ..onConnect((_) => debugPrint('Connected to socket server'))
     ..onConnectError((a) => debugPrint('onConnectError: $a'))
@@ -25,7 +31,16 @@ void connectAndListen() {
     ..onError((a) => debugPrint('onError: $a'))
     ..onDisconnect((_) => debugPrint('disconnect'));
 
-  socket!.connect();
+  socket!.on(SocketEvents.receiveMessage, (data) {
+    if (SocketSafety.isNotDuplicated(
+        event: SocketEvents.receiveMessage, data: data)) {
+      AppBloc.conversationBloc.add(
+        ReceiveNewMessage(
+          MessageItemModel.fromJson(data).toEntity(),
+        ),
+      );
+    }
+  });
 }
 
 void disconnectBeforeConnect() {

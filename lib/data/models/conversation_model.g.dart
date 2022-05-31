@@ -9,17 +9,26 @@ part of 'conversation_model.dart';
 ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
     ConversationModel(
       json['_id'] as String,
-      json['name'] as String,
+      json['name'] as String?,
       (json['members'] as List<dynamic>)
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['modifiedAt'] as String,
     );
 
-Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) =>
-    <String, dynamic>{
-      '_id': instance.id,
-      'name': instance.conversationName,
-      'members': instance.members,
-      'modifiedAt': instance.modifiedAt,
-    };
+Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
+  final val = <String, dynamic>{
+    '_id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.conversationName);
+  val['members'] = instance.members;
+  val['modifiedAt'] = instance.modifiedAt;
+  return val;
+}
