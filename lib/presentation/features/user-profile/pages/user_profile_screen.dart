@@ -2,6 +2,7 @@ import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../../common/constants/route_constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../domain/entities/user.dart';
@@ -103,7 +104,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                           child: AvatarWidget(
                             imageUrl:
-                                'https://exchangelanguage.tk${user?.avatar.src ?? 'https://picsum.photos/200'}',
+                                '${AppConstants.baseImageUrl}${user?.avatar.src ?? 'https://picsum.photos/200'}',
                             width: 90.sp,
                             height: 90.sp,
                           ),

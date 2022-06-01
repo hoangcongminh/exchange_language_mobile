@@ -22,7 +22,7 @@ Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
 
 MessageItemModel _$MessageItemModelFromJson(Map<String, dynamic> json) =>
     MessageItemModel(
-      json['createdAt'] as String,
+      DateTime.parse(json['createdAt'] as String),
       json['_id'] as String,
       UserModel.fromJson(json['author'] as Map<String, dynamic>),
       json['IDConversation'] as String,
@@ -31,7 +31,7 @@ MessageItemModel _$MessageItemModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MessageItemModelToJson(MessageItemModel instance) {
   final val = <String, dynamic>{
-    'createdAt': instance.createdAt,
+    'createdAt': instance.createdAt.toIso8601String(),
     '_id': instance.id,
     'author': instance.author,
     'IDConversation': instance.conversationId,

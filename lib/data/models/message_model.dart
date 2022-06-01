@@ -24,7 +24,7 @@ class MessageModel {
 @JsonSerializable()
 class MessageItemModel {
   @JsonKey(name: 'createdAt')
-  final String createdAt;
+  final DateTime createdAt;
   @JsonKey(name: '_id')
   final String id;
   @JsonKey(name: 'author')

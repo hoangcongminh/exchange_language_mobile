@@ -17,6 +17,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       (json['speak'] as List<dynamic>?)
           ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['introduction'] as String?,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) {
@@ -35,6 +36,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   val['avatar'] = instance.avatar.toJson();
   val['learn'] = instance.learningLanguage?.map((e) => e.toJson()).toList();
   val['speak'] = instance.speakingLanguage?.map((e) => e.toJson()).toList();
+  writeNotNull('introduction', instance.introduction);
   return val;
 }
 

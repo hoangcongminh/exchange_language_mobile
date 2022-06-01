@@ -6,7 +6,7 @@ class Conversation extends Equatable {
   final String id;
   final String? conversationName;
   final List<User> members;
-  final String modifiedAt;
+  final DateTime modifiedAt;
 
   const Conversation({
     required this.id,

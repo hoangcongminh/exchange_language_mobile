@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/constants/route_constants.dart';
+import '../../../../common/constants/constants.dart';
 import '../../../../data/failure.dart';
 import '../../../../domain/repository/auth_repository.dart';
 import '../../../../routes/app_pages.dart';

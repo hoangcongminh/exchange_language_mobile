@@ -4,7 +4,7 @@ import '../../data/datasources/local/user_local_data.dart';
 import 'user.dart';
 
 class Message extends Equatable {
-  final String createdAt;
+  final DateTime createdAt;
   final String id;
   final User author;
   final String conversationId;

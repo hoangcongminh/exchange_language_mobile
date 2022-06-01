@@ -8,6 +8,7 @@ class User extends Equatable {
   final Avatar avatar;
   final List<Language>? learningLanguage;
   final List<Language>? speakingLanguage;
+  final String? introduction;
 
   const User({
     required this.id,
@@ -16,10 +17,19 @@ class User extends Equatable {
     required this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
+    this.introduction,
   });
 
   @override
-  List<Object?> get props => [id, fullname, email, avatar];
+  List<Object?> get props => [
+        id,
+        fullname,
+        email,
+        avatar,
+        speakingLanguage,
+        learningLanguage,
+        introduction
+      ];
 }
 
 class Avatar extends Equatable {

@@ -12,5 +12,5 @@ class Media extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, filename];
+  List<Object?> get props => [id, filename, src];
 }

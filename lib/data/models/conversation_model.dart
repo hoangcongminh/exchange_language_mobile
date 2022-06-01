@@ -14,7 +14,7 @@ class ConversationModel {
   @JsonKey(name: 'members')
   final List<UserModel> members;
   @JsonKey(name: 'modifiedAt')
-  final String modifiedAt;
+  final DateTime modifiedAt;
 
   ConversationModel(
       this.id, this.conversationName, this.members, this.modifiedAt);

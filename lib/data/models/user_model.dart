@@ -25,6 +25,9 @@ class UserModel {
   @JsonKey(name: 'speak')
   final List<LanguageModel>? speakingLanguage;
 
+  @JsonKey(name: 'introduction', includeIfNull: false)
+  final String? introduction;
+
   UserModel(
     this.id,
     this.fullName,
@@ -32,6 +35,7 @@ class UserModel {
     this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
+    this.introduction,
   );
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -46,6 +50,7 @@ class UserModel {
         avatar: avatar.toEntity(),
         learningLanguage: learningLanguage?.map((e) => e.toEntity()).toList(),
         speakingLanguage: speakingLanguage?.map((e) => e.toEntity()).toList(),
+        introduction: introduction,
       );
 }
 

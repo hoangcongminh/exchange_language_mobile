@@ -13,7 +13,7 @@ ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
       (json['members'] as List<dynamic>)
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['modifiedAt'] as String,
+      DateTime.parse(json['modifiedAt'] as String),
     );
 
 Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
@@ -29,6 +29,6 @@ Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
 
   writeNotNull('name', instance.conversationName);
   val['members'] = instance.members;
-  val['modifiedAt'] = instance.modifiedAt;
+  val['modifiedAt'] = instance.modifiedAt.toIso8601String();
   return val;
 }

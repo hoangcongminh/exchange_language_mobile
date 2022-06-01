@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/conversation.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
@@ -34,7 +35,7 @@ class _ChatItemState extends State<ChatItem> {
                     children: [
                       AvatarWidget(
                         imageUrl:
-                            'https://exchangelanguage.tk${widget.conversation.members.first.avatar.src}',
+                            '${AppConstants.baseImageUrl}${widget.conversation.members.first.avatar.src}',
                         width: 40.sp,
                         height: 40.sp,
                       ),
@@ -70,8 +71,7 @@ class _ChatItemState extends State<ChatItem> {
                 ),
                 SizedBox(width: 10.sp),
                 Text(
-                  DateFormat('hh:mm a')
-                      .format(DateTime.parse(widget.conversation.modifiedAt)),
+                  DateFormat('hh:mm a').format(widget.conversation.modifiedAt),
                   style: TextStyle(
                     color: colorTimeChat,
                     fontSize: 9.sp,
