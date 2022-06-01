@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/message.dart';
 import '../../../widgets/avatar_widget.dart';
 
@@ -50,7 +51,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                       height: 20.sp,
                       width: 20.sp,
                       imageUrl:
-                          'https://exchangelanguage.tk${widget.message.author.avatar.src}',
+                          '${AppConstants.baseImageUrl}${widget.message.author.avatar.src}',
                     )
                   : SizedBox(height: 20.sp, width: 20.sp),
               Container(

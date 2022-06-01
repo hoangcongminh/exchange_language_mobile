@@ -36,8 +36,9 @@ class _PickSelectWidgetState extends State<PickSelectWidget> {
         child: Padding(
           padding: EdgeInsets.all(5.sp),
           child: widget.selectedLanguages.isEmpty
-              ? Text(widget.title)
-              : Expanded(
+              ? Align(
+                  alignment: Alignment.centerLeft, child: Text(widget.title))
+              : SizedBox.expand(
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,

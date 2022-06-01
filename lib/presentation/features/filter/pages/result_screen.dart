@@ -1,7 +1,9 @@
+import 'package:exchange_language_mobile/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../widgets/app_button_widget.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../bloc/filter_bloc.dart';
@@ -25,53 +27,14 @@ class _ResultScreenState extends State<ResultScreen> {
           padding: EdgeInsets.symmetric(horizontal: 12.sp),
           child: BlocBuilder<FilterBloc, FilterState>(
             builder: (context, state) {
-              if (state is FilterResult) {
+              if (state is FilterResult && state.users.isNotEmpty) {
                 return ListView.builder(
                   itemCount: state.users.length,
                   itemBuilder: (BuildContext context, int index) {
                     final user = state.users[index];
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 5.sp),
-                      child: Card(
-                        elevation: 3,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.sp),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  AvatarWidget(
-                                    height: 40.sp,
-                                    width: 40.sp,
-                                    imageUrl:
-                                        'https://exchangelanguage.tk${user.avatar.src}',
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(user.fullname),
-                                      Text('Location'),
-                                      Text('Location'),
-                                      Text('Location'),
-                                      // Expanded(
-                                      //   child: GridView.count(
-                                      //     primary: false,
-                                      //     padding: const EdgeInsets.all(20),
-                                      //     crossAxisSpacing: 2.sp,
-                                      //     mainAxisSpacing: 2.sp,
-                                      //     crossAxisCount: 2,
-                                      //     children: [],
-                                      //   ),
-                                      // )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const Text(
-                                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum...'),
-                            ],
-                          ),
-                        ),
-                      ),
+                      child: UserResultItem(user: user),
                     );
                   },
                 );
@@ -100,6 +63,48 @@ class _ResultScreenState extends State<ResultScreen> {
               );
             },
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class UserResultItem extends StatelessWidget {
+  const UserResultItem({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: Padding(
+        padding: EdgeInsets.all(8.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                AvatarWidget(
+                  height: 40.sp,
+                  width: 40.sp,
+                  imageUrl: '${AppConstants.baseImageUrl}${user.avatar.src}',
+                ),
+                Column(
+                  children: [
+                    Text(user.fullname),
+                    // GridView.count(crossAxisCount: 2),
+                  ],
+                )
+              ],
+            ),
+            Text(
+              user.introduction ?? '',
+            ),
+          ],
         ),
       ),
     );

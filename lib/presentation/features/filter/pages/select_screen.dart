@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/language.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../widgets/avatar_widget.dart';
@@ -39,6 +40,29 @@ class _SelectScreenState extends State<SelectScreen> {
         children: [
           SizedBox(height: 8.sp),
           const SearchBox(),
+          SizedBox(
+            height: 30.sp,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.selectedLanguage.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.sp),
+                  width: 70.sp,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.selectedLanguage[index].name,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
           BlocBuilder<FilterBloc, FilterState>(
             builder: (context, state) {
               if (state is SelectLanguageState) {
@@ -57,8 +81,16 @@ class _SelectScreenState extends State<SelectScreen> {
                                   height: 20.sp,
                                   width: 20.sp,
                                   imageUrl:
-                                      'https://exchangelanguage.tk${state.languages[index].thumbnail.src}'),
-                              title: Text(state.languages[index].name),
+                                      '${AppConstants.baseImageUrl}${state.languages[index].thumbnail.src}'),
+                              title: Text(
+                                state.languages[index].name,
+                                style: TextStyle(
+                                  color: widget.selectedLanguage
+                                          .contains(state.languages[index])
+                                      ? Theme.of(context).primaryColor
+                                      : null,
+                                ),
+                              ),
                               trailing: Checkbox(
                                 value: widget.selectedLanguage
                                     .contains(state.languages[index]),
