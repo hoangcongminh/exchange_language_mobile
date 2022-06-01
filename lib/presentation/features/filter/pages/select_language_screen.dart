@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -10,17 +11,18 @@ import '../../../widgets/loading_widget.dart';
 import '../../../widgets/search_box.dart';
 import '../bloc/filter_bloc.dart';
 
-class SelectScreen extends StatefulWidget {
+class SelectLanguageScreen extends StatefulWidget {
   final List<Language> selectedLanguage;
 
-  const SelectScreen({Key? key, required this.selectedLanguage})
+  const SelectLanguageScreen({Key? key, required this.selectedLanguage})
       : super(key: key);
 
   @override
-  State<SelectScreen> createState() => _SelectScreenState();
+  State<SelectLanguageScreen> createState() => _SelectLanguageScreenState();
 }
 
-class _SelectScreenState extends State<SelectScreen> {
+class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
+  final List<Language> searchList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,29 +41,52 @@ class _SelectScreenState extends State<SelectScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 8.sp),
-          const SearchBox(),
+          SearchBox(
+            onChanged: (text) {
+              final state = AppBloc.filterBloc.state as SelectLanguageState;
+              setState(() {
+                searchList.clear();
+                if (text != "") {
+                  for (var i = 0; i < state.languages.length; i++) {
+                    if (state.languages[i].name.toLowerCase().contains(text)) {
+                      searchList.add(state.languages[i]);
+                    }
+                  }
+                }
+              });
+            },
+          ),
           SizedBox(
-            height: 30.sp,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.selectedLanguage.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5.sp),
-                  width: 70.sp,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Text(
-                      widget.selectedLanguage[index].name,
-                      textAlign: TextAlign.center,
+            height: 8.sp,
+          ),
+          if (widget.selectedLanguage.isNotEmpty)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.sp),
+              height: 30.sp,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.selectedLanguage.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5.sp),
+                    width: 70.sp,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                  ),
-                );
-              },
+                    child: Center(
+                      child: Text(
+                        widget.selectedLanguage[index].name,
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
+          SizedBox(
+            height: 8.sp,
           ),
           BlocBuilder<FilterBloc, FilterState>(
             builder: (context, state) {
@@ -69,8 +94,12 @@ class _SelectScreenState extends State<SelectScreen> {
                 return Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: state.languages.length,
+                    itemCount: searchList.isEmpty
+                        ? state.languages.length
+                        : searchList.length,
                     itemBuilder: (BuildContext context, int index) {
+                      final languages =
+                          searchList.isEmpty ? state.languages : searchList;
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.sp),
                         child: Column(
@@ -81,28 +110,28 @@ class _SelectScreenState extends State<SelectScreen> {
                                   height: 20.sp,
                                   width: 20.sp,
                                   imageUrl:
-                                      '${AppConstants.baseImageUrl}${state.languages[index].thumbnail.src}'),
+                                      '${AppConstants.baseImageUrl}${languages[index].thumbnail.src}'),
                               title: Text(
-                                state.languages[index].name,
+                                languages[index].name,
                                 style: TextStyle(
                                   color: widget.selectedLanguage
-                                          .contains(state.languages[index])
+                                          .contains(languages[index])
                                       ? Theme.of(context).primaryColor
                                       : null,
                                 ),
                               ),
                               trailing: Checkbox(
                                 value: widget.selectedLanguage
-                                    .contains(state.languages[index]),
+                                    .contains(languages[index]),
                                 onChanged: (value) {
                                   setState(() {
                                     if (widget.selectedLanguage
-                                        .contains(state.languages[index])) {
+                                        .contains(languages[index])) {
                                       widget.selectedLanguage
-                                          .remove(state.languages[index]);
+                                          .remove(languages[index]);
                                     } else {
                                       widget.selectedLanguage
-                                          .add(state.languages[index]);
+                                          .add(languages[index]);
                                     }
                                   });
                                 },

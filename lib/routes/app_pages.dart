@@ -1,4 +1,4 @@
-import 'package:exchange_language_mobile/presentation/features/filter/pages/select_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/filter/pages/select_language_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/constants/constants.dart';
@@ -80,7 +80,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.filterSelect:
         return _buildRoute(
           settings,
-          SelectScreen(
+          SelectLanguageScreen(
             selectedLanguage: arguments?['selectedLanguage'],
           ),
         );

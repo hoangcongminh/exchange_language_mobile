@@ -57,7 +57,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 8.sp),
-                      const SearchBox(),
+                      SearchBox(
+                        onChanged: (text) {},
+                      ),
                       SizedBox(height: 8.sp),
                     ],
                   ),

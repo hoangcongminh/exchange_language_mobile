@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../common/helpers/debouncer.dart';
 import '../theme/chat_style.dart';
 
 class SearchBox extends StatefulWidget {
-  const SearchBox({Key? key}) : super(key: key);
+  final Function(String text) onChanged;
+  const SearchBox({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -12,6 +14,8 @@ class SearchBox extends StatefulWidget {
 
 class _SearchBoxState extends State<SearchBox> {
   final TextEditingController _searchController = TextEditingController();
+  final _debouncer = Debouncer(milliseconds: 500);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +28,9 @@ class _SearchBoxState extends State<SearchBox> {
       ),
       child: TextFormField(
         controller: _searchController,
+        onChanged: (text) => _debouncer.run(() {
+          widget.onChanged(text);
+        }),
         maxLines: 1,
         keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
