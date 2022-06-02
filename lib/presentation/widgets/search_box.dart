@@ -49,6 +49,15 @@ class _SearchBoxState extends State<SearchBox> {
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,
           ),
+          suffixIcon: _searchController.text.isNotEmpty
+              ? IconButton(
+                  onPressed: () {
+                    widget.onChanged("");
+                    _searchController.clear();
+                  },
+                  icon: const Icon(Icons.clear),
+                )
+              : null,
           prefixIcon: Container(
             margin: EdgeInsets.all(10.sp),
             child: const Icon(Icons.search),
