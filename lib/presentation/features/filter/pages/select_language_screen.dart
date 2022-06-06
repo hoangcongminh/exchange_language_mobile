@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/language.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../theme/filter_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/search_box.dart';
@@ -67,18 +68,25 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.selectedLanguage.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5.sp),
-                    width: 70.sp,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Center(
-                      child: Text(
-                        widget.selectedLanguage[index].name,
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.selectedLanguage.removeAt(index);
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 5.sp),
+                      width: 70.sp,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Center(
+                        child: Text(
+                          widget.selectedLanguage[index].name,
+                          style: selectedLanguage,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   );

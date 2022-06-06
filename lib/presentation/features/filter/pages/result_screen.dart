@@ -1,12 +1,11 @@
-import 'package:exchange_language_mobile/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../common/constants/constants.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../widgets/app_button_widget.dart';
-import '../../../widgets/avatar_widget.dart';
 import '../bloc/filter_bloc.dart';
+import '../widgets/user_result_item.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({Key? key}) : super(key: key);
@@ -58,53 +57,15 @@ class _ResultScreenState extends State<ResultScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const Spacer(),
-                  AppButtonWidget(label: 'Search again', onPressed: () {})
+                  AppButtonWidget(
+                      label: 'Search again',
+                      onPressed: () {
+                        AppNavigator().pop();
+                      })
                 ],
               );
             },
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserResultItem extends StatelessWidget {
-  const UserResultItem({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
-
-  final User user;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.all(8.sp),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                AvatarWidget(
-                  height: 40.sp,
-                  width: 40.sp,
-                  imageUrl: '${AppConstants.baseImageUrl}${user.avatar.src}',
-                ),
-                Column(
-                  children: [
-                    Text(user.fullname),
-                    // GridView.count(crossAxisCount: 2),
-                  ],
-                )
-              ],
-            ),
-            Text(
-              user.introduction ?? '',
-            ),
-          ],
         ),
       ),
     );

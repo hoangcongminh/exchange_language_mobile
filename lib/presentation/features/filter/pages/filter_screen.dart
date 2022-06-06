@@ -90,62 +90,65 @@ class _FilterScreenState extends State<FilterScreen> {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const Text('Your partners'),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: AppButtonWidget(
-                                      color: type == FilterScreenType.student
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.grey,
-                                      label: 'Student',
-                                      onPressed: () {
-                                        setState(() {
-                                          type = FilterScreenType.student;
-                                        });
-                                      },
-                                      width: 42.w),
-                                ),
-                                SizedBox(width: 12.sp),
-                                Expanded(
-                                  child: AppButtonWidget(
-                                      color: type == FilterScreenType.teacher
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.grey,
-                                      label: 'Teacher',
-                                      onPressed: () {
-                                        setState(() {
-                                          type = FilterScreenType.teacher;
-                                        });
-                                      },
-                                      width: 42.w),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 12.sp),
-                            const Text('Speaking'),
-                            PickSelectWidget(
-                              title: 'Enter speaking',
-                              selectedLanguages: speaking,
-                              onTap: () => onTapSelectLanguage(true),
-                            ),
-                            const Text('Learning'),
-                            PickSelectWidget(
-                              title: 'Enter language',
-                              selectedLanguages: learning,
-                              onTap: () => onTapSelectLanguage(false),
-                            ),
-                            const Spacer(),
-                            AppButtonWidget(
-                                label: 'Search',
-                                onPressed: () {
-                                  AppBloc.filterBloc
-                                      .add(SearchUserEvent(speaking, learning));
-                                }),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 1.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text('Your partners'),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: AppButtonWidget(
+                                        color: type == FilterScreenType.student
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.grey,
+                                        label: 'Student',
+                                        onPressed: () {
+                                          setState(() {
+                                            type = FilterScreenType.student;
+                                          });
+                                        },
+                                        width: 42.w),
+                                  ),
+                                  SizedBox(width: 12.sp),
+                                  Expanded(
+                                    child: AppButtonWidget(
+                                        color: type == FilterScreenType.teacher
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.grey,
+                                        label: 'Teacher',
+                                        onPressed: () {
+                                          setState(() {
+                                            type = FilterScreenType.teacher;
+                                          });
+                                        },
+                                        width: 42.w),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 12.sp),
+                              const Text('Speaking'),
+                              PickSelectWidget(
+                                title: 'Enter speaking',
+                                selectedLanguages: speaking,
+                                onTap: () => onTapSelectLanguage(true),
+                              ),
+                              const Text('Learning'),
+                              PickSelectWidget(
+                                title: 'Enter language',
+                                selectedLanguages: learning,
+                                onTap: () => onTapSelectLanguage(false),
+                              ),
+                              const Spacer(),
+                              AppButtonWidget(
+                                  label: 'Search',
+                                  onPressed: () {
+                                    AppBloc.filterBloc.add(
+                                        SearchUserEvent(speaking, learning));
+                                  }),
+                            ],
+                          ),
                         ),
                       ),
                     ),
