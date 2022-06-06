@@ -7,7 +7,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/search_box.dart';
 import '../bloc/chat_bloc.dart';
 import '../widgets/chat_item.dart';
@@ -90,53 +89,6 @@ class _ChatScreenState extends State<ChatScreen> {
           }
         },
       ),
-      // body: Column(
-      //   mainAxisSize: MainAxisSize.max,
-      //   children: [
-      //     SizedBox(height: 12.sp),
-      //     SizedBox(
-      //       height: 10.h,
-      //       child: ListView.builder(
-      //         scrollDirection: Axis.horizontal,
-      //         itemBuilder: (context, index) {
-      //           return AvatarWidget(
-      //             imageUrl: 'https://www.w3schools.com/howto/img_avatar.png',
-      //             height: 40.sp,
-      //             width: 40.sp,
-      //             margin: EdgeInsets.symmetric(horizontal: 12.sp),
-      //           );
-      //         },
-      //         itemCount: 10,
-      //       ),
-      //     ),
-      //     SizedBox(height: 8.sp),
-      //     const SearchBox(),
-      //     SizedBox(height: 8.sp),
-      //     Expanded(
-      //       child: BlocBuilder<ChatBloc, ChatState>(
-      //         builder: (context, state) {
-      //           if (state is ChatLoading) {
-      //             return const ChatListShimmer();
-      //           }
-      //           return ListView.builder(
-      //             itemCount: 10,
-      //             itemBuilder: (context, index) {
-      //               return GestureDetector(
-      //                 onLongPress: () {},
-      //                 onTap: () {
-      //                   AppNavigator().push(
-      //                     RouteConstants.conversation,
-      //                   );
-      //                 },
-      //                 child: const ChatItem(),
-      //               );
-      //             },
-      //           );
-      //         },
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

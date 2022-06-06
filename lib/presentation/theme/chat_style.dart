@@ -10,5 +10,5 @@ const colorTimeChat = Color(0xFF636161);
 const colorBackgroundReceiver = Color(0xFFE2F0E9);
 const colorBackgroundSender = Color(0xFFF1F1F1);
 const colorTextChatCard = Color(0xFF53596F);
-const colorBackgroundmMessageReiceiver = Color(0xFFF2F2F4);
-const colorBackgroundmMessageSender = Color(0xFF039FBC);
+const colorBackgroundMessageReiceiver = Color(0xFFF2F2F4);
+const colorBackgroundMessageSender = Color(0xFF039FBC);

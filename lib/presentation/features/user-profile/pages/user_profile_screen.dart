@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
-import '../../../../common/constants/route_constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';

@@ -1,10 +1,9 @@
-import 'package:exchange_language_mobile/presentation/theme/chat_style.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/message.dart';
+import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
 
 class MessageBubble extends StatefulWidget {
@@ -65,8 +64,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                 ),
                 decoration: BoxDecoration(
                   color: widget.message.isMe
-                      ? colorBackgroundmMessageSender
-                      : colorBackgroundmMessageReiceiver,
+                      ? colorBackgroundMessageSender
+                      : colorBackgroundMessageReiceiver,
                   borderRadius: BorderRadius.all(Radius.circular(10.sp)),
                 ),
                 child: Padding(
