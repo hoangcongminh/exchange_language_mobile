@@ -19,4 +19,5 @@ class RouteConstants {
   static const filterSelect = "/filterSelect";
   //blog
   static const blogDetail = "/blogDetail";
+  static const createBlog = "/createBlog";
 }

@@ -53,7 +53,7 @@ class _AppShimmerState extends State<AppShimmer> {
           borderRadius: widget.radius == 0
               ? widget.borderRadius
               : BorderRadius.circular(widget.radius),
-          color: Colors.grey.withOpacity(0.5),
+          color: Colors.grey,
         ),
       ),
     );

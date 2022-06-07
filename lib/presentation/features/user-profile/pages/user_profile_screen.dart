@@ -6,6 +6,7 @@ import '../../../../common/constants/constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../theme/user_profile_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../discover/widgets/colored_tabbar.dart';
@@ -79,17 +80,29 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ),
                     ],
                   ),
-                  const Text('“ Lorem Ipsum is simply dummy text“'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      UserInfoItem(title: 'Location', value: 'Viet Nam'),
-                      VerticalDivider(),
-                      UserInfoItem(title: 'Speaking', value: 'Vietnamese'),
-                      VerticalDivider(),
-                      UserInfoItem(title: 'Learning', value: 'English'),
-                    ],
+                  SizedBox(height: 8.sp),
+                  const Text(
+                    '“ Lorem Ipsum is simply dummy text“',
+                    style: userIntroduction,
                   ),
+                  SizedBox(height: 20.sp),
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        UserInfoItem(title: 'Location', value: 'Viet Nam'),
+                        VerticalDivider(
+                          thickness: 2,
+                        ),
+                        UserInfoItem(title: 'Speaking', value: 'Vietnamese'),
+                        VerticalDivider(
+                          thickness: 2,
+                        ),
+                        UserInfoItem(title: 'Learning', value: 'English'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8.sp),
                   const ColoredTabBar(
                     color: Colors.white,
                     tabBar: TabBar(
@@ -106,10 +119,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           body: MediaQuery.removePadding(
             context: context,
             removeTop: true,
-            child: const TabBarView(
+            child: TabBarView(
               children: [
-                GroupScreen(),
-                BlogScreen(),
+                const GroupScreen(),
+                BlogScreen(
+                  onTapAdd: () {},
+                ),
               ],
             ),
           ),
@@ -135,8 +150,9 @@ class UserInfoItem extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text(title),
-            Text(value),
+            Text(title, style: userInfoTitle),
+            SizedBox(height: 4.sp),
+            Text(value, style: userInfo),
           ],
         )
       ],

@@ -1,6 +1,8 @@
+import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../group/group_screen.dart';
 import '../widgets/colored_tabbar.dart';
@@ -32,16 +34,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            GroupScreen(),
-            BlogScreen(),
+            const GroupScreen(),
+            BlogScreen(
+              onTapAdd: () => AppNavigator().push(RouteConstants.createBlog),
+            ),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {},
-          child: const Icon(Icons.add),
         ),
       ),
     );

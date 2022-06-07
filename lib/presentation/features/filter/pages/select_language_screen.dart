@@ -68,25 +68,26 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.selectedLanguage.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        widget.selectedLanguage.removeAt(index);
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5.sp),
-                      width: 70.sp,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Text(
-                          widget.selectedLanguage[index].name,
-                          style: selectedLanguage,
-                          textAlign: TextAlign.center,
-                        ),
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5.sp),
+                    child: Chip(
+                      onDeleted: () {
+                        setState(() {
+                          widget.selectedLanguage.removeAt(index);
+                        });
+                      },
+                      deleteIconColor: Colors.white,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      avatar: AvatarWidget(
+                          shape: BoxShape.rectangle,
+                          height: 10.sp,
+                          width: 10.sp,
+                          imageUrl:
+                              '${AppConstants.baseImageUrl}${widget.selectedLanguage[index].thumbnail.src}'),
+                      label: Text(
+                        widget.selectedLanguage[index].name,
+                        style: selectedLanguage,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   );

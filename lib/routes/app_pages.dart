@@ -7,6 +7,7 @@ import '../presentation/app.dart';
 import '../presentation/features/authenticate/pages/forgot_password_screen.dart';
 import '../presentation/features/authenticate/pages/login_screen.dart';
 import '../presentation/features/authenticate/pages/register_screen.dart';
+import '../presentation/features/blog/pages/create_blog_screen.dart';
 import '../presentation/features/conversation/pages/conversation_screen.dart';
 import '../presentation/features/dashboard/pages/dashboard_screen.dart';
 import '../presentation/features/filter/pages/result_screen.dart';
@@ -89,6 +90,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const BlogDetailScreen(),
+        );
+      case RouteConstants.createBlog:
+        return _buildRoute(
+          settings,
+          const CreateBlogScreen(),
         );
       case RouteConstants.conversation:
         return _buildRoute(

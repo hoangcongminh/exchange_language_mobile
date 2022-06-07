@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
-final TextStyle title = TextStyle(
-  fontSize: 11.sp,
-  fontWeight: FontWeight.w600,
-  color: const Color(0xff1C4843),
+const TextStyle userIntroduction = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.normal,
+  color: Color(0xff828282),
+);
+
+const TextStyle userInfoTitle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.normal,
+  color: Color(0xff828282),
+);
+
+const TextStyle userInfo = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Color(0xff000000),
 );

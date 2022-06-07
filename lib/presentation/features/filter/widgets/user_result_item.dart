@@ -33,7 +33,7 @@ class UserResultItem extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 5.sp,
+                  width: 8.sp,
                 ),
                 Expanded(
                   flex: 4,
