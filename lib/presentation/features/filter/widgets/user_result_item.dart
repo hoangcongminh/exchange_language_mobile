@@ -51,7 +51,7 @@ class UserResultItem extends StatelessWidget {
                           child: Table(
                         children: [
                           TableRow(children: [
-                            Text(
+                            const Text(
                               'Location',
                               style: userResultItemInfoTitle,
                             ),
@@ -61,7 +61,7 @@ class UserResultItem extends StatelessWidget {
                             ),
                           ]),
                           TableRow(children: [
-                            Text(
+                            const Text(
                               'Speaking',
                               style: userResultItemInfoTitle,
                             ),
@@ -78,7 +78,7 @@ class UserResultItem extends StatelessWidget {
                             ),
                           ]),
                           TableRow(children: [
-                            Text(
+                            const Text(
                               'Learning',
                               style: userResultItemInfoTitle,
                             ),

@@ -17,9 +17,10 @@ class _FilterRestClient implements FilterRestClient {
 
   @override
   Future<ApiResponseModel<UserSearchResponse>> searchUsers(
-      speakingLanguages, learningLanguage) async {
+      type, speakingLanguages, learningLanguage) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      r'type': type,
       r'speak': speakingLanguages,
       r'learn': learningLanguage
     };

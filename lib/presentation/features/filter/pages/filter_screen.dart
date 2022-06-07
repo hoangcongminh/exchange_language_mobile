@@ -49,6 +49,7 @@ class _FilterScreenState extends State<FilterScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: FloatingActionButton(
+        key: const Key('homeFab'),
         mini: true,
         backgroundColor: Colors.white,
         child: const Icon(Icons.close, color: Colors.black),
@@ -144,8 +145,11 @@ class _FilterScreenState extends State<FilterScreen> {
                               AppButtonWidget(
                                   label: 'Search',
                                   onPressed: () {
-                                    AppBloc.filterBloc.add(
-                                        SearchUserEvent(speaking, learning));
+                                    AppBloc.filterBloc.add(SearchUserEvent(
+                                      type == FilterScreenType.teacher ? 1 : 2,
+                                      speaking,
+                                      learning,
+                                    ));
                                   }),
                             ],
                           ),

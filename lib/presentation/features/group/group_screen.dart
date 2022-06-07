@@ -18,11 +18,9 @@ class _GroupScreenState extends State<GroupScreen> {
       child: Column(
         children: [
           Expanded(
-            child: Scrollbar(
-              child: ListView.builder(
-                itemBuilder: (context, index) => const GroupItem(),
-                itemCount: 10,
-              ),
+            child: ListView.builder(
+              itemBuilder: (context, index) => const GroupItem(),
+              itemCount: 10,
             ),
           ),
         ],

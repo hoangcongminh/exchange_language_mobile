@@ -15,11 +15,13 @@ class FilterRepositoryImpl extends FilterRepository {
 
   @override
   Future<Either<Failure, List<User>>> searchUsers({
+    required int type,
     required List<Language> speakingLanguages,
     required List<Language> learningLanguages,
   }) async {
     try {
       final response = await _filterRestClient.searchUsers(
+        type,
         speakingLanguages.map((e) => e.id).toList(),
         learningLanguages.map((e) => e.id).toList(),
       );

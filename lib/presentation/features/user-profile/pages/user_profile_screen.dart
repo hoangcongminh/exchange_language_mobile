@@ -24,125 +24,95 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final l10n = context.l10n;
     User? user = UserLocal().getUser();
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text(user?.fullname ?? l10n.profile),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () => AppNavigator().push(RouteConstants.setting),
+    return Scaffold(
+      body: DefaultTabController(
+        length: 2,
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              title: Text(user?.fullname ?? l10n.profile),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () => AppNavigator().push(RouteConstants.setting),
+                ),
+              ],
             ),
-          ],
-        ),
-        // body: NestedScrollView(
-        //   headerSliverBuilder: (context, innerBoxIsScrolled) {
-        //     return [
-        //       SliverAppBar(
-        //         elevation: 0,
-        //         title: Text(l10n.profile),
-        //         actions: [
-        //           IconButton(
-        //             icon: const Icon(Icons.settings),
-        //             onPressed: () =>
-        //                 AppNavigator().push(RouteConstants.setting),
-        //           ),
-        //         ],
-        //         bottom: const ColoredTabBar(
-        //           color: Colors.white,
-        //           tabBar: TabBar(
-        //             tabs: [
-        //               Tab(text: 'Group'),
-        //               Tab(text: 'Blog'),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     ];
-        //   },
-        //   body: const Expanded(
-        //     child: TabBarView(
-        //       children: [
-        //         GroupScreen(),
-        //         BlogScreen(),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        body: Column(
-          children: [
-            Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 55.sp,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(
-                            width: 5,
-                            color: Theme.of(context).primaryColor,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: 55.sp,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(
                               width: 5,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               style: BorderStyle.solid,
                             ),
                           ),
-                          child: AvatarWidget(
-                            imageUrl:
-                                '${AppConstants.baseImageUrl}${user?.avatar.src ?? 'https://picsum.photos/200'}',
-                            width: 90.sp,
-                            height: 90.sp,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                width: 5,
+                                color: Colors.white,
+                                style: BorderStyle.solid,
+                              ),
+                            ),
+                            child: AvatarWidget(
+                              imageUrl:
+                                  '${AppConstants.baseImageUrl}${user?.avatar.src ?? 'https://picsum.photos/200'}',
+                              width: 90.sp,
+                              height: 90.sp,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const Text('“ Lorem Ipsum is simply dummy text“'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    UserInfoItem(title: 'Location', value: 'Viet Nam'),
-                    VerticalDivider(),
-                    UserInfoItem(title: 'Speaking', value: 'Vietnamese'),
-                    VerticalDivider(),
-                    UserInfoItem(title: 'Learning', value: 'English'),
-                  ],
-                ),
-                const ColoredTabBar(
-                  color: Colors.white,
-                  tabBar: TabBar(
-                    tabs: [
-                      Tab(text: 'Group'),
-                      Tab(text: 'Blog'),
                     ],
                   ),
-                ),
-              ],
-            ),
-            const Expanded(
-              child: TabBarView(
-                children: [
-                  GroupScreen(),
-                  BlogScreen(),
+                  const Text('“ Lorem Ipsum is simply dummy text“'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      UserInfoItem(title: 'Location', value: 'Viet Nam'),
+                      VerticalDivider(),
+                      UserInfoItem(title: 'Speaking', value: 'Vietnamese'),
+                      VerticalDivider(),
+                      UserInfoItem(title: 'Learning', value: 'English'),
+                    ],
+                  ),
+                  const ColoredTabBar(
+                    color: Colors.white,
+                    tabBar: TabBar(
+                      tabs: [
+                        Tab(text: 'Group'),
+                        Tab(text: 'Blog'),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
+          body: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: const TabBarView(
+              children: [
+                GroupScreen(),
+                BlogScreen(),
+              ],
+            ),
+          ),
         ),
       ),
     );

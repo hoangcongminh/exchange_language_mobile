@@ -12,6 +12,7 @@ abstract class FilterRestClient {
 
   @GET('/users/search')
   Future<ApiResponseModel<UserSearchResponse>> searchUsers(
+    @Query('type') int type,
     @Query('speak') List<String> speakingLanguages,
     @Query('learn') List<String> learningLanguage,
   );
