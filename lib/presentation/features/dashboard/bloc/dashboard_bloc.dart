@@ -6,10 +6,12 @@ part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(const DashboardState(index: 0)) {
-    on<OnChangeIndexEvent>((event, emit) {
-      _handleChangeIndex(event);
-      emit(DashboardState(index: currentIndex));
-    });
+    on<OnChangeIndexEvent>(_onChangeIndex);
+  }
+
+  _onChangeIndex(OnChangeIndexEvent event, Emitter emit) {
+    _handleChangeIndex(event);
+    emit(DashboardState(index: currentIndex));
   }
 
   _handleChangeIndex(OnChangeIndexEvent event) {

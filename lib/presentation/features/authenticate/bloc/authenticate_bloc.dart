@@ -21,92 +21,89 @@ part 'authenticate_state.dart';
 class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   AuthenticateBloc(this._authRepository, this._mediaRepository)
       : super(AuthenticateInitial()) {
-    on<RegisterEvent>(
-      (event, emit) async {
-        emit(Authenticating());
-        if (event.avatar == null) {
-          emit(const AuthenticationFail(error: 'Invalid avatar'));
-        } else {
-          Either<Failure, Media> imageResult =
-              await _mediaRepository.uploadImage(event.avatar!);
-          await imageResult.fold(
+    on<RegisterEvent>(_register);
+    on<LoginEvent>(_login);
+    on<ResetPasswordEvent>(_resetPassword);
+    on<RefreshTokenEvent>(_refreshToken);
+    on<LogoutEvent>(_logout);
+  }
+  _register(RegisterEvent event, Emitter emit) async {
+    emit(Authenticating());
+    if (event.avatar == null) {
+      emit(const AuthenticationFail(error: 'Invalid avatar'));
+    } else {
+      Either<Failure, Media> imageResult =
+          await _mediaRepository.uploadImage(event.avatar!);
+      await imageResult.fold(
+        (failure) {
+          emit(AuthenticationFail(error: failure.message));
+        },
+        (image) async {
+          Either<Failure, String> result = await _authRepository.register(
+            event.email,
+            event.password,
+            event.fullName,
+            image.id,
+          );
+          result.fold(
             (failure) {
               emit(AuthenticationFail(error: failure.message));
             },
-            (image) async {
-              Either<Failure, String> result = await _authRepository.register(
-                event.email,
-                event.password,
-                event.fullName,
-                image.id,
-              );
-              result.fold(
-                (failure) {
-                  emit(AuthenticationFail(error: failure.message));
-                },
-                (token) {
-                  emit(AuthenticationSuccess());
-                  AppBloc.applicationBloc.add(OnLoggedIn());
-                },
-              );
+            (token) {
+              emit(AuthenticationSuccess());
+              AppBloc.applicationBloc.add(OnLoggedIn());
             },
           );
-        }
-      },
-    );
+        },
+      );
+    }
+  }
 
-    on<LoginEvent>(
-      (event, emit) async {
-        emit(Authenticating());
-        Either<Failure, String> result =
-            await _authRepository.login(event.email, event.password);
-        result.fold(
-          (failue) {
-            emit(AuthenticationFail(error: failue.message));
-          },
-          (token) async {
-            emit(AuthenticationSuccess());
-            AppBloc.applicationBloc.add(OnLoggedIn());
-          },
-        );
-      },
-    );
-
-    on<ResetPasswordEvent>((event, emit) async {
-      emit(Authenticating());
-      Either<Failure, String> result =
-          await _authRepository.resetPassword(event.email, event.password);
-      result.fold((failue) {
+  _login(LoginEvent event, Emitter emit) async {
+    emit(Authenticating());
+    Either<Failure, String> result =
+        await _authRepository.login(event.email, event.password);
+    result.fold(
+      (failue) {
         emit(AuthenticationFail(error: failue.message));
-      }, (success) {
-        _navigator.pushNamedAndRemoveUntil(RouteConstants.login);
-        emit(AuthenticateInitial());
-      });
+      },
+      (token) async {
+        emit(AuthenticationSuccess());
+        AppBloc.applicationBloc.add(OnLoggedIn());
+      },
+    );
+  }
+
+  _resetPassword(ResetPasswordEvent event, Emitter emit) async {
+    emit(Authenticating());
+    Either<Failure, String> result =
+        await _authRepository.resetPassword(event.email, event.password);
+    result.fold((failue) {
+      emit(AuthenticationFail(error: failue.message));
+    }, (success) {
+      _navigator.pushNamedAndRemoveUntil(RouteConstants.login);
+      emit(AuthenticateInitial());
     });
+  }
 
-    on<RefreshTokenEvent>(
-      (event, emit) async {
-        Either<Failure, User> result = await _authRepository.refreshToken();
-        await result.fold((failure) async {
-          debugPrint(failure.message);
-          await _authRepository.logout();
-          AppBloc.applicationBloc.add(OnLoggedOut());
-          emit(AuthenticateInitial());
-        }, (user) {
-          return;
-        });
-      },
-    );
+  _refreshToken(RefreshTokenEvent event, Emitter emit) async {
+    Either<Failure, User> result = await _authRepository.refreshToken();
+    await result.fold((failure) async {
+      debugPrint(failure.message);
+      await _authRepository.logout();
+      AppBloc.applicationBloc.add(OnLoggedOut());
+      emit(AuthenticateInitial());
+    }, (user) {
+      return;
+    });
+  }
 
-    on<LogoutEvent>(
-      (event, emit) async {
-        emit(Authenticating());
-        await _authRepository.logout();
-        AppBloc.cleanBloc();
-        AppBloc.applicationBloc.add(OnLoggedOut());
-        emit(AuthenticateInitial());
-      },
-    );
+  _logout(LogoutEvent event, Emitter emit) async {
+    emit(Authenticating());
+    await _authRepository.logout();
+    AppBloc.cleanBloc();
+    AppBloc.applicationBloc.add(OnLoggedOut());
+    emit(AuthenticateInitial());
   }
 
   final AuthRepository _authRepository;

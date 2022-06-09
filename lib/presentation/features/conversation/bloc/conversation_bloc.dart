@@ -12,27 +12,31 @@ part 'conversation_state.dart';
 
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc(this.chatRepository) : super(ConversationInitial()) {
-    on<FetchMessage>((event, emit) async {
-      Either<Failure, List<Message>> result =
-          await chatRepository.getMessagesByConversation(event.conversationId);
-      result.fold((failue) {
-        emit(ConversationFailure());
-      }, (dataMessages) {
-        messages.addAll(dataMessages);
-        emit(ConversationLoaded(messages: messages));
-      });
-    });
+    on<FetchMessage>(_fetchMessages);
+    on<ReceiveNewMessage>(_receiveNewMessage);
+    on<SendMessage>(_sendMessage);
+  }
 
-    on<ReceiveNewMessage>((event, emit) {
-      emit(ConversationLoading());
-      messages.add(event.message);
+  _fetchMessages(FetchMessage event, Emitter emit) async {
+    Either<Failure, List<Message>> result =
+        await chatRepository.getMessagesByConversation(event.conversationId);
+    result.fold((failue) {
+      emit(ConversationFailure());
+    }, (dataMessages) {
+      messages.addAll(dataMessages);
       emit(ConversationLoaded(messages: messages));
     });
+  }
 
-    on<SendMessage>((event, emit) {
-      SocketEmit().sendMessage(
-          conversationId: event.conversationId, content: event.content);
-    });
+  _receiveNewMessage(ReceiveNewMessage event, Emitter emit) {
+    emit(ConversationLoading());
+    messages.add(event.message);
+    emit(ConversationLoaded(messages: messages));
+  }
+
+  _sendMessage(SendMessage event, Emitter emit) {
+    SocketEmit().sendMessage(
+        conversationId: event.conversationId, content: event.content);
   }
 
   List<Message> messages = [];
