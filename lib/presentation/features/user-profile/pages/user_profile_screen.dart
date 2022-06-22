@@ -120,12 +120,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           body: MediaQuery.removePadding(
             context: context,
             removeTop: true,
-            child: TabBarView(
+            child: const TabBarView(
               children: [
-                const GroupScreen(),
-                BlogScreen(
-                  onTapAdd: () {},
-                ),
+                GroupScreen(),
+                BlogScreen(),
               ],
             ),
           ),

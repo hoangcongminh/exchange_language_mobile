@@ -4,8 +4,7 @@ import 'package:sizer/sizer.dart';
 import '../widgets/blog_item.dart';
 
 class BlogScreen extends StatefulWidget {
-  final VoidCallback onTapAdd;
-  const BlogScreen({Key? key, required this.onTapAdd}) : super(key: key);
+  const BlogScreen({Key? key}) : super(key: key);
 
   @override
   State<BlogScreen> createState() => _BlogScreenState();
@@ -40,11 +39,6 @@ class _BlogScreenState extends State<BlogScreen> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: widget.onTapAdd,
-        child: const Icon(Icons.add),
       ),
     );
   }

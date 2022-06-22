@@ -1,7 +1,7 @@
-import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../common/constants/constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../group/pages/group_screen.dart';
@@ -14,34 +14,51 @@ class DiscoverScreen extends StatefulWidget {
   State<DiscoverScreen> createState() => _DiscoverScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> {
+class _DiscoverScreenState extends State<DiscoverScreen>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2, initialIndex: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(l10n.notification),
-          bottom: const ColoredTabBar(
-            color: Colors.white,
-            tabBar: TabBar(
-              tabs: [
-                Tab(text: 'Group'),
-                Tab(text: 'Blog'),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.notification),
+        bottom: ColoredTabBar(
+          color: Colors.white,
+          tabBar: TabBar(
+            controller: _tabController,
+            tabs: const [
+              Tab(text: 'Group'),
+              Tab(text: 'Blog'),
+            ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            const GroupScreen(),
-            BlogScreen(
-              onTapAdd: () => AppNavigator().push(RouteConstants.createBlog),
-            ),
-          ],
-        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          GroupScreen(),
+          BlogScreen(),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: () {
+          if (_tabController.index == 0) {
+            AppNavigator().push(RouteConstants.createGroup);
+          } else if (_tabController.index == 1) {
+            AppNavigator().push(RouteConstants.createBlog);
+          }
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

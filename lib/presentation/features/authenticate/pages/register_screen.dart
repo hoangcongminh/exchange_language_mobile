@@ -10,7 +10,7 @@ import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../bloc/authenticate_bloc.dart';
 import '../widgets/auth_button_widget.dart';
-import '../widgets/textfield_widget.dart';
+import '../../../widgets/textfield_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   final String email;

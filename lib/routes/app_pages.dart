@@ -12,6 +12,7 @@ import '../presentation/features/blog/pages/create_blog_screen.dart';
 import '../presentation/features/conversation/pages/conversation_screen.dart';
 import '../presentation/features/dashboard/pages/dashboard_screen.dart';
 import '../presentation/features/filter/pages/result_screen.dart';
+import '../presentation/features/group/pages/create_group_screen.dart';
 import '../presentation/features/group/pages/group_detail.dart';
 import '../presentation/features/setting/setting_screen.dart';
 import '../presentation/features/verification/pages/input_email_screen.dart';
@@ -92,6 +93,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const GroupDetail(),
+        );
+      case RouteConstants.createGroup:
+        return _buildRoute(
+          settings,
+          const CreateGroupScreen(),
         );
       case RouteConstants.blogDetail:
         return _buildRoute(

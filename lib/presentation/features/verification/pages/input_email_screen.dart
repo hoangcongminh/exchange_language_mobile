@@ -8,7 +8,7 @@ import '../../../common/app_bloc.dart';
 import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../authenticate/widgets/auth_button_widget.dart';
-import '../../authenticate/widgets/textfield_widget.dart';
+import '../../../widgets/textfield_widget.dart';
 import '../bloc/verification_bloc.dart';
 
 class InputEmailScreen extends StatefulWidget {
