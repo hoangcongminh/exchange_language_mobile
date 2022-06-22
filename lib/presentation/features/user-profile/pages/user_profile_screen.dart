@@ -10,10 +10,11 @@ import '../../../theme/user_profile_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../discover/widgets/colored_tabbar.dart';
-import '../../group/group_screen.dart';
+import '../../group/pages/group_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key}) : super(key: key);
+  final User? user;
+  const UserProfileScreen({Key? key, this.user}) : super(key: key);
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -23,7 +24,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    User? user = UserLocal().getUser();
+    User? user = widget.user ?? UserLocal().getUser();
 
     return Scaffold(
       body: DefaultTabController(

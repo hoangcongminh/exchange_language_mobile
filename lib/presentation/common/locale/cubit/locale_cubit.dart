@@ -7,7 +7,7 @@ part 'locale_state.dart';
 
 class LocaleCubit extends Cubit<LocaleState> {
   LocaleCubit() : super(SelectedLocale(Locale(ui.window.locale.languageCode)));
-  String language = 'Vietnamese';
+  String language = Locale(ui.window.locale.languageCode).toString();
 
   void toEnglish() {
     language = 'English';

@@ -13,6 +13,10 @@ ThemeData defaultTheme() {
         color: Color(0xffFDFDFD),
       ),
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      elevation: 0,
+      backgroundColor: AppColors.primaryColor,
+    ),
     scaffoldBackgroundColor: AppColors.scaffoldBackground,
     primaryColor: AppColors.primaryColor,
     visualDensity: VisualDensity.adaptivePlatformDensity,

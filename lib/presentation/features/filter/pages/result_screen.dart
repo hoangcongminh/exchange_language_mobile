@@ -38,31 +38,34 @@ class _ResultScreenState extends State<ResultScreen> {
                   },
                 );
               }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 10.h),
-                  Image.asset(
-                    'assets/images/no_data.jpg',
-                    width: 30.w,
-                    height: 70.w,
-                  ),
-                  SizedBox(height: 20.sp),
-                  Text(
-                    'User not found...',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(fontWeight: FontWeight.w800, fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                  const Spacer(),
-                  AppButtonWidget(
-                      label: 'Search again',
-                      onPressed: () {
-                        AppNavigator().pop();
-                      })
-                ],
+              return Padding(
+                padding: EdgeInsets.only(bottom: 1.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 10.h),
+                    Image.asset(
+                      'assets/images/no_data.jpg',
+                      width: 30.w,
+                      height: 70.w,
+                    ),
+                    SizedBox(height: 20.sp),
+                    Text(
+                      'User not found...',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.w800, fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Spacer(),
+                    AppButtonWidget(
+                        label: 'Search again',
+                        onPressed: () {
+                          AppNavigator().pop();
+                        })
+                  ],
+                ),
               );
             },
           ),

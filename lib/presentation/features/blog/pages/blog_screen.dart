@@ -25,7 +25,7 @@ class _BlogScreenState extends State<BlogScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
-                  return Chip(
+                  return const Chip(
                     label: Text('English'),
                   );
                 },

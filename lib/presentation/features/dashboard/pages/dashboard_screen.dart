@@ -29,11 +29,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     debugPrint('DashboardScreen initState');
   }
 
-  final List<Widget> _tabs = const [
-    ChatScreen(),
-    NotificationScreen(),
-    DiscoverScreen(),
-    UserProfileScreen(),
+  final List<Widget> _tabs = [
+    const ChatScreen(),
+    const NotificationScreen(),
+    const DiscoverScreen(),
+    const UserProfileScreen(),
   ];
 
   @override
@@ -41,8 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         key: const Key('homeFab'),
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const FilterScreen()));

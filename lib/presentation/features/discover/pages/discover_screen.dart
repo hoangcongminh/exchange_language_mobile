@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../blog/pages/blog_screen.dart';
-import '../../group/group_screen.dart';
+import '../../group/pages/group_screen.dart';
 import '../widgets/colored_tabbar.dart';
 
 class DiscoverScreen extends StatefulWidget {

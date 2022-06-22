@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'widget/group_item.dart';
+import '../../../../common/constants/constants.dart';
+import '../../../../routes/app_pages.dart';
+import '../widget/group_item.dart';
 
 class GroupScreen extends StatefulWidget {
   const GroupScreen({Key? key}) : super(key: key);
@@ -19,7 +21,10 @@ class _GroupScreenState extends State<GroupScreen> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemBuilder: (context, index) => const GroupItem(),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => AppNavigator().push(RouteConstants.groupDetail),
+                child: const GroupItem(),
+              ),
               itemCount: 10,
             ),
           ),

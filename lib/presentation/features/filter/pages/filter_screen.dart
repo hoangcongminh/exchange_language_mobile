@@ -143,14 +143,15 @@ class _FilterScreenState extends State<FilterScreen> {
                               ),
                               const Spacer(),
                               AppButtonWidget(
-                                  label: 'Search',
-                                  onPressed: () {
-                                    AppBloc.filterBloc.add(SearchUserEvent(
-                                      type == FilterScreenType.teacher ? 1 : 2,
-                                      speaking,
-                                      learning,
-                                    ));
-                                  }),
+                                label: 'Search',
+                                onPressed: () {
+                                  AppBloc.filterBloc.add(SearchUserEvent(
+                                    type == FilterScreenType.teacher ? 1 : 2,
+                                    speaking,
+                                    learning,
+                                  ));
+                                },
+                              ),
                             ],
                           ),
                         ),
