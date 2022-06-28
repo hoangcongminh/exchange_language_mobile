@@ -42,8 +42,8 @@ ThemeData defaultTheme() {
       labelColor: AppColors.primaryColor,
       unselectedLabelColor: Colors.black,
     ),
-    textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: AppColors.primaryColor)),
+    textButtonTheme:
+        TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.black)),
     cardTheme: CardTheme(
       elevation: 2,
       shape: RoundedRectangleBorder(
