@@ -30,14 +30,15 @@ class _DiscoverScreenState extends State<DiscoverScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.notification),
+        title: Text(l10n.discover),
         bottom: ColoredTabBar(
           color: Colors.white,
           tabBar: TabBar(
+            unselectedLabelColor: Colors.grey,
             controller: _tabController,
-            tabs: const [
-              Tab(text: 'Group'),
-              Tab(text: 'Blog'),
+            tabs: [
+              Tab(text: l10n.group),
+              Tab(text: l10n.blog),
             ],
           ),
         ),

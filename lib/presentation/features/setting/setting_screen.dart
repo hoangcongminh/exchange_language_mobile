@@ -13,7 +13,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String currentLanguage = AppBloc.localeCubit.language;
+  String currentLanguage = AppBloc.localeCubit.state.toString();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +27,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   leading: const Icon(Icons.language),
                   value: Text(currentLanguage),
                   onPressed: (context) {
-                    AppBloc.localeCubit.language == "Vietnamese"
-                        ? AppBloc.localeCubit.toEnglish()
-                        : AppBloc.localeCubit.toVietnamese();
+                    AppBloc.localeCubit.switchLanguage();
                     AppNavigator().pop();
                   },
                 ),

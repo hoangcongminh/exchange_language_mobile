@@ -16,5 +16,8 @@
     "chat": "Tin nhắn",
     "notification": "Thông báo",
     "discover": "Khám phá",
-    "profile": "Hồ sơ"
+    "profile": "Hồ sơ",
+
+    "group": "Nhóm",
+    "blog": "Bài viết"
 }

@@ -21,8 +21,11 @@ class CreateGroupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text('Name of the group'),
+              const SizedBox(height: 8),
               const TextfieldWidget(),
+              const SizedBox(height: 16),
               const Text('Description'),
+              const SizedBox(height: 8),
               const TextfieldWidget(),
               const Spacer(),
               AppButtonWidget(label: 'Create group', onPressed: () {}),

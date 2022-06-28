@@ -104,12 +104,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     ),
                   ),
                   SizedBox(height: 8.sp),
-                  const ColoredTabBar(
+                  ColoredTabBar(
                     color: Colors.white,
                     tabBar: TabBar(
+                      unselectedLabelColor: Colors.grey,
                       tabs: [
-                        Tab(text: 'Group'),
-                        Tab(text: 'Blog'),
+                        Tab(text: l10n.group),
+                        Tab(text: l10n.blog),
                       ],
                     ),
                   ),

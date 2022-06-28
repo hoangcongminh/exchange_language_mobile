@@ -67,5 +67,13 @@
     "profile": "User profile",
     "@profile": {
       "description": "profile"
+    },
+    "group": "Group",
+    "@profile": {
+      "description": "group"
+    },
+    "blog": "Blog",
+    "@profile": {
+      "description": "blog"
     }
 }

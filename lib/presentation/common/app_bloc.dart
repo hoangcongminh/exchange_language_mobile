@@ -27,11 +27,11 @@ class AppBloc {
       FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
 
   static final List<BlocProvider> providers = [
-    BlocProvider<LocaleCubit>(
-      create: (context) => localeCubit,
-    ),
     BlocProvider<ApplicationBloc>(
       create: (context) => applicationBloc,
+    ),
+    BlocProvider<LocaleCubit>(
+      create: (context) => localeCubit,
     ),
     BlocProvider<AuthenticateBloc>(
       create: (context) => authenticateBloc,

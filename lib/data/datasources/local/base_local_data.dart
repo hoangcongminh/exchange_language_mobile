@@ -8,5 +8,6 @@ class BaseLocalData {
     var path = await PathHelper.appDir;
     Hive.init(path.path);
     await Hive.openBox(StorageKey.BOX_USER);
+    await Hive.openBox(StorageKey.BOX_LOCALE);
   }
 }

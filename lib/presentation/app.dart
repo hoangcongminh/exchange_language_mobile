@@ -35,8 +35,8 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: AppBloc.providers,
-      child: BlocBuilder<LocaleCubit, LocaleState>(
-        builder: (context, localeState) {
+      child: BlocBuilder<LocaleCubit, Locale?>(
+        builder: (context, locale) {
           return BlocBuilder<ApplicationBloc, ApplicationState>(
             buildWhen: (previous, current) => previous != current,
             builder: (context, state) {
@@ -69,7 +69,7 @@ class _ApplicationState extends State<Application> {
                       Locale('en', ''), // English, no country code
                       Locale('vi', ''), // Spanish, no country code
                     ],
-                    locale: localeState.locale,
+                    locale: locale,
                     onGenerateRoute: (settings) =>
                         AppNavigator().getRoute(settings),
                     navigatorObservers: [

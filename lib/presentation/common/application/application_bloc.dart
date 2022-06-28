@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:exchange_language_mobile/common/constants/route_constants.dart';
+import 'package:exchange_language_mobile/presentation/common/locale/cubit/locale_cubit.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/configs/application.dart';
 import '../../../data/datasources/local/user_local_data.dart';
 
 part 'application_event.dart';
@@ -13,7 +13,6 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   ApplicationBloc() : super(InitialApplicationState()) {
     on<OnSetupApplication>((event, emit) async {
       emit(ApplicationStart());
-      await Application().initialApplication();
       // Check Login
       bool isLogin = _onAuthCheck();
       if (isLogin) {
