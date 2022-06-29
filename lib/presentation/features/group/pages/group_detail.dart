@@ -55,10 +55,11 @@ class GroupDetail extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   key: const Key('groupDetailFab'),
+      //   onPressed: () => {},
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }

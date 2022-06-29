@@ -34,7 +34,6 @@ dependencies:
   flutter_image_compress: ^1.1.0
   settings_ui: ^2.0.2
   flutter_spinkit: ^5.1.0
-  flutter_chat_ui: ^1.5.8
   translator: ^0.1.7
 
 dev_dependencies:

@@ -43,7 +43,7 @@ class PostItem extends StatelessWidget {
           ),
           TextTap(
             text:
-                'Hi guys! I have been doing tandem language exchange quite a few times during the last years here in Berlin. While i do agree that this is a really good way to practise a language it can also be very hard to come up with good plans on how to organize the meetings. So i\'d like to ask do you have any favourite topics, games and just general tips for making exchange more fun and rewarding?',
+                'Hi guys! \nI have been doing tandem language exchange quite a few times during the last years here in Berlin. While i do agree that this is a really good way to practise a language it can also be very hard to come up with good plans on how to organize the meetings. So i\'d like to ask do you have any favourite topics, games and just general tips for making exchange more fun and rewarding?',
             textStyle: postContent,
             textStyleSelect: const TextStyle(
               color: Colors.red,

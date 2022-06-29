@@ -50,17 +50,18 @@ class _DiscoverScreenState extends State<DiscoverScreen>
           BlogScreen(),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          if (_tabController.index == 0) {
-            AppNavigator().push(RouteConstants.createGroup);
-          } else if (_tabController.index == 1) {
-            AppNavigator().push(RouteConstants.createBlog);
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   key: const Key('discoverFab'),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      //   onPressed: () {
+      //     if (_tabController.index == 0) {
+      //       AppNavigator().push(RouteConstants.createGroup);
+      //     } else if (_tabController.index == 1) {
+      //       AppNavigator().push(RouteConstants.createBlog);
+      //     }
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }

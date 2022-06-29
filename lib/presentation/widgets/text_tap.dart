@@ -56,10 +56,6 @@ class TextTap extends StatelessWidget {
     final emojiRegExp1 = RegExp(
         r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])');
     text = text.replaceAllMapped(emojiRegExp1, (match) => ' ${match.group(1)}');
-    //
-
-    //
-    text = text.replaceAll('\n', 'nnn ');
 
     final List<String> lstText =
         text.split(' ').map((String text) => text).toList();
@@ -68,49 +64,30 @@ class TextTap extends StatelessWidget {
       stream: _streamSelectSub.stream,
       builder: (context, snapshot) {
         final List<TextSpan> listText = [];
+
         for (int i = 0; i < lstText.length; i++) {
           final hash = hashValues(text, i, key.hashCode);
+
           String textIndex = lstText[i];
-          if (textIndex.contains('nnn')) {
-            textIndex = textIndex.replaceAll('nnn', '');
-            listText.addAll([
-              TextSpan(
-                text: textIndex,
-                style: _list.contains(hash) ? textStyleSelect : textStyle,
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    if (_list.contains(hash) == false) {
-                      _list.add(hash);
-                    }
-                    if (_list.isNotEmpty) {
-                      _streamSelectSub.sink.add(_list);
-                    }
 
-                    selectText(textIndex);
-                  },
-              ),
-              TextSpan(text: '\n')
-            ]);
-          } else {
-            listText.addAll([
-              TextSpan(
-                text: textIndex,
-                style: _list.contains(hash) ? textStyleSelect : textStyle,
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    if (_list.contains(hash) == false) {
-                      _list.add(hash);
-                    }
-                    if (_list.isNotEmpty) {
-                      _streamSelectSub.sink.add(_list);
-                    }
+          listText.addAll([
+            TextSpan(
+              text: textIndex,
+              style: _list.contains(hash) ? textStyleSelect : textStyle,
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  if (_list.contains(hash) == false) {
+                    _list.add(hash);
+                  }
+                  if (_list.isNotEmpty) {
+                    _streamSelectSub.sink.add(_list);
+                  }
 
-                    selectText(textIndex);
-                  },
-              ),
-              TextSpan(text: ' ')
-            ]);
-          }
+                  selectText(textIndex);
+                },
+            ),
+            const TextSpan(text: ' ')
+          ]);
         }
 
         return SelectableText.rich(
