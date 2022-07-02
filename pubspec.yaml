@@ -44,6 +44,12 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.1.5
   retrofit_generator: ^4.0.1
+  flutter_launcher_icons: "^0.9.2"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/ic_launcher.png"
 
 flutter:
   uses-material-design: true
@@ -52,6 +58,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icons/
     - assets/
   # fonts:
   #   - family: Schyler

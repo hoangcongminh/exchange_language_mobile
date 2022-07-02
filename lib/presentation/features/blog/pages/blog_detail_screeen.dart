@@ -7,6 +7,7 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:translator/translator.dart';
 
 import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 
@@ -40,6 +41,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                 textSelections.baseOffset,
                 textSelections.extentOffset - textSelections.baseOffset);
             if (textSelections.baseOffset == textSelections.extentOffset) {
+              return;
+            } else if (text == " ") {
               return;
             } else {
               final translator = GoogleTranslator();
@@ -126,6 +129,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
             autoFocus: true,
             readOnly: true,
             expands: false,
+            locale: AppBloc.localeCubit.state,
           ),
         ),
       ),
