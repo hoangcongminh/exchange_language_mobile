@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
+import '../../../../routes/app_pages.dart';
 import '../widgets/blog_item.dart';
 
 class BlogScreen extends StatefulWidget {
@@ -33,7 +35,9 @@ class _BlogScreenState extends State<BlogScreen> {
             Expanded(
               flex: 8,
               child: ListView.builder(
-                itemBuilder: (context, index) => const BlogItem(),
+                itemBuilder: (context, index) => BlogItem(
+                  onTap: () => AppNavigator().push(RouteConstants.blogDetail),
+                ),
                 itemCount: 10,
               ),
             ),

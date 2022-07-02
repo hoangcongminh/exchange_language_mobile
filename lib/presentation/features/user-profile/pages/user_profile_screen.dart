@@ -24,6 +24,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    bool isMe = widget.user == null;
     User? user = widget.user ?? UserLocal().getUser();
 
     return Scaffold(
@@ -35,10 +36,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SliverAppBar(
               title: Text(user?.fullname ?? l10n.profile),
               actions: [
-                IconButton(
-                  icon: const Icon(Icons.settings),
-                  onPressed: () => AppNavigator().push(RouteConstants.setting),
-                ),
+                isMe
+                    ? IconButton(
+                        icon: const Icon(Icons.settings),
+                        onPressed: () =>
+                            AppNavigator().push(RouteConstants.setting),
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
             SliverToBoxAdapter(
