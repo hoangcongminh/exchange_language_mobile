@@ -1,5 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:sizer/sizer.dart';
+
+import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/custom_image_picker.dart';
 
 class CreateBlogScreen extends StatefulWidget {
   const CreateBlogScreen({Key? key}) : super(key: key);
@@ -9,13 +15,15 @@ class CreateBlogScreen extends StatefulWidget {
 }
 
 class _CreateBlogScreenState extends State<CreateBlogScreen> {
+  File? _imagePicked;
   quill.QuillController? _controller;
+  final TextEditingController _titleController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    final doc = quill.Document()..insert(0, 'Enter content');
+    final doc = quill.Document()..insert(0, 'Share your though');
     setState(() {
       _controller = quill.QuillController(
         document: doc,
@@ -47,33 +55,63 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
       body: RawKeyboardListener(
         focusNode: FocusNode(),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.sp),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 50.sp,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          CustomImagePicker().openImagePicker(
+                              context: context,
+                              handleFinish: (file) {
+                                setState(() {
+                                  _imagePicked = file;
+                                });
+                              });
+                        },
+                        child: const AvatarWidget(height: 60, width: 60),
+                      ),
+                      SizedBox(
+                        width: 4.sp,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          autofocus: true,
+                          controller: _titleController,
+                          decoration: const InputDecoration(
+                            hintText: 'Add a title',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
                   child: quill.QuillEditor(
                     controller: _controller!,
                     focusNode: _focusNode,
                     scrollController: ScrollController(),
                     scrollable: true,
                     padding: EdgeInsets.zero,
-                    autoFocus: true,
+                    autoFocus: false,
                     readOnly: false,
                     expands: false,
                     locale: const Locale('vi'),
                     showCursor: true,
                   ),
                 ),
-              ),
-              quill.QuillToolbar.basic(
-                controller: _controller!,
-                showAlignmentButtons: true,
-                showVideoButton: false,
-              ),
-            ],
+                quill.QuillToolbar.basic(
+                  controller: _controller!,
+                  showAlignmentButtons: true,
+                  showVideoButton: false,
+                ),
+              ],
+            ),
           ),
         ),
       ),

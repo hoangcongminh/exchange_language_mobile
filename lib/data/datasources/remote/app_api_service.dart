@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/blog_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/filter_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/language_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/media_rest_client.dart';
@@ -21,6 +22,8 @@ class AppApiService {
       FilterRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final ChatRestCient chatRestCient =
       ChatRestCient(dio, baseUrl: AppConstants.baseUrl);
+  late final BlogRestClient blogRestClient =
+      BlogRestClient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 
