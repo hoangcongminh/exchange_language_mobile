@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
 
-import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/custom_image_picker.dart';
 
 class CreateBlogScreen extends StatefulWidget {
@@ -74,7 +73,29 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                                 });
                               });
                         },
-                        child: const AvatarWidget(height: 60, width: 60),
+                        child: _imagePicked != null
+                            ? Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  image: _imagePicked == null
+                                      ? null
+                                      : DecorationImage(
+                                          image: FileImage(_imagePicked!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              )
+                            : const SizedBox(
+                                width: 60,
+                                height: 60,
+                                child: Icon(
+                                  Icons.image,
+                                  size: 60,
+                                  color: Colors.grey,
+                                ),
+                              ),
                       ),
                       SizedBox(
                         width: 4.sp,

@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/widgets/app_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,11 +14,7 @@ class BlogItem extends StatelessWidget {
         onTap: onTap,
         child: Row(
           children: [
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.red,
-            ),
+            const AppImageWidget(height: 100, width: 100),
             SizedBox(width: 10.sp),
             Expanded(
               child: Column(
