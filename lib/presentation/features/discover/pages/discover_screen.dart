@@ -52,6 +52,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       ),
       floatingActionButton: FloatingActionButton(
         key: const Key('discoverFab'),
+        heroTag: 'discoverFab',
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           if (_tabController.index == 0) {

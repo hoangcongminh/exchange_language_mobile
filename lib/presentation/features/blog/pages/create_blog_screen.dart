@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
 
-import '../../../widgets/custom_image_picker.dart';
+import '../../../theme/blog_style.dart';
+import '../../../widgets/pick_image_widget.dart';
 
 class CreateBlogScreen extends StatefulWidget {
   const CreateBlogScreen({Key? key}) : super(key: key);
@@ -63,39 +64,12 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   height: 50.sp,
                   child: Row(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          CustomImagePicker().openImagePicker(
-                              context: context,
-                              handleFinish: (file) {
-                                setState(() {
-                                  _imagePicked = file;
-                                });
-                              });
+                      PickImageWidget(
+                        onImagePicked: (file) {
+                          setState(() {
+                            _imagePicked = file;
+                          });
                         },
-                        child: _imagePicked != null
-                            ? Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  image: _imagePicked == null
-                                      ? null
-                                      : DecorationImage(
-                                          image: FileImage(_imagePicked!),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              )
-                            : const SizedBox(
-                                width: 60,
-                                height: 60,
-                                child: Icon(
-                                  Icons.image,
-                                  size: 60,
-                                  color: Colors.grey,
-                                ),
-                              ),
                       ),
                       SizedBox(
                         width: 4.sp,
@@ -104,8 +78,10 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                         child: TextFormField(
                           autofocus: true,
                           controller: _titleController,
+                          style: createBlogTitle,
                           decoration: const InputDecoration(
                             hintText: 'Add a title',
+                            hintStyle: createBlogTitleHint,
                           ),
                         ),
                       ),

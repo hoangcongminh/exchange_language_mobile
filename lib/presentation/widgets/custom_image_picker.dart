@@ -110,8 +110,8 @@ class CustomImagePickerItem extends StatelessWidget {
               await getImage(context: AppNavigator().context, source: source);
           showDialogLoading();
           if (image != null) {
-            File? compressedImage =
-                await PhotoHelper().compressImage(image.path);
+            File? compressedImage = await PhotoHelper()
+                .compressImage(File(image.path).absolute.path);
             handleFinish?.call(compressedImage);
             AppNavigator().pop();
           } else {
