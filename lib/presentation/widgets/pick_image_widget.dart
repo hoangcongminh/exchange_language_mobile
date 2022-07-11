@@ -6,8 +6,16 @@ import 'custom_image_picker.dart';
 
 class PickImageWidget extends StatefulWidget {
   final Function(File) onImagePicked;
-  const PickImageWidget({Key? key, required this.onImagePicked})
-      : super(key: key);
+  final double size;
+  final IconData icon;
+  final BoxShape shape;
+  const PickImageWidget({
+    Key? key,
+    required this.onImagePicked,
+    required this.size,
+    required this.icon,
+    required this.shape,
+  }) : super(key: key);
 
   @override
   State<PickImageWidget> createState() => _PickImageWidgetState();
@@ -32,10 +40,10 @@ class _PickImageWidgetState extends State<PickImageWidget> {
           ? Stack(
               children: [
                 Container(
-                  width: 60,
-                  height: 60,
+                  width: widget.size,
+                  height: widget.size,
                   decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
+                    shape: widget.shape,
                     image: _imagePicked == null
                         ? null
                         : DecorationImage(
@@ -46,12 +54,12 @@ class _PickImageWidgetState extends State<PickImageWidget> {
                 ),
               ],
             )
-          : const SizedBox(
-              width: 60,
-              height: 60,
+          : SizedBox(
+              width: widget.size,
+              height: widget.size,
               child: Icon(
-                Icons.image,
-                size: 60,
+                widget.icon,
+                size: widget.size,
                 color: Colors.grey,
               ),
             ),

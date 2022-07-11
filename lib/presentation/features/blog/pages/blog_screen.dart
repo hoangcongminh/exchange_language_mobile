@@ -26,8 +26,11 @@ class _BlogScreenState extends State<BlogScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
-                  return const Chip(
-                    label: Text('English'),
+                  return Padding(
+                    padding: EdgeInsets.only(right: 8.sp),
+                    child: const Chip(
+                      label: Text('English'),
+                    ),
                   );
                 },
               ),

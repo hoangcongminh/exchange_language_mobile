@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppButtonWidget extends StatelessWidget {
-  final String label;
+  final Widget label;
   final VoidCallback onPressed;
   final double? width;
   final Color? color;
@@ -23,7 +23,7 @@ class AppButtonWidget extends StatelessWidget {
         shape: shape,
       ),
       onPressed: onPressed,
-      child: Text(label),
+      child: label,
     );
   }
 }

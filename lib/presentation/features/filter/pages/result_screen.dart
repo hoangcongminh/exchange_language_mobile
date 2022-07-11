@@ -60,7 +60,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     const Spacer(),
                     AppButtonWidget(
-                        label: 'Search again',
+                        label: const Text('Search again'),
                         onPressed: () {
                           AppNavigator().pop();
                         })

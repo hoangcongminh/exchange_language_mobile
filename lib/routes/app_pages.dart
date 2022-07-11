@@ -1,6 +1,3 @@
-import 'package:exchange_language_mobile/presentation/features/blog/pages/blog_detail_screeen.dart';
-import 'package:exchange_language_mobile/presentation/features/filter/pages/select_language_screen.dart';
-import 'package:exchange_language_mobile/presentation/features/user-profile/pages/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/constants/constants.dart';
@@ -8,13 +5,17 @@ import '../presentation/app.dart';
 import '../presentation/features/authenticate/pages/forgot_password_screen.dart';
 import '../presentation/features/authenticate/pages/login_screen.dart';
 import '../presentation/features/authenticate/pages/register_screen.dart';
+import '../presentation/features/blog/pages/blog_detail_screeen.dart';
 import '../presentation/features/blog/pages/create_blog_screen.dart';
 import '../presentation/features/conversation/pages/conversation_screen.dart';
 import '../presentation/features/dashboard/pages/dashboard_screen.dart';
 import '../presentation/features/filter/pages/result_screen.dart';
+import '../presentation/features/filter/pages/select_language_screen.dart';
 import '../presentation/features/group/pages/create_group_screen.dart';
 import '../presentation/features/group/pages/group_detail.dart';
+import '../presentation/features/group/pages/post_detail_screen.dart';
 import '../presentation/features/setting/setting_screen.dart';
+import '../presentation/features/user-profile/pages/user_profile_screen.dart';
 import '../presentation/features/verification/pages/input_email_screen.dart';
 import '../presentation/features/verification/pages/verification_screen.dart';
 import 'app_navigator_observer.dart';
@@ -93,6 +94,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const GroupDetail(),
+        );
+      case RouteConstants.postDetail:
+        return _buildRoute(
+          settings,
+          const PostDetailScreen(),
         );
       case RouteConstants.createGroup:
         return _buildRoute(

@@ -56,7 +56,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         focusNode: FocusNode(),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.sp),
+            padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,6 +65,9 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   child: Row(
                     children: [
                       PickImageWidget(
+                        size: 60,
+                        icon: Icons.image,
+                        shape: BoxShape.rectangle,
                         onImagePicked: (file) {
                           setState(() {
                             _imagePicked = file;
@@ -88,18 +91,28 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                     ],
                   ),
                 ),
+                SizedBox(height: 4.sp),
                 Expanded(
-                  child: quill.QuillEditor(
-                    controller: _controller!,
-                    focusNode: _focusNode,
-                    scrollController: ScrollController(),
-                    scrollable: true,
-                    padding: EdgeInsets.zero,
-                    autoFocus: false,
-                    readOnly: false,
-                    expands: false,
-                    locale: const Locale('vi'),
-                    showCursor: true,
+                  child: Container(
+                    padding: EdgeInsets.all(4.sp),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1.sp,
+                      ),
+                    ),
+                    child: quill.QuillEditor(
+                      controller: _controller!,
+                      focusNode: _focusNode,
+                      scrollController: ScrollController(),
+                      scrollable: true,
+                      padding: EdgeInsets.zero,
+                      autoFocus: false,
+                      readOnly: false,
+                      expands: false,
+                      locale: const Locale('vi'),
+                      showCursor: true,
+                    ),
                   ),
                 ),
                 quill.QuillToolbar.basic(

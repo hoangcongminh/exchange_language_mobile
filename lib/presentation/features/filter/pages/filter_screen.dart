@@ -104,7 +104,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                         color: type == FilterScreenType.student
                                             ? Theme.of(context).primaryColor
                                             : Colors.grey,
-                                        label: 'Student',
+                                        label: const Text('Student'),
                                         onPressed: () {
                                           setState(() {
                                             type = FilterScreenType.student;
@@ -118,7 +118,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                         color: type == FilterScreenType.teacher
                                             ? Theme.of(context).primaryColor
                                             : Colors.grey,
-                                        label: 'Teacher',
+                                        label: const Text('Teacher'),
                                         onPressed: () {
                                           setState(() {
                                             type = FilterScreenType.teacher;
@@ -143,7 +143,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               ),
                               const Spacer(),
                               AppButtonWidget(
-                                label: 'Search',
+                                label: const Text('Search'),
                                 onPressed: () {
                                   AppBloc.filterBloc.add(SearchUserEvent(
                                     type == FilterScreenType.teacher ? 1 : 2,

@@ -23,7 +23,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
-          return const NotificationItem();
+          return NotificationItem(
+            isSeen: index % 2 == 0 ? true : false,
+          );
         },
       ),
     );

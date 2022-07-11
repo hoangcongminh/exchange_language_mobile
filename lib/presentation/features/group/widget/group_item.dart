@@ -42,7 +42,7 @@ class GroupItem extends StatelessWidget {
                     const Text('4'),
                     const Spacer(),
                     AppButtonWidget(
-                      label: 'Join',
+                      label: const Text('Join'),
                       onPressed: () {},
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.sp),

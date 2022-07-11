@@ -100,7 +100,7 @@ class DefaultAvatar extends StatelessWidget {
       decoration: BoxDecoration(
         shape: shape,
         image: const DecorationImage(
-          image: AssetImage('assets/images/no_data.jpg'),
+          image: AssetImage('assets/images/avatar_placeholder.jpg'),
           fit: BoxFit.fitHeight,
         ),
       ),

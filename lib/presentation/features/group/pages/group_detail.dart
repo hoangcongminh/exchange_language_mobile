@@ -42,14 +42,22 @@ class GroupDetail extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.sp),
                             ),
                             onPressed: () {},
-                            label: 'Join',
+                            label: const Text('Join'),
                           ),
                         )
                       ],
                     ),
                   );
                 }
-                return const PostItem();
+                return Container(
+                  color: Colors.white,
+                  margin: EdgeInsets.only(top: 5.sp),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
+                  child: const PostItem(
+                    isPostDetail: false,
+                  ),
+                );
               },
             ),
           ),

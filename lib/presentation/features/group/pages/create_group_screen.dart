@@ -28,7 +28,10 @@ class CreateGroupScreen extends StatelessWidget {
               const SizedBox(height: 8),
               const TextfieldWidget(),
               const Spacer(),
-              AppButtonWidget(label: 'Create group', onPressed: () {}),
+              AppButtonWidget(
+                label: const Text('Create group'),
+                onPressed: () {},
+              ),
             ],
           ),
         ),
