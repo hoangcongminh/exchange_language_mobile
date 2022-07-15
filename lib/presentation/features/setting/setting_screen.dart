@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import '../../../common/constants/constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../common/app_bloc.dart';
 import '../authenticate/bloc/authenticate_bloc.dart';
+import '../update-profile-info/bloc/update_profile_info_bloc.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -34,7 +36,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 SettingsTile(
                   title: const Text('Update info'),
                   leading: const Icon(Icons.person),
-                  onPressed: (context) {},
+                  onPressed: (context) {
+                    AppBloc.updateProfileInfoBloc.add(FetchProfileInfoEvent());
+                    AppNavigator().push(RouteConstants.updateProfileInfo);
+                  },
                 ),
               ],
               // title: const Text('common'),

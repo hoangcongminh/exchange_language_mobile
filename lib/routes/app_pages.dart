@@ -15,6 +15,7 @@ import '../presentation/features/group/pages/create_group_screen.dart';
 import '../presentation/features/group/pages/group_detail.dart';
 import '../presentation/features/group/pages/post_detail_screen.dart';
 import '../presentation/features/setting/setting_screen.dart';
+import '../presentation/features/update-profile-info/pages/update_profile_info_screen.dart';
 import '../presentation/features/user-profile/pages/user_profile_screen.dart';
 import '../presentation/features/verification/pages/input_email_screen.dart';
 import '../presentation/features/verification/pages/verification_screen.dart';
@@ -126,6 +127,12 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
           UserProfileScreen(
             user: arguments?['user'],
           ),
+        );
+
+      case RouteConstants.updateProfileInfo:
+        return _buildRoute(
+          settings,
+          const UpdateProfileInfoScreen(),
         );
       case RouteConstants.setting:
         return _buildRoute(
