@@ -19,13 +19,13 @@ class BlogDetailScreen extends StatefulWidget {
 }
 
 class _BlogDetailScreenState extends State<BlogDetailScreen> {
-  quill.QuillController? _controller;
+  late quill.QuillController? _controller;
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
-    super.initState();
     _loadFromAssets();
+    super.initState();
   }
 
   Future<void> _loadFromAssets() async {

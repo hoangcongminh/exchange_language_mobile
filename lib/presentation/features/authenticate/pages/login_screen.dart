@@ -1,10 +1,10 @@
+import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/route_constants.dart';
-import '../../../../common/helpers/utils/validator_utils.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/error_dialog_widget.dart';
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Email is required';
-                                } else if (!ValidatorUtils.isEmail(value)) {
+                                } else if (!value.isEmail) {
                                   return 'Email is invalid';
                                 } else {
                                   return null;

@@ -16,20 +16,15 @@ class CreateBlogScreen extends StatefulWidget {
 
 class _CreateBlogScreenState extends State<CreateBlogScreen> {
   File? _imagePicked;
-  quill.QuillController? _controller;
+  final quill.QuillController _controller = quill.QuillController(
+      document: quill.Document()..insert(0, 'Share your though'),
+      selection: const TextSelection.collapsed(offset: 0));
   final TextEditingController _titleController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    final doc = quill.Document()..insert(0, 'Share your though');
-    setState(() {
-      _controller = quill.QuillController(
-        document: doc,
-        selection: const TextSelection.collapsed(offset: 0),
-      );
-    });
   }
 
   @override
@@ -39,15 +34,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         title: const Text('Create Blog'),
         actions: [
           IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                    title: const Text('Text'),
-                    content: Text(
-                        _controller!.document.toDelta().toJson().toString())),
-              );
-            },
+            onPressed: _onCreateBlog,
             icon: const Icon(Icons.check),
           ),
         ],
@@ -102,7 +89,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                       ),
                     ),
                     child: quill.QuillEditor(
-                      controller: _controller!,
+                      controller: _controller,
                       focusNode: _focusNode,
                       scrollController: ScrollController(),
                       scrollable: true,
@@ -116,7 +103,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   ),
                 ),
                 quill.QuillToolbar.basic(
-                  controller: _controller!,
+                  controller: _controller,
                   showAlignmentButtons: true,
                   showVideoButton: false,
                 ),
@@ -125,6 +112,22 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  _onCreateBlog() {
+    //TODO: implement create blog function
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: const Text('Text'),
+          content: Column(
+            children: [
+              Text(_titleController.text),
+              Text(_imagePicked?.path ?? ''),
+              Text(_controller.document.toDelta().toJson().toString()),
+            ],
+          )),
     );
   }
 }

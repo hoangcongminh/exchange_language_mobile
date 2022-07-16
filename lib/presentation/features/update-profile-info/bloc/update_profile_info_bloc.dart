@@ -18,7 +18,6 @@ class UpdateProfileInfoBloc
 
   onFetchProfileInfo(
       FetchProfileInfoEvent event, Emitter<UpdateProfileInfoState> emit) {
-    print('run');
     emit(LoadingUpdateProfileInfo());
     final user = UserLocal().getUser();
     emit(LoadedUpdateProfileInfo(user!));
