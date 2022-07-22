@@ -86,8 +86,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     ],
                   ),
                   SizedBox(height: 8.sp),
-                  const Text(
-                    '“ Lorem Ipsum is simply dummy text“',
+                  Text(
+                    user?.introduction ?? '',
                     style: userIntroduction,
                   ),
                   SizedBox(height: 20.sp),

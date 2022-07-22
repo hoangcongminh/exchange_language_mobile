@@ -5,7 +5,12 @@ import '../../../theme/chat_style.dart';
 
 class ConversationInput extends StatefulWidget {
   final Function(String content) onSend;
-  const ConversationInput({Key? key, required this.onSend}) : super(key: key);
+  final Function() onTapImage;
+  const ConversationInput({
+    Key? key,
+    required this.onSend,
+    required this.onTapImage,
+  }) : super(key: key);
 
   @override
   State<ConversationInput> createState() => _ConversationInputState();
@@ -26,7 +31,7 @@ class _ConversationInputState extends State<ConversationInput> {
             Flexible(
               flex: 1,
               child: IconButton(
-                onPressed: () {},
+                onPressed: widget.onTapImage,
                 icon: const Icon(Icons.image),
               ),
             ),

@@ -19,7 +19,11 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+      ),
       body: SafeArea(
+        bottom: false,
         child: SettingsList(
           sections: [
             SettingsSection(
@@ -51,13 +55,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   leading: const Icon(Icons.logout),
                   onPressed: (context) {
                     AppBloc.authenticateBloc.add(LogoutEvent());
-                  },
-                ),
-                SettingsTile(
-                  title: const Text('Back'),
-                  leading: const Icon(Icons.arrow_back_ios),
-                  onPressed: (context) {
-                    AppNavigator().pop();
                   },
                 ),
               ],

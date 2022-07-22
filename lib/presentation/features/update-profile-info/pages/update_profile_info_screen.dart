@@ -113,13 +113,12 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                           controller: _introductionController,
                         ),
                         space,
-                        const Text('speaking'),
+                        const Text('Speaking'),
                         PickSelectWidget(
                           title: 'Enter speaking',
                           selectedLanguages: speaking,
                           onTap: () => {},
                         ),
-                        space,
                         const Text('Learning'),
                         PickSelectWidget(
                           title: 'Enter language',

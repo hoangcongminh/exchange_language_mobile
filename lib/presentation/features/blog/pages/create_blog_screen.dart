@@ -17,7 +17,7 @@ class CreateBlogScreen extends StatefulWidget {
 class _CreateBlogScreenState extends State<CreateBlogScreen> {
   File? _imagePicked;
   final quill.QuillController _controller = quill.QuillController(
-      document: quill.Document()..insert(0, 'Share your though'),
+      document: quill.Document(),
       selection: const TextSelection.collapsed(offset: 0));
   final TextEditingController _titleController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -52,7 +52,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   child: Row(
                     children: [
                       PickImageWidget(
-                        size: 60,
+                        size: 80,
                         icon: Icons.image,
                         shape: BoxShape.rectangle,
                         onImagePicked: (file) {
@@ -78,7 +78,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 4.sp),
+                SizedBox(height: 8.sp),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(4.sp),

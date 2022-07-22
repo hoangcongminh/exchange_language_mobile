@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../theme/chat_style.dart';
+import '../../../widgets/custom_image_picker.dart';
 import '../bloc/conversation_bloc.dart';
 import '../widgets/conversation_input.dart';
 import '../widgets/conversation_list_shimmer.dart';
@@ -16,6 +17,16 @@ class ConversationScreen extends StatefulWidget {
 }
 
 class _ConversationScreenState extends State<ConversationScreen> {
+  final ScrollController scrollController = ScrollController();
+
+  void scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +48,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 builder: (context, state) {
                   if (state is ConversationLoaded) {
                     return ListView.builder(
+                        controller: scrollController,
                         itemCount: state.messages.length,
                         itemBuilder: (context, index) {
                           return MessageBubble(message: state.messages[index]);
@@ -50,6 +62,13 @@ class _ConversationScreenState extends State<ConversationScreen> {
               onSend: (content) {
                 AppBloc.conversationBloc
                     .add(SendMessage("6285df6a453cd9b71396fd95", content));
+              },
+              onTapImage: () {
+                CustomImagePicker().openImagePicker(
+                    context: context,
+                    handleFinish: (file) {
+                      print(file.toString());
+                    });
               },
             ),
           ],
