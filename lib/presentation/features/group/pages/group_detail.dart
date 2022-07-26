@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,7 @@ class GroupDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       backgroundColor: const Color(0xffC4C4C4),
       appBar: AppBar(
@@ -42,7 +44,7 @@ class GroupDetail extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.sp),
                             ),
                             onPressed: () {},
-                            label: const Text('Join'),
+                            label: Text(l10n.join),
                           ),
                         )
                       ],

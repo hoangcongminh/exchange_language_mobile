@@ -1,3 +1,5 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -15,41 +17,71 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String currentLanguage = AppBloc.localeCubit.state.toString();
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(l10n.settings),
       ),
       body: SafeArea(
         bottom: false,
         child: SettingsList(
           sections: [
             SettingsSection(
+              title: const Text('Common'),
+              tiles: [
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.language),
+                  title: const Text('Language'),
+                  value: Text(AppBloc.localeCubit.getLocaleName()),
+                  onPressed: (context) {
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => CupertinoActionSheet(
+                        cancelButton: CupertinoActionSheetAction(
+                          isDestructiveAction: true,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        actions: [
+                          CupertinoActionSheetAction(
+                            onPressed: () {
+                              AppBloc.localeCubit.toEnglish();
+                              Navigator.pop(context);
+                              setState(() {});
+                            },
+                            child: const Text('English'),
+                          ),
+                          CupertinoActionSheetAction(
+                            onPressed: () {
+                              AppBloc.localeCubit.toVietnamese();
+                              Navigator.pop(context);
+                              setState(() {});
+                            },
+                            child: const Text('Vietnamese'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                )
+              ],
+              // title: const Text('common'),
+            ),
+            SettingsSection(
+              title: const Text('Account'),
               tiles: [
                 SettingsTile(
-                  title: const Text('Language'),
-                  leading: const Icon(Icons.language),
-                  value: Text(currentLanguage),
-                  onPressed: (context) {
-                    AppBloc.localeCubit.switchLanguage();
-                    AppNavigator().pop();
-                  },
-                ),
-                SettingsTile(
-                  title: const Text('Update info'),
+                  title: Text(l10n.updateInfo),
                   leading: const Icon(Icons.person),
                   onPressed: (context) {
                     AppBloc.updateProfileInfoBloc.add(FetchProfileInfoEvent());
                     AppNavigator().push(RouteConstants.updateProfileInfo);
                   },
                 ),
-              ],
-              // title: const Text('common'),
-            ),
-            SettingsSection(
-              tiles: [
                 SettingsTile(
                   title: const Text('Logout'),
                   leading: const Icon(Icons.logout),

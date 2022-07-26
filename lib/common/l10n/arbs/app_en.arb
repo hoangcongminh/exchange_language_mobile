@@ -69,11 +69,39 @@
       "description": "profile"
     },
     "group": "Group",
-    "@profile": {
+    "@group": {
       "description": "group"
     },
     "blog": "Blog",
-    "@profile": {
+    "@blog": {
       "description": "blog"
+    },
+    "createBlog": "Create Blog",
+    "@createBlog": {
+      "description": "createBlog"
+    },
+    "settings": "Settings",
+    "@settings": {
+      "description": "settings"
+    },
+    "search": "Search",
+    "@search": {
+      "description": "search"
+    },
+    "location": "Location",
+    "@location": {
+      "description": "location"
+    },
+    "join": "Join",
+    "@join": {
+      "description": "join"
+    },
+    "updateInfo": "Update Info",
+    "@updateInfo": {
+      "description": "updateInfo"
+    },
+     "result": "Result",
+    "@result": {
+      "description": "result"
     }
 }

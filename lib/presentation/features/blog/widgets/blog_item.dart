@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:exchange_language_mobile/presentation/widgets/app_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -23,7 +24,7 @@ class BlogItem extends StatelessWidget {
                   const Text(
                       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...'),
                   SizedBox(height: 8.sp),
-                  const Text('May 22 2017'),
+                  Text(DateTime.now().toString().formatTime),
                 ],
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -38,7 +39,7 @@ class _SearchBoxState extends State<SearchBox> {
             top: 0.sp,
             right: 10.sp,
           ),
-          hintText: 'Search',
+          hintText: context.l10n.search,
           hintStyle: TextStyle(
             color: colorCaptionSearch,
             fontSize: 12.sp,

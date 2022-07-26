@@ -66,8 +66,8 @@ class _ApplicationState extends State<Application> {
                       GlobalCupertinoLocalizations.delegate,
                     ],
                     supportedLocales: const [
-                      Locale('en', ''), // English, no country code
-                      Locale('vi', ''), // Spanish, no country code
+                      Locale('en'),
+                      Locale('vi'),
                     ],
                     locale: locale,
                     onGenerateRoute: (settings) =>

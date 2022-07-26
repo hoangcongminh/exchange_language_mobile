@@ -94,16 +94,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   IntrinsicHeight(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        UserInfoItem(title: 'Location', value: 'Viet Nam'),
-                        VerticalDivider(
+                      children: [
+                        UserInfoItem(title: l10n.location, value: 'Viet Nam'),
+                        const VerticalDivider(
                           thickness: 2,
                         ),
-                        UserInfoItem(title: 'Speaking', value: 'Vietnamese'),
-                        VerticalDivider(
+                        const UserInfoItem(
+                            title: 'Speaking', value: 'Vietnamese'),
+                        const VerticalDivider(
                           thickness: 2,
                         ),
-                        UserInfoItem(title: 'Learning', value: 'English'),
+                        const UserInfoItem(title: 'Learning', value: 'English'),
                       ],
                     ),
                   ),

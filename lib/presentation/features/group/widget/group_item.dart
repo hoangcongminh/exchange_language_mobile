@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,7 @@ class GroupItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.sp),
       child: Card(
@@ -42,7 +44,7 @@ class GroupItem extends StatelessWidget {
                     const Text('4'),
                     const Spacer(),
                     AppButtonWidget(
-                      label: const Text('Join'),
+                      label: Text(l10n.join),
                       onPressed: () {},
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.sp),

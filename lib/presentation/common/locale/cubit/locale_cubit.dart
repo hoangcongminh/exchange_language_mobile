@@ -7,11 +7,6 @@ import '../../../../data/datasources/local/locale_local_data.dart';
 class LocaleCubit extends Cubit<Locale?> {
   LocaleCubit() : super(getLocale());
 
-  void toEnglish() {
-    LocaleLocal().setLocale(const Locale('en'));
-    emit(const Locale('en'));
-  }
-
   void switchLanguage() {
     if (state == const Locale('en')) {
       toVietnamese();
@@ -20,9 +15,22 @@ class LocaleCubit extends Cubit<Locale?> {
     }
   }
 
+  void toEnglish() {
+    LocaleLocal().setLocale(const Locale('en'));
+    emit(const Locale('en'));
+  }
+
   void toVietnamese() {
     LocaleLocal().setLocale(const Locale('vi'));
     emit(const Locale('vi'));
+  }
+
+  String getLocaleName() {
+    if (getLocale() == const Locale('en')) {
+      return 'English';
+    } else {
+      return 'Vietnamese';
+    }
   }
 
   static Locale getLocale() {

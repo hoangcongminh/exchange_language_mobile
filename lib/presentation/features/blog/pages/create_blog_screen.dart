@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
@@ -29,9 +30,10 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Blog'),
+        title: Text(l10n.createBlog),
         actions: [
           IconButton(
             onPressed: _onCreateBlog,

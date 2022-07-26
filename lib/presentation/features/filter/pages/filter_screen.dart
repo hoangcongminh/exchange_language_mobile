@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -46,6 +47,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       floatingActionButton: FloatingActionButton(
@@ -143,7 +145,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               ),
                               const Spacer(),
                               AppButtonWidget(
-                                label: const Text('Search'),
+                                label: Text(l10n.search),
                                 onPressed: () {
                                   AppBloc.filterBloc.add(SearchUserEvent(
                                     type == FilterScreenType.teacher ? 1 : 2,
