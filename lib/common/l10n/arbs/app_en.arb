@@ -103,5 +103,13 @@
      "result": "Result",
     "@result": {
       "description": "result"
+    },
+     "teacher": "Teacher",
+    "@teacher": {
+      "description": "teacher"
+    },
+     "learner": "Learner",
+    "@learner": {
+      "description": "learner"
     }
 }

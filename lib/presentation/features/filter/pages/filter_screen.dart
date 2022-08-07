@@ -106,7 +106,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                         color: type == FilterScreenType.student
                                             ? Theme.of(context).primaryColor
                                             : Colors.grey,
-                                        label: const Text('Student'),
+                                        label: Text(l10n.learner),
                                         onPressed: () {
                                           setState(() {
                                             type = FilterScreenType.student;
@@ -120,7 +120,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                         color: type == FilterScreenType.teacher
                                             ? Theme.of(context).primaryColor
                                             : Colors.grey,
-                                        label: const Text('Teacher'),
+                                        label: Text(l10n.teacher),
                                         onPressed: () {
                                           setState(() {
                                             type = FilterScreenType.teacher;

@@ -26,5 +26,7 @@
     "search": "Tìm kiếm",
     "join": "Tham gia",
     "updateInfo": "Cập nhật thông tin",
-    "result": "Kết quả"
+    "result": "Kết quả",
+    "teacher": "Giáo viên",
+    "learner": "Học viên"
 }

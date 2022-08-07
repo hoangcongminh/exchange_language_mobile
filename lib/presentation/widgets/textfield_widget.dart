@@ -11,6 +11,8 @@ class TextfieldWidget extends StatefulWidget {
   final TextCapitalization? textCapitalization;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final int? minLines;
+  final int? maxLines;
 
   const TextfieldWidget({
     Key? key,
@@ -24,6 +26,8 @@ class TextfieldWidget extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.validator,
     this.onChanged,
+    this.minLines,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -54,6 +58,8 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      minLines: widget.minLines,
+      maxLines: widget.maxLines ?? 1,
       style: const TextStyle(fontSize: 16),
       focusNode: _focusNode,
       obscureText: widget.obscureText ?? false,

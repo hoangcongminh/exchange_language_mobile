@@ -6,10 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/language.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/custom_image_picker.dart';
 import '../../../widgets/textfield_widget.dart';
 import '../../authenticate/widgets/auth_button_widget.dart';
+import '../../filter/bloc/filter_bloc.dart';
 import '../../filter/widgets/pick_select_widget.dart';
 import '../bloc/update_profile_info_bloc.dart';
 
@@ -30,6 +33,23 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
 
   late List<Language> learning;
   late List<Language> speaking;
+
+  void onTapSelectLanguage(bool isSelectSpeaking) async {
+    AppBloc.filterBloc.add(SelectLanguageEvent());
+    final result = await AppNavigator().push(RouteConstants.filterSelect,
+        arguments: {
+          'selectedLanguage': isSelectSpeaking ? speaking : learning
+        });
+    setState(() {
+      if (result is List<Language>) {
+        if (isSelectSpeaking) {
+          speaking = result;
+        } else {
+          learning = result;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,13 +137,13 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                         PickSelectWidget(
                           title: 'Enter speaking',
                           selectedLanguages: speaking,
-                          onTap: () => {},
+                          onTap: () => onTapSelectLanguage(true),
                         ),
                         const Text('Learning'),
                         PickSelectWidget(
                           title: 'Enter language',
                           selectedLanguages: learning,
-                          onTap: () => {},
+                          onTap: () => onTapSelectLanguage(false),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12),
