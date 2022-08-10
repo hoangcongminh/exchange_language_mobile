@@ -21,7 +21,7 @@ class NotificationItem extends StatelessWidget {
       // Specify a key if the Slidable is dismissible.
       key: const ValueKey(0),
       endActionPane: ActionPane(
-        motion: ScrollMotion(),
+        motion: const ScrollMotion(),
         children: [
           SlidableAction(
             onPressed: (context) {},

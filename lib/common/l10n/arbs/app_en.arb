@@ -111,5 +111,17 @@
      "learner": "Learner",
     "@learner": {
       "description": "learner"
+    },
+     "createGroup": "Create group",
+    "@createGroup": {
+      "description": "createGroup"
+    },
+     "nameOfTheGroup": "Name of the group",
+    "@nameOfTheGroup": {
+      "description": "nameOfTheGroup"
+    },
+     "description": "Description",
+    "@description": {
+      "description": "description"
     }
 }

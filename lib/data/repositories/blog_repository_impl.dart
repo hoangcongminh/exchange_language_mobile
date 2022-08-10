@@ -22,4 +22,10 @@ class BlogRepositoryImpl implements BlogRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> fetchBlogs() {
+    // TODO: implement getBlogs
+    throw UnimplementedError();
+  }
 }

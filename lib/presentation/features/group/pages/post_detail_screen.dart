@@ -152,7 +152,7 @@ class CommentItem extends StatelessWidget {
                 const SizedBox(
                   width: 24,
                 ),
-                GestureDetector(onTap: () {}, child: const Text('Like')),
+                GestureDetector(onTap: () {}, child: const Text('Reply')),
               ],
             ),
           ),

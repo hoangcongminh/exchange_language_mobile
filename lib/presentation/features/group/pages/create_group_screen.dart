@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,9 +10,10 @@ class CreateGroupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New group'),
+        title: Text(l10n.createGroup),
       ),
       body: SafeArea(
         child: Padding(
@@ -20,11 +22,11 @@ class CreateGroupScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text('Name of the group'),
+              Text(l10n.nameOfTheGroup),
               const SizedBox(height: 8),
               const TextfieldWidget(),
               const SizedBox(height: 16),
-              const Text('Description'),
+              Text(l10n.description),
               const SizedBox(height: 8),
               const TextfieldWidget(
                 minLines: 10,
@@ -33,7 +35,7 @@ class CreateGroupScreen extends StatelessWidget {
               ),
               const Spacer(),
               AppButtonWidget(
-                label: const Text('Create group'),
+                label: Text(l10n.createGroup),
                 onPressed: () {},
               ),
             ],

@@ -11,6 +11,7 @@ import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
+import '../features/create-blog/bloc/create_blog_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
 import '../features/filter/bloc/filter_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
@@ -31,7 +32,9 @@ class AppBloc {
   static final filterBloc =
       FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
   static final groupBloc = GroupBloc(GroupRepositoryImpl());
-  static final blogBloc = BlogBloc(BlogRepositoryImpl());
+  static final blogBloc = BlogBloc(BlogRepositoryImpl(), MediaRepositoryImpl());
+  static final createBlogBloc =
+      CreateBlogBloc(BlogRepositoryImpl(), MediaRepositoryImpl());
   static final updateProfileInfoBloc = UpdateProfileInfoBloc();
 
   static final List<BlocProvider> providers = [
@@ -64,6 +67,9 @@ class AppBloc {
     ),
     BlocProvider<BlogBloc>(
       create: (context) => blogBloc,
+    ),
+    BlocProvider<CreateBlogBloc>(
+      create: (context) => createBlogBloc,
     ),
     BlocProvider<UpdateProfileInfoBloc>(
       create: (context) => updateProfileInfoBloc,

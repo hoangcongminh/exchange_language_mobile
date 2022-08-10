@@ -3,6 +3,7 @@ import 'package:exchange_language_mobile/presentation/features/group/widget/crea
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../widgets/app_button_widget.dart';
 import '../widget/post_item.dart';
 
 class GroupDetail extends StatelessWidget {
@@ -15,41 +16,56 @@ class GroupDetail extends StatelessWidget {
       backgroundColor: const Color(0xffC4C4C4),
       appBar: AppBar(
         title: const Text('Language Exchange'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: Column(
-        children: [
-          // Container(
-          //   color: Colors.white,
-          //   padding: EdgeInsets.all(16.sp),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       const Text('Language exchange '),
-          //       Row(
-          //         children: const [
-          //           Icon(Icons.people),
-          //           Text('31'),
-          //         ],
-          //       ),
-          //       const Text(
-          //           'Discuss good topics to talk about, strategies for making the exchange more fun and rewarding and everything else related.'),
-          //       Center(
-          //         child: AppButtonWidget(
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(20.sp),
-          //           ),
-          //           onPressed: () {},
-          //           label: Text(l10n.join),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          const CreatePostWidget(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const CreatePostWidget(),
+                // Container(
+                //   color: Colors.white,
+                //   padding: EdgeInsets.all(16.sp),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       const Text('Language exchange '),
+                //       Row(
+                //         children: const [
+                //           Icon(Icons.people),
+                //           Text('31'),
+                //         ],
+                //       ),
+                //       const Text(
+                //           'Discuss good topics to talk about, strategies for making the exchange more fun and rewarding and everything else related.'),
+                //       Center(
+                //         child: AppButtonWidget(
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(20.sp),
+                //           ),
+                //           onPressed: () {},
+                //           label: Text(l10n.join),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
                 return Container(
                   color: Colors.white,
                   margin: EdgeInsets.only(top: 5.sp),
@@ -60,15 +76,11 @@ class GroupDetail extends StatelessWidget {
                   ),
                 );
               },
+              childCount: 3,
             ),
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   key: const Key('groupDetailFab'),
-      //   onPressed: () => {},
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 }

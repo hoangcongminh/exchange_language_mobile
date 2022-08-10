@@ -40,8 +40,6 @@ class GroupItem extends StatelessWidget {
                     const Icon(Icons.people),
                     const Text('34'),
                     SizedBox(width: 10.sp),
-                    const Icon(Icons.chat_bubble_rounded),
-                    const Text('4'),
                     const Spacer(),
                     AppButtonWidget(
                       label: Text(l10n.join),
