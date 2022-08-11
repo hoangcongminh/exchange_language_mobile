@@ -2,31 +2,36 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/blog/bloc/blog_bloc.dart';
+import 'package:exchange_language_mobile/presentation/widgets/app_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
+import '../../../../domain/entities/blog.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
+import '../../../widgets/custom_image_picker.dart';
 import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/pick_image_widget.dart';
 import '../../create-blog/bloc/create_blog_bloc.dart';
 
-class CreateBlogScreen extends StatefulWidget {
-  const CreateBlogScreen({Key? key}) : super(key: key);
+class EditBlogScreen extends StatefulWidget {
+  final Blog blog;
+  const EditBlogScreen({Key? key, required this.blog}) : super(key: key);
 
   @override
-  State<CreateBlogScreen> createState() => _CreateBlogScreenState();
+  State<EditBlogScreen> createState() => _EditBlogScreenState();
 }
 
-class _CreateBlogScreenState extends State<CreateBlogScreen> {
+class _EditBlogScreenState extends State<EditBlogScreen> {
   File? _imagePicked;
-  final quill.QuillController _controller = quill.QuillController(
-      document: quill.Document(),
-      selection: const TextSelection.collapsed(offset: 0));
+  late quill.QuillController _controller;
   final TextEditingController _titleController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -38,6 +43,10 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    _controller = quill.QuillController(
+        document: quill.Document.fromJson(jsonDecode(widget.blog.content!)),
+        selection: const TextSelection.collapsed(offset: 0));
+    _titleController.text = widget.blog.title;
     return BlocConsumer<CreateBlogBloc, CreateBlogState>(
       listener: (context, state) {
         if (state is CreateBlogFailure) {
@@ -48,7 +57,9 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
               errorMessage: state.error,
             ),
           );
-        } else if (state is CreateBlogSuccess) {
+        } else if (state is EditBlogSuccess) {
+          AppBloc.blogDetailBloc.add(FetchBlogDetail(slug: state.edittedSlug));
+          AppBloc.blogBloc.add(RefreshBlogsEvent());
           AppNavigator().pop();
         }
       },
@@ -79,15 +90,36 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                           height: 50.sp,
                           child: Row(
                             children: [
-                              PickImageWidget(
-                                size: 80,
-                                icon: Icons.image,
-                                shape: BoxShape.rectangle,
-                                onImagePicked: (file) {
-                                  setState(() {
-                                    _imagePicked = file;
-                                  });
+                              GestureDetector(
+                                onTap: () {
+                                  CustomImagePicker().openImagePicker(
+                                      context: context,
+                                      handleFinish: (file) {
+                                        setState(() {
+                                          _imagePicked = file;
+                                        });
+                                      });
                                 },
+                                child: _imagePicked != null
+                                    ? Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          image: _imagePicked == null
+                                              ? null
+                                              : DecorationImage(
+                                                  image:
+                                                      FileImage(_imagePicked!),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
+                                      )
+                                    : AppImageWidget(
+                                        width: 80,
+                                        height: 80,
+                                        imageUrl:
+                                            '${AppConstants.baseImageUrl}${widget.blog.thumbnail.src}'),
                               ),
                               SizedBox(
                                 width: 4.sp,
@@ -155,23 +187,14 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
 
   _onCreateBlog() {
     AppBloc.createBlogBloc.add(
-      CreateNewBlogEvent(
+      EditBlogEvent(
         thubmnail: _imagePicked,
+        currentThumbnailId:
+            _imagePicked == null ? widget.blog.thumbnail.id : null,
         title: _titleController.text,
         content: jsonEncode(_controller.document.toDelta().toJson()),
+        blogId: widget.blog.id,
       ),
     );
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => AlertDialog(
-    //       title: const Text('Text'),
-    //       content: Column(
-    //         children: [
-    //           Text(_titleController.text),
-    //           Text(_imagePicked?.path ?? ''),
-    //           Text(jsonEncode(_controller.document.toDelta().toJson())),
-    //         ],
-    //       )),
-    // );
   }
 }

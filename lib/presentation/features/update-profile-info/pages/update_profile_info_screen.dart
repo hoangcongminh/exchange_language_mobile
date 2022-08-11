@@ -28,7 +28,6 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
   File? _imagePicked;
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
   final _introductionController = TextEditingController();
 
   late List<Language> learning;
@@ -64,7 +63,6 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
           builder: (context, state) {
         if (state is LoadedUpdateProfileInfo) {
           _nameController.text = state.user.fullname;
-          _emailController.text = state.user.email ?? '';
           _introductionController.text = state.user.introduction ?? '';
           learning = state.user.learningLanguage ?? [];
           speaking = state.user.speakingLanguage ?? [];
@@ -117,13 +115,6 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                           labelText: 'NAME',
                           hintText: l10n.enterEmail,
                           controller: _nameController,
-                        ),
-                        space,
-                        TextfieldWidget(
-                          keyboardType: TextInputType.emailAddress,
-                          labelText: 'EMAIL',
-                          hintText: l10n.enterEmail,
-                          controller: _emailController,
                         ),
                         space,
                         TextfieldWidget(

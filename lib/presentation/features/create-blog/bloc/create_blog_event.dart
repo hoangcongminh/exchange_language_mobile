@@ -18,3 +18,19 @@ class CreateNewBlogEvent extends CreateBlogEvent {
     required this.content,
   });
 }
+
+class EditBlogEvent extends CreateBlogEvent {
+  final String blogId;
+  final File? thubmnail;
+  final String? currentThumbnailId;
+  final String title;
+  final String content;
+
+  const EditBlogEvent({
+    required this.blogId,
+    this.thubmnail,
+    this.currentThumbnailId,
+    required this.title,
+    required this.content,
+  });
+}

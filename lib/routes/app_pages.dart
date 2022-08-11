@@ -5,9 +5,10 @@ import '../presentation/app.dart';
 import '../presentation/features/authenticate/pages/forgot_password_screen.dart';
 import '../presentation/features/authenticate/pages/login_screen.dart';
 import '../presentation/features/authenticate/pages/register_screen.dart';
-import '../presentation/features/blog/pages/blog_detail_screeen.dart';
+import '../presentation/blog-detail/pages/blog_detail_screeen.dart';
 import '../presentation/features/create-blog/pages/create_blog_screen.dart';
 import '../presentation/features/conversation/pages/conversation_screen.dart';
+import '../presentation/features/create-blog/pages/edit_blog_screen.dart';
 import '../presentation/features/dashboard/pages/dashboard_screen.dart';
 import '../presentation/features/filter/pages/result_screen.dart';
 import '../presentation/features/filter/pages/select_language_screen.dart';
@@ -115,6 +116,13 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const CreateBlogScreen(),
+        );
+      case RouteConstants.editBlog:
+        return _buildRoute(
+          settings,
+          EditBlogScreen(
+            blog: arguments?['blog'],
+          ),
         );
       case RouteConstants.conversation:
         return _buildRoute(

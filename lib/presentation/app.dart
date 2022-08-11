@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
 import '../common/helpers/device_orientation_helper.dart';
@@ -60,6 +61,7 @@ class _ApplicationState extends State<Application> {
                     //DevicePreview
                     theme: defaultTheme(),
                     localizationsDelegates: const [
+                      RefreshLocalizations.delegate,
                       AppLocalizations.delegate,
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
@@ -70,6 +72,11 @@ class _ApplicationState extends State<Application> {
                       Locale('vi'),
                     ],
                     locale: locale,
+                    localeResolutionCallback:
+                        (locale, Iterable<Locale> supportedLocales) {
+                      //print("change language");
+                      return locale;
+                    },
                     onGenerateRoute: (settings) =>
                         AppNavigator().getRoute(settings),
                     navigatorObservers: [

@@ -3,9 +3,21 @@ import 'package:exchange_language_mobile/presentation/widgets/app_image_widget.d
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../common/constants/constants.dart';
+import '../../../../domain/entities/media.dart';
+
 class BlogItem extends StatelessWidget {
   final VoidCallback onTap;
-  const BlogItem({Key? key, required this.onTap}) : super(key: key);
+  final String title;
+  final Media thumbnail;
+  final String createdAt;
+  const BlogItem({
+    Key? key,
+    required this.onTap,
+    required this.title,
+    required this.thumbnail,
+    required this.createdAt,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +27,18 @@ class BlogItem extends StatelessWidget {
         onTap: onTap,
         child: Row(
           children: [
-            const AppImageWidget(height: 100, width: 100),
+            AppImageWidget(
+                height: 100,
+                width: 100,
+                imageUrl: '${AppConstants.baseImageUrl}${thumbnail.src}'),
             SizedBox(width: 10.sp),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...'),
+                  Text(title),
                   SizedBox(height: 8.sp),
-                  Text(DateTime.now().toString().formatTime),
+                  Text(createdAt.formatTime),
                 ],
               ),
             ),

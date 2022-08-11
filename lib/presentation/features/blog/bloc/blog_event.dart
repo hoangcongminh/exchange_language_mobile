@@ -7,4 +7,6 @@ abstract class BlogEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class RefreshBlogsEvent extends BlogEvent {}
+
 class FetchBlogsEvent extends BlogEvent {}

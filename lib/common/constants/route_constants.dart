@@ -20,6 +20,7 @@ class RouteConstants {
   //blog
   static const blogDetail = "/blogDetail";
   static const createBlog = "/createBlog";
+  static const editBlog = "/editBlog";
   //group
   static const groupDetail = "/groupDetail";
   static const createGroup = "/createGroup";

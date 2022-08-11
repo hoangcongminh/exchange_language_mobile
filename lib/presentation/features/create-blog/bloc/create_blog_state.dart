@@ -21,3 +21,9 @@ class CreateBlogFailure extends CreateBlogState {
 }
 
 class CreateBlogSuccess extends CreateBlogState {}
+
+class EditBlogSuccess extends CreateBlogState {
+  final String edittedSlug;
+
+  const EditBlogSuccess({required this.edittedSlug});
+}

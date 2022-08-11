@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -17,6 +18,7 @@ class CreateBlogBloc extends Bloc<CreateBlogEvent, CreateBlogState> {
       : super(CreateBlogInitial()) {
     on<CreateBlogEvent>((event, emit) {});
     on<CreateNewBlogEvent>(_createBlog);
+    on<EditBlogEvent>(_editBlog);
   }
 
   Future<void> _createBlog(
@@ -32,14 +34,57 @@ class CreateBlogBloc extends Bloc<CreateBlogEvent, CreateBlogState> {
         (failure) {
           emit(CreateBlogFailure(error: failure.message));
         },
-        (thubmnail) async {},
+        (thubmnail) async {
+          Either<Failure, void> result = await _blogRepository.createBlog(
+              title: event.title,
+              content: event.content,
+              thumbnailId: thubmnail.id);
+          result.fold((failure) {
+            emit(CreateBlogFailure(error: failure.message));
+          }, (data) {
+            emit(CreateBlogSuccess());
+          });
+        },
       );
     }
-    // return _blogRepository.createBlog().then((value) {
-    //   emit(BlogLoaded());
-    // }).catchError((error) {
-    //   emit(BlogError(error: error));
-    // });
+  }
+
+  Future<void> _editBlog(
+      EditBlogEvent event, Emitter<CreateBlogState> emit) async {
+    emit(CreateBlogLoading());
+    await Future.delayed(const Duration(seconds: 5));
+    if (event.thubmnail == null) {
+      Either<Failure, String> result = await _blogRepository.editBlog(
+          blogId: event.blogId,
+          title: event.title,
+          content: event.content,
+          thumbnailId: event.currentThumbnailId!);
+      result.fold((failure) {
+        emit(CreateBlogFailure(error: failure.message));
+      }, (data) {
+        emit(EditBlogSuccess(edittedSlug: data));
+      });
+    } else {
+      Either<Failure, Media> imageResult =
+          await _mediaRepository.uploadImage(event.thubmnail!);
+      await imageResult.fold(
+        (failure) {
+          emit(CreateBlogFailure(error: failure.message));
+        },
+        (thubmnail) async {
+          Either<Failure, String> result = await _blogRepository.editBlog(
+              blogId: event.blogId,
+              title: event.title,
+              content: event.content,
+              thumbnailId: thubmnail.id);
+          result.fold((failure) {
+            emit(CreateBlogFailure(error: failure.message));
+          }, (data) {
+            emit(EditBlogSuccess(edittedSlug: data));
+          });
+        },
+      );
+    }
   }
 
   final BlogRepository _blogRepository;

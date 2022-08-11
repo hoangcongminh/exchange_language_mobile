@@ -7,6 +7,7 @@ import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
+import '../blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
@@ -32,9 +33,10 @@ class AppBloc {
   static final filterBloc =
       FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
   static final groupBloc = GroupBloc(GroupRepositoryImpl());
-  static final blogBloc = BlogBloc(BlogRepositoryImpl(), MediaRepositoryImpl());
+  static final blogBloc = BlogBloc(BlogRepositoryImpl());
   static final createBlogBloc =
       CreateBlogBloc(BlogRepositoryImpl(), MediaRepositoryImpl());
+  static final blogDetailBloc = BlogDetailBloc(BlogRepositoryImpl());
   static final updateProfileInfoBloc = UpdateProfileInfoBloc();
 
   static final List<BlocProvider> providers = [
@@ -71,6 +73,9 @@ class AppBloc {
     BlocProvider<CreateBlogBloc>(
       create: (context) => createBlogBloc,
     ),
+    BlocProvider<BlogDetailBloc>(
+      create: (context) => blogDetailBloc,
+    ),
     BlocProvider<UpdateProfileInfoBloc>(
       create: (context) => updateProfileInfoBloc,
     ),
@@ -79,6 +84,7 @@ class AppBloc {
   static void initialHomeBloc() {
     authenticateBloc.add(RefreshTokenEvent());
     chatBloc.add(FetchConversations());
+    blogBloc.add(FetchBlogsEvent());
   }
 
   static void cleanBloc() {
