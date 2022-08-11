@@ -8,13 +8,13 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
 import 'package:translator/translator.dart';
 
-import '../../../common/constants/constants.dart';
-import '../../../data/datasources/local/user_local_data.dart';
-import '../../../routes/app_pages.dart';
-import '../../common/app_bloc.dart';
-import '../../theme/blog_style.dart';
-import '../../widgets/avatar_widget.dart';
-import '../../widgets/loading_widget.dart';
+import '../../../../common/constants/constants.dart';
+import '../../../../data/datasources/local/user_local_data.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
+import '../../../theme/blog_style.dart';
+import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/loading_widget.dart';
 import '../bloc/blog_detail_bloc.dart';
 
 class BlogDetailScreen extends StatefulWidget {

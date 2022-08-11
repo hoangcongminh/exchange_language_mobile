@@ -12,13 +12,12 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/blog.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
 import '../../../widgets/custom_image_picker.dart';
 import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
-import '../../../widgets/pick_image_widget.dart';
+import '../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../../create-blog/bloc/create_blog_bloc.dart';
 
 class EditBlogScreen extends StatefulWidget {

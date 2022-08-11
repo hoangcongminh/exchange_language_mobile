@@ -7,8 +7,8 @@ import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
-import '../blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
+import '../features/blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
@@ -85,6 +85,7 @@ class AppBloc {
     authenticateBloc.add(RefreshTokenEvent());
     chatBloc.add(FetchConversations());
     blogBloc.add(FetchBlogsEvent());
+    groupBloc.add(FetchGroupsEvent());
   }
 
   static void cleanBloc() {

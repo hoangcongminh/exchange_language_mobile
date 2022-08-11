@@ -8,3 +8,13 @@ class GroupState extends Equatable {
 }
 
 class GroupInitial extends GroupState {}
+
+class GroupLoading extends GroupState {}
+
+class GroupLoaded extends GroupState {
+  final List<Group> groups;
+
+  const GroupLoaded({required this.groups});
+}
+
+class GroupLoadFailure extends GroupState {}

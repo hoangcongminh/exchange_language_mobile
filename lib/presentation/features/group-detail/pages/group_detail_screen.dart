@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../widgets/app_button_widget.dart';
-import '../widget/post_item.dart';
+import '../../group/widget/post_item.dart';
 
 class GroupDetail extends StatelessWidget {
   const GroupDetail({Key? key}) : super(key: key);

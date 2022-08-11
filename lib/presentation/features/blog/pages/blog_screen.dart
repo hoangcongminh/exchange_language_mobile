@@ -5,9 +5,9 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../bloc/blog_bloc.dart';
 import '../widgets/blog_item.dart';
 
