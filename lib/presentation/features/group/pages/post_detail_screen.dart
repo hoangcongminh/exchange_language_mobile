@@ -14,7 +14,7 @@ class PostDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const PostHeader(),
+        // title: const PostHeader(),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -22,9 +22,9 @@ class PostDetailScreen extends StatelessWidget {
           padding: EdgeInsets.all(8.sp),
           child: Column(
             children: [
-              const PostItem(
-                isPostDetail: true,
-              ),
+              // const PostItem(
+              //   isPostDetail: true,
+              // ),
               Divider(
                 thickness: 1.sp,
               ),

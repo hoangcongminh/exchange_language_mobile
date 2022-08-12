@@ -1,9 +1,11 @@
+import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:translator/translator.dart';
 
 import '../../../../common/constants/constants.dart';
+import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/avatar_widget.dart';
@@ -12,23 +14,39 @@ import '../../../widgets/text_tap.dart';
 
 class PostItem extends StatelessWidget {
   final bool isPostDetail;
-  const PostItem({Key? key, required this.isPostDetail}) : super(key: key);
+  final String title;
+  final String content;
+  final User author;
+  final String createdAt;
+  const PostItem({
+    Key? key,
+    required this.isPostDetail,
+    required this.title,
+    required this.content,
+    required this.author,
+    required this.createdAt,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        isPostDetail ? const SizedBox.shrink() : const PostHeader(),
+        isPostDetail
+            ? const SizedBox.shrink()
+            : PostHeader(
+                authorName: author.fullname,
+                createdAt: createdAt,
+                authorAvatar: author.avatar.src,
+              ),
         const SizedBox(height: 8),
         Text(
-          'What to do on a tandem meetup',
+          title,
           style: postTitle,
         ),
         const SizedBox(height: 8),
         TextTap(
-          text:
-              'Hi guys! \nI have been doing tandem language exchange quite a few times during the last years here in Berlin. While i do agree that this is a really good way to practise a language it can also be very hard to come up with good plans on how to organize the meetings. So i\'d like to ask do you have any favourite topics, games and just general tips for making exchange more fun and rewarding?',
+          text: content,
           textStyle: postContent,
           textStyleSelect: const TextStyle(
             color: Colors.red,
@@ -96,8 +114,14 @@ class PostItem extends StatelessWidget {
 }
 
 class PostHeader extends StatelessWidget {
+  final String authorName;
+  final String createdAt;
+  final String authorAvatar;
   const PostHeader({
     Key? key,
+    required this.authorName,
+    required this.createdAt,
+    required this.authorAvatar,
   }) : super(key: key);
 
   @override
@@ -107,17 +131,18 @@ class PostHeader extends StatelessWidget {
         AvatarWidget(
           height: 30.sp,
           width: 30.sp,
+          imageUrl: '${AppConstants.baseImageUrl}$authorAvatar',
         ),
         const SizedBox(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'James, Male, 20',
+              authorName,
               style: postAuthorInfo,
             ),
             Text(
-              '20-10-2021',
+              createdAt.formatTime,
               style: postTime,
             ),
           ],

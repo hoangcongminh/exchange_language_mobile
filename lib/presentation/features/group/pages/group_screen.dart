@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/group-detail/bloc/post-bloc/post_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -8,7 +9,7 @@ import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/loading_widget.dart';
-import '../../group-detail/bloc/group_detail_bloc.dart';
+import '../../group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../bloc/group_bloc.dart';
 import '../widget/group_item.dart';
 
@@ -62,6 +63,8 @@ class _GroupScreenState extends State<GroupScreen> {
                             onTap: () {
                               AppBloc.groupDetailBloc
                                   .add(FetchGroupDetail(slug: group.slug));
+                              AppBloc.postBloc
+                                  .add(FetchPostsEvent(groupId: group.id));
                               AppNavigator().push(RouteConstants.groupDetail);
                             },
                             child: GroupItem(

@@ -7,6 +7,7 @@ import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
+import '../../data/repositories/post_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
@@ -16,7 +17,8 @@ import '../features/create-blog/bloc/create_blog_bloc.dart';
 import '../features/create-group/bloc/create_group_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
 import '../features/filter/bloc/filter_bloc.dart';
-import '../features/group-detail/bloc/group_detail_bloc.dart';
+import '../features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
+import '../features/group-detail/bloc/post-bloc/post_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
 import '../features/update-profile-info/bloc/update_profile_info_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
@@ -44,6 +46,7 @@ class AppBloc {
     GroupRepositoryImpl(),
     MediaRepositoryImpl(),
   );
+  static final postBloc = PostBloc(PostRepositoryImpl());
   static final blogBloc = BlogBloc(BlogRepositoryImpl());
   static final createBlogBloc = CreateBlogBloc(
     BlogRepositoryImpl(),
@@ -85,6 +88,9 @@ class AppBloc {
     ),
     BlocProvider<CreateGroupBloc>(
       create: (context) => createGroupBloc,
+    ),
+    BlocProvider<PostBloc>(
+      create: (context) => postBloc,
     ),
     BlocProvider<BlogBloc>(
       create: (context) => blogBloc,
