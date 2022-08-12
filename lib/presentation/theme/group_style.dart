@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
+TextStyle groupInfoTitle = const TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+);
+
+TextStyle groupInfoMemberCount = const TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Color(0xff828282),
+);
+
+TextStyle groupInfoDescription = const TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.normal,
+  color: Colors.black,
+);
+
 TextStyle postAuthorInfo = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w600,

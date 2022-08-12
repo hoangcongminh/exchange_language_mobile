@@ -12,7 +12,7 @@ import '../presentation/features/create-blog/pages/edit_blog_screen.dart';
 import '../presentation/features/dashboard/pages/dashboard_screen.dart';
 import '../presentation/features/filter/pages/result_screen.dart';
 import '../presentation/features/filter/pages/select_language_screen.dart';
-import '../presentation/features/group/pages/create_group_screen.dart';
+import '../presentation/features/create-group/pages/create_group_screen.dart';
 import '../presentation/features/group-detail/pages/group_detail_screen.dart';
 import '../presentation/features/group/pages/post_detail_screen.dart';
 import '../presentation/features/setting/setting_screen.dart';

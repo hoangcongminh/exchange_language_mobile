@@ -8,3 +8,5 @@ abstract class GroupEvent extends Equatable {
 }
 
 class FetchGroupsEvent extends GroupEvent {}
+
+class RefreshGroupsEvent extends GroupEvent {}

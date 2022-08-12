@@ -40,13 +40,9 @@ class CreatePostWidget extends StatelessWidget {
                                 icon: const Icon(Icons.close)),
                             title: const Text('Create post'),
                             actions: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 16.0, top: 8, bottom: 8),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('Post'),
-                                ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.check),
                               )
                             ],
                           ),

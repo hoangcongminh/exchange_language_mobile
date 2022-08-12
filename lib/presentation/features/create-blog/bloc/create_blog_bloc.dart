@@ -24,7 +24,6 @@ class CreateBlogBloc extends Bloc<CreateBlogEvent, CreateBlogState> {
   Future<void> _createBlog(
       CreateNewBlogEvent event, Emitter<CreateBlogState> emit) async {
     emit(CreateBlogLoading());
-    await Future.delayed(const Duration(seconds: 5));
     if (event.thubmnail == null) {
       emit(const CreateBlogFailure(error: 'Invalid image'));
     } else {
@@ -36,9 +35,10 @@ class CreateBlogBloc extends Bloc<CreateBlogEvent, CreateBlogState> {
         },
         (thubmnail) async {
           Either<Failure, void> result = await _blogRepository.createBlog(
-              title: event.title,
-              content: event.content,
-              thumbnailId: thubmnail.id);
+            title: event.title,
+            content: event.content,
+            thumbnailId: thubmnail.id,
+          );
           result.fold((failure) {
             emit(CreateBlogFailure(error: failure.message));
           }, (data) {

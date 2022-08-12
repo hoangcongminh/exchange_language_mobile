@@ -19,4 +19,14 @@ abstract class GroupRestClient {
   Future<ApiResponseModel<GroupModel>> fetchGroupDetail({
     @Path('slug') required String slug,
   });
+
+  @POST('/groups')
+  Future<ApiResponseModel> createGroup(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET('/groups/join/{id}')
+  Future<ApiResponseModel> joinGroup({
+    @Path('id') required String groupId,
+  });
 }

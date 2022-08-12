@@ -13,8 +13,10 @@ import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/create-blog/bloc/create_blog_bloc.dart';
+import '../features/create-group/bloc/create_group_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
 import '../features/filter/bloc/filter_bloc.dart';
+import '../features/group-detail/bloc/group_detail_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
 import '../features/update-profile-info/bloc/update_profile_info_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
@@ -23,19 +25,30 @@ import 'locale/cubit/locale_cubit.dart';
 
 class AppBloc {
   static final localeCubit = LocaleCubit();
-  static final authenticateBloc =
-      AuthenticateBloc(AuthRepositoryImpl(), MediaRepositoryImpl());
+  static final authenticateBloc = AuthenticateBloc(
+    AuthRepositoryImpl(),
+    MediaRepositoryImpl(),
+  );
   static final verificationBloc = VerificationBloc(AuthRepositoryImpl());
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
   static final conversationBloc = ConversationBloc(ChatRepositoryImpl());
-  static final filterBloc =
-      FilterBloc(LanguageRepositoryImpl(), FilterRepositoryImpl());
+  static final filterBloc = FilterBloc(
+    LanguageRepositoryImpl(),
+    FilterRepositoryImpl(),
+  );
   static final groupBloc = GroupBloc(GroupRepositoryImpl());
+  static final groupDetailBloc = GroupDetailBloc(GroupRepositoryImpl());
+  static final createGroupBloc = CreateGroupBloc(
+    GroupRepositoryImpl(),
+    MediaRepositoryImpl(),
+  );
   static final blogBloc = BlogBloc(BlogRepositoryImpl());
-  static final createBlogBloc =
-      CreateBlogBloc(BlogRepositoryImpl(), MediaRepositoryImpl());
+  static final createBlogBloc = CreateBlogBloc(
+    BlogRepositoryImpl(),
+    MediaRepositoryImpl(),
+  );
   static final blogDetailBloc = BlogDetailBloc(BlogRepositoryImpl());
   static final updateProfileInfoBloc = UpdateProfileInfoBloc();
 
@@ -66,6 +79,12 @@ class AppBloc {
     ),
     BlocProvider<GroupBloc>(
       create: (context) => groupBloc,
+    ),
+    BlocProvider<GroupDetailBloc>(
+      create: (context) => groupDetailBloc,
+    ),
+    BlocProvider<CreateGroupBloc>(
+      create: (context) => createGroupBloc,
     ),
     BlocProvider<BlogBloc>(
       create: (context) => blogBloc,

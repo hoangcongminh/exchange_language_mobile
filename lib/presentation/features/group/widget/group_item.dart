@@ -14,6 +14,7 @@ class GroupItem extends StatelessWidget {
   final Media? thumbnail;
   final String description;
   final int memberCount;
+  final bool isJoined;
   const GroupItem({
     Key? key,
     required this.groupName,
@@ -21,13 +22,14 @@ class GroupItem extends StatelessWidget {
     required this.thumbnail,
     required this.description,
     required this.memberCount,
+    required this.isJoined,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.sp),
+      padding: EdgeInsets.symmetric(vertical: 4.sp),
       child: Card(
         shadowColor: const Color(0xFF828282),
         elevation: 3,
@@ -61,13 +63,14 @@ class GroupItem extends StatelessWidget {
                     Text(memberCount.toString()),
                     SizedBox(width: 10.sp),
                     const Spacer(),
-                    AppButtonWidget(
-                      label: Text(l10n.join),
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.sp),
+                    if (!isJoined)
+                      AppButtonWidget(
+                        label: Text(l10n.join),
+                        onPressed: () {},
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.sp),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               )

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
+import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../group-detail/bloc/group_detail_bloc.dart';
 import '../bloc/group_bloc.dart';
 import '../widget/group_item.dart';
 
@@ -16,6 +20,24 @@ class GroupScreen extends StatefulWidget {
 }
 
 class _GroupScreenState extends State<GroupScreen> {
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() {
+    AppBloc.groupBloc.add(RefreshGroupsEvent());
+    _refreshController.resetNoData();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    AppBloc.groupBloc.add(FetchGroupsEvent());
+    if (AppBloc.groupBloc.total == AppBloc.groupBloc.groups.length) {
+      _refreshController.loadNoData();
+    } else {
+      _refreshController.loadComplete();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +49,33 @@ class _GroupScreenState extends State<GroupScreen> {
               child: Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        final group = state.groups[index];
-                        return GestureDetector(
-                          onTap: () =>
-                              AppNavigator().push(RouteConstants.groupDetail),
-                          child: GroupItem(
-                            groupName: group.title,
-                            author: group.author,
-                            thumbnail: group.thumbnail,
-                            description: group.description,
-                            memberCount: group.members.length,
-                          ),
-                        );
-                      },
-                      itemCount: state.groups.length,
+                    child: SmartRefresher(
+                      header: const WaterDropHeader(),
+                      onRefresh: _onRefresh,
+                      controller: _refreshController,
+                      onLoading: _onLoading,
+                      enablePullUp: true,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          final group = state.groups[index];
+                          return GestureDetector(
+                            onTap: () {
+                              AppBloc.groupDetailBloc
+                                  .add(FetchGroupDetail(slug: group.slug));
+                              AppNavigator().push(RouteConstants.groupDetail);
+                            },
+                            child: GroupItem(
+                                groupName: group.title,
+                                author: group.author,
+                                thumbnail: group.thumbnail,
+                                description: group.description,
+                                memberCount: group.members.length,
+                                isJoined: group.members
+                                    .contains(UserLocal().getUser()!.id)),
+                          );
+                        },
+                        itemCount: state.groups.length,
+                      ),
                     ),
                   ),
                 ],
