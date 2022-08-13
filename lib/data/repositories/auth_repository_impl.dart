@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../domain/entities/user.dart';
 import '../../domain/repository/auth_repository.dart';
+import '../datasources/local/locale_local_data.dart';
 import '../datasources/local/user_local_data.dart';
 import '../datasources/remote/app_api_service.dart';
 import '../datasources/remote/auth_rest_client.dart';
@@ -32,6 +33,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
+    LocaleLocal().clearLocale();
+    UserLocal().clearUser();
     UserLocal().clearAccessToken();
   }
 

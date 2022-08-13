@@ -17,4 +17,8 @@ class LocaleLocal {
     }
     return Locale(locale);
   }
+
+  void clearLocale() {
+    box.delete(StorageKey.LOCALE);
+  }
 }
