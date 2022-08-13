@@ -89,6 +89,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   _refreshToken(RefreshTokenEvent event, Emitter emit) async {
     Either<Failure, User> result = await _authRepository.refreshToken();
     await result.fold((failure) async {
+      emit(Authenticating());
       debugPrint(failure.message);
       await _authRepository.logout();
       AppBloc.applicationBloc.add(OnLoggedOut());

@@ -11,7 +11,9 @@ BlogModel _$BlogModelFromJson(Map<String, dynamic> json) => BlogModel(
       json['slug'] as String,
       json['title'] as String,
       json['content'] as String?,
-      MediaModel.fromJson(json['thumbnail'] as Map<String, dynamic>),
+      json['thumbnail'] == null
+          ? null
+          : MediaModel.fromJson(json['thumbnail'] as Map<String, dynamic>),
       UserModel.fromJson(json['author'] as Map<String, dynamic>),
       json['createdAt'] as String,
     );
@@ -20,7 +22,7 @@ Map<String, dynamic> _$BlogModelToJson(BlogModel instance) => <String, dynamic>{
       '_id': instance.id,
       'slug': instance.slug,
       'title': instance.title,
-      'thumbnail': instance.thumbnail.toJson(),
+      'thumbnail': instance.thumbnail?.toJson(),
       'content': instance.content,
       'author': instance.author.toJson(),
       'createdAt': instance.createdAt,

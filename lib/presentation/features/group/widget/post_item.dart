@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:translator/translator.dart';
 
 import '../../../../common/constants/constants.dart';
+import '../../../../domain/entities/post.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../theme/group_style.dart';
@@ -14,17 +15,11 @@ import '../../../widgets/text_tap.dart';
 
 class PostItem extends StatelessWidget {
   final bool isPostDetail;
-  final String title;
-  final String content;
-  final User author;
-  final String createdAt;
+  final Post post;
   const PostItem({
     Key? key,
     required this.isPostDetail,
-    required this.title,
-    required this.content,
-    required this.author,
-    required this.createdAt,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -35,18 +30,18 @@ class PostItem extends StatelessWidget {
         isPostDetail
             ? const SizedBox.shrink()
             : PostHeader(
-                authorName: author.fullname,
-                createdAt: createdAt,
-                authorAvatar: author.avatar.src,
+                authorName: post.author.fullname,
+                createdAt: post.createdAt,
+                authorAvatar: post.author.avatar!.src,
               ),
         const SizedBox(height: 8),
         Text(
-          title,
+          post.title,
           style: postTitle,
         ),
         const SizedBox(height: 8),
         TextTap(
-          text: content,
+          text: post.content,
           textStyle: postContent,
           textStyleSelect: const TextStyle(
             color: Colors.red,
@@ -94,7 +89,7 @@ class PostItem extends StatelessWidget {
           children: [
             TextButton.icon(
               onPressed: () {},
-              label: const Text('18'),
+              label: Text(post.favorites.length.toString()),
               icon: const Icon(CupertinoIcons.heart),
             ),
             TextButton.icon(
@@ -103,7 +98,7 @@ class PostItem extends StatelessWidget {
                   : () {
                       AppNavigator().push(RouteConstants.postDetail);
                     },
-              label: const Text('4'),
+              label: Text(post.comments.length.toString()),
               icon: const Icon(CupertinoIcons.chat_bubble),
             ),
           ],

@@ -9,13 +9,11 @@ abstract class UpdateProfileInfoState extends Equatable {
 
 class UpdateProfileInfoInitial extends UpdateProfileInfoState {}
 
-class LoadingUpdateProfileInfo extends UpdateProfileInfoState {}
+class UpdateProfileInfoLoading extends UpdateProfileInfoState {}
 
-class LoadedUpdateProfileInfo extends UpdateProfileInfoState {
-  final User user;
+class UpdateProfileInfoSuccess extends UpdateProfileInfoState {}
 
-  const LoadedUpdateProfileInfo(this.user);
-
-  @override
-  List<Object> get props => [user];
+class UpdateProfileInfoFailure extends UpdateProfileInfoState {
+  final String message;
+  const UpdateProfileInfoFailure({required this.message});
 }

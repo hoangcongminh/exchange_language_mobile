@@ -11,6 +11,7 @@ import 'auth_rest_client.dart';
 import 'chat_rest_client.dart';
 import 'group_rest_client.dart';
 import 'post_rest_client.dart';
+import 'user_rest_client.dart';
 
 class AppApiService {
   final dio = Dio();
@@ -30,6 +31,8 @@ class AppApiService {
       GroupRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final PostRestClient postRestClient =
       PostRestClient(dio, baseUrl: AppConstants.baseUrl);
+  late final UserRestClient userRestClient =
+      UserRestClient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 

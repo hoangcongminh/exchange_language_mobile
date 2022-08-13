@@ -7,7 +7,7 @@ class Blog extends Equatable {
   final String id;
   final String slug;
   final String title;
-  final Media thumbnail;
+  final Media? thumbnail;
   final String? content;
   final User author;
   final String createdAt;

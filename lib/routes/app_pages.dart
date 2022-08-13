@@ -140,7 +140,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.updateProfileInfo:
         return _buildRoute(
           settings,
-          const UpdateProfileInfoScreen(),
+          UpdateProfileInfoScreen(user: arguments?['user']),
         );
       case RouteConstants.setting:
         return _buildRoute(

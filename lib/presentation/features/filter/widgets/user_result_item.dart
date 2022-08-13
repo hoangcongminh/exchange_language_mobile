@@ -37,8 +37,9 @@ class UserResultItem extends StatelessWidget {
                     child: AvatarWidget(
                       height: 60.sp,
                       width: 60.sp,
-                      imageUrl:
-                          '${AppConstants.baseImageUrl}${user.avatar.src}',
+                      imageUrl: user.avatar == null
+                          ? null
+                          : '${AppConstants.baseImageUrl}${user.avatar!.src}',
                     ),
                   ),
                   SizedBox(

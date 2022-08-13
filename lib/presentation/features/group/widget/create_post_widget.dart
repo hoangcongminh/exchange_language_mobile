@@ -22,7 +22,7 @@ class CreatePostWidget extends StatelessWidget {
               height: 40,
               width: 40,
               imageUrl:
-                  '${AppConstants.baseImageUrl}${UserLocal().getUser()?.avatar.src}',
+                  '${AppConstants.baseImageUrl}${UserLocal().getUser()?.avatar?.src}',
             ),
             const SizedBox(
               width: 8,

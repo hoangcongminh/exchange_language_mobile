@@ -117,8 +117,9 @@ class _EditBlogScreenState extends State<EditBlogScreen> {
                                     : AppImageWidget(
                                         width: 80,
                                         height: 80,
-                                        imageUrl:
-                                            '${AppConstants.baseImageUrl}${widget.blog.thumbnail.src}'),
+                                        imageUrl: widget.blog.thumbnail == null
+                                            ? null
+                                            : '${AppConstants.baseImageUrl}${widget.blog.thumbnail!.src}'),
                               ),
                               SizedBox(
                                 width: 4.sp,
@@ -189,7 +190,7 @@ class _EditBlogScreenState extends State<EditBlogScreen> {
       EditBlogEvent(
         thubmnail: _imagePicked,
         currentThumbnailId:
-            _imagePicked == null ? widget.blog.thumbnail.id : null,
+            _imagePicked == null ? widget.blog.thumbnail?.id : null,
         title: _titleController.text,
         content: jsonEncode(_controller.document.toDelta().toJson()),
         blogId: widget.blog.id,

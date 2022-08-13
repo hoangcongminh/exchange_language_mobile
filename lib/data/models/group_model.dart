@@ -10,8 +10,6 @@ part 'group_model.g.dart';
 class GroupModel {
   @JsonKey(name: '_id')
   final String id;
-  @JsonKey(name: 'posts')
-  final List<dynamic> posts;
   @JsonKey(name: 'members')
   final List<String> members;
   @JsonKey(name: 'createdAt')
@@ -29,7 +27,6 @@ class GroupModel {
 
   GroupModel(
     this.id,
-    this.posts,
     this.members,
     this.createdAt,
     this.title,
@@ -49,7 +46,6 @@ class GroupModel {
         slug: slug,
         title: title,
         members: members,
-        posts: posts,
         thumbnail: thumbnail?.toEntity(),
         author: author.toEntity(),
         createdAt: createdAt,

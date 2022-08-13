@@ -8,6 +8,7 @@ import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
 import '../../data/repositories/post_repository_impl.dart';
+import '../../data/repositories/user_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
@@ -53,7 +54,10 @@ class AppBloc {
     MediaRepositoryImpl(),
   );
   static final blogDetailBloc = BlogDetailBloc(BlogRepositoryImpl());
-  static final updateProfileInfoBloc = UpdateProfileInfoBloc();
+  static final updateProfileInfoBloc = UpdateProfileInfoBloc(
+    UserRepositoryImpl(),
+    MediaRepositoryImpl(),
+  );
 
   static final List<BlocProvider> providers = [
     BlocProvider<ApplicationBloc>(

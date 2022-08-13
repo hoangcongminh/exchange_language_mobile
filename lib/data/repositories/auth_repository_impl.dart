@@ -40,6 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _authRestClient.refreshToken();
       if (response.error == false) {
+        UserLocal().clearUser();
         UserLocal().setUser(response.data!);
         return Right(response.data!.toEntity());
       } else {

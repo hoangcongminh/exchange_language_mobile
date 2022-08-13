@@ -5,7 +5,6 @@ import 'user.dart';
 
 class Group extends Equatable {
   final String id;
-  final List<dynamic> posts;
   final List<String> members;
   final String createdAt;
   final String title;
@@ -16,7 +15,6 @@ class Group extends Equatable {
 
   const Group({
     required this.id,
-    required this.posts,
     required this.members,
     required this.createdAt,
     required this.title,
@@ -29,7 +27,6 @@ class Group extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        posts,
         members,
         createdAt,
         title,

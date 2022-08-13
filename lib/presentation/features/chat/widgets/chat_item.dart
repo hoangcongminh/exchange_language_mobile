@@ -34,8 +34,10 @@ class _ChatItemState extends State<ChatItem> {
                   child: Row(
                     children: [
                       AvatarWidget(
-                        imageUrl:
-                            '${AppConstants.baseImageUrl}${widget.conversation.members.first.avatar.src}',
+                        imageUrl: widget.conversation.members.first.avatar ==
+                                null
+                            ? null
+                            : '${AppConstants.baseImageUrl}${widget.conversation.members.first.avatar!.src}',
                         width: 40.sp,
                         height: 40.sp,
                       ),

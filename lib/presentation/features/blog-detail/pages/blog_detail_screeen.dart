@@ -128,8 +128,9 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   AvatarWidget(
                     width: 40,
                     height: 40,
-                    imageUrl:
-                        '${AppConstants.baseImageUrl}${blog.author.avatar.src}',
+                    imageUrl: blog.author.avatar == null
+                        ? null
+                        : '${AppConstants.baseImageUrl}${blog.author.avatar!.src}',
                   ),
                   const SizedBox(width: 8),
                   Column(

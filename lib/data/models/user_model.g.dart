@@ -10,7 +10,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       json['_id'] as String,
       json['fullname'] as String,
       json['email'] as String?,
-      AvatarModel.fromJson(json['avatar'] as Map<String, dynamic>),
+      json['avatar'] == null
+          ? null
+          : AvatarModel.fromJson(json['avatar'] as Map<String, dynamic>),
       (json['learn'] as List<dynamic>?)
           ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -33,7 +35,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   }
 
   writeNotNull('email', instance.email);
-  val['avatar'] = instance.avatar.toJson();
+  val['avatar'] = instance.avatar?.toJson();
   val['learn'] = instance.learningLanguage?.map((e) => e.toJson()).toList();
   val['speak'] = instance.speakingLanguage?.map((e) => e.toJson()).toList();
   writeNotNull('introduction', instance.introduction);

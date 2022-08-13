@@ -5,7 +5,7 @@ class User extends Equatable {
   final String id;
   final String fullname;
   final String? email;
-  final Avatar avatar;
+  final Avatar? avatar;
   final List<Language>? learningLanguage;
   final List<Language>? speakingLanguage;
   final String? introduction;
@@ -14,7 +14,7 @@ class User extends Equatable {
     required this.id,
     required this.fullname,
     this.email,
-    required this.avatar,
+    this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
     this.introduction,

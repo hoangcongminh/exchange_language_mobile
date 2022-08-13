@@ -8,7 +8,6 @@ part of 'group_model.dart';
 
 GroupModel _$GroupModelFromJson(Map<String, dynamic> json) => GroupModel(
       json['_id'] as String,
-      json['posts'] as List<dynamic>,
       (json['members'] as List<dynamic>).map((e) => e as String).toList(),
       json['createdAt'] as String,
       json['title'] as String,
@@ -23,7 +22,6 @@ GroupModel _$GroupModelFromJson(Map<String, dynamic> json) => GroupModel(
 Map<String, dynamic> _$GroupModelToJson(GroupModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
-      'posts': instance.posts,
       'members': instance.members,
       'createdAt': instance.createdAt,
       'title': instance.title,

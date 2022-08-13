@@ -75,8 +75,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               ),
                             ),
                             child: AvatarWidget(
-                              imageUrl:
-                                  '${AppConstants.baseImageUrl}${user?.avatar.src ?? 'https://picsum.photos/200'}',
+                              imageUrl: user?.avatar == null
+                                  ? null
+                                  : '${AppConstants.baseImageUrl}${user?.avatar!.src}',
                               width: 90.sp,
                               height: 90.sp,
                             ),

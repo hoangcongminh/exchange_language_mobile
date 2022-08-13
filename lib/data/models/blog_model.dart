@@ -15,7 +15,7 @@ class BlogModel {
   @JsonKey(name: 'title')
   final String title;
   @JsonKey(name: 'thumbnail')
-  final MediaModel thumbnail;
+  final MediaModel? thumbnail;
   @JsonKey(name: 'content')
   final String? content;
   @JsonKey(name: 'author')
@@ -42,7 +42,7 @@ class BlogModel {
         id: id,
         slug: slug,
         title: title,
-        thumbnail: thumbnail.toEntity(),
+        thumbnail: thumbnail?.toEntity(),
         content: content,
         author: author.toEntity(),
         createdAt: createdAt,

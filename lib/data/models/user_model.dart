@@ -17,7 +17,7 @@ class UserModel {
   final String? email;
 
   @JsonKey(name: 'avatar')
-  final AvatarModel avatar;
+  final AvatarModel? avatar;
 
   @JsonKey(name: 'learn')
   final List<LanguageModel>? learningLanguage;
@@ -47,7 +47,7 @@ class UserModel {
         id: id,
         fullname: fullName,
         email: email,
-        avatar: avatar.toEntity(),
+        avatar: avatar?.toEntity(),
         learningLanguage: learningLanguage?.map((e) => e.toEntity()).toList(),
         speakingLanguage: speakingLanguage?.map((e) => e.toEntity()).toList(),
         introduction: introduction,

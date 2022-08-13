@@ -9,7 +9,7 @@ import '../../../../domain/entities/media.dart';
 class BlogItem extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
-  final Media thumbnail;
+  final Media? thumbnail;
   final String createdAt;
   const BlogItem({
     Key? key,
@@ -30,7 +30,9 @@ class BlogItem extends StatelessWidget {
             AppImageWidget(
                 height: 100,
                 width: 100,
-                imageUrl: '${AppConstants.baseImageUrl}${thumbnail.src}'),
+                imageUrl: thumbnail == null
+                    ? null
+                    : '${AppConstants.baseImageUrl}${thumbnail!.src}'),
             SizedBox(width: 10.sp),
             Expanded(
               child: Column(

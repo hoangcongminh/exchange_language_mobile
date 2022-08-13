@@ -52,7 +52,6 @@ class CreateBlogBloc extends Bloc<CreateBlogEvent, CreateBlogState> {
   Future<void> _editBlog(
       EditBlogEvent event, Emitter<CreateBlogState> emit) async {
     emit(CreateBlogLoading());
-    await Future.delayed(const Duration(seconds: 5));
     if (event.thubmnail == null) {
       Either<Failure, String> result = await _blogRepository.editBlog(
           blogId: event.blogId,

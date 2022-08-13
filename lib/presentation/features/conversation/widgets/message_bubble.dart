@@ -49,8 +49,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                   ? AvatarWidget(
                       height: 20.sp,
                       width: 20.sp,
-                      imageUrl:
-                          '${AppConstants.baseImageUrl}${widget.message.author.avatar.src}',
+                      imageUrl: widget.message.author.avatar == null
+                          ? null
+                          : '${AppConstants.baseImageUrl}${widget.message.author.avatar!.src}',
                     )
                   : SizedBox(height: 20.sp, width: 20.sp),
               Container(

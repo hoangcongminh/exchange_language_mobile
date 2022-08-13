@@ -99,10 +99,7 @@ class GroupDetail extends StatelessWidget {
                                   horizontal: 16.sp, vertical: 8.sp),
                               child: PostItem(
                                 isPostDetail: false,
-                                title: post.title,
-                                content: post.content,
-                                author: post.author,
-                                createdAt: post.createdAt,
+                                post: post,
                               ),
                             );
                           },

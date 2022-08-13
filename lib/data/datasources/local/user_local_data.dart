@@ -30,4 +30,8 @@ class UserLocal {
   void setUser(UserModel user) {
     box.put(StorageKey.USER, user.toJson());
   }
+
+  void clearUser() {
+    box.delete(StorageKey.USER);
+  }
 }
