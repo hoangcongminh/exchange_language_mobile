@@ -16,9 +16,9 @@ class _GroupRestClient implements GroupRestClient {
   String? baseUrl;
 
   @override
-  Future<ApiResponseModel<ListGroupModel>> fetchGroup({skip}) async {
+  Future<ApiResponseModel<ListGroupModel>> fetchGroup({skip, limit}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'skip': skip};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'limit': limit};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -76,6 +76,25 @@ class _GroupRestClient implements GroupRestClient {
 
   @override
   Future<ApiResponseModel<dynamic>> joinGroup({required groupId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<dynamic>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/groups/join/${groupId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponseModel<dynamic>> leaveGroup({required groupId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

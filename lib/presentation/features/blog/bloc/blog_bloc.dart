@@ -20,14 +20,16 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
 
   Future<void> _fetchBlogs(
       FetchBlogsEvent event, Emitter<BlogState> emit) async {
-    emit(BlogsLoading());
+    // emit(BlogsLoading());
+    if (blogs.length == total) {
+      return;
+    }
     Either<Failure, ListBlog> result =
         await _blogRepository.fetchBlogs(skip: blogs.length);
     result.fold((failure) {
       emit(BlogsLoadFailure());
     }, (listBlog) {
-      total = listBlog.total;
-      blogs.addAll(listBlog.blogs);
+      blogs = List.of(blogs)..addAll(listBlog.blogs);
       emit(BlogsLoaded(blogs: blogs));
     });
   }
@@ -41,7 +43,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
       emit(BlogsLoadFailure());
     }, (listBlog) {
       total = listBlog.total;
-      blogs.addAll(listBlog.blogs);
+      blogs = listBlog.blogs;
       emit(BlogsLoaded(blogs: blogs));
     });
   }

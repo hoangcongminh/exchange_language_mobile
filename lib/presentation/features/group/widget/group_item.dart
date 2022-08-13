@@ -5,8 +5,10 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/media.dart';
 import '../../../../domain/entities/user.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/group_style.dart';
 import '../../../widgets/app_button_widget.dart';
-import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/app_image_widget.dart';
 
 class GroupItem extends StatelessWidget {
   final String groupName;
@@ -41,25 +43,32 @@ class GroupItem extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                leading: AvatarWidget(
-                  height: 30.sp,
-                  width: 30.sp,
+                leading: AppImageWidget(
+                  height: 40.sp,
+                  width: 40.sp,
+                  shape: BoxShape.circle,
                   imageUrl: thumbnail == null
                       ? null
                       : '${AppConstants.baseImageUrl}${thumbnail!.src}',
                 ),
-                title: Text(groupName),
-                subtitle: Text(author.fullname),
+                title: Text(groupName, style: groupItemTitle),
+                subtitle: Text(author.fullname, style: groupItemAuthorName),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                child: Text(description),
+              const SizedBox(height: 5),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                  child: Text(description, style: groupInfoDescription),
+                ),
               ),
+              const SizedBox(height: 5),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.sp),
                 child: Row(
                   children: [
-                    const Icon(Icons.people),
+                    const Icon(Icons.people, color: AppColors.primaryColor),
+                    const SizedBox(width: 4),
                     Text(memberCount.toString()),
                     SizedBox(width: 10.sp),
                     const Spacer(),

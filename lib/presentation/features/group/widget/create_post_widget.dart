@@ -4,11 +4,12 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/app_constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../create-post/pages/create_post_screen.dart';
 
 class CreatePostWidget extends StatelessWidget {
-  const CreatePostWidget({Key? key}) : super(key: key);
+  final String groupId;
+  const CreatePostWidget({Key? key, required this.groupId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +34,8 @@ class CreatePostWidget extends StatelessWidget {
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) {
-                        return Scaffold(
-                          appBar: AppBar(
-                            leading: IconButton(
-                                onPressed: () => AppNavigator().pop(),
-                                icon: const Icon(Icons.close)),
-                            title: const Text('Create post'),
-                            actions: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.check),
-                              )
-                            ],
-                          ),
+                        return CreatePostScreen(
+                          groupId: groupId,
                         );
                       });
                 },

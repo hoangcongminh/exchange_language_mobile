@@ -15,6 +15,9 @@ class BlogsLoaded extends BlogState {
   final List<Blog> blogs;
 
   const BlogsLoaded({required this.blogs});
+
+  @override
+  List<Object> get props => [blogs];
 }
 
 class BlogsLoadFailure extends BlogState {}

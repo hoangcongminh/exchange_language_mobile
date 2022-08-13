@@ -20,7 +20,10 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
 
   Future<void> _fetchGroup(
       FetchGroupsEvent event, Emitter<GroupState> emit) async {
-    emit(GroupLoading());
+    // emit(GroupLoading());
+    if (groups.length == total) {
+      return;
+    }
     Either<Failure, ListGroup> result =
         await _groupRepository.fetchGroups(skip: groups.length);
     result.fold(
@@ -28,8 +31,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         emit(GroupLoadFailure());
       },
       (listGroup) {
-        total = listGroup.total;
-        groups.addAll(listGroup.groups);
+        groups = List.of(groups)..addAll(listGroup.groups);
         emit(GroupLoaded(groups: groups));
       },
     );
@@ -44,7 +46,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
       emit(GroupLoadFailure());
     }, (listBlog) {
       total = listBlog.total;
-      groups.addAll(listBlog.groups);
+      groups = listBlog.groups;
       emit(GroupLoaded(groups: groups));
     });
   }

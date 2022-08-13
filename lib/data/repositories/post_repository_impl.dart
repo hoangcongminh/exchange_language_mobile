@@ -11,12 +11,56 @@ class PostRepositoryImpl implements PostRepository {
   final PostRestClient _postRestClient = AppApiService().postRestClient;
 
   @override
-  Future<Either<Failure, ListPost>> fetchPosts(
-      {required String groupId}) async {
+  Future<Either<Failure, ListPost>> fetchPosts({
+    required String groupId,
+    int? skip,
+    int? limit,
+  }) async {
     try {
-      final response = await _postRestClient.fetchPosts(groupId: groupId);
+      final response = await _postRestClient.fetchPosts(
+        groupId: groupId,
+        skip: skip,
+        limit: limit,
+      );
       if (response.error == false) {
         return Right(response.data!.toEntity());
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> createPost({
+    required String groupId,
+    required String postTitle,
+    required String postContent,
+  }) async {
+    try {
+      final response = await _postRestClient.createPost({
+        'title': postTitle,
+        'content': postContent,
+      }, groupId: groupId);
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> likePost({required postId}) async {
+    try {
+      final response = await _postRestClient.likePost(postId: postId);
+      if (response.error == false) {
+        return const Right(null);
       } else {
         String message = response.message;
         return Left(ServerFailure(message));

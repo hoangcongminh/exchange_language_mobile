@@ -15,6 +15,8 @@ class GroupLoaded extends GroupState {
   final List<Group> groups;
 
   const GroupLoaded({required this.groups});
+  @override
+  List<Object> get props => [groups];
 }
 
 class GroupLoadFailure extends GroupState {}

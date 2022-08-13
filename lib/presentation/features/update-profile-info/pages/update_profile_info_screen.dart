@@ -10,7 +10,6 @@ import '../../../../domain/entities/language.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
-import '../../../common/application/application_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/custom_image_picker.dart';
 import '../../../widgets/error_dialog_widget.dart';

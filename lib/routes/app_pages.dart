@@ -95,7 +95,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.groupDetail:
         return _buildRoute(
           settings,
-          const GroupDetail(),
+          GroupDetail(),
         );
       case RouteConstants.postDetail:
         return _buildRoute(

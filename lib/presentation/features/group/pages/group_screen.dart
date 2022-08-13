@@ -64,7 +64,7 @@ class _GroupScreenState extends State<GroupScreen> {
                               AppBloc.groupDetailBloc
                                   .add(FetchGroupDetail(slug: group.slug));
                               AppBloc.postBloc
-                                  .add(FetchPostsEvent(groupId: group.id));
+                                  .add(RefreshPostEvent(groupId: group.id));
                               AppNavigator().push(RouteConstants.groupDetail);
                             },
                             child: GroupItem(

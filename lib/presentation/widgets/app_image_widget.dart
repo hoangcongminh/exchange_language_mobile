@@ -116,7 +116,7 @@ class DefaultImage extends StatelessWidget {
         shape: shape,
         image: const DecorationImage(
           image: AssetImage('assets/images/image_placeholder.jpg'),
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
       ),
     );

@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../domain/entities/language.dart';
-import '../../../../domain/entities/user.dart';
 import '../../../../domain/repository/media_repository.dart';
 import '../../../../domain/repository/user_repository.dart';
 

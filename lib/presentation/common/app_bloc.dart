@@ -16,6 +16,7 @@ import '../features/chat/bloc/chat_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/create-blog/bloc/create_blog_bloc.dart';
 import '../features/create-group/bloc/create_group_bloc.dart';
+import '../features/create-post/bloc/create_post_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
 import '../features/filter/bloc/filter_bloc.dart';
 import '../features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
@@ -48,6 +49,7 @@ class AppBloc {
     MediaRepositoryImpl(),
   );
   static final postBloc = PostBloc(PostRepositoryImpl());
+  static final createPostBloc = CreatePostBloc(PostRepositoryImpl());
   static final blogBloc = BlogBloc(BlogRepositoryImpl());
   static final createBlogBloc = CreateBlogBloc(
     BlogRepositoryImpl(),
@@ -96,6 +98,9 @@ class AppBloc {
     BlocProvider<PostBloc>(
       create: (context) => postBloc,
     ),
+    BlocProvider<CreatePostBloc>(
+      create: (context) => createPostBloc,
+    ),
     BlocProvider<BlogBloc>(
       create: (context) => blogBloc,
     ),
@@ -113,8 +118,8 @@ class AppBloc {
   static void initialHomeBloc() {
     authenticateBloc.add(RefreshTokenEvent());
     chatBloc.add(FetchConversations());
-    blogBloc.add(FetchBlogsEvent());
-    groupBloc.add(FetchGroupsEvent());
+    blogBloc.add(RefreshBlogsEvent());
+    groupBloc.add(RefreshGroupsEvent());
   }
 
   static void cleanBloc() {

@@ -13,5 +13,18 @@ abstract class PostRestClient {
   @GET('/groups/posts/{groupId}')
   Future<ApiResponseModel<ListPostModel>> fetchPosts({
     @Path('groupId') required String groupId,
+    @Query("skip") int? skip,
+    @Query("limit") int? limit,
+  });
+
+  @POST('/groups/posts/{groupId}')
+  Future<ApiResponseModel> createPost(
+    @Body() Map<String, dynamic> body, {
+    @Path('groupId') required String groupId,
+  });
+
+  @GET('/groups/posts/favorites/{postId}')
+  Future<ApiResponseModel<ListPostModel>> likePost({
+    @Path('postId') required String postId,
   });
 }

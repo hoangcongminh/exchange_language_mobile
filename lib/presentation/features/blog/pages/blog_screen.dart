@@ -47,23 +47,23 @@ class _BlogScreenState extends State<BlogScreen> {
               padding: EdgeInsets.symmetric(horizontal: 8.sp),
               child: Column(
                 children: [
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: ListView.builder(
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemCount: 3,
+                  //     itemBuilder: (BuildContext context, int index) {
+                  //       return Padding(
+                  //         padding: EdgeInsets.only(right: 8.sp),
+                  //         child: const Chip(
+                  //           label: Text('English'),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                   Expanded(
-                    flex: 1,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 8.sp),
-                          child: const Chip(
-                            label: Text('English'),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    flex: 8,
+                    // flex: 8,
                     child: SmartRefresher(
                       header: const WaterDropHeader(),
                       onRefresh: _onRefresh,

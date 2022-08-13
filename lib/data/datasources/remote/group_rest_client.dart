@@ -12,7 +12,8 @@ abstract class GroupRestClient {
 
   @GET('/groups')
   Future<ApiResponseModel<ListGroupModel>> fetchGroup({
-    @Query('skip') int? skip,
+    @Query("skip") int? skip,
+    @Query("limit") int? limit,
   });
 
   @GET('/groups/{slug}')
@@ -27,6 +28,11 @@ abstract class GroupRestClient {
 
   @GET('/groups/join/{id}')
   Future<ApiResponseModel> joinGroup({
+    @Path('id') required String groupId,
+  });
+
+  @GET('/groups/join/{id}')
+  Future<ApiResponseModel> leaveGroup({
     @Path('id') required String groupId,
   });
 }

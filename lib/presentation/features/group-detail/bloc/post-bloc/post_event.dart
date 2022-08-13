@@ -14,3 +14,20 @@ class FetchPostsEvent extends PostEvent {
   @override
   List<Object> get props => [groupId];
 }
+
+class RefreshPostEvent extends PostEvent {
+  final String groupId;
+  const RefreshPostEvent({required this.groupId});
+
+  @override
+  List<Object> get props => [groupId];
+}
+
+class LikePostEvent extends PostEvent {
+  final String postId;
+  final String groupId;
+  const LikePostEvent({required this.postId, required this.groupId});
+
+  @override
+  List<Object> get props => [postId, groupId];
+}
