@@ -2,10 +2,8 @@ import 'package:comment_tree/data/comment.dart';
 import 'package:comment_tree/widgets/comment_tree_widget.dart';
 import 'package:comment_tree/widgets/tree_theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../widgets/avatar_widget.dart';
-import '../widget/post_item.dart';
 
 class PostDetailScreen extends StatelessWidget {
   const PostDetailScreen({Key? key}) : super(key: key);
@@ -17,84 +15,223 @@ class PostDetailScreen extends StatelessWidget {
         // title: const PostHeader(),
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(8.sp),
-          child: Column(
-            children: [
-              // const PostItem(
-              //   isPostDetail: true,
-              // ),
-              Divider(
-                thickness: 1.sp,
-              ),
-              CommentTreeWidget<Comment, Comment>(
-                Comment(
-                    avatar: 'null',
-                    userName: 'minh',
-                    content: 'felangel made felangel/cubit_and_beyond public '),
-                [
-                  Comment(
-                      avatar: 'null',
-                      userName: 'user1',
-                      content: 'A Dart template generator which helps teams'),
-                  Comment(
-                      avatar: 'null',
-                      userName: 'user1',
-                      content: 'A Dart template generator which helps teams'),
-                  Comment(
-                      avatar: 'null',
-                      userName: 'user1',
-                      content:
-                          'A Dart template generator which helps teams \n A Dart template generator which helps teams \n A Dart template generator which helps teams'),
-                  Comment(
-                      avatar: 'null',
-                      userName: 'user1',
-                      content: 'A Dart template generator which helps teams'),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return CommentTreeWidget<Comment, Comment>(
                   Comment(
                       avatar: 'null',
                       userName: 'minh',
                       content:
-                          'A Dart template generator which helps teams generator which helps teams generator which helps teams'),
-                  Comment(
-                      avatar: 'null',
-                      userName: 'minh',
-                      content: 'A Dart template generator which helps teams'),
-                  Comment(
-                      avatar: 'null',
-                      userName: 'user1',
-                      content:
-                          'A Dart template generator which helps teams generator which helps teams '),
-                ],
-                treeThemeData: TreeThemeData(
-                    lineColor: Colors.grey.shade300, lineWidth: 2),
-                avatarRoot: (context, data) => const PreferredSize(
-                  preferredSize: Size.fromRadius(18),
-                  child: AvatarWidget(
-                    height: 40,
-                    width: 40,
+                          'felangel made felangel/cubit_and_beyond public '),
+                  [
+                    Comment(
+                        avatar: 'null',
+                        userName: 'user1',
+                        content: 'A Dart template generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'user1',
+                        content: 'A Dart template generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'user1',
+                        content:
+                            'A Dart template generator which helps teams \n A Dart template generator which helps teams \n A Dart template generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'user1',
+                        content: 'A Dart template generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'minh',
+                        content:
+                            'A Dart template generator which helps teams generator which helps teams generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'minh',
+                        content: 'A Dart template generator which helps teams'),
+                    Comment(
+                        avatar: 'null',
+                        userName: 'user1',
+                        content:
+                            'A Dart template generator which helps teams generator which helps teams '),
+                  ],
+                  treeThemeData: TreeThemeData(
+                      lineColor: Colors.grey.shade300, lineWidth: 2),
+                  avatarRoot: (context, data) => const PreferredSize(
+                    preferredSize: Size.fromRadius(18),
+                    child: AvatarWidget(
+                      height: 40,
+                      width: 40,
+                    ),
                   ),
-                ),
-                avatarChild: (context, data) => const PreferredSize(
-                  preferredSize: Size.fromRadius(12),
-                  child: AvatarWidget(
-                    height: 38,
-                    width: 38,
+                  avatarChild: (context, data) => const PreferredSize(
+                    preferredSize: Size.fromRadius(12),
+                    child: AvatarWidget(
+                      height: 38,
+                      width: 38,
+                    ),
                   ),
-                ),
-                contentChild: (context, data) {
-                  return CommentItem(
-                      userName: data.userName, content: data.content);
-                },
-                contentRoot: (context, data) {
-                  return CommentItem(
-                      userName: data.userName, content: data.content);
-                },
-              ),
-            ],
+                  contentChild: (context, data) {
+                    return CommentItem(
+                        userName: data.userName, content: data.content);
+                  },
+                  contentRoot: (context, data) {
+                    return CommentItem(
+                        userName: data.userName, content: data.content);
+                  },
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
+      // body: SingleChildScrollView(
+      //   child: Padding(
+      //     padding: EdgeInsets.all(8.sp),
+      //     child: Column(
+      //       children: [
+      //         // const PostItem(
+      //         //   isPostDetail: true,
+      //         // ),
+      //         // Divider(
+      //         //   thickness: 1.sp,
+      //         // ),
+      //         CommentTreeWidget<Comment, Comment>(
+      //           Comment(
+      //               avatar: 'null',
+      //               userName: 'minh',
+      //               content: 'felangel made felangel/cubit_and_beyond public '),
+      //           [
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content:
+      //                     'A Dart template generator which helps teams \n A Dart template generator which helps teams \n A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'minh',
+      //                 content:
+      //                     'A Dart template generator which helps teams generator which helps teams generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'minh',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content:
+      //                     'A Dart template generator which helps teams generator which helps teams '),
+      //           ],
+      //           treeThemeData: TreeThemeData(
+      //               lineColor: Colors.grey.shade300, lineWidth: 2),
+      //           avatarRoot: (context, data) => const PreferredSize(
+      //             preferredSize: Size.fromRadius(18),
+      //             child: AvatarWidget(
+      //               height: 40,
+      //               width: 40,
+      //             ),
+      //           ),
+      //           avatarChild: (context, data) => const PreferredSize(
+      //             preferredSize: Size.fromRadius(12),
+      //             child: AvatarWidget(
+      //               height: 38,
+      //               width: 38,
+      //             ),
+      //           ),
+      //           contentChild: (context, data) {
+      //             return CommentItem(
+      //                 userName: data.userName, content: data.content);
+      //           },
+      //           contentRoot: (context, data) {
+      //             return CommentItem(
+      //                 userName: data.userName, content: data.content);
+      //           },
+      //         ),
+      //         CommentTreeWidget<Comment, Comment>(
+      //           Comment(
+      //               avatar: 'null',
+      //               userName: 'minh',
+      //               content: 'felangel made felangel/cubit_and_beyond public '),
+      //           [
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content:
+      //                     'A Dart template generator which helps teams \n A Dart template generator which helps teams \n A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'minh',
+      //                 content:
+      //                     'A Dart template generator which helps teams generator which helps teams generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'minh',
+      //                 content: 'A Dart template generator which helps teams'),
+      //             Comment(
+      //                 avatar: 'null',
+      //                 userName: 'user1',
+      //                 content:
+      //                     'A Dart template generator which helps teams generator which helps teams '),
+      //           ],
+      //           treeThemeData: TreeThemeData(
+      //               lineColor: Colors.grey.shade300, lineWidth: 2),
+      //           avatarRoot: (context, data) => const PreferredSize(
+      //             preferredSize: Size.fromRadius(18),
+      //             child: AvatarWidget(
+      //               height: 40,
+      //               width: 40,
+      //             ),
+      //           ),
+      //           avatarChild: (context, data) => const PreferredSize(
+      //             preferredSize: Size.fromRadius(12),
+      //             child: AvatarWidget(
+      //               height: 38,
+      //               width: 38,
+      //             ),
+      //           ),
+      //           contentChild: (context, data) {
+      //             return CommentItem(
+      //                 userName: data.userName, content: data.content);
+      //           },
+      //           contentRoot: (context, data) {
+      //             return CommentItem(
+      //                 userName: data.userName, content: data.content);
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

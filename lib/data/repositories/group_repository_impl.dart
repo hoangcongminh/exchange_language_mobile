@@ -77,4 +77,18 @@ class GroupRepositoryImpl implements GroupRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> leaveGroup({required String groupId}) async {
+    try {
+      final response = await _groupRestClient.leaveGroup(groupId: groupId);
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

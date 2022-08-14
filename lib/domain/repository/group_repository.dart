@@ -17,4 +17,6 @@ abstract class GroupRepository {
   });
 
   Future<Either<Failure, void>> joinGroup({required String groupId});
+
+  Future<Either<Failure, void>> leaveGroup({required String groupId});
 }

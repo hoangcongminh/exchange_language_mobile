@@ -102,7 +102,7 @@ class _GroupRestClient implements GroupRestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponseModel<dynamic>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/groups/join/${groupId}',
+                .compose(_dio.options, '/groups/leave/${groupId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponseModel<dynamic>.fromJson(

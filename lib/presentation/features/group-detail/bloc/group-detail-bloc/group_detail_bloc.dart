@@ -16,6 +16,7 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
     on<GroupDetailEvent>((event, emit) {});
     on<FetchGroupDetail>(_fetchGroupDetail);
     on<JoinGroup>(_joinGroup);
+    on<LeaveGroup>(_leaveGroup);
   }
 
   Future<void> _fetchGroupDetail(
@@ -25,7 +26,7 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
         await _groupRepository.fetchGroupDetail(slug: event.slug);
     result.fold(
       (failure) {
-        emit(GroupDetailLoadFailure());
+        emit(GroupDetailFailure(message: failure.message));
       },
       (group) {
         emit(GroupDetailLoaded(group: group));
@@ -40,10 +41,26 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
       (result) {
         result.fold(
           (failure) {
-            emit(GroupDetailJoinFailure());
+            emit(GroupDetailFailure(message: failure.message));
           },
           (_) async {
-            emit(GroupDetailJoinSuccess());
+            emit(GroupDetailJoinSuccess(event.slug));
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _leaveGroup(
+      LeaveGroup event, Emitter<GroupDetailState> emit) async {
+    await _groupRepository.leaveGroup(groupId: event.id).then(
+      (result) {
+        result.fold(
+          (failure) {
+            emit(GroupDetailFailure(message: failure.message));
+          },
+          (_) async {
+            emit(GroupDetailLeaveSuccess());
           },
         );
       },

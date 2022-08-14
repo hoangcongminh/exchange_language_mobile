@@ -19,8 +19,21 @@ class GroupDetailLoaded extends GroupDetailState {
   List<Object> get props => [group];
 }
 
-class GroupDetailLoadFailure extends GroupDetailState {}
+class GroupDetailFailure extends GroupDetailState {
+  final String message;
+  const GroupDetailFailure({required this.message});
 
-class GroupDetailJoinSuccess extends GroupDetailState {}
+  @override
+  List<Object> get props => [message];
+}
 
-class GroupDetailJoinFailure extends GroupDetailState {}
+class GroupDetailJoinSuccess extends GroupDetailState {
+  final String slug;
+
+  const GroupDetailJoinSuccess(this.slug);
+
+  @override
+  List<Object> get props => [slug];
+}
+
+class GroupDetailLeaveSuccess extends GroupDetailState {}

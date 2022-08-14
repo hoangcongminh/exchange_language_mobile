@@ -26,3 +26,15 @@ class JoinGroup extends GroupDetailEvent {
   @override
   List<Object> get props => [id, slug];
 }
+
+class LeaveGroup extends GroupDetailEvent {
+  final String id;
+  final String slug;
+  const LeaveGroup({
+    required this.id,
+    required this.slug,
+  });
+
+  @override
+  List<Object> get props => [id, slug];
+}

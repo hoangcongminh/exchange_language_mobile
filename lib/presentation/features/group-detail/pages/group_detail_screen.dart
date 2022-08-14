@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/app_button_widget.dart';
@@ -37,7 +38,8 @@ class GroupDetail extends StatelessWidget {
     }
   }
 
-  void _onTapJoined(BuildContext context) {
+  void _onTapJoined(BuildContext context,
+      {required String id, required String slug}) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -59,20 +61,24 @@ class GroupDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30.sp),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.sp),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.exit_to_app_outlined),
-                      SizedBox(width: 12.sp),
-                      Text(
-                        'Leave group',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w400,
+                TextButton(
+                  onPressed: () => AppBloc.groupDetailBloc
+                      .add(LeaveGroup(id: id, slug: slug)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.exit_to_app_outlined),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          'Leave group',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Divider(
@@ -91,7 +97,14 @@ class GroupDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocBuilder<GroupDetailBloc, GroupDetailState>(
+    return BlocConsumer<GroupDetailBloc, GroupDetailState>(
+      listener: (context, state) {
+        if (state is GroupDetailLeaveSuccess) {
+          AppNavigator().pushNamedAndRemoveUntil(RouteConstants.home);
+        } else if (state is GroupDetailJoinSuccess) {
+          AppBloc.groupDetailBloc.add(FetchGroupDetail(slug: state.slug));
+        }
+      },
       builder: (context, state) {
         if (state is GroupDetailLoaded) {
           final group = state.group;
@@ -172,7 +185,8 @@ class GroupDetail extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(20.sp),
                                     ),
-                                    onPressed: () => _onTapJoined(context),
+                                    onPressed: () => _onTapJoined(context,
+                                        id: group.id, slug: group.slug),
                                     label: const Text('Joined'),
                                   )
                                 : AppButtonWidget(

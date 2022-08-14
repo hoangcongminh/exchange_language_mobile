@@ -31,7 +31,7 @@ abstract class GroupRestClient {
     @Path('id') required String groupId,
   });
 
-  @GET('/groups/join/{id}')
+  @GET('/groups/leave/{id}')
   Future<ApiResponseModel> leaveGroup({
     @Path('id') required String groupId,
   });
