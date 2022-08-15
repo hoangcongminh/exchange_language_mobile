@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/blog_repository_impl.dart';
 import '../../data/repositories/chat_repository_impl.dart';
+import '../../data/repositories/comment_repository_impl.dart';
 import '../../data/repositories/filter_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
@@ -13,6 +14,7 @@ import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
+import '../features/comment/bloc/comment_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/create-blog/bloc/create_blog_bloc.dart';
 import '../features/create-group/bloc/create_group_bloc.dart';
@@ -49,6 +51,8 @@ class AppBloc {
     MediaRepositoryImpl(),
   );
   static final postBloc = PostBloc(PostRepositoryImpl());
+  static final commentBloc = CommentBloc(CommentRepositoryImpl());
+
   static final createPostBloc = CreatePostBloc(PostRepositoryImpl());
   static final blogBloc = BlogBloc(BlogRepositoryImpl());
   static final createBlogBloc = CreateBlogBloc(
@@ -100,6 +104,9 @@ class AppBloc {
     ),
     BlocProvider<CreatePostBloc>(
       create: (context) => createPostBloc,
+    ),
+    BlocProvider<CommentBloc>(
+      create: (context) => commentBloc,
     ),
     BlocProvider<BlogBloc>(
       create: (context) => blogBloc,

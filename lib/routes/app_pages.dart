@@ -6,6 +6,7 @@ import '../presentation/features/authenticate/pages/forgot_password_screen.dart'
 import '../presentation/features/authenticate/pages/login_screen.dart';
 import '../presentation/features/authenticate/pages/register_screen.dart';
 import '../presentation/features/blog-detail/pages/blog_detail_screeen.dart';
+import '../presentation/features/comment/pages/comment_screen.dart';
 import '../presentation/features/create-blog/pages/create_blog_screen.dart';
 import '../presentation/features/conversation/pages/conversation_screen.dart';
 import '../presentation/features/create-blog/pages/edit_blog_screen.dart';
@@ -14,7 +15,6 @@ import '../presentation/features/filter/pages/result_screen.dart';
 import '../presentation/features/filter/pages/select_language_screen.dart';
 import '../presentation/features/create-group/pages/create_group_screen.dart';
 import '../presentation/features/group-detail/pages/group_detail_screen.dart';
-import '../presentation/features/group/pages/post_detail_screen.dart';
 import '../presentation/features/setting/setting_screen.dart';
 import '../presentation/features/update-profile-info/pages/update_profile_info_screen.dart';
 import '../presentation/features/user-profile/pages/user_profile_screen.dart';
@@ -97,10 +97,10 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
           settings,
           GroupDetail(),
         );
-      case RouteConstants.postDetail:
+      case RouteConstants.comment:
         return _buildRoute(
           settings,
-          const PostDetailScreen(),
+          CommentScreen(post: arguments?['post']),
         );
       case RouteConstants.createGroup:
         return _buildRoute(

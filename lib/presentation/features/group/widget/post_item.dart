@@ -8,10 +8,12 @@ import 'package:translator/translator.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/post.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_tap.dart';
+import '../../comment/bloc/comment_bloc.dart';
 import '../../group-detail/bloc/post-bloc/post_bloc.dart';
 
 class PostItem extends StatelessWidget {
@@ -112,7 +114,10 @@ class PostItem extends StatelessWidget {
                   onPressed: isPostDetail
                       ? () {}
                       : () {
-                          AppNavigator().push(RouteConstants.postDetail);
+                          AppBloc.commentBloc
+                              .add(FetchCommentEvent(postId: post.id));
+                          AppNavigator().push(RouteConstants.comment,
+                              arguments: {'post': post});
                         },
                   label: Text(post.comments.length.toString()),
                   icon: const Icon(CupertinoIcons.chat_bubble),

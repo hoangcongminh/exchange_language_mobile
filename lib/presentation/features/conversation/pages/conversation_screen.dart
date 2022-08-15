@@ -17,11 +17,11 @@ class ConversationScreen extends StatefulWidget {
 }
 
 class _ConversationScreenState extends State<ConversationScreen> {
-  final ScrollController scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   void scrollToBottom() {
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
@@ -48,7 +48,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 builder: (context, state) {
                   if (state is ConversationLoaded) {
                     return ListView.builder(
-                        controller: scrollController,
+                        controller: _scrollController,
                         itemCount: state.messages.length,
                         itemBuilder: (context, index) {
                           return MessageBubble(message: state.messages[index]);
