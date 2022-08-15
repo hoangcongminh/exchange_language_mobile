@@ -71,9 +71,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         onTap: () {
                           AppBloc.conversationBloc.add(FetchMessage(
                               conversationId: state.conversations[index].id));
-                          AppNavigator().push(
-                            RouteConstants.conversation,
-                          );
+                          AppNavigator().push(RouteConstants.conversation,
+                              arguments: {
+                                'conversation': state.conversations[index]
+                              });
                         },
                         child:
                             ChatItem(conversation: state.conversations[index]),

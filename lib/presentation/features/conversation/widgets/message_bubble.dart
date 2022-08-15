@@ -38,42 +38,51 @@ class _MessageBubbleState extends State<MessageBubble> {
           //     ),
           //   ),
           // ),
-          Row(
-            mainAxisAlignment: widget.message.isMe
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: 5.sp),
-              !widget.message.isMe
-                  ? AvatarWidget(
-                      height: 20.sp,
-                      width: 20.sp,
-                      imageUrl: widget.message.author.avatar == null
-                          ? null
-                          : '${AppConstants.baseImageUrl}${widget.message.author.avatar!.src}',
-                    )
-                  : SizedBox(height: 20.sp, width: 20.sp),
-              Container(
-                margin: EdgeInsets.only(
-                  right: 8.sp,
-                  left: 5.sp,
-                  bottom: 8.sp,
+              if (!widget.message.isMe)
+                Padding(
+                  padding: EdgeInsets.only(left: 40.sp, bottom: 2.sp),
+                  child: Text(widget.message.author.fullname),
                 ),
-                constraints: BoxConstraints(
-                  maxWidth: 65.w,
-                ),
-                decoration: BoxDecoration(
-                  color: widget.message.isMe
-                      ? colorBackgroundMessageSender
-                      : colorBackgroundMessageReiceiver,
-                  borderRadius: BorderRadius.all(Radius.circular(10.sp)),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.sp, vertical: 12.sp),
-                  child: Text(widget.message.content ?? ''),
-                ),
+              Row(
+                mainAxisAlignment: widget.message.isMe
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: 5.sp),
+                  !widget.message.isMe
+                      ? AvatarWidget(
+                          height: 25.sp,
+                          width: 25.sp,
+                          imageUrl: widget.message.author.avatar == null
+                              ? null
+                              : '${AppConstants.baseImageUrl}${widget.message.author.avatar!.src}',
+                        )
+                      : SizedBox(height: 20.sp, width: 20.sp),
+                  Container(
+                    margin: EdgeInsets.only(
+                      right: 8.sp,
+                      left: 5.sp,
+                    ),
+                    constraints: BoxConstraints(
+                      maxWidth: 65.w,
+                    ),
+                    decoration: BoxDecoration(
+                      color: widget.message.isMe
+                          ? colorBackgroundMessageSender
+                          : colorBackgroundMessageReiceiver,
+                      borderRadius: BorderRadius.all(Radius.circular(8.sp)),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.sp, vertical: 12.sp),
+                      child: Text(widget.message.content ?? ''),
+                    ),
+                  ),
+                ],
               ),
             ],
           )

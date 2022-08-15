@@ -14,6 +14,9 @@ class ConversationLoaded extends ConversationState {
   const ConversationLoaded({
     required this.messages,
   });
+
+  @override
+  List<Object> get props => [messages];
 }
 
 class ConversationLoading extends ConversationState {}

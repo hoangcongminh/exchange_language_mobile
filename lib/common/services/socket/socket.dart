@@ -18,7 +18,8 @@ void connectAndListen() {
   socket = io.io(
       socketUrl,
       io.OptionBuilder()
-          .disableAutoConnect()
+          // .disableAutoConnect(
+          .enableForceNew()
           .setTransports(['websocket']).setExtraHeaders(
               {'authorization': 'Bearer $token'}).build());
 
@@ -44,12 +45,17 @@ void connectAndListen() {
 }
 
 void disconnectBeforeConnect() {
-  if (socket != null) {
-    if (socket!.connected) {
-      socket!.disconnect();
-      socket!.close();
-      socket = null;
-    }
+  // if (socket != null) {
+  //   if (socket!.connected) {
+  //     socket!.disconnect();
+  //     socket!.close();
+  //     socket = null;
+  //   }
+  // }
+  if (isSocketConnected()) {
+    socket!.disconnect();
+    socket!.close();
+    socket = null;
   }
 }
 

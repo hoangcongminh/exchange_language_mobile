@@ -5,11 +5,15 @@ import '../../../theme/chat_style.dart';
 
 class ConversationInput extends StatefulWidget {
   final Function(String content) onSend;
-  final Function() onTapImage;
+  final VoidCallback onTapImage;
+  final VoidCallback onTapEmoji;
+  final VoidCallback onTapRecord;
   const ConversationInput({
     Key? key,
     required this.onSend,
     required this.onTapImage,
+    required this.onTapEmoji,
+    required this.onTapRecord,
   }) : super(key: key);
 
   @override
@@ -35,8 +39,15 @@ class _ConversationInputState extends State<ConversationInput> {
                 icon: const Icon(Icons.image),
               ),
             ),
+             Flexible(
+              flex: 1,
+              child: IconButton(
+                onPressed: widget.onTapRecord,
+                icon: const Icon(Icons.mic),
+              ),
+            ),
             Flexible(
-              flex: 5,
+              flex: 4,
               child: TextFormField(
                 focusNode: focusNode,
                 controller: msgController,
@@ -52,6 +63,9 @@ class _ConversationInputState extends State<ConversationInput> {
                 maxLines: 2,
                 onFieldSubmitted: (val) => {},
                 decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                      onPressed: widget.onTapEmoji,
+                      icon: const Icon(Icons.emoji_emotions_outlined)),
                   contentPadding: EdgeInsets.only(
                     left: 16.sp,
                     bottom: 3.sp,

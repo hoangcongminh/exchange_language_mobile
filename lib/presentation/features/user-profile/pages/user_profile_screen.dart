@@ -24,7 +24,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    bool isMe = widget.user == null;
+    bool isMe =
+        widget.user?.id == UserLocal().getUser()!.id || widget.user == null;
     User? user = widget.user ?? UserLocal().getUser();
 
     return Scaffold(

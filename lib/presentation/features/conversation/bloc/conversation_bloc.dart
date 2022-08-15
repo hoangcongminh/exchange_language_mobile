@@ -18,12 +18,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   _fetchMessages(FetchMessage event, Emitter emit) async {
+    emit(ConversationLoading());
     Either<Failure, List<Message>> result =
         await chatRepository.getMessagesByConversation(event.conversationId);
     result.fold((failue) {
       emit(ConversationFailure());
     }, (dataMessages) {
-      messages.addAll(dataMessages);
+      messages = dataMessages;
       emit(ConversationLoaded(messages: messages));
     });
   }

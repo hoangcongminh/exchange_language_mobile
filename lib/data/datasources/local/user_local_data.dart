@@ -11,12 +11,12 @@ class UserLocal {
     return box.get(StorageKey.TOKEN) ?? '';
   }
 
-  void setAccessToken(String accessToken) {
-    box.put(StorageKey.TOKEN, accessToken);
+  void setAccessToken(String accessToken) async {
+    await box.put(StorageKey.TOKEN, accessToken);
   }
 
-  void clearAccessToken() {
-    box.delete(StorageKey.TOKEN);
+  void clearAccessToken() async {
+    await box.delete(StorageKey.TOKEN);
   }
 
   User? getUser() {
@@ -27,11 +27,11 @@ class UserLocal {
     return UserModel.fromJson(user).toEntity();
   }
 
-  void setUser(UserModel user) {
-    box.put(StorageKey.USER, user.toJson());
+  void setUser(UserModel user) async {
+    await box.put(StorageKey.USER, user.toJson());
   }
 
-  void clearUser() {
-    box.delete(StorageKey.USER);
+  void clearUser() async {
+    await box.delete(StorageKey.USER);
   }
 }
