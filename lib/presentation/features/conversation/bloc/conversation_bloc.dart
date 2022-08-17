@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exchange_language_mobile/common/services/socket/socket_emit.dart';
@@ -15,15 +17,42 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<FetchMessage>(_fetchMessages);
     on<ReceiveNewMessage>(_receiveNewMessage);
     on<SendMessage>(_sendMessage);
+    on<RefreshMessage>(_refreshMessage);
   }
 
   _fetchMessages(FetchMessage event, Emitter emit) async {
-    emit(ConversationLoading());
+    if (hasReachedMax) {
+    } else {}
     Either<Failure, List<Message>> result =
-        await chatRepository.getMessagesByConversation(event.conversationId);
+        await chatRepository.getMessagesByConversation(
+      conversationId: event.conversationId,
+      skip: event.skip,
+      limit: limit,
+    );
     result.fold((failue) {
       emit(ConversationFailure());
     }, (dataMessages) {
+      if (dataMessages.isEmpty) {
+        hasReachedMax == true;
+      } else {
+        messages = List.of(dataMessages)..addAll(messages);
+        emit(ConversationLoaded(messages: messages));
+      }
+    });
+  }
+
+  Future<void> _refreshMessage(
+      RefreshMessage event, Emitter<ConversationState> emit) async {
+    emit(ConversationLoading());
+    Either<Failure, List<Message>> result =
+        await chatRepository.getMessagesByConversation(
+      conversationId: event.conversationId,
+      limit: limit,
+    );
+    result.fold((failue) {
+      emit(ConversationFailure());
+    }, (dataMessages) {
+      hasReachedMax == false;
       messages = dataMessages;
       emit(ConversationLoaded(messages: messages));
     });
@@ -41,5 +70,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   List<Message> messages = [];
+  int limit = 20;
+  bool hasReachedMax = false;
   ChatRepository chatRepository;
 }

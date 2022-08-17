@@ -69,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       return GestureDetector(
                         onLongPress: () {},
                         onTap: () {
-                          AppBloc.conversationBloc.add(FetchMessage(
+                          AppBloc.conversationBloc.add(RefreshMessage(
                               conversationId: state.conversations[index].id));
                           AppNavigator().push(RouteConstants.conversation,
                               arguments: {

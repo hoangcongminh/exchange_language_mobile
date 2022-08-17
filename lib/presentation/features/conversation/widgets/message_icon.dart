@@ -3,21 +3,12 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/message.dart';
-import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
 
-class MessageBubble extends StatefulWidget {
+class MessageIcon extends StatelessWidget {
   final Message message;
-  const MessageBubble({
-    Key? key,
-    required this.message,
-  }) : super(key: key);
+  const MessageIcon({Key? key, required this.message}) : super(key: key);
 
-  @override
-  State<MessageBubble> createState() => _MessageBubbleState();
-}
-
-class _MessageBubbleState extends State<MessageBubble> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,25 +30,25 @@ class _MessageBubbleState extends State<MessageBubble> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!widget.message.isMe)
+              if (!message.isMe)
                 Padding(
                   padding: EdgeInsets.only(left: 40.sp, bottom: 2.sp),
-                  child: Text(widget.message.author.fullname),
+                  child: Text(message.author.fullname),
                 ),
               Row(
-                mainAxisAlignment: widget.message.isMe
+                mainAxisAlignment: message.isMe
                     ? MainAxisAlignment.end
                     : MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(width: 5.sp),
-                  !widget.message.isMe
+                  !message.isMe
                       ? AvatarWidget(
                           height: 25.sp,
                           width: 25.sp,
-                          imageUrl: widget.message.author.avatar == null
+                          imageUrl: message.author.avatar == null
                               ? null
-                              : '${AppConstants.baseImageUrl}${widget.message.author.avatar!.src}',
+                              : '${AppConstants.baseImageUrl}${message.author.avatar!.src}',
                         )
                       : SizedBox(height: 20.sp, width: 20.sp),
                   Container(
@@ -65,19 +56,10 @@ class _MessageBubbleState extends State<MessageBubble> {
                       right: 8.sp,
                       left: 5.sp,
                     ),
-                    constraints: BoxConstraints(
-                      maxWidth: 65.w,
-                    ),
-                    decoration: BoxDecoration(
-                      color: widget.message.isMe
-                          ? colorBackgroundMessageSender
-                          : colorBackgroundMessageReiceiver,
-                      borderRadius: BorderRadius.all(Radius.circular(8.sp)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.sp, vertical: 12.sp),
-                      child: Text(widget.message.content ?? ''),
+                    padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                    child: const Text(
+                      '🍉',
+                      style: TextStyle(fontSize: 80),
                     ),
                   ),
                 ],

@@ -28,11 +28,14 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, List<Message>>> getMessagesByConversation(
-      String conversationId) async {
+  Future<Either<Failure, List<Message>>> getMessagesByConversation({
+    required String conversationId,
+    int? skip,
+    int? limit,
+  }) async {
     try {
-      final response =
-          await _chatRestClient.getMessageByConversation(conversationId);
+      final response = await _chatRestClient.getMessageByConversation(
+          conversationId: conversationId, skip: skip, limit: limit);
       if (response.error == false) {
         return Right(response.data!.messages.map((e) => e.toEntity()).toList());
       } else {

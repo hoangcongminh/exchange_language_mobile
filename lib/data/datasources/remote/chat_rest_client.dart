@@ -17,10 +17,15 @@ abstract class ChatRestCient {
   );
 
   @GET('/conversation')
-  Future<ApiResponseModel<List<ConversationModel>>> getConversation();
+  Future<ApiResponseModel<List<ConversationModel>>> getConversation({
+    @Query('skip') int? skip,
+    @Query('limit') int? limit,
+  });
 
   @GET('/conversation/get-messages/{conversationId}')
-  Future<ApiResponseModel<MessageModel>> getMessageByConversation(
-    @Path('conversationId') String conversationId,
-  );
+  Future<ApiResponseModel<MessageModel>> getMessageByConversation({
+    @Path('conversationId') required String conversationId,
+    @Query('skip') int? skip,
+    @Query('limit') int? limit,
+  });
 }

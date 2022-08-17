@@ -9,8 +9,26 @@ abstract class ConversationEvent extends Equatable {
 
 class FetchMessage extends ConversationEvent {
   final String conversationId;
+  final int? skip;
 
-  const FetchMessage({required this.conversationId});
+  const FetchMessage({
+    required this.conversationId,
+    this.skip,
+  });
+
+  @override
+  List<Object> get props => [conversationId];
+}
+
+class RefreshMessage extends ConversationEvent {
+  final String conversationId;
+
+  const RefreshMessage({
+    required this.conversationId,
+  });
+
+  @override
+  List<Object> get props => [conversationId];
 }
 
 class ReceiveNewMessage extends ConversationEvent {

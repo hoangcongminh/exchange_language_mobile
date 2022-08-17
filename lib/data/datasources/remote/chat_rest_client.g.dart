@@ -36,9 +36,11 @@ class _ChatRestCient implements ChatRestCient {
   }
 
   @override
-  Future<ApiResponseModel<List<ConversationModel>>> getConversation() async {
+  Future<ApiResponseModel<List<ConversationModel>>> getConversation(
+      {skip, limit}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -59,9 +61,10 @@ class _ChatRestCient implements ChatRestCient {
 
   @override
   Future<ApiResponseModel<MessageModel>> getMessageByConversation(
-      conversationId) async {
+      {required conversationId, skip, limit}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

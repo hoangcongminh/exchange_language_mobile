@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/widgets/record_audio_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +19,7 @@ import '../../../widgets/custom_image_picker.dart';
 import '../bloc/conversation_bloc.dart';
 import '../widgets/conversation_input.dart';
 import '../widgets/conversation_list_shimmer.dart';
+import '../widgets/message_audio.dart';
 
 class ConversationScreen extends StatefulWidget {
   final Conversation conversation;
@@ -33,8 +37,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  void _onRefresh() {
-    // AppBloc.blogBloc.add(RefreshBlogsEvent());
+  void _onRefresh({required String conversationId, int? skip}) {
+    AppBloc.conversationBloc
+        .add(FetchMessage(conversationId: conversationId, skip: skip));
     _refreshController.refreshCompleted();
   }
 
@@ -45,6 +50,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
       curve: Curves.easeInOut,
     );
   }
+
+  String audioFile = '';
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +93,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
               child: BlocBuilder<ConversationBloc, ConversationState>(
                 builder: (context, state) {
                   if (state is ConversationLoaded) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      scrollToBottom();
-                    });
+                    // WidgetsBinding.instance.addPostFrameCallback((_) {
+                    //   scrollToBottom();
+                    // });
                     return SmartRefresher(
                       header: CustomHeader(
                         builder: (context, mode) {
@@ -102,7 +109,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
                           );
                         },
                       ),
-                      onRefresh: _onRefresh,
+                      onRefresh: () => _onRefresh(
+                        conversationId: widget.conversation.id,
+                        skip: state.messages.length,
+                      ),
                       controller: _refreshController,
                       enablePullUp: false,
                       enablePullDown: true,
@@ -110,6 +120,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
                           controller: _scrollController,
                           itemCount: state.messages.length,
                           itemBuilder: (context, index) {
+                            // if (index == state.messages.length - 1) {
+                            //   return MessageAudio(
+                            //     message: state.messages.last,
+                            //   );
+                            //   // return MessageIcon(message: state.messages.last);
+                            // }
                             return MessageBubble(
                                 message: state.messages[index]);
                           }),
@@ -121,8 +137,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
             ),
             ConversationInput(
               onSend: (content) {
-                AppBloc.conversationBloc.add(
-                    SendMessage("6285df6a453cd9b71396fd95", content.trim()));
+                AppBloc.conversationBloc
+                    .add(SendMessage(widget.conversation.id, content.trim()));
               },
               onTapEmoji: () {
                 showModalBottomSheet(
@@ -152,7 +168,18 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       print(file.toString());
                     });
               },
-              onTapRecord: () {},
+              onTapRecord: () {
+                // AudioHelper().recordAudio(widget.conversation.id);
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return RecordAudioWidet(
+                        onSendAudio: (recordedFile) {
+                          print(recordedFile.path);
+                        },
+                      );
+                    });
+              },
             ),
           ],
         ),

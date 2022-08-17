@@ -7,6 +7,9 @@ import '../entities/message.dart';
 abstract class ChatRepository {
   Future<Either<Failure, List<Conversation>>> getConversations();
 
-  Future<Either<Failure, List<Message>>> getMessagesByConversation(
-      String conversationId);
+  Future<Either<Failure, List<Message>>> getMessagesByConversation({
+    required String conversationId,
+    int? skip,
+    int? limit,
+  });
 }
