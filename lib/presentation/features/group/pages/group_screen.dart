@@ -14,7 +14,13 @@ import '../bloc/group_bloc.dart';
 import '../widget/group_item.dart';
 
 class GroupScreen extends StatefulWidget {
-  const GroupScreen({Key? key}) : super(key: key);
+  final bool isUserProfile;
+  final String? userId;
+  const GroupScreen({
+    Key? key,
+    required this.isUserProfile,
+    this.userId,
+  }) : super(key: key);
 
   @override
   State<GroupScreen> createState() => _GroupScreenState();
@@ -58,7 +64,12 @@ class _GroupScreenState extends State<GroupScreen> {
                       enablePullUp: true,
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          final group = state.groups[index];
+                          final group = widget.isUserProfile
+                              ? state.groups
+                                  .where((element) =>
+                                      element.members.contains(widget.userId))
+                                  .toList()[index]
+                              : state.groups[index];
                           return GestureDetector(
                             onTap: () {
                               AppBloc.groupDetailBloc
@@ -77,7 +88,13 @@ class _GroupScreenState extends State<GroupScreen> {
                                     .contains(UserLocal().getUser()!.id)),
                           );
                         },
-                        itemCount: state.groups.length,
+                        itemCount: widget.isUserProfile
+                            ? state.groups
+                                .where((element) =>
+                                    element.members.contains(widget.userId))
+                                .toList()
+                                .length
+                            : state.groups.length,
                       ),
                     ),
                   ),

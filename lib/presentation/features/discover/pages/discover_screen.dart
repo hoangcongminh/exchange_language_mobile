@@ -46,8 +46,12 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          GroupScreen(),
-          BlogScreen(),
+          GroupScreen(
+            isUserProfile: false,
+          ),
+          BlogScreen(
+            isUserProfile: false,
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

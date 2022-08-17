@@ -12,7 +12,14 @@ import '../bloc/blog_bloc.dart';
 import '../widgets/blog_item.dart';
 
 class BlogScreen extends StatefulWidget {
-  const BlogScreen({Key? key}) : super(key: key);
+  final bool isUserProfile;
+  final String? userId;
+
+  const BlogScreen({
+    Key? key,
+    required this.isUserProfile,
+    this.userId,
+  }) : super(key: key);
 
   @override
   State<BlogScreen> createState() => _BlogScreenState();
@@ -72,7 +79,12 @@ class _BlogScreenState extends State<BlogScreen> {
                       enablePullUp: true,
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          final blog = state.blogs[index];
+                          final blog = widget.isUserProfile
+                              ? state.blogs
+                                  .where((element) =>
+                                      element.author.id == widget.userId)
+                                  .toList()[index]
+                              : state.blogs[index];
                           return BlogItem(
                             title: blog.title,
                             thumbnail: blog.thumbnail,
@@ -87,7 +99,13 @@ class _BlogScreenState extends State<BlogScreen> {
                             },
                           );
                         },
-                        itemCount: state.blogs.length,
+                        itemCount: widget.isUserProfile
+                            ? state.blogs
+                                .where((element) =>
+                                    element.author.id == widget.userId)
+                                .toList()
+                                .length
+                            : state.blogs.length,
                       ),
                     ),
                   ),
