@@ -3,6 +3,10 @@
     "@login": {
       "description": "login"
     },
+    "logout": "Log out",
+    "@logout": {
+      "description": "logout"
+    },
     "enterEmail": "Enter email",
     "@enterEmail": {
       "description": "enterEmal"
@@ -80,6 +84,7 @@
     "@createBlog": {
       "description": "createBlog"
     },
+
     "settings": "Settings",
     "@settings": {
       "description": "settings"
@@ -96,32 +101,78 @@
     "@join": {
       "description": "join"
     },
+    "joined": "Joined",
+    "@joined": {
+      "description": "joined"
+    },
     "updateInfo": "Update Info",
     "@updateInfo": {
       "description": "updateInfo"
     },
-     "result": "Result",
+    "result": "Result",
     "@result": {
       "description": "result"
     },
-     "teacher": "Teacher",
+    "teacher": "Teacher",
     "@teacher": {
       "description": "teacher"
     },
-     "learner": "Learner",
+    "learner": "Learner",
     "@learner": {
       "description": "learner"
     },
-     "createGroup": "Create group",
+    "createGroup": "Create group",
     "@createGroup": {
       "description": "createGroup"
     },
-     "nameOfTheGroup": "Name of the group",
+    "nameOfTheGroup": "Name of the group",
     "@nameOfTheGroup": {
       "description": "nameOfTheGroup"
     },
-     "description": "Description",
+
+    "createPost": "Create Post",
+    "@createPost": {
+      "description": "createPost"
+    },
+
+    "like": "Like",
+    "@like": {
+      "description": "like"
+    },
+    "reply": "Reply",
+    "@reply": {
+      "description": "reply"
+    },
+
+    "description": "Description",
     "@description": {
       "description": "description"
+    },
+
+    "language": "Language",
+    "@language": {
+      "description": "language"
+    },
+    "enterLanguage": "Enter Language",
+    "@enterLanguage": {
+      "description": "enterLanguage"
+    },
+
+    "cancel": "Cancel",
+    "@cancel": {
+      "description": "cancel"
+    },
+    "edit": "Edit",
+    "@edit": {
+      "description": "edit"
+    },
+    "delete": "Delete",
+    "@delete": {
+      "description": "delete"
+    },
+
+    "translation": "Translation",
+    "@translation": {
+      "description": "translation"
     }
 }

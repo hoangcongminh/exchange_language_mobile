@@ -75,6 +75,26 @@ class _PostRestClient implements PostRestClient {
     return value;
   }
 
+  @override
+  Future<ApiResponseModel<ListPostModel>> searchPost(
+      {required groupId, required searchTitle}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'search': searchTitle};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<ListPostModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/groups/posts/${groupId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<ListPostModel>.fromJson(
+      _result.data!,
+      (json) => ListPostModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

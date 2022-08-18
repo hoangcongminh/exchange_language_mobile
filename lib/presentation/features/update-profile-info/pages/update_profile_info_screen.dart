@@ -67,7 +67,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Info'),
+        title: Text(l10n.updateInfo),
       ),
       body: BlocConsumer<UpdateProfileInfoBloc, UpdateProfileInfoState>(
           listener: (context, state) {

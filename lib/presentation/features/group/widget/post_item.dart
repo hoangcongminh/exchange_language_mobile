@@ -13,6 +13,7 @@ import '../../../theme/group_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_tap.dart';
+import '../../../widgets/translation_dialog.dart';
 import '../../comment/bloc/comment_bloc.dart';
 import '../../group-detail/bloc/post-bloc/post_bloc.dart';
 
@@ -65,26 +66,7 @@ class PostItem extends StatelessWidget {
                   if (!snapshot.hasData) {
                     return const LoadingWidget();
                   }
-                  return CupertinoAlertDialog(
-                    title: const Text('Translation'),
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(snapshot.data!.sourceLanguage.name),
-                        Text(snapshot.data!.source),
-                        Text(snapshot.data!.targetLanguage.name),
-                        Text(snapshot.data!.text),
-                      ],
-                    ),
-                    actions: [
-                      CupertinoDialogAction(
-                          onPressed: () {
-                            AppNavigator().pop();
-                            TextTap.clear();
-                          },
-                          child: const Text('OK'))
-                    ],
-                  );
+                  return TranslationDialog(data: snapshot.data!);
                 },
               ),
             );

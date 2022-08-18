@@ -69,4 +69,21 @@ class PostRepositoryImpl implements PostRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, ListPost>> searchPost(
+      {required String groupId, required String searchTitle}) async {
+    try {
+      final response = await _postRestClient.searchPost(
+          groupId: groupId, searchTitle: searchTitle);
+      if (response.error == false) {
+        return Right(response.data!.toEntity());
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

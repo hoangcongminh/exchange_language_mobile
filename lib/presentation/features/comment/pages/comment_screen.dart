@@ -1,6 +1,7 @@
 import 'package:comment_tree/data/comment.dart';
 import 'package:comment_tree/widgets/comment_tree_widget.dart';
 import 'package:comment_tree/widgets/tree_theme_data.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -37,6 +38,7 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -149,7 +151,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                     replyTo = null;
                                   });
                                 },
-                                child: const Text('Cancel'),
+                                child: Text(l10n.cancel),
                               ),
                             ],
                           ),
@@ -199,6 +201,7 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -237,11 +240,11 @@ class CommentItem extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                GestureDetector(onTap: onTapLike, child: const Text('Like')),
+                GestureDetector(onTap: onTapLike, child: Text(l10n.like)),
                 const SizedBox(
                   width: 24,
                 ),
-                GestureDetector(onTap: onTapReply, child: const Text('Reply')),
+                GestureDetector(onTap: onTapReply, child: Text(l10n.reply)),
               ],
             ),
           ),

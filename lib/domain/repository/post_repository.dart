@@ -15,4 +15,8 @@ abstract class PostRepository {
     required String postContent,
   });
   Future<Either<Failure, void>> likePost({required postId});
+  Future<Either<Failure, ListPost>> searchPost({
+    required String groupId,
+    required String searchTitle,
+  });
 }

@@ -161,17 +161,5 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
         content: jsonEncode(_controller.document.toDelta().toJson()),
       ),
     );
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => AlertDialog(
-    //       title: const Text('Text'),
-    //       content: Column(
-    //         children: [
-    //           Text(_titleController.text),
-    //           Text(_imagePicked?.path ?? ''),
-    //           Text(jsonEncode(_controller.document.toDelta().toJson())),
-    //         ],
-    //       )),
-    // );
   }
 }

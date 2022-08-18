@@ -39,7 +39,7 @@ class _ConversationInputState extends State<ConversationInput> {
                 icon: const Icon(Icons.image),
               ),
             ),
-             Flexible(
+            Flexible(
               flex: 1,
               child: IconButton(
                 onPressed: widget.onTapRecord,
@@ -72,7 +72,7 @@ class _ConversationInputState extends State<ConversationInput> {
                     top: 3.sp,
                     right: 10.sp,
                   ),
-                  hintText: 'Typing...',
+                  hintText: 'Aa...',
                   hintStyle: TextStyle(
                     color: colorTimeChat,
                     fontSize: 12.sp,

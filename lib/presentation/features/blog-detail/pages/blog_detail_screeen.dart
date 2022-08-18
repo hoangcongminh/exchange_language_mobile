@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../../widgets/translation_dialog.dart';
 import '../bloc/blog_detail_bloc.dart';
 
 class BlogDetailScreen extends StatefulWidget {
@@ -30,6 +33,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<BlogDetailBloc, BlogDetailState>(
       builder: (context, state) {
         if (state is BlogDetailLoaded) {
@@ -56,24 +60,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                         if (!snapshot.hasData) {
                           return const LoadingWidget();
                         }
-                        return CupertinoAlertDialog(
-                          title: const Text('Translation'),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(snapshot.data!.sourceLanguage.name),
-                              Text(snapshot.data!.source),
-                              Text(snapshot.data!.targetLanguage.name),
-                              Text(snapshot.data!.text),
-                            ],
-                          ),
-                          actions: [
-                            CupertinoDialogAction(
-                                onPressed: () {
-                                  AppNavigator().pop();
-                                },
-                                child: const Text('OK'))
-                          ],
+                        return TranslationDialog(
+                          data: snapshot.data!,
                         );
                       },
                     ),
@@ -98,7 +86,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('Cancel'),
+                              child: Text(l10n.cancel),
                             ),
                             actions: [
                               CupertinoActionSheetAction(
@@ -109,13 +97,13 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                                     arguments: {'blog': state.blog},
                                   );
                                 },
-                                child: const Text('Edit'),
+                                child: Text(l10n.edit),
                               ),
                               CupertinoActionSheetAction(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Text('Delete'),
+                                child: Text(l10n.delete),
                               ),
                             ],
                           ),

@@ -15,6 +15,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<FetchPostsEvent>(_fetchPosts);
     on<RefreshPostEvent>(_refreshPosts);
     on<LikePostEvent>(_likePost);
+    on<SearchPostEvent>(_searchPost);
   }
 
   Future<void> _fetchPosts(
@@ -84,6 +85,26 @@ class PostBloc extends Bloc<PostEvent, PostState> {
                 );
               },
             );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _searchPost(
+      SearchPostEvent event, Emitter<PostState> emit) async {
+    // emit(PostLoading());
+    await _postRepository
+        .searchPost(groupId: event.groupId, searchTitle: event.searchTitle)
+        .then(
+      (result) {
+        result.fold(
+          (failure) {
+            emit(PostLoadFailure());
+          },
+          (listPost) {
+            posts = listPost.posts;
+            emit(PostLoaded(posts: posts));
           },
         );
       },

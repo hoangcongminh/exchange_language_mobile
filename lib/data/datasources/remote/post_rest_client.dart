@@ -27,4 +27,10 @@ abstract class PostRestClient {
   Future<ApiResponseModel<ListPostModel>> likePost({
     @Path('postId') required String postId,
   });
+
+  @GET('/groups/posts/{groupId}')
+  Future<ApiResponseModel<ListPostModel>> searchPost({
+    @Path('groupId') required String groupId,
+    @Query('search') required String searchTitle,
+  });
 }

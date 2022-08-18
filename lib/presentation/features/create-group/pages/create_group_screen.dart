@@ -97,9 +97,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         controller: _descriptionController,
                       ),
                       const SizedBox(height: 8),
-                      const Text('Language'),
+                      Text(l10n.language),
                       PickSelectWidget(
-                        title: 'Enter language',
+                        title: l10n.enterLanguage,
                         selectedLanguages: language,
                         onTap: onTapSelectLanguage,
                       ),

@@ -33,7 +33,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         leading: IconButton(
             onPressed: () => AppNavigator().pop(),
             icon: const Icon(Icons.close)),
-        title: const Text('Create post'),
+        title: Text(l10n.createPost),
         actions: [
           IconButton(
             onPressed: () => AppBloc.createPostBloc.add(CreateNewPostEvent(

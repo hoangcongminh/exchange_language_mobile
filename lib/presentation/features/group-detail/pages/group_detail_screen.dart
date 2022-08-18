@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -17,11 +18,18 @@ import '../../group/widget/post_item.dart';
 import '../bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../bloc/post-bloc/post_bloc.dart';
 
-class GroupDetail extends StatelessWidget {
-  GroupDetail({Key? key}) : super(key: key);
+class GroupDetail extends StatefulWidget {
+  const GroupDetail({Key? key}) : super(key: key);
 
+  @override
+  State<GroupDetail> createState() => _GroupDetailState();
+}
+
+class _GroupDetailState extends State<GroupDetail> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  bool isShowSearchBar = false;
 
   void _onRefresh(String groupId) {
     AppBloc.postBloc.add(RefreshPostEvent(groupId: groupId));
@@ -113,12 +121,23 @@ class GroupDetail extends StatelessWidget {
           return Scaffold(
             backgroundColor: const Color(0xffC4C4C4),
             appBar: AppBar(
-              title: Text(group.title),
+              title: isShowSearchBar
+                  ? SearchBox(onChanged: (text) {
+                      AppBloc.postBloc.add(SearchPostEvent(
+                          groupId: state.group.id, searchTitle: text));
+                    })
+                  : Text(group.title),
+              titleSpacing: isShowSearchBar ? 0 : null,
               actions: group.members.contains(UserLocal().getUser()!.id)
                   ? [
                       IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {},
+                        icon:
+                            Icon(isShowSearchBar ? Icons.cancel : Icons.search),
+                        onPressed: () {
+                          setState(() {
+                            isShowSearchBar = !isShowSearchBar;
+                          });
+                        },
                       ),
                     ]
                   : null,
@@ -187,7 +206,7 @@ class GroupDetail extends StatelessWidget {
                                     ),
                                     onPressed: () => _onTapJoined(context,
                                         id: group.id, slug: group.slug),
-                                    label: const Text('Joined'),
+                                    label: Text(l10n.joined),
                                   )
                                 : AppButtonWidget(
                                     shape: RoundedRectangleBorder(

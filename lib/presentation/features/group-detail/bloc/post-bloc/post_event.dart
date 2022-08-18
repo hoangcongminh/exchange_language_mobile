@@ -31,3 +31,12 @@ class LikePostEvent extends PostEvent {
   @override
   List<Object> get props => [postId, groupId];
 }
+
+class SearchPostEvent extends PostEvent {
+  final String groupId;
+  final String searchTitle;
+  const SearchPostEvent({required this.groupId, required this.searchTitle});
+
+  @override
+  List<Object> get props => [groupId, searchTitle];
+}

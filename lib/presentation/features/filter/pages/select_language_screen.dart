@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +27,10 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
   final List<Language> searchList = [];
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select Language'),
+        title: Text(l10n.enterLanguage),
         actions: [
           IconButton(
             onPressed: () {

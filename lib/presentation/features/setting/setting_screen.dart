@@ -33,7 +33,7 @@ class _SettingScreenState extends State<SettingScreen> {
               tiles: [
                 SettingsTile.navigation(
                   leading: const Icon(Icons.language),
-                  title: const Text('Language'),
+                  title: Text(l10n.language),
                   value: Text(AppBloc.localeCubit.getLocaleName()),
                   onPressed: (context) {
                     showCupertinoModalPopup(
@@ -44,7 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text('Cancel'),
+                          child: Text(l10n.cancel),
                         ),
                         actions: [
                           CupertinoActionSheetAction(
@@ -83,7 +83,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 ),
                 SettingsTile(
-                  title: const Text('Logout'),
+                  title: Text(l10n.logout),
                   leading: const Icon(Icons.logout),
                   onPressed: (context) {
                     AppBloc.authenticateBloc.add(LogoutEvent());
