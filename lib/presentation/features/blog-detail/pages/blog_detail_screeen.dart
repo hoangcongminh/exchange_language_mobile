@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
@@ -111,27 +110,33 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                       },
                       icon: const Icon(Icons.more_vert))
               ],
-              title: Row(
-                children: [
-                  AvatarWidget(
-                    width: 40,
-                    height: 40,
-                    imageUrl: blog.author.avatar == null
-                        ? null
-                        : '${AppConstants.baseImageUrl}${blog.author.avatar!.src}',
-                  ),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(author.fullname, style: blogDetailAuthorName),
-                      Text(
-                        blog.createdAt.formatTime,
-                        style: blogDetailCreatedDate,
-                      ),
-                    ],
-                  )
-                ],
+              title: GestureDetector(
+                onTap: () => AppNavigator().push(
+                  RouteConstants.userProfile,
+                  arguments: {'user': state.blog.author},
+                ),
+                child: Row(
+                  children: [
+                    AvatarWidget(
+                      width: 40,
+                      height: 40,
+                      imageUrl: blog.author.avatar == null
+                          ? null
+                          : '${AppConstants.baseImageUrl}${blog.author.avatar!.src}',
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(author.fullname, style: blogDetailAuthorName),
+                        Text(
+                          blog.createdAt.formatTime,
+                          style: blogDetailCreatedDate,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             body: CustomScrollView(

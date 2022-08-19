@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/post.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -79,10 +80,16 @@ class _CommentScreenState extends State<CommentScreen> {
                                 lineColor: Colors.grey.shade300, lineWidth: 2),
                             avatarRoot: (context, data) => PreferredSize(
                               preferredSize: const Size.fromRadius(18),
-                              child: AvatarWidget(
-                                height: 40,
-                                width: 40,
-                                imageUrl: data.avatar,
+                              child: GestureDetector(
+                                onTap: () => AppNavigator().push(
+                                  RouteConstants.userProfile,
+                                  arguments: {'user': comment.author},
+                                ),
+                                child: AvatarWidget(
+                                  height: 40,
+                                  width: 40,
+                                  imageUrl: data.avatar,
+                                ),
                               ),
                             ),
                             avatarChild: (context, data) => PreferredSize(

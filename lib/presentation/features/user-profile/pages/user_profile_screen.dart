@@ -1,6 +1,7 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
@@ -98,6 +99,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         Text(
                           user?.introduction ?? '',
                           style: userIntroduction,
+                        ),
+                        RatingBar.builder(
+                          initialRating: 3,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          glow: false,
+                          tapOnlyMode: true,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) =>
+                              const Icon(Icons.star, color: Colors.amber),
+                          onRatingUpdate: (rating) {},
                         ),
                         SizedBox(height: 20.sp),
                         IntrinsicHeight(

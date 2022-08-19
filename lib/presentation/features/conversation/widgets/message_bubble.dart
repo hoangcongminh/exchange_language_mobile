@@ -1,10 +1,15 @@
+import 'package:exchange_language_mobile/presentation/widgets/text_tap.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:translator/translator.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/message.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../../widgets/translation_dialog.dart';
 
 class MessageBubble extends StatefulWidget {
   final Message message;
@@ -25,17 +30,17 @@ class _MessageBubbleState extends State<MessageBubble> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Container(
-          //   padding: EdgeInsets.only(top: 20.sp, bottom: 12.sp),
-          //   child: Text(
-          //     DateFormat('dd/MM/yyyy HH:mm')
-          //         .format(DateTime.parse(widget.message.createdAt)),
-          //     style: TextStyle(
-          //       // color: colorTimeChat,
-          //       fontSize: 10.sp,
+          // if (DateTime.now().day != widget.message.createdAt.day)
+          //   Container(
+          //     padding: EdgeInsets.only(top: 20.sp, bottom: 12.sp),
+          //     child: Text(
+          //       DateFormat('dd/MM/yyyy HH:mm').format(widget.message.createdAt),
+          //       style: TextStyle(
+          //         // color: colorTimeChat,
+          //         fontSize: 10.sp,
+          //       ),
           //     ),
           //   ),
-          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -77,7 +82,28 @@ class _MessageBubbleState extends State<MessageBubble> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.sp, vertical: 12.sp),
-                      child: Text(widget.message.content ?? ''),
+                      child: TextTap(
+                        text: widget.message.content ?? '',
+                        textStyleSelect: const TextStyle(
+                          color: Colors.red,
+                        ),
+                        selectText: (text) async {
+                          final translator = GoogleTranslator();
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => FutureBuilder<Translation>(
+                              future: translator.translate(text, to: 'vi'),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const LoadingWidget();
+                                }
+                                return TranslationDialog(data: snapshot.data!);
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

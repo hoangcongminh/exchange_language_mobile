@@ -44,6 +44,7 @@ dependencies:
   translator: ^0.1.7
   voice_message_package: ^0.0.74
   audio_waveforms: ^0.1.4
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   build_runner: ^2.1.8

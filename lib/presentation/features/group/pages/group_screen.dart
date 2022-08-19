@@ -8,6 +8,7 @@ import '../../../../common/constants/constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
+import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../bloc/group_bloc.dart';
@@ -101,8 +102,12 @@ class _GroupScreenState extends State<GroupScreen> {
                 ],
               ),
             );
-          } else {
+          } else if (state is GroupLoading) {
             return const LoadingWidget();
+          } else {
+            return ErrorScreen(
+              onTapRefresh: () => AppBloc.groupBloc.add(RefreshGroupsEvent()),
+            );
           }
         },
       ),

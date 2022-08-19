@@ -12,6 +12,7 @@ import '../../../common/app_bloc.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/app_button_widget.dart';
 import '../../../widgets/app_image_widget.dart';
+import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../group/widget/create_post_widget.dart';
 import '../../group/widget/post_item.dart';
@@ -113,9 +114,9 @@ class _GroupDetailState extends State<GroupDetail> {
           AppBloc.groupDetailBloc.add(FetchGroupDetail(slug: state.slug));
         }
       },
-      builder: (context, state) {
-        if (state is GroupDetailLoaded) {
-          final group = state.group;
+      builder: (context, groupState) {
+        if (groupState is GroupDetailLoaded) {
+          final group = groupState.group;
           final isContainUser =
               group.members.contains(UserLocal().getUser()!.id);
           return Scaffold(
@@ -124,7 +125,7 @@ class _GroupDetailState extends State<GroupDetail> {
               title: isShowSearchBar
                   ? SearchBox(onChanged: (text) {
                       AppBloc.postBloc.add(SearchPostEvent(
-                          groupId: state.group.id, searchTitle: text));
+                          groupId: groupState.group.id, searchTitle: text));
                     })
                   : Text(group.title),
               titleSpacing: isShowSearchBar ? 0 : null,
@@ -145,11 +146,11 @@ class _GroupDetailState extends State<GroupDetail> {
             body: SmartRefresher(
               header: const WaterDropHeader(),
               onRefresh: () {
-                _onRefresh(state.group.id);
+                _onRefresh(groupState.group.id);
               },
               controller: _refreshController,
               onLoading: () {
-                _onLoading(state.group.id);
+                _onLoading(groupState.group.id);
               },
               enablePullUp: true,
               child: CustomScrollView(
@@ -258,6 +259,10 @@ class _GroupDetailState extends State<GroupDetail> {
                                       ),
                                     );
                                   },
+                                  onTapPostHeader: () => AppNavigator().push(
+                                    RouteConstants.userProfile,
+                                    arguments: {'user': post.author},
+                                  ),
                                   isPostDetail: false,
                                   post: post,
                                 ),
@@ -266,8 +271,13 @@ class _GroupDetailState extends State<GroupDetail> {
                             childCount: state.posts.length,
                           ),
                         );
-                      } else {
+                      } else if (state is PostLoading) {
                         return const SliverToBoxAdapter(child: LoadingWidget());
+                      } else {
+                        return ErrorScreen(
+                            onTapRefresh: () => AppBloc.postBloc.add(
+                                RefreshPostEvent(
+                                    groupId: groupState.group.id)));
                       }
                     },
                   ),

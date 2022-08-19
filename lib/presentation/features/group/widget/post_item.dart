@@ -22,6 +22,7 @@ class PostItem extends StatelessWidget {
   final Post post;
   final bool isLiked;
   final VoidCallback onTapLike;
+  final VoidCallback onTapPostHeader;
 
   const PostItem({
     Key? key,
@@ -29,6 +30,7 @@ class PostItem extends StatelessWidget {
     required this.post,
     required this.isLiked,
     required this.onTapLike,
+    required this.onTapPostHeader,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class PostItem extends StatelessWidget {
                 authorName: post.author.fullname,
                 createdAt: post.createdAt,
                 authorAvatar: post.author.avatar?.src,
+                onTap: onTapPostHeader,
               ),
         const SizedBox(height: 8),
         Text(
@@ -74,39 +77,34 @@ class PostItem extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const Divider(thickness: 1),
-        BlocBuilder<PostBloc, PostState>(
-          builder: (context, state) {
-            if (state is PostLoaded) {}
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton.icon(
-                  onPressed: onTapLike,
-                  label: Text(post.favorites.length.toString()),
-                  icon: isLiked
-                      ? const Icon(
-                          CupertinoIcons.heart_fill,
-                          color: Colors.red,
-                        )
-                      : const Icon(
-                          CupertinoIcons.heart,
-                        ),
-                ),
-                TextButton.icon(
-                  onPressed: isPostDetail
-                      ? () {}
-                      : () {
-                          AppBloc.commentBloc
-                              .add(FetchCommentEvent(postId: post.id));
-                          AppNavigator().push(RouteConstants.comment,
-                              arguments: {'post': post});
-                        },
-                  label: Text(post.comments.length.toString()),
-                  icon: const Icon(CupertinoIcons.chat_bubble),
-                ),
-              ],
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton.icon(
+              onPressed: onTapLike,
+              label: Text(post.favorites.length.toString()),
+              icon: isLiked
+                  ? const Icon(
+                      CupertinoIcons.heart_fill,
+                      color: Colors.red,
+                    )
+                  : const Icon(
+                      CupertinoIcons.heart,
+                    ),
+            ),
+            TextButton.icon(
+              onPressed: isPostDetail
+                  ? () {}
+                  : () {
+                      AppBloc.commentBloc
+                          .add(FetchCommentEvent(postId: post.id));
+                      AppNavigator().push(RouteConstants.comment,
+                          arguments: {'post': post});
+                    },
+              label: Text(post.comments.length.toString()),
+              icon: const Icon(CupertinoIcons.chat_bubble),
+            ),
+          ],
         )
       ],
     );
@@ -117,39 +115,44 @@ class PostHeader extends StatelessWidget {
   final String authorName;
   final String createdAt;
   final String? authorAvatar;
+  final VoidCallback onTap;
   const PostHeader({
     Key? key,
     required this.authorName,
     required this.createdAt,
     required this.authorAvatar,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        AvatarWidget(
-          height: 30.sp,
-          width: 30.sp,
-          imageUrl: authorAvatar == null
-              ? null
-              : '${AppConstants.baseImageUrl}$authorAvatar',
-        ),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              authorName,
-              style: postAuthorInfo,
-            ),
-            Text(
-              createdAt.formatTime,
-              style: postTime,
-            ),
-          ],
-        )
-      ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          AvatarWidget(
+            height: 30.sp,
+            width: 30.sp,
+            imageUrl: authorAvatar == null
+                ? null
+                : '${AppConstants.baseImageUrl}$authorAvatar',
+          ),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                authorName,
+                style: postAuthorInfo,
+              ),
+              Text(
+                createdAt.formatTime,
+                style: postTime,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
+import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../blog-detail/bloc/blog_detail_bloc.dart';
 import '../bloc/blog_bloc.dart';
@@ -113,19 +114,8 @@ class _BlogScreenState extends State<BlogScreen> {
               ),
             );
           } else if (state is BlogsLoadFailure) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text('There are some error'),
-                  TextButton(
-                    onPressed: () => AppBloc.blogBloc.add(FetchBlogsEvent()),
-                    child: const Text('Refresh'),
-                  )
-                ],
-              ),
-            );
+            return ErrorScreen(
+                onTapRefresh: () => AppBloc.blogBloc.add(RefreshBlogsEvent()));
           } else {
             return const LoadingWidget();
           }
