@@ -2,6 +2,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_icon.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/record_audio_widget.dart';
 import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,12 +98,18 @@ class _ConversationScreenState extends State<ConversationScreen> {
         child: Column(
           children: [
             Expanded(
-              child: BlocBuilder<ConversationBloc, ConversationState>(
+              child: BlocConsumer<ConversationBloc, ConversationState>(
+                listener: (context, state) {
+                  if (state is ConversationLoaded) {
+                    if (state.isScroll) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        scrollToBottom();
+                      });
+                    }
+                  }
+                },
                 builder: (context, state) {
                   if (state is ConversationLoaded) {
-                    // WidgetsBinding.instance.addPostFrameCallback((_) {
-                    //   scrollToBottom();
-                    // });
                     return SmartRefresher(
                       header: CustomHeader(
                         builder: (context, mode) {
@@ -127,14 +134,14 @@ class _ConversationScreenState extends State<ConversationScreen> {
                           controller: _scrollController,
                           itemCount: state.messages.length,
                           itemBuilder: (context, index) {
-                            // if (index == state.messages.length - 1) {
-                            //   return MessageAudio(
-                            //     message: state.messages.last,
-                            //   );
-                            //   // return MessageIcon(message: state.messages.last);
-                            // }
-                            return MessageBubble(
-                                message: state.messages[index]);
+                            final message = state.messages[index];
+                            if (message.type == 1) {
+                              return MessageAudio(message: message);
+                            } else if (message.type == 2) {
+                              return MessageIcon(message: message);
+                            } else {
+                              return MessageBubble(message: message);
+                            }
                           }),
                     );
                   }
@@ -144,8 +151,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
             ),
             ConversationInput(
               onSend: (content) {
-                AppBloc.conversationBloc
-                    .add(SendMessage(widget.conversation.id, content.trim()));
+                AppBloc.conversationBloc.add(SendMessage(
+                    conversationId: widget.conversation.id,
+                    content: content.trim()));
               },
               onTapEmoji: () {
                 showModalBottomSheet(
@@ -160,7 +168,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
                           emojiSizeMax: 40,
                         ),
                         onEmojiSelected: (category, emoji) {
-                          print(emoji.emoji);
+                          AppBloc.conversationBloc.add(SendIconMessage(
+                              conversationId: widget.conversation.id,
+                              content: emoji.emoji.trim()));
                           AppNavigator().pop();
                         },
                       ),
@@ -168,13 +178,13 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   },
                 );
               },
-              onTapImage: () {
-                CustomImagePicker().openImagePicker(
-                    context: context,
-                    handleFinish: (file) {
-                      print(file.toString());
-                    });
-              },
+              // onTapImage: () {
+              //   CustomImagePicker().openImagePicker(
+              //       context: context,
+              //       handleFinish: (file) {
+              //         print(file.toString());
+              //       });
+              // },
               onTapRecord: () {
                 // AudioHelper().recordAudio(widget.conversation.id);
                 showModalBottomSheet(
@@ -182,7 +192,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     builder: (context) {
                       return RecordAudioWidet(
                         onSendAudio: (recordedFile) {
-                          print(recordedFile.path);
+                          AppBloc.conversationBloc.add(SendAudioMessage(
+                              conversationId: widget.conversation.id,
+                              audio: recordedFile));
                         },
                       );
                     });

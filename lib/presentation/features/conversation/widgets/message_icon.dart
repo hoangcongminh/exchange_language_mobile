@@ -57,8 +57,8 @@ class MessageIcon extends StatelessWidget {
                       left: 5.sp,
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 8.sp),
-                    child: const Text(
-                      '🍉',
+                    child: Text(
+                      message.content ?? '',
                       style: TextStyle(fontSize: 80),
                     ),
                   ),

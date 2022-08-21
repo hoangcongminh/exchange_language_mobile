@@ -41,5 +41,28 @@ class SendMessage extends ConversationEvent {
   final String conversationId;
   final String content;
 
-  const SendMessage(this.conversationId, this.content);
+  const SendMessage({
+    required this.conversationId,
+    required this.content,
+  });
+}
+
+class SendAudioMessage extends ConversationEvent {
+  final String conversationId;
+  final File audio;
+
+  const SendAudioMessage({
+    required this.conversationId,
+    required this.audio,
+  });
+}
+
+class SendIconMessage extends ConversationEvent {
+  final String conversationId;
+  final String content;
+
+  const SendIconMessage({
+    required this.conversationId,
+    required this.content,
+  });
 }

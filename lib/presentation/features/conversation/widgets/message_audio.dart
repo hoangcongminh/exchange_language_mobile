@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:voice_message_package/voice_message_package.dart';
@@ -42,9 +43,11 @@ class MessageAudio extends StatelessWidget {
                     )
                   : SizedBox(height: 20.sp, width: 20.sp),
               VoiceMessage(
-                audioSrc: 'https://sounds-mp3.com/mp3/0012660.mp3',
+                audioSrc: '${AppConstants.baseImageUrl}${message.content}',
                 played: false, // To show played badge or not.
-                me: false, // Set message side.
+                me: message.isMe, // Set message side.
+                meBgColor: AppColors.primaryColor,
+                contactFgColor: AppColors.primaryColor,
                 onPlay: () {}, // Do something when voice played.
               ),
             ],

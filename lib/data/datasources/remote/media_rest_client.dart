@@ -23,6 +23,16 @@ abstract class MediaRestClient {
         File image,
   );
 
+  @POST('/medias/audio')
+  @MultiPart()
+  Future<ApiResponseModel<MediaModel>> uploadAudio(
+    @Part(
+      name: 'audio',
+      contentType: 'audio/x-aac',
+    )
+        File audio,
+  );
+
   @GET('/medias/{imageId}')
   Future<ApiResponseModel> getImageFromId(
     @Path('imageId') String imageId,

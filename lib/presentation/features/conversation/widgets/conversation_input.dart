@@ -5,13 +5,13 @@ import '../../../theme/chat_style.dart';
 
 class ConversationInput extends StatefulWidget {
   final Function(String content) onSend;
-  final VoidCallback onTapImage;
+  // final VoidCallback onTapImage;
   final VoidCallback onTapEmoji;
   final VoidCallback onTapRecord;
   const ConversationInput({
     Key? key,
     required this.onSend,
-    required this.onTapImage,
+    // required this.onTapImage,
     required this.onTapEmoji,
     required this.onTapRecord,
   }) : super(key: key);
@@ -32,13 +32,13 @@ class _ConversationInputState extends State<ConversationInput> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: IconButton(
-                onPressed: widget.onTapImage,
-                icon: const Icon(Icons.image),
-              ),
-            ),
+            // Flexible(
+            //   flex: 1,
+            //   child: IconButton(
+            //     onPressed: widget.onTapImage,
+            //     icon: const Icon(Icons.image),
+            //   ),
+            // ),
             Flexible(
               flex: 1,
               child: IconButton(
@@ -47,7 +47,7 @@ class _ConversationInputState extends State<ConversationInput> {
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: TextFormField(
                 focusNode: focusNode,
                 controller: msgController,

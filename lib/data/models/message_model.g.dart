@@ -27,6 +27,7 @@ MessageItemModel _$MessageItemModelFromJson(Map<String, dynamic> json) =>
       UserModel.fromJson(json['author'] as Map<String, dynamic>),
       json['IDConversation'] as String,
       json['content'] as String?,
+      json['type'] as int?,
     );
 
 Map<String, dynamic> _$MessageItemModelToJson(MessageItemModel instance) {
@@ -44,5 +45,6 @@ Map<String, dynamic> _$MessageItemModelToJson(MessageItemModel instance) {
   }
 
   writeNotNull('content', instance.content);
+  writeNotNull('type', instance.type);
   return val;
 }

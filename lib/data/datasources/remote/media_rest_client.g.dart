@@ -43,6 +43,33 @@ class _MediaRestClient implements MediaRestClient {
   }
 
   @override
+  Future<ApiResponseModel<MediaModel>> uploadAudio(audio) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'audio',
+        MultipartFile.fromFileSync(audio.path,
+            filename: audio.path.split(Platform.pathSeparator).last,
+            contentType: MediaType.parse('audio/x-aac'))));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<MediaModel>>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, '/medias/audio',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<MediaModel>.fromJson(
+      _result.data!,
+      (json) => MediaModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ApiResponseModel<dynamic>> getImageFromId(imageId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -33,9 +33,11 @@ class MessageItemModel {
   final String conversationId;
   @JsonKey(name: 'content', includeIfNull: false)
   final String? content;
+  @JsonKey(name: 'type', includeIfNull: false)
+  final int? type;
 
-  MessageItemModel(
-      this.createdAt, this.id, this.author, this.conversationId, this.content);
+  MessageItemModel(this.createdAt, this.id, this.author, this.conversationId,
+      this.content, this.type);
 
   factory MessageItemModel.fromJson(Map<String, dynamic> json) =>
       _$MessageItemModelFromJson(json);
@@ -48,5 +50,6 @@ class MessageItemModel {
         author: author.toEntity(),
         conversationId: conversationId,
         content: content,
+        type: type,
       );
 }

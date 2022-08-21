@@ -41,7 +41,8 @@ class AppBloc {
   static final dashboardBloc = DashboardBloc();
   static final userProfileBloc = UserProfileBloc(UserRepositoryImpl());
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
-  static final conversationBloc = ConversationBloc(ChatRepositoryImpl());
+  static final conversationBloc =
+      ConversationBloc(ChatRepositoryImpl(), MediaRepositoryImpl());
   static final filterBloc = FilterBloc(
     LanguageRepositoryImpl(),
     FilterRepositoryImpl(),

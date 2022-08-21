@@ -9,16 +9,19 @@ class Message extends Equatable {
   final User author;
   final String conversationId;
   final String? content;
+  final int? type; //0: text, 1:audio, 2:icon
 
   const Message({
     required this.createdAt,
     required this.id,
     required this.author,
     required this.conversationId,
-    required this.content,
+    this.content,
+    this.type,
   });
 
   @override
-  List<Object?> get props => [createdAt, id, author, conversationId, content];
+  List<Object?> get props =>
+      [createdAt, id, author, conversationId, content, type];
   bool get isMe => author.id == UserLocal().getUser()!.id;
 }

@@ -24,4 +24,18 @@ class MediaRepositoryImpl implements MediaRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Media>> uploadAudio(File audio) async {
+    try {
+      final response = await _authRestClient.uploadAudio(audio);
+      if (response.error == false) {
+        return Right(response.data!.toEntity());
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
