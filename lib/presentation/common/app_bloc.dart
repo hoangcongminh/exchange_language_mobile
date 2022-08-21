@@ -5,6 +5,7 @@ import '../../data/repositories/blog_repository_impl.dart';
 import '../../data/repositories/chat_repository_impl.dart';
 import '../../data/repositories/comment_repository_impl.dart';
 import '../../data/repositories/filter_repository_impl.dart';
+import '../../data/repositories/friend_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
@@ -14,6 +15,7 @@ import '../features/authenticate/bloc/authenticate_bloc.dart';
 import '../features/blog-detail/bloc/blog_detail_bloc.dart';
 import '../features/blog/bloc/blog_bloc.dart';
 import '../features/chat/bloc/chat_bloc.dart';
+import '../features/chat/bloc/friend-list/friend_list_bloc.dart';
 import '../features/comment/bloc/comment_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/create-blog/bloc/create_blog_bloc.dart';
@@ -25,7 +27,8 @@ import '../features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../features/group-detail/bloc/post-bloc/post_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
 import '../features/update-profile-info/bloc/update_profile_info_bloc.dart';
-import '../features/user-profile/bloc/user_profile_bloc.dart';
+import '../features/user-profile/bloc/friend-bloc/friend_bloc.dart';
+import '../features/user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
 import 'application/application_bloc.dart';
 import 'locale/cubit/locale_cubit.dart';
@@ -40,7 +43,9 @@ class AppBloc {
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
   static final userProfileBloc = UserProfileBloc(UserRepositoryImpl());
+  static final friendBloc = FriendBloc(FriendRepositoryImpl());
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
+  static final friendListBloc = FriendListBloc(FriendRepositoryImpl());
   static final conversationBloc =
       ConversationBloc(ChatRepositoryImpl(), MediaRepositoryImpl());
   static final filterBloc = FilterBloc(
@@ -87,8 +92,14 @@ class AppBloc {
     BlocProvider<UserProfileBloc>(
       create: (context) => userProfileBloc,
     ),
+    BlocProvider<FriendBloc>(
+      create: (context) => friendBloc,
+    ),
     BlocProvider<ChatBloc>(
       create: (context) => chatBloc,
+    ),
+    BlocProvider<FriendListBloc>(
+      create: (context) => friendListBloc,
     ),
     BlocProvider<FilterBloc>(
       create: (context) => filterBloc,
@@ -133,6 +144,7 @@ class AppBloc {
     chatBloc.add(FetchConversations());
     blogBloc.add(RefreshBlogsEvent());
     groupBloc.add(RefreshGroupsEvent());
+    friendListBloc.add(FetchFriendList());
   }
 
   static void cleanBloc() {

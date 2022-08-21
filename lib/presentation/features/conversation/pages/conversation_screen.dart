@@ -4,7 +4,6 @@ import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_icon.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/record_audio_widget.dart';
-import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +16,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/custom_image_picker.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/conversation_bloc.dart';
 import '../widgets/conversation_input.dart';
 import '../widgets/conversation_list_shimmer.dart';
@@ -83,12 +83,20 @@ class _ConversationScreenState extends State<ConversationScreen> {
               AvatarWidget(
                 width: 40,
                 height: 40,
-                imageUrl: widget.conversation.members.first.avatar == null
+                imageUrl: widget.conversation.members
+                            .where((element) =>
+                                element.id != UserLocal().getUser()!.id)
+                            .first
+                            .avatar ==
+                        null
                     ? null
-                    : '${AppConstants.baseImageUrl}${widget.conversation.members.first.avatar!.src}',
+                    : '${AppConstants.baseImageUrl}${widget.conversation.members.where((element) => element.id != UserLocal().getUser()!.id).first.avatar!.src}',
               ),
               const SizedBox(width: 8),
-              Text(widget.conversation.members.first.fullname)
+              Text(widget.conversation.members
+                  .where((element) => element.id != UserLocal().getUser()!.id)
+                  .first
+                  .fullname)
             ],
           ),
         ),

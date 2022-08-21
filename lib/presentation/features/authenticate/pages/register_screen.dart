@@ -4,10 +4,15 @@ import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../common/constants/constants.dart';
+import '../../../../domain/entities/language.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../widgets/custom_image_picker.dart';
 import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../filter/bloc/filter_bloc.dart';
+import '../../filter/widgets/pick_select_widget.dart';
 import '../bloc/authenticate_bloc.dart';
 import '../widgets/auth_button_widget.dart';
 import '../../../widgets/textfield_widget.dart';
@@ -28,6 +33,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _retypePasswordController = TextEditingController();
+
+  List<Language> learning = [];
+  List<Language> speaking = [];
+
+  void onTapSelectLanguage(bool isSelectSpeaking) async {
+    AppBloc.filterBloc.add(SelectLanguageEvent());
+    final result = await AppNavigator().push(RouteConstants.filterSelect,
+        arguments: {
+          'selectedLanguage': isSelectSpeaking ? speaking : learning
+        });
+    setState(() {
+      if (result is List<Language>) {
+        if (isSelectSpeaking) {
+          speaking = result;
+        } else {
+          learning = result;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,16 +191,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ],
                           ),
                           space,
+                          PickSelectWidget(
+                            title: 'Enter speaking',
+                            selectedLanguages: speaking,
+                            onTap: () => onTapSelectLanguage(true),
+                          ),
+                          PickSelectWidget(
+                            title: 'Enter learning',
+                            selectedLanguages: learning,
+                            onTap: () => onTapSelectLanguage(false),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: AuthButtonWidget(
                               label: l10n.signUp,
                               onPressed: () {
                                 AppBloc.authenticateBloc.add(RegisterEvent(
-                                    email: widget.email,
-                                    fullName: _nameController.text.trim(),
-                                    password: _passwordController.text.trim(),
-                                    avatar: _imagePicked));
+                                  email: widget.email,
+                                  fullName: _nameController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                  avatar: _imagePicked,
+                                  speak: speaking,
+                                  learn: learning,
+                                ));
                               },
                             ),
                           ),

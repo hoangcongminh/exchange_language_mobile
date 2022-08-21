@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../domain/entities/language.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../datasources/local/locale_local_data.dart';
@@ -56,17 +57,27 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> register(
-      String email, String password, String fullName, String avatarId) async {
+    String email,
+    String password,
+    String fullName,
+    String avatarId,
+    List<Language> speak,
+    List<Language> learn,
+  ) async {
     try {
       final response = await _authRestClient.register({
         'email': email,
         'password': password,
         'fullname': fullName,
         'avatar': avatarId,
+        'speak': speak.map((e) => e.id).toList(),
+        'learn': learn.map((e) => e.id).toList(),
       });
 
       if (response.error == false) {
         UserLocal().setAccessToken(response.data!);
+        await AppApiService().clientSetup();
+
         return Right(response.data!);
       } else {
         String message = response.message;

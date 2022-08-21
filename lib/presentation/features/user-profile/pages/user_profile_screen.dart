@@ -1,5 +1,6 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/theme/colors.dart';
+import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,8 @@ import '../../../widgets/avatar_widget.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../discover/widgets/colored_tabbar.dart';
 import '../../group/pages/group_screen.dart';
-import '../bloc/user_profile_bloc.dart';
+import '../bloc/friend-bloc/friend_bloc.dart';
+import '../bloc/user-profile-bloc/user_profile_bloc.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -120,20 +122,81 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               state.user.introduction ?? '',
                               style: userIntroduction,
                             ),
-                            RatingBar.builder(
-                              initialRating: 3,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              glow: false,
-                              tapOnlyMode: true,
-                              itemPadding:
-                                  const EdgeInsets.symmetric(horizontal: 4.0),
-                              itemBuilder: (context, _) =>
-                                  const Icon(Icons.star, color: Colors.amber),
-                              onRatingUpdate: (rating) {},
-                            ),
+                            if (!isMe)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 16.sp, right: 16.sp, top: 8.sp),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child:
+                                          BlocBuilder<FriendBloc, FriendState>(
+                                        builder: (context, friendState) {
+                                          if (friendState.friendStatus ==
+                                              FriendStatus.NOT_FRIEND) {
+                                            return AppButtonWidget(
+                                              label: const Text('Add friend'),
+                                              onPressed: () => AppBloc
+                                                  .friendBloc
+                                                  .add(AddFriendEvent(
+                                                      userId: state.user.id)),
+                                            );
+                                          } else if (friendState.friendStatus ==
+                                              FriendStatus.FRIEND) {
+                                            return AppButtonWidget(
+                                              label: const Text('Friend'),
+                                              onPressed: () {
+                                                onTapFriendButton(
+                                                    context, state);
+                                              },
+                                            );
+                                          } else if (friendState.friendStatus ==
+                                              FriendStatus.RECEIVER) {
+                                            return AppButtonWidget(
+                                              label: const Text(
+                                                  'Sent you a friend request'),
+                                              onPressed: () {
+                                                onTapFriendResponseButton(
+                                                    context, state);
+                                              },
+                                            );
+                                          } else if (friendState.friendStatus ==
+                                              FriendStatus.SENDER) {
+                                            return AppButtonWidget(
+                                              label: const Text('Request sent'),
+                                              onPressed: () {},
+                                            );
+                                          } else {
+                                            return const SizedBox.shrink();
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 4.sp,
+                                    ),
+                                    AppButtonWidget(
+                                      label: const Icon(Icons.chat),
+                                      color: Colors.grey,
+                                      onPressed: () {},
+                                    )
+                                  ],
+                                ),
+                              ),
+                            // RatingBar.builder(
+                            //   initialRating: 3,
+                            //   minRating: 1,
+                            //   direction: Axis.horizontal,
+                            //   allowHalfRating: true,
+                            //   itemCount: 5,
+                            //   glow: false,
+                            //   tapOnlyMode: true,
+                            //   itemPadding:
+                            //       const EdgeInsets.symmetric(horizontal: 4.0),
+                            //   itemBuilder: (context, _) =>
+                            //       const Icon(Icons.star, color: Colors.amber),
+                            //   onRatingUpdate: (rating) {},
+                            // ),
                             SizedBox(height: 20.sp),
                             IntrinsicHeight(
                               child: Row(
@@ -141,7 +204,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   UserInfoItem(
-                                      title: l10n.location, value: 'Viet Nam'),
+                                    title: 'Role',
+                                    value: state.user.role == 1
+                                        ? 'Teacher'
+                                        : 'Leaner',
+                                  ),
                                   const VerticalDivider(
                                     thickness: 2,
                                   ),
@@ -195,6 +262,140 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           return const LoadingWidget();
         }
       }),
+    );
+  }
+
+  Future<dynamic> onTapFriendButton(
+      BuildContext context, UserProfileLoaded state) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: 100.sp,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.sp),
+                topRight: Radius.circular(20.sp),
+              ),
+              color: Colors.white,
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.sp),
+                TextButton(
+                  onPressed: () {
+                    AppBloc.friendBloc.add(DeleteFriend(userId: state.user.id));
+                    AppNavigator().pop();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.person_off_rounded),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          'UnFriend',
+                          style: TextStyle(
+                              fontSize: 13.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: const Color(0xFFC5D0CF),
+                  thickness: 0.3.sp,
+                  height: 0.3.sp,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> onTapFriendResponseButton(
+      BuildContext context, UserProfileLoaded state) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: 150.sp,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.sp),
+                topRight: Radius.circular(20.sp),
+              ),
+              color: Colors.white,
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.sp),
+                TextButton(
+                  onPressed: () {
+                    AppBloc.friendBloc
+                        .add(ConfirmFriendRequest(userId: state.user.id));
+                    AppNavigator().pop();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.check),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          'Confirm',
+                          style: TextStyle(
+                              fontSize: 13.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    AppBloc.friendBloc
+                        .add(CancelFriendRequest(userId: state.user.id));
+                    AppNavigator().pop();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.cancel),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          'Cancel',
+                          style: TextStyle(
+                              fontSize: 13.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: const Color(0xFFC5D0CF),
+                  thickness: 0.3.sp,
+                  height: 0.3.sp,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

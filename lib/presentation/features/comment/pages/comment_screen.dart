@@ -13,7 +13,7 @@ import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../comment/bloc/comment_bloc.dart';
-import '../../user-profile/bloc/user_profile_bloc.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../widgets/comment_box.dart';
 
 class CommentScreen extends StatefulWidget {

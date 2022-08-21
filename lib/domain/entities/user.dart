@@ -9,6 +9,7 @@ class User extends Equatable {
   final Avatar? avatar;
   final List<Language>? learningLanguage;
   final List<Language>? speakingLanguage;
+  final List<Language>? teachingLanguage;
   final String? introduction;
 
   const User({
@@ -19,6 +20,7 @@ class User extends Equatable {
     this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
+    this.teachingLanguage,
     this.introduction,
   });
 
@@ -47,4 +49,19 @@ class Avatar extends Equatable {
 
   @override
   List<Object?> get props => [id, src];
+}
+
+class ListUser extends Equatable {
+  final List<User> users;
+  final int total;
+
+  const ListUser({
+    required this.users,
+    required this.total,
+  });
+  @override
+  List<Object?> get props => [
+        users,
+        total,
+      ];
 }

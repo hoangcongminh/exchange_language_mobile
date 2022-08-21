@@ -17,6 +17,7 @@ class UpdateProfileInfoBloc
       : super(UpdateProfileInfoInitial()) {
     on<UpdateProfileInfoEvent>((event, emit) {});
     on<UpdateProfileEvent>(_onUpdateProfile);
+    on<RegisterTeacherEvent>(_onRegisterTeacher);
   }
 
   Future<void> _onUpdateProfile(
@@ -30,6 +31,7 @@ class UpdateProfileInfoBloc
         avatar: event.currentAvatar!,
         speaking: event.speaking,
         learning: event.learning,
+        teaching: event.teaching,
       )
           .then(
         (result) {
@@ -78,6 +80,20 @@ class UpdateProfileInfoBloc
     } else {
       emit(const UpdateProfileInfoFailure(message: 'There are some errors'));
     }
+  }
+
+  Future<void> _onRegisterTeacher(
+      RegisterTeacherEvent event, Emitter<UpdateProfileInfoState> emit) async {
+    await _userRepository.registerTeacher(teaching: event.teach).then((result) {
+      result.fold(
+        (failure) {
+          emit(UpdateProfileInfoFailure(message: failure.message));
+        },
+        (_) {
+          emit(UpdateProfileInfoSuccess());
+        },
+      );
+    });
   }
 
   final UserRepository _userRepository;

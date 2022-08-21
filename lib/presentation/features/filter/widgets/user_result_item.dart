@@ -8,7 +8,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/filter_style.dart';
 import '../../../widgets/avatar_widget.dart';
-import '../../user-profile/bloc/user_profile_bloc.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 
 class UserResultItem extends StatelessWidget {
   const UserResultItem({
@@ -62,16 +62,7 @@ class UserResultItem extends StatelessWidget {
                         SizedBox(
                             child: Table(
                           children: [
-                            TableRow(children: [
-                              const Text(
-                                'Location',
-                                style: userResultItemInfoTitle,
-                              ),
-                              Text(
-                                user.fullname,
-                                style: userResultItemInfo,
-                              ),
-                            ]),
+                          
                             TableRow(children: [
                               const Text(
                                 'Speaking',

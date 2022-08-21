@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../data/failure.dart';
+import '../entities/language.dart';
 import '../entities/user.dart';
 
 abstract class AuthRepository {
@@ -13,7 +14,13 @@ abstract class AuthRepository {
   Future<Either<Failure, String>> verifyOTP(String email, String otp);
 
   Future<Either<Failure, String>> register(
-      String email, String password, String fullName, String avatar);
+    String email,
+    String password,
+    String fullName,
+    String avatar,
+    List<Language> speak,
+    List<Language> learn,
+  );
 
   Future<Either<Failure, String>> resetPassword(String email, String password);
 

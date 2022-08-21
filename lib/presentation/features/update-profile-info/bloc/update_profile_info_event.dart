@@ -14,6 +14,7 @@ class UpdateProfileEvent extends UpdateProfileInfoEvent {
   final String? currentAvatar;
   final List<Language> speaking;
   final List<Language> learning;
+  final List<Language>? teaching;
 
   const UpdateProfileEvent({
     required this.fullName,
@@ -22,6 +23,7 @@ class UpdateProfileEvent extends UpdateProfileInfoEvent {
     this.currentAvatar,
     required this.speaking,
     required this.learning,
+    this.teaching,
   });
 
   @override
@@ -31,4 +33,12 @@ class UpdateProfileEvent extends UpdateProfileInfoEvent {
         speaking,
         learning,
       ];
+}
+
+class RegisterTeacherEvent extends UpdateProfileInfoEvent {
+  final List<Language> teach;
+  const RegisterTeacherEvent({required this.teach});
+
+  @override
+  List<Object> get props => [teach];
 }

@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/constants/route_constants.dart';
 import '../../../../data/failure.dart';
+import '../../../../domain/entities/language.dart';
 import '../../../../domain/entities/media.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../domain/repository/auth_repository.dart';
@@ -15,6 +15,7 @@ import '../../../../domain/repository/media_repository.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../common/application/application_bloc.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 
 part 'authenticate_event.dart';
 part 'authenticate_state.dart';
@@ -45,6 +46,8 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
             event.password,
             event.fullName,
             image.id,
+            event.speak,
+            event.learn,
           );
           result.fold(
             (failure) {

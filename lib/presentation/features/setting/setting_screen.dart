@@ -82,6 +82,18 @@ class _SettingScreenState extends State<SettingScreen> {
                         arguments: {'user': UserLocal().getUser()});
                   },
                 ),
+                if (UserLocal().getUser()!.role != 1)
+                  SettingsTile(
+                    title: Text(l10n.registerTeacher),
+                    leading: const Icon(Icons.person_add),
+                    onPressed: (context) async {
+                      await AppNavigator()
+                          .push(RouteConstants.registerTeacher)
+                          .then((value) {
+                        setState(() {});
+                      });
+                    },
+                  ),
                 SettingsTile(
                   title: Text(l10n.logout),
                   leading: const Icon(Icons.logout),

@@ -11,9 +11,14 @@ abstract class UserRepository {
     required String introduction,
     required List<Language> speaking,
     required List<Language> learning,
+    List<Language>? teaching,
   });
 
   Future<Either<Failure, User>> getUserProfile({
     required String userId,
+  });
+
+  Future<Either<Failure, void>> registerTeacher({
+    required List<Language> teaching,
   });
 }

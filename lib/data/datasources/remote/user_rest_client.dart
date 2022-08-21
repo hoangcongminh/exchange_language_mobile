@@ -19,4 +19,9 @@ abstract class UserRestClient {
   Future<ApiResponseModel<UserModel>> getUserProfile({
     @Path('userId') required userId,
   });
+
+  @POST('/users/register-teacher')
+  Future<ApiResponseModel> registerTeacher(
+    @Body() Map<String, dynamic> body,
+  );
 }

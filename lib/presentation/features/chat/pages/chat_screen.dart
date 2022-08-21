@@ -1,16 +1,8 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
-import 'package:exchange_language_mobile/presentation/features/conversation/bloc/conversation_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../../common/constants/route_constants.dart';
-import '../../../../routes/app_pages.dart';
-import '../../../widgets/search_box.dart';
-import '../bloc/chat_bloc.dart';
-import '../widgets/chat_item.dart';
-import '../widgets/chat_list_shimmer.dart';
+import '../../discover/widgets/colored_tabbar.dart';
+import 'friend_list_screen.dart';
+import 'message_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -19,76 +11,38 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2, initialIndex: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.chat),
+        bottom: ColoredTabBar(
+          color: Colors.white,
+          tabBar: TabBar(
+            unselectedLabelColor: Colors.grey,
+            controller: _tabController,
+            tabs: const [
+              Tab(text: 'message'),
+              Tab(text: 'friends'),
+            ],
+          ),
+        ),
       ),
-      body: BlocBuilder<ChatBloc, ChatState>(
-        builder: (context, state) {
-          if (state is ChatLoaded) {
-            return CustomScrollView(
-              slivers: [
-                // SliverToBoxAdapter(
-                //   child: SizedBox(
-                //     height: 10.h,
-                //     child: Center(
-                //       child: ListView.builder(
-                //         scrollDirection: Axis.horizontal,
-                //         itemBuilder: (context, index) {
-                //           return AvatarWidget(
-                //             imageUrl:
-                //                 'https://www.w3schools.com/howto/img_avatar.png',
-                //             height: 40.sp,
-                //             width: 40.sp,
-                //             margin: EdgeInsets.symmetric(horizontal: 12.sp),
-                //           );
-                //         },
-                //         itemCount: 10,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 8.sp),
-                      SearchBox(
-                        onChanged: (text) {},
-                      ),
-                      SizedBox(height: 8.sp),
-                    ],
-                  ),
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return GestureDetector(
-                        onLongPress: () {},
-                        onTap: () {
-                          AppBloc.conversationBloc.add(RefreshMessage(
-                              conversationId: state.conversations[index].id));
-                          AppNavigator().push(RouteConstants.conversation,
-                              arguments: {
-                                'conversation': state.conversations[index]
-                              });
-                        },
-                        child:
-                            ChatItem(conversation: state.conversations[index]),
-                      );
-                    },
-                    childCount: state.conversations.length, // 1000 list items
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return const ChatListShimmer();
-          }
-        },
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          MessageScreen(),
+          FriendListScreen(),
+        ],
       ),
     );
   }

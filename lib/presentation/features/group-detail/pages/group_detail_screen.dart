@@ -1,5 +1,4 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
-import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:exchange_language_mobile/presentation/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +16,7 @@ import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../group/widget/create_post_widget.dart';
 import '../../group/widget/post_item.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../bloc/post-bloc/post_bloc.dart';
 

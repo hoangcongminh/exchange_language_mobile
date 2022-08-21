@@ -38,6 +38,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
 
   late List<Language> learning;
   late List<Language> speaking;
+  late List<Language> teaching;
 
   void onTapSelectLanguage(bool isSelectSpeaking) async {
     AppBloc.filterBloc.add(SelectLanguageEvent());
@@ -57,13 +58,19 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    learning = widget.user.learningLanguage ?? [];
+    speaking = widget.user.speakingLanguage ?? [];
+    teaching = widget.user.teachingLanguage ?? [];
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     const SizedBox space = SizedBox(height: 10);
     _nameController.text = widget.user.fullname;
     _introductionController.text = widget.user.introduction ?? '';
-    learning = widget.user.learningLanguage ?? [];
-    speaking = widget.user.speakingLanguage ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -159,22 +166,55 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                             selectedLanguages: learning,
                             onTap: () => onTapSelectLanguage(false),
                           ),
+                          if (widget.user.role == 1) const Text('Teaching'),
+                          if (widget.user.role == 1)
+                            PickSelectWidget(
+                              title: 'Enter language',
+                              selectedLanguages: teaching,
+                              onTap: () async {
+                                AppBloc.filterBloc.add(SelectLanguageEvent());
+                                final result = await AppNavigator().push(
+                                    RouteConstants.filterSelect,
+                                    arguments: {'selectedLanguage': teaching});
+                                setState(() {
+                                  teaching = result;
+                                });
+                              },
+                            ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: AuthButtonWidget(
                               label: 'Update',
-                              onPressed: () => AppBloc.updateProfileInfoBloc
-                                  .add(UpdateProfileEvent(
-                                fullName: _nameController.text.trim(),
-                                introduction:
-                                    _introductionController.text.trim(),
-                                avatar: _imagePicked,
-                                currentAvatar: _imagePicked == null
-                                    ? UserLocal().getUser()?.avatar?.id
-                                    : null,
-                                speaking: speaking,
-                                learning: learning,
-                              )),
+                              onPressed: () {
+                                if (widget.user.role == 1) {
+                                  AppBloc.updateProfileInfoBloc
+                                      .add(UpdateProfileEvent(
+                                    fullName: _nameController.text.trim(),
+                                    introduction:
+                                        _introductionController.text.trim(),
+                                    avatar: _imagePicked,
+                                    currentAvatar: _imagePicked == null
+                                        ? UserLocal().getUser()?.avatar?.id
+                                        : null,
+                                    speaking: speaking,
+                                    learning: learning,
+                                    teaching: teaching,
+                                  ));
+                                } else {
+                                  AppBloc.updateProfileInfoBloc
+                                      .add(UpdateProfileEvent(
+                                    fullName: _nameController.text.trim(),
+                                    introduction:
+                                        _introductionController.text.trim(),
+                                    avatar: _imagePicked,
+                                    currentAvatar: _imagePicked == null
+                                        ? UserLocal().getUser()?.avatar?.id
+                                        : null,
+                                    speaking: speaking,
+                                    learning: learning,
+                                  ));
+                                }
+                              },
                             ),
                           ),
                         ],

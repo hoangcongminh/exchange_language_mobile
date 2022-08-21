@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/update-profile-info/pages/register_teacher_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/constants/constants.dart';
@@ -141,6 +142,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           UpdateProfileInfoScreen(user: arguments?['user']),
+        );
+      case RouteConstants.registerTeacher:
+        return _buildRoute(
+          settings,
+          const RegisterTeacherScreen(),
         );
       case RouteConstants.setting:
         return _buildRoute(

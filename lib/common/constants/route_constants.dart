@@ -29,4 +29,5 @@ class RouteConstants {
   //user
   static const userProfile = "/userProfile";
   static const updateProfileInfo = "/updateProfileInfo";
+  static const registerTeacher = "/registerTeacher";
 }

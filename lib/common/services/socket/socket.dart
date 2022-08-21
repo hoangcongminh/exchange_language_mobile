@@ -42,6 +42,13 @@ void connectAndListen() {
       );
     }
   });
+
+  socket!.on(SocketEvents.notification, (data) {
+    if (SocketSafety.isNotDuplicated(
+        event: SocketEvents.receiveMessage, data: data)) {
+      print(data);
+    }
+  });
 }
 
 void disconnectBeforeConnect() {

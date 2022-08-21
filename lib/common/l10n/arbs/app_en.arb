@@ -109,6 +109,10 @@
     "@updateInfo": {
       "description": "updateInfo"
     },
+    "registerTeacher": "Register teacher",
+    "@registerTeacher": {
+      "description": "registerTeacher"
+    },
     "result": "Result",
     "@result": {
       "description": "result"

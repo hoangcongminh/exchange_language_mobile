@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/blog_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/filter_rest_client.dart';
+import 'package:exchange_language_mobile/data/datasources/remote/friend_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/language_rest_client.dart';
 import 'package:exchange_language_mobile/data/datasources/remote/media_rest_client.dart';
 
@@ -36,6 +37,8 @@ class AppApiService {
       CommentRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final UserRestClient userRestClient =
       UserRestClient(dio, baseUrl: AppConstants.baseUrl);
+  late final FriendRestClient friendRestClient =
+      FriendRestClient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 

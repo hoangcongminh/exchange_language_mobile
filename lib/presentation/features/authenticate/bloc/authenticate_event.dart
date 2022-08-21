@@ -22,12 +22,16 @@ class RegisterEvent extends AuthenticateEvent {
   final String password;
   final String fullName;
   final File? avatar;
+  final List<Language> speak;
+  final List<Language> learn;
 
   const RegisterEvent({
     required this.email,
     required this.password,
     required this.fullName,
     this.avatar,
+    required this.learn,
+    required this.speak,
   });
 }
 
