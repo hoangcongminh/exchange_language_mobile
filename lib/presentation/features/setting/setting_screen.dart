@@ -29,7 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: SettingsList(
           sections: [
             SettingsSection(
-              title: const Text('Common'),
+              title: Text(l10n.common),
               tiles: [
                 SettingsTile.navigation(
                   leading: const Icon(Icons.language),
@@ -69,10 +69,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 )
               ],
-              // title: const Text('common'),
             ),
             SettingsSection(
-              title: const Text('Account'),
+              title: Text(l10n.account),
               tiles: [
                 SettingsTile(
                   title: Text(l10n.updateInfo),

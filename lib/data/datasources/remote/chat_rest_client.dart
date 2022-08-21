@@ -28,4 +28,9 @@ abstract class ChatRestCient {
     @Query('skip') int? skip,
     @Query('limit') int? limit,
   });
+
+  @GET('/conversation/get-message-or-create/{userId}')
+  Future<ApiResponseModel<MessageModel>> createOrGetMessageByUserId({
+    @Path('userId') required String userId,
+  });
 }

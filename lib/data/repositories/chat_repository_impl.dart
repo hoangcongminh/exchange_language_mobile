@@ -28,7 +28,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, List<Message>>> getMessagesByConversation({
+  Future<Either<Failure, DataMessage>> getMessagesByConversation({
     required String conversationId,
     int? skip,
     int? limit,
@@ -37,7 +37,25 @@ class ChatRepositoryImpl implements ChatRepository {
       final response = await _chatRestClient.getMessageByConversation(
           conversationId: conversationId, skip: skip, limit: limit);
       if (response.error == false) {
-        return Right(response.data!.messages.map((e) => e.toEntity()).toList());
+        return Right(response.data!.toEntity());
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e, st) {
+      debugPrint(e.toString());
+      debugPrint(st.toString());
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DataMessage>> createOrGetMessageByUserId(
+      {required String userId}) async {
+    try {
+      final response =
+          await _chatRestClient.createOrGetMessageByUserId(userId: userId);
+      if (response.error == false) {
+        return Right(response.data!.toEntity());
       } else {
         return Left(ServerFailure(response.message));
       }

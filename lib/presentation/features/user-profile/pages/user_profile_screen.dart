@@ -1,10 +1,10 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/bloc/conversation_bloc.dart';
 import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
@@ -135,7 +135,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           if (friendState.friendStatus ==
                                               FriendStatus.NOT_FRIEND) {
                                             return AppButtonWidget(
-                                              label: const Text('Add friend'),
+                                              label: Text(l10n.addFriend),
                                               onPressed: () => AppBloc
                                                   .friendBloc
                                                   .add(AddFriendEvent(
@@ -144,7 +144,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           } else if (friendState.friendStatus ==
                                               FriendStatus.FRIEND) {
                                             return AppButtonWidget(
-                                              label: const Text('Friend'),
+                                              label: Text(l10n.friend),
                                               onPressed: () {
                                                 onTapFriendButton(
                                                     context, state);
@@ -153,8 +153,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           } else if (friendState.friendStatus ==
                                               FriendStatus.RECEIVER) {
                                             return AppButtonWidget(
-                                              label: const Text(
-                                                  'Sent you a friend request'),
+                                              label: Text(
+                                                  l10n.sentYouAFriendRequest),
                                               onPressed: () {
                                                 onTapFriendResponseButton(
                                                     context, state);
@@ -163,7 +163,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           } else if (friendState.friendStatus ==
                                               FriendStatus.SENDER) {
                                             return AppButtonWidget(
-                                              label: const Text('Request sent'),
+                                              label: Text(l10n.requestSent),
                                               onPressed: () {},
                                             );
                                           } else {
@@ -178,7 +178,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     AppButtonWidget(
                                       label: const Icon(Icons.chat),
                                       color: Colors.grey,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        AppBloc.conversationBloc.add(
+                                            CreateOrGetMessage(
+                                                userId: state.user.id));
+                                        AppNavigator().push(
+                                            RouteConstants.conversation,
+                                            arguments: {
+                                              'user': state.user,
+                                            });
+                                      },
                                     )
                                   ],
                                 ),
@@ -300,7 +309,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         const Icon(Icons.person_off_rounded),
                         SizedBox(width: 12.sp),
                         Text(
-                          'UnFriend',
+                          context.l10n.unFriend,
                           style: TextStyle(
                               fontSize: 13.sp, fontWeight: FontWeight.w400),
                         ),
@@ -357,7 +366,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         const Icon(Icons.check),
                         SizedBox(width: 12.sp),
                         Text(
-                          'Confirm',
+                          context.l10n.confirm,
                           style: TextStyle(
                               fontSize: 13.sp, fontWeight: FontWeight.w400),
                         ),
@@ -378,7 +387,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         const Icon(Icons.cancel),
                         SizedBox(width: 12.sp),
                         Text(
-                          'Cancel',
+                          context.l10n.cancel,
                           style: TextStyle(
                               fontSize: 13.sp, fontWeight: FontWeight.w400),
                         ),

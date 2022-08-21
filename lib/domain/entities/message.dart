@@ -1,7 +1,20 @@
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/domain/entities/conversation.dart';
 
 import '../../data/datasources/local/user_local_data.dart';
 import 'user.dart';
+
+class DataMessage extends Equatable {
+  final List<Message> messages;
+  final Conversation conversationInfo;
+  const DataMessage({
+    required this.messages,
+    required this.conversationInfo,
+  });
+
+  @override
+  List<Object?> get props => [messages, conversationInfo];
+}
 
 class Message extends Equatable {
   final DateTime createdAt;

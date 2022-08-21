@@ -60,6 +60,14 @@
     "@chat": {
       "description": "chat"
     },
+    "messages": "Messages",
+    "@messages": {
+      "description": "messages"
+    },
+    "friends": "Friends",
+    "@friends": {
+      "description": "friends"
+    },
     "notification": "Notification",
     "@notification": {
       "description": "notification"
@@ -89,9 +97,25 @@
     "@settings": {
       "description": "settings"
     },
+    "common": "Common",
+    "@common": {
+      "description": "common"
+    },
+    "account": "Account",
+    "@account": {
+      "description": "account"
+    },
+    "userNotFound": "User not found",
+    "@userNotFound": {
+      "description": "userNotFound"
+    },
     "search": "Search",
     "@search": {
       "description": "search"
+    },
+    "searchAgain": "Search again",
+    "@searchAgain": {
+      "description": "searchAgain"
     },
     "location": "Location",
     "@location": {
@@ -162,6 +186,11 @@
       "description": "enterLanguage"
     },
 
+
+    "confirm": "Confirm",
+    "@confirm": {
+      "description": "confirm"
+    },
     "cancel": "Cancel",
     "@cancel": {
       "description": "cancel"
@@ -178,5 +207,27 @@
     "translation": "Translation",
     "@translation": {
       "description": "translation"
+    },
+
+    "addFriend": "Add friend",
+    "@addFriend": {
+      "description": "addFriend"
+    },
+     "friend": "Friend",
+    "@friend": {
+      "description": "friend"
+    },
+     "sentYouAFriendRequest": "Sent you a friend request",
+    "@sentYouAFriendRequest": {
+      "description": "sentYouAFriendRequest"
+    },
+     "requestSent": "Friend request sent",
+    "@requestSent": {
+      "description": "requestSent"
+    },
+    "unFriend": "Un friend",
+    "@unFriend": {
+      "description": "unFriend"
     }
 }
+

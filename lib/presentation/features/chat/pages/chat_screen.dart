@@ -30,16 +30,16 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           tabBar: TabBar(
             unselectedLabelColor: Colors.grey,
             controller: _tabController,
-            tabs: const [
-              Tab(text: 'message'),
-              Tab(text: 'friends'),
+            tabs: [
+              Tab(text: l10n.messages),
+              Tab(text: l10n.friends),
             ],
           ),
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
+        children: [
           MessageScreen(),
           FriendListScreen(),
         ],

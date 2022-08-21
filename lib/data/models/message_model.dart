@@ -19,6 +19,11 @@ class MessageModel {
       _$MessageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MessageModelToJson(this);
+
+  DataMessage toEntity() => DataMessage(
+        messages: messages.map((e) => e.toEntity()).toList(),
+        conversationInfo: conversation.toEntity(),
+      );
 }
 
 @JsonSerializable()

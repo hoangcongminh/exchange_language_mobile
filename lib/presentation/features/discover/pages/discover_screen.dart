@@ -1,8 +1,10 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../widgets/error_dialog_widget.dart';
 import '../../blog/pages/blog_screen.dart';
 import '../../group/pages/group_screen.dart';
 import '../widgets/colored_tabbar.dart';
@@ -60,7 +62,16 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           if (_tabController.index == 0) {
-            AppNavigator().push(RouteConstants.createGroup);
+            if (UserLocal().getUser()!.role == 1) {
+              AppNavigator().push(RouteConstants.createGroup);
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) => const ErrorDialog(
+                        errorTitle: 'Error',
+                        errorMessage: 'You are not authorized to create group',
+                      ));
+            }
           } else if (_tabController.index == 1) {
             AppNavigator().push(RouteConstants.createBlog);
           }

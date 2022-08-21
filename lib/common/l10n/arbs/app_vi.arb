@@ -14,17 +14,24 @@
     "alreadyHaveAccount": "Đã có tài khoản?",
     "cont": "Tiếp tục",
 
-    "chat": "Tin nhắn",
+    "chat": "Nhắn tin",
+    "messages": "Tin nhắn",
+    "friends": "Bạn bè",
     "notification": "Thông báo",
     "discover": "Khám phá",
     "profile": "Hồ sơ",
     "settings": "Cài đặt",
 
+    "common": "Chung",
+    "account": "Tài khoản",
+
     "group": "Nhóm",
     "blog": "Bài viết",
     "createBlog": "Tạo bài viết",
     "location": "Vị trí",
+    "userNotFound": "Không tìm thấy người dùng",
     "search": "Tìm kiếm",
+    "searchAgain": "Tìm lại",
     "join": "Tham gia",
     "joined": "Đã tham gia",
     "updateInfo": "Cập nhật thông tin",
@@ -45,9 +52,16 @@
      "language": "Ngôn ngữ",
      "enterLanguage": "Chọn ngôn ngữ",
 
+     "confirm": "Đồng ý",
      "cancel": "Thoát",
      "edit": "Chỉnh sửa",
      "delete": "Xoá",
 
-     "translation": "Dịch"
+     "translation": "Dịch",
+
+     "addFriend": "Kết bạn",
+     "friend": "Bạn bè",
+     "sentYouAFriendRequest": "Đã gửi cho bạn lời mời kết bạn",
+     "requestSent": "Đã gửi lời mời kết bạn",
+     "unFriend": "Huỷ kết bạn"
 }

@@ -18,6 +18,7 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.result),
@@ -52,7 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     SizedBox(height: 20.sp),
                     Text(
-                      'User not found...',
+                      '${l10n.userNotFound}...',
                       style: Theme.of(context)
                           .textTheme
                           .headline6
@@ -61,7 +62,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     const Spacer(),
                     AppButtonWidget(
-                        label: const Text('Search again'),
+                        label: Text(l10n.searchAgain),
                         onPressed: () {
                           AppNavigator().pop();
                         })

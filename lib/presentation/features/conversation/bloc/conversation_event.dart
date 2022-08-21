@@ -31,6 +31,16 @@ class RefreshMessage extends ConversationEvent {
   List<Object> get props => [conversationId];
 }
 
+class CreateOrGetMessage extends ConversationEvent {
+  final String userId;
+  const CreateOrGetMessage({
+    required this.userId,
+  });
+
+  @override
+  List<Object> get props => [userId];
+}
+
 class ReceiveNewMessage extends ConversationEvent {
   final Message message;
 

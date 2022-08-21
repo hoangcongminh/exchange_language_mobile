@@ -186,6 +186,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                             child: AuthButtonWidget(
                               label: 'Update',
                               onPressed: () {
+                                // 1 is teacher
                                 if (widget.user.role == 1) {
                                   AppBloc.updateProfileInfoBloc
                                       .add(UpdateProfileEvent(

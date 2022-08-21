@@ -23,12 +23,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<SendAudioMessage>(_sendAudioMessage);
     on<SendIconMessage>(_sendIconMessage);
     on<RefreshMessage>(_refreshMessage);
+    on<CreateOrGetMessage>(_createOrGetMessage);
   }
 
   _fetchMessages(FetchMessage event, Emitter emit) async {
     if (hasReachedMax) {
     } else {}
-    Either<Failure, List<Message>> result =
+    Either<Failure, DataMessage> result =
         await chatRepository.getMessagesByConversation(
       conversationId: event.conversationId,
       skip: event.skip,
@@ -37,11 +38,14 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     result.fold((failue) {
       emit(ConversationFailure());
     }, (dataMessages) {
-      if (dataMessages.isEmpty) {
+      if (dataMessages.messages.isEmpty) {
         hasReachedMax == true;
       } else {
-        messages = List.of(dataMessages)..addAll(messages);
-        emit(ConversationLoaded(messages: messages, isScroll: false));
+        messages = List.of(dataMessages.messages)..addAll(messages);
+        emit(ConversationLoaded(
+            messages: messages,
+            isScroll: false,
+            conversationId: dataMessages.conversationInfo.id));
       }
     });
   }
@@ -49,7 +53,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   Future<void> _refreshMessage(
       RefreshMessage event, Emitter<ConversationState> emit) async {
     emit(ConversationLoading());
-    Either<Failure, List<Message>> result =
+    Either<Failure, DataMessage> result =
         await chatRepository.getMessagesByConversation(
       conversationId: event.conversationId,
       limit: limit,
@@ -58,15 +62,42 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       emit(ConversationFailure());
     }, (dataMessages) {
       hasReachedMax == false;
-      messages = dataMessages;
-      emit(ConversationLoaded(messages: messages, isScroll: true));
+      messages = dataMessages.messages;
+      emit(ConversationLoaded(
+        messages: messages,
+        isScroll: true,
+        conversationId: dataMessages.conversationInfo.id,
+      ));
+    });
+  }
+
+  Future<void> _createOrGetMessage(
+      CreateOrGetMessage event, Emitter<ConversationState> emit) async {
+    emit(ConversationLoading());
+    await chatRepository
+        .createOrGetMessageByUserId(userId: event.userId)
+        .then((result) {
+      result.fold((failue) {
+        emit(ConversationFailure());
+      }, (dataMessages) {
+        hasReachedMax == false;
+        messages = dataMessages.messages;
+        emit(ConversationLoaded(
+          messages: messages,
+          isScroll: true,
+          conversationId: dataMessages.conversationInfo.id,
+        ));
+      });
     });
   }
 
   _receiveNewMessage(ReceiveNewMessage event, Emitter emit) {
     emit(ConversationLoading());
     messages.add(event.message);
-    emit(ConversationLoaded(messages: messages, isScroll: true));
+    emit(ConversationLoaded(
+        messages: messages,
+        isScroll: true,
+        conversationId: event.message.conversationId));
   }
 
   _sendMessage(SendMessage event, Emitter emit) async {
@@ -81,8 +112,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       result.fold((failure) {
         emit(ConversationFailure());
       }, (dataMessage) {
-        messages = List.of(messages)..add(dataMessage.last);
-        emit(ConversationLoaded(messages: messages, isScroll: true));
+        messages = List.of(messages)..add(dataMessage.messages.last);
+        emit(ConversationLoaded(
+            messages: messages,
+            isScroll: true,
+            conversationId: dataMessage.conversationInfo.id));
       });
     });
   }
@@ -106,8 +140,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
                 emit(ConversationFailure());
               },
               (dataMessage) {
-                messages = List.of(messages)..add(dataMessage.last);
-                emit(ConversationLoaded(messages: messages, isScroll: true));
+                messages = List.of(messages)..add(dataMessage.messages.last);
+                emit(ConversationLoaded(
+                  messages: messages,
+                  isScroll: true,
+                  conversationId: dataMessage.conversationInfo.id,
+                ));
               },
             );
           },
@@ -116,7 +154,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     });
   }
 
-  FutureOr<void> _sendIconMessage(
+  Future<void> _sendIconMessage(
       SendIconMessage event, Emitter<ConversationState> emit) async {
     SocketEmit().sendMessage(
         conversationId: event.conversationId, content: event.content, type: 2);
@@ -129,8 +167,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       result.fold((failure) {
         emit(ConversationFailure());
       }, (dataMessage) {
-        messages = List.of(messages)..add(dataMessage.last);
-        emit(ConversationLoaded(messages: messages, isScroll: true));
+        messages = List.of(messages)..add(dataMessage.messages.last);
+        emit(ConversationLoaded(
+            messages: messages,
+            isScroll: true,
+            conversationId: dataMessage.conversationInfo.id));
       });
     });
   }

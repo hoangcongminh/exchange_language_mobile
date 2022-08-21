@@ -74,13 +74,27 @@ class _ChatItemState extends State<ChatItem> {
               ),
             ),
             SizedBox(width: 10.sp),
-            Text(
-              DateFormat('hh:mm a').format(widget.conversation.modifiedAt),
-              style: TextStyle(
-                color: colorTimeChat,
-                fontSize: 9.sp,
-                fontWeight: FontWeight.w400,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  DateFormat('dd/MM/yyyy')
+                      .format(widget.conversation.modifiedAt),
+                  style: TextStyle(
+                    color: colorTimeChat,
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  DateFormat('hh:mm a').format(widget.conversation.modifiedAt),
+                  style: TextStyle(
+                    color: colorTimeChat,
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
