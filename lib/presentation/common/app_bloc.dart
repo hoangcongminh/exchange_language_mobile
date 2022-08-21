@@ -25,6 +25,7 @@ import '../features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../features/group-detail/bloc/post-bloc/post_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
 import '../features/update-profile-info/bloc/update_profile_info_bloc.dart';
+import '../features/user-profile/bloc/user_profile_bloc.dart';
 import '../features/verification/bloc/verification_bloc.dart';
 import 'application/application_bloc.dart';
 import 'locale/cubit/locale_cubit.dart';
@@ -38,6 +39,7 @@ class AppBloc {
   static final verificationBloc = VerificationBloc(AuthRepositoryImpl());
   static final applicationBloc = ApplicationBloc();
   static final dashboardBloc = DashboardBloc();
+  static final userProfileBloc = UserProfileBloc(UserRepositoryImpl());
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
   static final conversationBloc = ConversationBloc(ChatRepositoryImpl());
   static final filterBloc = FilterBloc(
@@ -80,6 +82,9 @@ class AppBloc {
     ),
     BlocProvider<DashboardBloc>(
       create: (context) => dashboardBloc,
+    ),
+    BlocProvider<UserProfileBloc>(
+      create: (context) => userProfileBloc,
     ),
     BlocProvider<ChatBloc>(
       create: (context) => chatBloc,

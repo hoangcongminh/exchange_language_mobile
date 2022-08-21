@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -88,15 +89,18 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
 
   _refreshToken(RefreshTokenEvent event, Emitter emit) async {
     Either<Failure, User> result = await _authRepository.refreshToken();
-    await result.fold((failure) async {
-      emit(Authenticating());
-      debugPrint(failure.message);
-      await _authRepository.logout();
-      AppBloc.applicationBloc.add(OnLoggedOut());
-      emit(AuthenticateInitial());
-    }, (user) {
-      return;
-    });
+    await result.fold(
+      (failure) async {
+        emit(Authenticating());
+        debugPrint(failure.message);
+        await _authRepository.logout();
+        AppBloc.applicationBloc.add(OnLoggedOut());
+        emit(AuthenticateInitial());
+      },
+      (user) {
+        AppBloc.userProfileBloc.add(GetUserProfileEvent(userId: user.id));
+      },
+    );
   }
 
   _logout(LogoutEvent event, Emitter emit) async {

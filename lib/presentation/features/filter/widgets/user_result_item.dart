@@ -5,8 +5,10 @@ import 'package:sizer/sizer.dart';
 import '../../../../common/constants/app_constants.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../common/app_bloc.dart';
 import '../../../theme/filter_style.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../user-profile/bloc/user_profile_bloc.dart';
 
 class UserResultItem extends StatelessWidget {
   const UserResultItem({
@@ -19,10 +21,10 @@ class UserResultItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => AppNavigator().push(
-        RouteConstants.userProfile,
-        arguments: {'user': user},
-      ),
+      onTap: () {
+        AppBloc.userProfileBloc.add(GetUserProfileEvent(userId: user.id));
+        AppNavigator().push(RouteConstants.userProfile);
+      },
       child: Card(
         borderOnForeground: false,
         child: Padding(

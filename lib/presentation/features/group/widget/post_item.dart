@@ -1,7 +1,6 @@
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:translator/translator.dart';
 
@@ -15,7 +14,6 @@ import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_tap.dart';
 import '../../../widgets/translation_dialog.dart';
 import '../../comment/bloc/comment_bloc.dart';
-import '../../group-detail/bloc/post-bloc/post_bloc.dart';
 
 class PostItem extends StatelessWidget {
   final bool isPostDetail;

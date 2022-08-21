@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/record_audio_widget.dart';
+import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,10 +66,17 @@ class _ConversationScreenState extends State<ConversationScreen> {
         centerTitle: false,
         titleSpacing: 0,
         title: GestureDetector(
-          onTap: () => AppNavigator().push(
-            RouteConstants.userProfile,
-            arguments: {'user': widget.conversation.members.first},
-          ),
+          onTap: () {
+            AppBloc.userProfileBloc.add(
+              GetUserProfileEvent(
+                  userId: widget.conversation.members
+                      .where(
+                          (element) => element.id != UserLocal().getUser()?.id)
+                      .first
+                      .id),
+            );
+            AppNavigator().push(RouteConstants.userProfile);
+          },
           child: Row(
             children: [
               AvatarWidget(

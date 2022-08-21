@@ -17,6 +17,7 @@ import '../../../theme/blog_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/translation_dialog.dart';
+import '../../user-profile/bloc/user_profile_bloc.dart';
 import '../bloc/blog_detail_bloc.dart';
 
 class BlogDetailScreen extends StatefulWidget {
@@ -111,10 +112,13 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                       icon: const Icon(Icons.more_vert))
               ],
               title: GestureDetector(
-                onTap: () => AppNavigator().push(
-                  RouteConstants.userProfile,
-                  arguments: {'user': state.blog.author},
-                ),
+                onTap: () {
+                  AppBloc.userProfileBloc
+                      .add(GetUserProfileEvent(userId: blog.author.id));
+                  AppNavigator().push(
+                    RouteConstants.userProfile,
+                  );
+                },
                 child: Row(
                   children: [
                     AvatarWidget(

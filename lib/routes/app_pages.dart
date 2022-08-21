@@ -95,7 +95,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.groupDetail:
         return _buildRoute(
           settings,
-          GroupDetail(),
+          const GroupDetail(),
         );
       case RouteConstants.comment:
         return _buildRoute(
@@ -134,9 +134,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.userProfile:
         return _buildRoute(
           settings,
-          UserProfileScreen(
-            user: arguments?['user'],
-          ),
+          const UserProfileScreen(),
         );
 
       case RouteConstants.updateProfileInfo:

@@ -13,6 +13,7 @@ import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../comment/bloc/comment_bloc.dart';
+import '../../user-profile/bloc/user_profile_bloc.dart';
 import '../widgets/comment_box.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -81,10 +82,13 @@ class _CommentScreenState extends State<CommentScreen> {
                             avatarRoot: (context, data) => PreferredSize(
                               preferredSize: const Size.fromRadius(18),
                               child: GestureDetector(
-                                onTap: () => AppNavigator().push(
-                                  RouteConstants.userProfile,
-                                  arguments: {'user': comment.author},
-                                ),
+                                onTap: () {
+                                  AppBloc.userProfileBloc.add(
+                                      GetUserProfileEvent(
+                                          userId: comment.author.id));
+                                  AppNavigator()
+                                      .push(RouteConstants.userProfile);
+                                },
                                 child: AvatarWidget(
                                   height: 40,
                                   width: 40,

@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/user-profile/bloc/user_profile_bloc.dart';
 import 'package:exchange_language_mobile/presentation/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -259,10 +260,13 @@ class _GroupDetailState extends State<GroupDetail> {
                                       ),
                                     );
                                   },
-                                  onTapPostHeader: () => AppNavigator().push(
-                                    RouteConstants.userProfile,
-                                    arguments: {'user': post.author},
-                                  ),
+                                  onTapPostHeader: () {
+                                    AppBloc.userProfileBloc.add(
+                                        GetUserProfileEvent(
+                                            userId: post.author.id));
+                                    AppNavigator()
+                                        .push(RouteConstants.userProfile);
+                                  },
                                   isPostDetail: false,
                                   post: post,
                                 ),

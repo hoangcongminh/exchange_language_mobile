@@ -4,6 +4,7 @@ import 'package:exchange_language_mobile/domain/entities/language.dart';
 class User extends Equatable {
   final String id;
   final String fullname;
+  final int? role;
   final String? email;
   final Avatar? avatar;
   final List<Language>? learningLanguage;
@@ -13,6 +14,7 @@ class User extends Equatable {
   const User({
     required this.id,
     required this.fullname,
+    this.role,
     this.email,
     this.avatar,
     this.learningLanguage,
@@ -24,6 +26,7 @@ class User extends Equatable {
   List<Object?> get props => [
         id,
         fullname,
+        role,
         email,
         avatar,
         speakingLanguage,
