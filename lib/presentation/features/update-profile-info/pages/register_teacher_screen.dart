@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,9 +54,9 @@ class _RegisterTeacherScreenState extends State<RegisterTeacherScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Align(
+                    Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Teaching')),
+                        child: Text(l10n.teaching)),
                     PickSelectWidget(
                       title: 'Enter language',
                       selectedLanguages: teaching,

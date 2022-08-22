@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:exchange_language_mobile/common/helpers/translation_helper.dart';
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:sizer/sizer.dart';
-import 'package:translator/translator.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../data/datasources/local/user_local_data.dart';
@@ -16,7 +16,6 @@ import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
-import '../../../widgets/translation_dialog.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/blog_detail_bloc.dart';
 
@@ -50,22 +49,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                 } else if (text == " ") {
                   return;
                 } else {
-                  final translator = GoogleTranslator();
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => FutureBuilder<Translation>(
-                      future: translator.translate(text, to: 'vi'),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return const LoadingWidget();
-                        }
-                        return TranslationDialog(
-                          data: snapshot.data!,
-                        );
-                      },
-                    ),
-                  );
+                  TranslationHelper().showTranslate(context, text);
                 }
               });
           final author = state.blog.author;

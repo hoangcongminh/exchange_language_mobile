@@ -228,6 +228,19 @@
     "unFriend": "Un friend",
     "@unFriend": {
       "description": "unFriend"
+    },
+
+    "speaking": "Speaking",
+    "@speaking": {
+      "description": "speaking"
+    },
+    "learning": "Learning",
+    "@learning": {
+      "description": "learning"
+    },
+    "teaching": "Teaching",
+    "@teaching": {
+      "description": "teaching"
     }
 }
 

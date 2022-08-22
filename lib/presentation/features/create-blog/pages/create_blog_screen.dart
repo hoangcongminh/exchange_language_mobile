@@ -133,7 +133,12 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                         quill.QuillToolbar.basic(
                           controller: _controller,
                           showAlignmentButtons: true,
-                          showVideoButton: false,
+                          onImagePickCallback: (file) async {
+                            return file.absolute.path;
+                          },
+                          onVideoPickCallback: (file) async {
+                            return file.absolute.path;
+                          },
                         ),
                       ],
                     ),

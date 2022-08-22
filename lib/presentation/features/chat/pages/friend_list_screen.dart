@@ -1,11 +1,14 @@
 import 'package:exchange_language_mobile/presentation/features/chat/widgets/chat_list_shimmer.dart';
+import 'package:exchange_language_mobile/presentation/features/conversation/bloc/conversation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
+import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../bloc/friend-list/friend_list_bloc.dart';
 
@@ -77,10 +80,21 @@ class FriendListScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 10.sp),
-                        // Icon(
-                        //   Icons.chat_bubble,
-                        //   size: 20.sp,
-                        // ),
+                        IconButton(
+                          onPressed: () {
+                            AppBloc.conversationBloc
+                                .add(CreateOrGetMessage(userId: friend.id));
+                            AppNavigator()
+                                .push(RouteConstants.conversation, arguments: {
+                              'user': friend,
+                            });
+                          },
+                          icon: Icon(
+                            Icons.chat_outlined,
+                            size: 20.sp,
+                            color: colorTimeChat,
+                          ),
+                        ),
                       ],
                     ),
                   ),

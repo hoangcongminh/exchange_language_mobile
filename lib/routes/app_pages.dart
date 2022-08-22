@@ -101,7 +101,9 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.comment:
         return _buildRoute(
           settings,
-          CommentScreen(post: arguments?['post']),
+          CommentScreen(
+            post: arguments?['post'],
+          ),
         );
       case RouteConstants.createGroup:
         return _buildRoute(

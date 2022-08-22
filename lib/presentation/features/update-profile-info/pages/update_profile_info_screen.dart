@@ -154,19 +154,19 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                             controller: _introductionController,
                           ),
                           space,
-                          const Text('Speaking'),
+                          Text(l10n.speaking),
                           PickSelectWidget(
                             title: 'Enter speaking',
                             selectedLanguages: speaking,
                             onTap: () => onTapSelectLanguage(true),
                           ),
-                          const Text('Learning'),
+                          Text(l10n.learning),
                           PickSelectWidget(
                             title: 'Enter language',
                             selectedLanguages: learning,
                             onTap: () => onTapSelectLanguage(false),
                           ),
-                          if (widget.user.role == 1) const Text('Teaching'),
+                          if (widget.user.role == 1) Text(l10n.teaching),
                           if (widget.user.role == 1)
                             PickSelectWidget(
                               title: 'Enter language',
@@ -184,7 +184,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: AuthButtonWidget(
-                              label: 'Update',
+                              label: l10n.updateInfo,
                               onPressed: () {
                                 // 1 is teacher
                                 if (widget.user.role == 1) {

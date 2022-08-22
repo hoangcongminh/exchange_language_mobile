@@ -31,7 +31,7 @@ class _PickSelectWidgetState extends State<PickSelectWidget> {
             color: Colors.grey,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
           padding: EdgeInsets.all(5.sp),

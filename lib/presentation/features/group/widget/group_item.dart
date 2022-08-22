@@ -7,7 +7,6 @@ import '../../../../domain/entities/media.dart';
 import '../../../../domain/entities/user.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/group_style.dart';
-import '../../../widgets/app_button_widget.dart';
 import '../../../widgets/app_image_widget.dart';
 
 class GroupItem extends StatelessWidget {
@@ -72,14 +71,21 @@ class GroupItem extends StatelessWidget {
                     Text(memberCount.toString()),
                     SizedBox(width: 10.sp),
                     const Spacer(),
-                    if (!isJoined)
-                      AppButtonWidget(
-                        label: Text(l10n.join),
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.sp),
-                        ),
-                      ),
+                    isJoined
+                        ? Row(
+                            children: [
+                              const Icon(Icons.check),
+                              Text(l10n.joined),
+                            ],
+                          )
+                        : const SizedBox.shrink(),
+                    // : AppButtonWidget(
+                    //     label: Text(l10n.join),
+                    //     onPressed: () {},
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(20.sp),
+                    //     ),
+                    //   ),
                   ],
                 ),
               )

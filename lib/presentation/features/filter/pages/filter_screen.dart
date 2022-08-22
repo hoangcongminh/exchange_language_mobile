@@ -131,13 +131,13 @@ class _FilterScreenState extends State<FilterScreen> {
                                 ],
                               ),
                               SizedBox(height: 12.sp),
-                              const Text('Speaking'),
+                              Text(l10n.speaking),
                               PickSelectWidget(
                                 title: l10n.enterLanguage,
                                 selectedLanguages: speaking,
                                 onTap: () => onTapSelectLanguage(true),
                               ),
-                              const Text('Learning'),
+                              Text(l10n.learning),
                               PickSelectWidget(
                                 title: l10n.enterLanguage,
                                 selectedLanguages: learning,

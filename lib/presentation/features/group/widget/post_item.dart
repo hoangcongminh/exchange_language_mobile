@@ -1,19 +1,14 @@
+import 'package:exchange_language_mobile/common/helpers/translation_helper.dart';
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:translator/translator.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../domain/entities/post.dart';
-import '../../../../routes/app_pages.dart';
-import '../../../common/app_bloc.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/avatar_widget.dart';
-import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_tap.dart';
-import '../../../widgets/translation_dialog.dart';
-import '../../comment/bloc/comment_bloc.dart';
 
 class PostItem extends StatelessWidget {
   final bool isPostDetail;
@@ -21,6 +16,7 @@ class PostItem extends StatelessWidget {
   final bool isLiked;
   final VoidCallback onTapLike;
   final VoidCallback onTapPostHeader;
+  final VoidCallback onTapComment;
 
   const PostItem({
     Key? key,
@@ -28,6 +24,7 @@ class PostItem extends StatelessWidget {
     required this.post,
     required this.isLiked,
     required this.onTapLike,
+    required this.onTapComment,
     required this.onTapPostHeader,
   }) : super(key: key);
 
@@ -56,22 +53,8 @@ class PostItem extends StatelessWidget {
           textStyleSelect: const TextStyle(
             color: Colors.red,
           ),
-          selectText: (text) async {
-            final translator = GoogleTranslator();
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => FutureBuilder<Translation>(
-                future: translator.translate(text, to: 'vi'),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const LoadingWidget();
-                  }
-                  return TranslationDialog(data: snapshot.data!);
-                },
-              ),
-            );
-          },
+          selectText: (text) =>
+              TranslationHelper().showTranslate(context, text),
         ),
         const SizedBox(height: 8),
         const Divider(thickness: 1),
@@ -91,14 +74,7 @@ class PostItem extends StatelessWidget {
                     ),
             ),
             TextButton.icon(
-              onPressed: isPostDetail
-                  ? () {}
-                  : () {
-                      AppBloc.commentBloc
-                          .add(FetchCommentEvent(postId: post.id));
-                      AppNavigator().push(RouteConstants.comment,
-                          arguments: {'post': post});
-                    },
+              onPressed: isPostDetail ? () {} : onTapComment,
               label: Text(post.comments.length.toString()),
               icon: const Icon(CupertinoIcons.chat_bubble),
             ),

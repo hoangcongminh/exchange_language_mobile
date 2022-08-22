@@ -63,5 +63,9 @@
      "friend": "Bạn bè",
      "sentYouAFriendRequest": "Đã gửi cho bạn lời mời kết bạn",
      "requestSent": "Đã gửi lời mời kết bạn",
-     "unFriend": "Huỷ kết bạn"
+     "unFriend": "Huỷ kết bạn",
+
+     "speaking": "Ngôn ngữ nói",
+     "learning": "Ngôn ngữ học",
+     "teaching": "Ngôn ngữ dạy"
 }

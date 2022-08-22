@@ -12,8 +12,10 @@ import '../../../common/app_bloc.dart';
 import '../../../theme/group_style.dart';
 import '../../../widgets/app_button_widget.dart';
 import '../../../widgets/app_image_widget.dart';
+import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../comment/bloc/comment_bloc.dart';
 import '../../group/widget/create_post_widget.dart';
 import '../../group/widget/post_item.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
@@ -253,12 +255,43 @@ class _GroupDetailState extends State<GroupDetail> {
                                 child: PostItem(
                                   isLiked: isLiked,
                                   onTapLike: () {
-                                    AppBloc.postBloc.add(
-                                      LikePostEvent(
-                                        postId: post.id,
-                                        groupId: post.group,
-                                      ),
-                                    );
+                                    if (!groupState.group.members
+                                        .contains(UserLocal().getUser()!.id)) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => const ErrorDialog(
+                                          errorTitle: 'Error',
+                                          errorMessage:
+                                              'You must join this group',
+                                        ),
+                                      );
+                                    } else {
+                                      AppBloc.postBloc.add(
+                                        LikePostEvent(
+                                          postId: post.id,
+                                          groupId: post.group,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  onTapComment: () {
+                                    if (!groupState.group.members
+                                        .contains(UserLocal().getUser()!.id)) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => const ErrorDialog(
+                                          errorTitle: 'Error',
+                                          errorMessage:
+                                              'You must join this group',
+                                        ),
+                                      );
+                                    } else {
+                                      AppBloc.commentBloc.add(
+                                          FetchCommentEvent(postId: post.id));
+                                      AppNavigator().push(
+                                          RouteConstants.comment,
+                                          arguments: {'post': post});
+                                    }
                                   },
                                   onTapPostHeader: () {
                                     AppBloc.userProfileBloc.add(

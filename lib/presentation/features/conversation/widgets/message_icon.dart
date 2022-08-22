@@ -59,7 +59,7 @@ class MessageIcon extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 8.sp),
                     child: Text(
                       message.content ?? '',
-                      style: TextStyle(fontSize: 80),
+                      style: const TextStyle(fontSize: 80),
                     ),
                   ),
                 ],

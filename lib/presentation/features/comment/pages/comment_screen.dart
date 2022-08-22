@@ -108,7 +108,7 @@ class _CommentScreenState extends State<CommentScreen> {
                               return CommentItem(
                                 userName: data.userName,
                                 content: data.content,
-                                onTapLike: () {},
+                                // onTapLike: () {},
                                 onTapReply: () {
                                   setState(() {
                                     replyTo = comment.author.fullname;
@@ -122,7 +122,7 @@ class _CommentScreenState extends State<CommentScreen> {
                               return CommentItem(
                                 userName: data.userName,
                                 content: data.content,
-                                onTapLike: () {},
+                                // onTapLike: () {},
                                 onTapReply: () {
                                   setState(() {
                                     replyTo = comment.author.fullname;
@@ -199,14 +199,14 @@ class _CommentScreenState extends State<CommentScreen> {
 class CommentItem extends StatelessWidget {
   final String? userName;
   final String? content;
-  final VoidCallback onTapLike;
+  // final VoidCallback onTapLike;
   final VoidCallback onTapReply;
 
   const CommentItem({
     Key? key,
     required this.userName,
     required this.content,
-    required this.onTapLike,
+    // required this.onTapLike,
     required this.onTapReply,
   }) : super(key: key);
 
@@ -251,10 +251,10 @@ class CommentItem extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                GestureDetector(onTap: onTapLike, child: Text(l10n.like)),
-                const SizedBox(
-                  width: 24,
-                ),
+                // GestureDetector(onTap: onTapLike, child: Text(l10n.like)),
+                // const SizedBox(
+                //   width: 24,
+                // ),
                 GestureDetector(onTap: onTapReply, child: Text(l10n.reply)),
               ],
             ),

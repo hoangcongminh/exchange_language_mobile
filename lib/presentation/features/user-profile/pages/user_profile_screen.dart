@@ -30,9 +30,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    // bool isMe =
-    //     widget.user?.id == UserLocal().getUser()!.id || widget.user == null;
-    // User? user = widget.user ?? UserLocal().getUser();
 
     return Scaffold(
       body: BlocBuilder<UserProfileBloc, UserProfileState>(
@@ -221,13 +218,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   const VerticalDivider(
                                     thickness: 2,
                                   ),
-                                  const UserInfoItem(
-                                      title: 'Speaking', value: 'Vietnamese'),
+                                  UserInfoItem(
+                                    title: l10n.speaking,
+                                    value: state.user.speakingLanguage ==
+                                                null ||
+                                            state.user.speakingLanguage!.isEmpty
+                                        ? ''
+                                        : state
+                                            .user.speakingLanguage!.first.name,
+                                  ),
                                   const VerticalDivider(
                                     thickness: 2,
                                   ),
-                                  const UserInfoItem(
-                                      title: 'Learning', value: 'English'),
+                                  UserInfoItem(
+                                    title: l10n.learning,
+                                    value: state.user.learningLanguage ==
+                                                null ||
+                                            state.user.learningLanguage!.isEmpty
+                                        ? ''
+                                        : state
+                                            .user.learningLanguage!.first.name,
+                                  ),
                                 ],
                               ),
                             ),
