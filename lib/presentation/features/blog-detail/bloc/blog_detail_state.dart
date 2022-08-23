@@ -16,4 +16,6 @@ class BlogDetailLoaded extends BlogDetailState {
   const BlogDetailLoaded({required this.blog});
 }
 
+class BlogDetailDeleted extends BlogDetailState {}
+
 class BlogDetailFailure extends BlogDetailState {}

@@ -60,7 +60,7 @@ class _ChatItemState extends State<ChatItem> {
                         ),
                         SizedBox(height: 4.sp),
                         Text(
-                          'last message',
+                          widget.conversation.lastMessage?.content ?? '',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(

@@ -16,6 +16,7 @@ import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
+import '../../blog/bloc/blog_bloc.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/blog_detail_bloc.dart';
 
@@ -33,7 +34,13 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocBuilder<BlogDetailBloc, BlogDetailState>(
+    return BlocConsumer<BlogDetailBloc, BlogDetailState>(
+      listener: (context, state) {
+        if (state is BlogDetailDeleted) {
+          AppBloc.blogBloc.add(RefreshBlogsEvent());
+          Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
         if (state is BlogDetailLoaded) {
           _controller = quill.QuillController(
@@ -86,6 +93,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                               CupertinoActionSheetAction(
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  AppBloc.blogDetailBloc
+                                      .add(DeleteBlogEvent(id: state.blog.id));
                                 },
                                 child: Text(l10n.delete),
                               ),

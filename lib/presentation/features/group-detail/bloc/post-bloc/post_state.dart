@@ -11,13 +11,16 @@ class PostInitial extends PostState {}
 
 class PostLoaded extends PostState {
   final List<Post> posts;
+  final List<String> likedPosts;
 
-  const PostLoaded({required this.posts});
+  const PostLoaded({required this.posts, required this.likedPosts});
 
   @override
-  List<Object> get props => [posts];
+  List<Object> get props => [posts, likedPosts];
 }
 
 class PostLoading extends PostState {}
 
 class PostLoadFailure extends PostState {}
+
+class PostLike extends PostState {}

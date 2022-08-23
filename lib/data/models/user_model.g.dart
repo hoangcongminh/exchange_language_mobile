@@ -20,9 +20,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       (json['speak'] as List<dynamic>?)
           ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['teach'] as List<dynamic>?)
-          ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      json['teacher'] == null
+          ? null
+          : TeacherModel.fromJson(json['teacher'] as Map<String, dynamic>),
       json['introduction'] as String?,
     );
 
@@ -43,10 +43,23 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
   val['avatar'] = instance.avatar?.toJson();
   val['learn'] = instance.learningLanguage?.map((e) => e.toJson()).toList();
   val['speak'] = instance.speakingLanguage?.map((e) => e.toJson()).toList();
-  val['teach'] = instance.teachingLanguage?.map((e) => e.toJson()).toList();
+  val['teacher'] = instance.teacher?.toJson();
   writeNotNull('introduction', instance.introduction);
   return val;
 }
+
+TeacherModel _$TeacherModelFromJson(Map<String, dynamic> json) => TeacherModel(
+      json['_id'] as String,
+      (json['teach'] as List<dynamic>?)
+          ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$TeacherModelToJson(TeacherModel instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'teach': instance.teachingLanguage?.map((e) => e.toJson()).toList(),
+    };
 
 AvatarModel _$AvatarModelFromJson(Map<String, dynamic> json) => AvatarModel(
       json['_id'] as String,

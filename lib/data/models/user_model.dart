@@ -28,8 +28,8 @@ class UserModel {
   @JsonKey(name: 'speak')
   final List<LanguageModel>? speakingLanguage;
 
-  @JsonKey(name: 'teach')
-  final List<LanguageModel>? teachingLanguage;
+  @JsonKey(name: 'teacher')
+  final TeacherModel? teacher;
 
   @JsonKey(name: 'introduction', includeIfNull: false)
   final String? introduction;
@@ -42,7 +42,7 @@ class UserModel {
     this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
-    this.teachingLanguage,
+    this.teacher,
     this.introduction,
   );
 
@@ -59,8 +59,32 @@ class UserModel {
         avatar: avatar?.toEntity(),
         learningLanguage: learningLanguage?.map((e) => e.toEntity()).toList(),
         speakingLanguage: speakingLanguage?.map((e) => e.toEntity()).toList(),
-        teachingLanguage: teachingLanguage?.map((e) => e.toEntity()).toList(),
+        teacher: teacher?.toEntity(),
         introduction: introduction,
+      );
+}
+
+@JsonSerializable(explicitToJson: true)
+class TeacherModel {
+  @JsonKey(name: '_id')
+  final String id;
+
+  @JsonKey(name: 'teach')
+  final List<LanguageModel>? teachingLanguage;
+
+  TeacherModel(
+    this.id,
+    this.teachingLanguage,
+  );
+
+  factory TeacherModel.fromJson(Map<String, dynamic> json) =>
+      _$TeacherModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TeacherModelToJson(this);
+
+  Teacher toEntity() => Teacher(
+        id: id,
+        teachingLanguage: teachingLanguage?.map((e) => e.toEntity()).toList(),
       );
 }
 

@@ -9,7 +9,7 @@ class User extends Equatable {
   final Avatar? avatar;
   final List<Language>? learningLanguage;
   final List<Language>? speakingLanguage;
-  final List<Language>? teachingLanguage;
+  final Teacher? teacher;
   final String? introduction;
 
   const User({
@@ -20,7 +20,7 @@ class User extends Equatable {
     this.avatar,
     this.learningLanguage,
     this.speakingLanguage,
-    this.teachingLanguage,
+    this.teacher,
     this.introduction,
   });
 
@@ -33,8 +33,21 @@ class User extends Equatable {
         avatar,
         speakingLanguage,
         learningLanguage,
+        teacher,
         introduction
       ];
+}
+
+class Teacher extends Equatable {
+  final String id;
+  final List<Language>? teachingLanguage;
+  const Teacher({
+    required this.id,
+    this.teachingLanguage,
+  });
+
+  @override
+  List<Object?> get props => [id, teachingLanguage];
 }
 
 class Avatar extends Equatable {

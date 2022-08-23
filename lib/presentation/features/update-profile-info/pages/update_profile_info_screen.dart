@@ -62,7 +62,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
     super.initState();
     learning = widget.user.learningLanguage ?? [];
     speaking = widget.user.speakingLanguage ?? [];
-    teaching = widget.user.teachingLanguage ?? [];
+    teaching = widget.user.teacher?.teachingLanguage ?? [];
   }
 
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_rest_client.dart';
+part of 'notification_rest_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,88 +8,68 @@ part of 'user_rest_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-class _UserRestClient implements UserRestClient {
-  _UserRestClient(this._dio, {this.baseUrl});
+class _NotificationRestClient implements NotificationRestClient {
+  _NotificationRestClient(this._dio, {this.baseUrl});
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<ApiResponseModel<dynamic>> updateProfile(body) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponseModel<dynamic>>(
-            Options(method: 'PUT', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/update-info',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponseModel<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
-  }
-
-  @override
-  Future<ApiResponseModel<dynamic>> updateTeacherTeaching(body) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponseModel<dynamic>>(
-            Options(method: 'PUT', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/update-info/teacher',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponseModel<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
-  }
-
-  @override
-  Future<ApiResponseModel<UserModel>> getUserProfile({required userId}) async {
+  Future<ApiResponseModel<ListNotificationModel>> getNotifications() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponseModel<UserModel>>(
+        _setStreamType<ApiResponseModel<ListNotificationModel>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/${userId}',
+                .compose(_dio.options, '/notifications',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponseModel<UserModel>.fromJson(
+    final value = ApiResponseModel<ListNotificationModel>.fromJson(
       _result.data!,
-      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+      (json) => ListNotificationModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
-  Future<ApiResponseModel<dynamic>> registerTeacher(body) async {
+  Future<ApiResponseModel<ListNotificationModel>> seenNotification(
+      {required notiId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponseModel<dynamic>>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/register-teacher',
+        _setStreamType<ApiResponseModel<ListNotificationModel>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/notifications/seen/${notiId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponseModel<dynamic>.fromJson(
+    final value = ApiResponseModel<ListNotificationModel>.fromJson(
       _result.data!,
-      (json) => json as dynamic,
+      (json) => ListNotificationModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponseModel<ListNotificationModel>> deleteNotification(
+      {required notiId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponseModel<ListNotificationModel>>(
+            Options(method: 'DELETE', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/notifications/${notiId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponseModel<ListNotificationModel>.fromJson(
+      _result.data!,
+      (json) => ListNotificationModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

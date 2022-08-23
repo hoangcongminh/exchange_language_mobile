@@ -8,7 +8,6 @@ import '../../../../data/failure.dart';
 import '../../../../domain/entities/blog.dart';
 import '../../../../domain/repository/blog_repository.dart';
 
-
 part 'blog_detail_event.dart';
 part 'blog_detail_state.dart';
 
@@ -16,8 +15,7 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
   BlogDetailBloc(this._blogRepository) : super(BlogDetailInitial()) {
     on<BlogDetailEvent>((event, emit) {});
     on<FetchBlogDetail>(_fetchBlogDetail);
-    //TODO
-    // on<DeleteBlogEvent>(_deleteBlog);
+    on<DeleteBlogEvent>(_deleteBlog);
   }
 
   Future<void> _fetchBlogDetail(
@@ -32,8 +30,20 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
     });
   }
 
-  // Future<void> _deleteBlog(
-  //     DeleteBlogEvent event, Emitter<BlogDetailState> emit) {}
+  Future<void> _deleteBlog(
+      DeleteBlogEvent event, Emitter<BlogDetailState> emit) async {
+    emit(BlogDetailLoading());
+    await _blogRepository.deleteBlog(blogId: event.id).then((result) {
+      result.fold(
+        (failure) {
+          emit(BlogDetailFailure());
+        },
+        (_) {
+          emit(BlogDetailDeleted());
+        },
+      );
+    });
+  }
 
   final BlogRepository _blogRepository;
 }

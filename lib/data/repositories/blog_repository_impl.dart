@@ -83,4 +83,19 @@ class BlogRepositoryImpl implements BlogRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteBlog({required String blogId}) async {
+    try {
+      final response = await _blogRestClient.deleteBlog(blogId);
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

@@ -17,28 +17,34 @@ class UserRepositoryImpl implements UserRepository {
     required String introduction,
     required List<Language> speaking,
     required List<Language> learning,
-    List<Language>? teaching,
   }) async {
     try {
-      ApiResponseModel<dynamic> response;
-      if (teaching == null) {
-        response = await _userRestClient.updateProfile({
-          'fullname': fullName,
-          'avatar': avatar,
-          'introduction': introduction,
-          'speak': speaking.map((e) => e.id).toList(),
-          'learn': learning.map((e) => e.id).toList(),
-        });
+      final response = await _userRestClient.updateProfile({
+        'fullname': fullName,
+        'avatar': avatar,
+        'introduction': introduction,
+        'speak': speaking.map((e) => e.id).toList(),
+        'learn': learning.map((e) => e.id).toList(),
+      });
+
+      if (response.error == false) {
+        return const Right(null);
       } else {
-        response = await _userRestClient.updateProfile({
-          'fullname': fullName,
-          'avatar': avatar,
-          'introduction': introduction,
-          'speak': speaking.map((e) => e.id).toList(),
-          'learn': learning.map((e) => e.id).toList(),
-          'teach': teaching.map((e) => e.id).toList(),
-        });
+        String message = response.message;
+        return Left(ServerFailure(message));
       }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateTeacherTeaching(
+      {required List<Language> teaching}) async {
+    try {
+      final response = await _userRestClient.updateTeacherTeaching({
+        'teach': teaching.map((e) => e.id).toList(),
+      });
 
       if (response.error == false) {
         return const Right(null);

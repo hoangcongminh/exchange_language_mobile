@@ -12,6 +12,7 @@ import 'auth_rest_client.dart';
 import 'chat_rest_client.dart';
 import 'comment_rest_client.dart';
 import 'group_rest_client.dart';
+import 'notification_rest_client.dart';
 import 'post_rest_client.dart';
 import 'user_rest_client.dart';
 
@@ -39,6 +40,8 @@ class AppApiService {
       UserRestClient(dio, baseUrl: AppConstants.baseUrl);
   late final FriendRestClient friendRestClient =
       FriendRestClient(dio, baseUrl: AppConstants.baseUrl);
+  late final NotificationRestClient notificatonRestClient =
+      NotificationRestClient(dio, baseUrl: AppConstants.baseUrl);
 
   static final _instance = AppApiService._();
 

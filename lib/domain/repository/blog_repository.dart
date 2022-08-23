@@ -17,6 +17,10 @@ abstract class BlogRepository {
     required String thumbnailId,
   });
 
+  Future<Either<Failure, void>> deleteBlog({
+    required String blogId,
+  });
+
   Future<Either<Failure, ListBlog>> fetchBlogs({int? skip});
 
   Future<Either<Failure, Blog>> getBlogDetail({required String slug});

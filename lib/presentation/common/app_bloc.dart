@@ -9,6 +9,7 @@ import '../../data/repositories/friend_repository_impl.dart';
 import '../../data/repositories/group_repository_impl.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../data/repositories/media_repository_impl.dart';
+import '../../data/repositories/notification_repository_impl.dart';
 import '../../data/repositories/post_repository_impl.dart';
 import '../../data/repositories/user_repository_impl.dart';
 import '../features/authenticate/bloc/authenticate_bloc.dart';
@@ -26,6 +27,7 @@ import '../features/filter/bloc/filter_bloc.dart';
 import '../features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import '../features/group-detail/bloc/post-bloc/post_bloc.dart';
 import '../features/group/bloc/group_bloc.dart';
+import '../features/notification/bloc/notification_bloc.dart';
 import '../features/update-profile-info/bloc/update_profile_info_bloc.dart';
 import '../features/user-profile/bloc/friend-bloc/friend_bloc.dart';
 import '../features/user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
@@ -71,6 +73,9 @@ class AppBloc {
   static final updateProfileInfoBloc = UpdateProfileInfoBloc(
     UserRepositoryImpl(),
     MediaRepositoryImpl(),
+  );
+  static final notificationBloc = NotificationBloc(
+    NotificationRepositoryImpl(),
   );
 
   static final List<BlocProvider> providers = [
@@ -137,6 +142,9 @@ class AppBloc {
     BlocProvider<UpdateProfileInfoBloc>(
       create: (context) => updateProfileInfoBloc,
     ),
+    BlocProvider<NotificationBloc>(
+      create: (context) => notificationBloc,
+    ),
   ];
 
   static void initialHomeBloc() {
@@ -145,6 +153,7 @@ class AppBloc {
     blogBloc.add(RefreshBlogsEvent());
     groupBloc.add(RefreshGroupsEvent());
     friendListBloc.add(FetchFriendList());
+    notificationBloc.add(FetchNotificaton());
   }
 
   static void cleanBloc() {

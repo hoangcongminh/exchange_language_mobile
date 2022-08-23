@@ -18,7 +18,7 @@ class ConversationListShimmer extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       reverse: true,
-      itemCount: 10,
+      itemCount: 20,
       itemBuilder: (context, index) {
         int numberOfRow = random.nextInt(2) + 1;
         isMe = !isMe;

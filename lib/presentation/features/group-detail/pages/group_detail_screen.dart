@@ -248,8 +248,8 @@ class _GroupDetailState extends State<GroupDetail> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               final post = state.posts[index];
-                              final isLiked = state.posts[index].favorites
-                                  .contains(UserLocal().getUser()!.id);
+                              final isLiked =
+                                  state.likedPosts.contains(post.id);
                               return Container(
                                 color: Colors.white,
                                 margin: EdgeInsets.only(top: 5.sp),

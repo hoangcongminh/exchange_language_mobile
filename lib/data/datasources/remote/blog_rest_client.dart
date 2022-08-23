@@ -21,6 +21,9 @@ abstract class BlogRestClient {
     @Body() Map<String, dynamic> body,
   );
 
+  @DELETE('/blogs/{blogId}')
+  Future<ApiResponseModel> deleteBlog(@Path('blogId') String id);
+
   @GET('/blogs')
   Future<ApiResponseModel<ListBlogModel>> fetchBlogs({
     @Query("skip") int? skip,

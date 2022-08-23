@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/data/models/message_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/conversation.dart';
@@ -15,9 +16,16 @@ class ConversationModel {
   final List<UserModel> members;
   @JsonKey(name: 'modifiedAt')
   final DateTime modifiedAt;
+  @JsonKey(name: 'lastMessage')
+  final MessageItemModel? lastMessage;
 
   ConversationModel(
-      this.id, this.conversationName, this.members, this.modifiedAt);
+    this.id,
+    this.conversationName,
+    this.members,
+    this.modifiedAt,
+    this.lastMessage,
+  );
 
   factory ConversationModel.fromJson(Map<String, dynamic> json) =>
       _$ConversationModelFromJson(json);
@@ -29,5 +37,6 @@ class ConversationModel {
         conversationName: conversationName,
         members: members.map((e) => e.toEntity()).toList(),
         modifiedAt: modifiedAt,
+        lastMessage: lastMessage?.toEntity(),
       );
 }

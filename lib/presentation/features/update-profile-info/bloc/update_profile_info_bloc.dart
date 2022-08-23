@@ -31,16 +31,30 @@ class UpdateProfileInfoBloc
         avatar: event.currentAvatar!,
         speaking: event.speaking,
         learning: event.learning,
-        teaching: event.teaching,
       )
           .then(
-        (result) {
-          result.fold(
+        (result) async {
+          await result.fold(
             (failure) {
               emit(UpdateProfileInfoFailure(message: failure.message));
             },
-            (_) {
-              emit(UpdateProfileInfoSuccess());
+            (_) async {
+              if (event.teaching != null) {
+                await _userRepository
+                    .updateTeacherTeaching(teaching: event.teaching!)
+                    .then((result) {
+                  result.fold(
+                    (failure) {
+                      emit(UpdateProfileInfoFailure(message: failure.message));
+                    },
+                    (_) {
+                      emit(UpdateProfileInfoSuccess());
+                    },
+                  );
+                });
+              } else {
+                emit(UpdateProfileInfoSuccess());
+              }
             },
           );
         },
@@ -62,13 +76,29 @@ class UpdateProfileInfoBloc
                 learning: event.learning,
               )
                   .then(
-                (result) {
-                  result.fold(
+                (result) async {
+                  await result.fold(
                     (failure) {
                       emit(UpdateProfileInfoFailure(message: failure.message));
                     },
-                    (_) {
-                      emit(UpdateProfileInfoSuccess());
+                    (_) async {
+                      if (event.teaching != null) {
+                        await _userRepository
+                            .updateTeacherTeaching(teaching: event.teaching!)
+                            .then((result) {
+                          result.fold(
+                            (failure) {
+                              emit(UpdateProfileInfoFailure(
+                                  message: failure.message));
+                            },
+                            (_) {
+                              emit(UpdateProfileInfoSuccess());
+                            },
+                          );
+                        });
+                      } else {
+                        emit(UpdateProfileInfoSuccess());
+                      }
                     },
                   );
                 },

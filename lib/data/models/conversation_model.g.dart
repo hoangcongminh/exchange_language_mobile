@@ -14,6 +14,10 @@ ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       DateTime.parse(json['modifiedAt'] as String),
+      json['lastMessage'] == null
+          ? null
+          : MessageItemModel.fromJson(
+              json['lastMessage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
@@ -30,5 +34,6 @@ Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
   writeNotNull('name', instance.conversationName);
   val['members'] = instance.members;
   val['modifiedAt'] = instance.modifiedAt.toIso8601String();
+  val['lastMessage'] = instance.lastMessage;
   return val;
 }

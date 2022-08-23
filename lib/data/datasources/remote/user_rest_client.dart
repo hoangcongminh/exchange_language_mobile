@@ -15,6 +15,11 @@ abstract class UserRestClient {
     @Body() Map<String, dynamic> body,
   );
 
+  @PUT('/users/update-info/teacher')
+  Future<ApiResponseModel> updateTeacherTeaching(
+    @Body() Map<String, dynamic> body,
+  );
+
   @GET('/users/{userId}')
   Future<ApiResponseModel<UserModel>> getUserProfile({
     @Path('userId') required userId,
