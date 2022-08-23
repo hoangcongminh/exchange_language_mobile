@@ -35,7 +35,7 @@ class GroupItem extends StatelessWidget {
         shadowColor: const Color(0xFF828282),
         elevation: 3,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
           padding: EdgeInsets.all(8.sp),

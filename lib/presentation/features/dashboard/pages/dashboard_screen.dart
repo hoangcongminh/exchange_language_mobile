@@ -65,22 +65,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Row(
             children: [
               BottomBarItem(
-                  activeIcon: Icons.chat,
-                  inactiveIcon: Icons.chat_outlined,
-                  index: 0),
+                activeIcon: Icons.chat,
+                inactiveIcon: Icons.chat_outlined,
+                index: 0,
+              ),
               BottomBarItem(
-                  activeIcon: Icons.notifications,
-                  inactiveIcon: Icons.notifications_outlined,
-                  index: 1),
+                activeIcon: Icons.notifications,
+                inactiveIcon: Icons.notifications_outlined,
+                index: 1,
+              ),
               SizedBox(width: 51.sp),
               BottomBarItem(
-                  activeIcon: Icons.people,
-                  inactiveIcon: Icons.people_outline,
-                  index: 2),
+                activeIcon: Icons.newspaper,
+                inactiveIcon: Icons.newspaper_outlined,
+                index: 2,
+              ),
               BottomBarItem(
-                  activeIcon: Icons.person,
-                  inactiveIcon: Icons.person_outline,
-                  index: 3),
+                activeIcon: Icons.person,
+                inactiveIcon: Icons.person_outline,
+                index: 3,
+              ),
             ],
           ),
         ),
