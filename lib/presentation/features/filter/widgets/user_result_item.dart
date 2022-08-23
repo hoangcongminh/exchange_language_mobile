@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/constants/route_constants.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,6 +21,7 @@ class UserResultItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GestureDetector(
       onTap: () {
         AppBloc.userProfileBloc.add(GetUserProfileEvent(userId: user.id));
@@ -62,10 +64,9 @@ class UserResultItem extends StatelessWidget {
                         SizedBox(
                             child: Table(
                           children: [
-                          
                             TableRow(children: [
-                              const Text(
-                                'Speaking',
+                              Text(
+                                l10n.speaking,
                                 style: userResultItemInfoTitle,
                               ),
                               Row(
@@ -81,8 +82,8 @@ class UserResultItem extends StatelessWidget {
                               ),
                             ]),
                             TableRow(children: [
-                              const Text(
-                                'Learning',
+                              Text(
+                                l10n.learning,
                                 style: userResultItemInfoTitle,
                               ),
                               Text(

@@ -72,7 +72,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Looking for your partner...',
+                      '${l10n.filterScreenTitle1}...',
                       style: Theme.of(context)
                           .textTheme
                           .headline6
@@ -80,8 +80,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 12.sp),
-                    const Text(
-                      'Helping you connect with people \n around the world ',
+                    Text(
+                      '${l10n.filterScreenTitle2} \n ${l10n.filterScreenTitle3}',
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 20.sp),
@@ -98,7 +98,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              const Text('Your partners'),
+                              Text(l10n.role),
                               Row(
                                 children: [
                                   Expanded(

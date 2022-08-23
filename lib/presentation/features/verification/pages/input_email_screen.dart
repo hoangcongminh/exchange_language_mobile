@@ -43,7 +43,7 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-                errorTitle: 'Send otp error', errorMessage: state.error),
+                errorTitle: l10n.sendOTPError, errorMessage: state.error),
           );
         }
       },
@@ -80,9 +80,9 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
                                     controller: _emailController,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Email is required';
+                                        return l10n.emailIsRequired;
                                       } else if (!value.isEmail) {
-                                        return 'Email is invalid';
+                                        return l10n.emailIsInvalid;
                                       } else {
                                         return null;
                                       }

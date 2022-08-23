@@ -67,9 +67,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             } else {
               showDialog(
                   context: context,
-                  builder: (context) => const ErrorDialog(
-                        errorTitle: 'Error',
-                        errorMessage: 'You are not authorized to create group',
+                  builder: (context) => ErrorDialog(
+                        errorTitle: l10n.createGroupError,
+                        errorMessage: l10n.mustBeTeacherToCreateGroup,
                       ));
             }
           } else if (_tabController.index == 1) {

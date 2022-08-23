@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class TextfieldWidget extends StatefulWidget {
@@ -69,7 +70,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
       validator: widget.validator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter some text';
+              return context.l10n.pleaseEnterSomeText;
             }
             return null;
           },

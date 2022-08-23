@@ -43,7 +43,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-                errorTitle: 'Verification error', errorMessage: state.error),
+                errorTitle: l10n.verificationError, errorMessage: state.error),
           );
         }
       },
@@ -68,8 +68,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              'Enter the 6-digit code we have sent to',
+                            Text(
+                              l10n.verificationTitle1,
                               textAlign: TextAlign.center,
                             ),
                             Text(
@@ -102,17 +102,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
                               ),
                             ),
                             SizedBox(height: 30.sp),
-                            const Text(
-                              'Didn’t receive the code?',
+                            Text(
+                              l10n.verificationTitle2,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            const Text(
-                              'Resend code',
+                            Text(
+                              l10n.resendCode,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 decoration: TextDecoration.underline,
                               ),

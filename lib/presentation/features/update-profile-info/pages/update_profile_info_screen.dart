@@ -82,7 +82,7 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-              errorTitle: 'Update profile error',
+              errorTitle: l10n.updateProfileError,
               errorMessage: state.message,
             ),
           );
@@ -142,34 +142,34 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                         children: [
                           TextfieldWidget(
                             keyboardType: TextInputType.emailAddress,
-                            labelText: 'NAME',
+                            labelText: l10n.name,
                             hintText: l10n.enterEmail,
                             controller: _nameController,
                           ),
                           space,
                           TextfieldWidget(
                             keyboardType: TextInputType.emailAddress,
-                            labelText: 'INTRODUCTION',
+                            labelText: l10n.introduction,
                             hintText: l10n.enterEmail,
                             controller: _introductionController,
                           ),
                           space,
                           Text(l10n.speaking),
                           PickSelectWidget(
-                            title: 'Enter speaking',
+                            title: l10n.enterLanguage,
                             selectedLanguages: speaking,
                             onTap: () => onTapSelectLanguage(true),
                           ),
                           Text(l10n.learning),
                           PickSelectWidget(
-                            title: 'Enter language',
+                            title: l10n.enterLanguage,
                             selectedLanguages: learning,
                             onTap: () => onTapSelectLanguage(false),
                           ),
                           if (widget.user.role == 1) Text(l10n.teaching),
                           if (widget.user.role == 1)
                             PickSelectWidget(
-                              title: 'Enter language',
+                              title: l10n.enterLanguage,
                               selectedLanguages: teaching,
                               onTap: () async {
                                 AppBloc.filterBloc.add(SelectLanguageEvent());

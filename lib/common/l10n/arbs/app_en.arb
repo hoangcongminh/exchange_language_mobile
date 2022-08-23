@@ -23,6 +23,14 @@
     "@password": {
       "description": "password"
     },
+    "name": "NAME",
+    "@name": {
+      "description": "name"
+    },
+    "introduction": "INTRODUCTION",
+    "@introduction": {
+      "description": "introduction"
+    },
     "forgotPassword": "forgot your password?",
     "@forgotPassword": {
       "description": "forgotpassword"
@@ -92,6 +100,18 @@
     "@createBlog": {
       "description": "createBlog"
     },
+    "blogCreated": "Blog created",
+    "@blogCreated": {
+      "description": "blogCreated"
+    },
+    "groupCreated": "Group created",
+    "@groupCreated": {
+      "description": "groupCreated"
+    },
+    "postCreated": "Post created",
+    "@postCreated": {
+      "description": "postCreated"
+    },
 
     "settings": "Settings",
     "@settings": {
@@ -157,6 +177,18 @@
     "@nameOfTheGroup": {
       "description": "nameOfTheGroup"
     },
+    "leaveGroup": "Leave group",
+    "@leaveGroup": {
+      "description": "leaveGroup"
+    },   
+    "joinGroupSuccess": "Join group success",
+    "@joinGroupSuccess": {
+      "description": "joinGroupSuccess"
+    },   
+    "leaveGroupSuccess": "Leave group success",
+    "@leaveGroupSuccess": {
+      "description": "leaveGroupSuccess"
+    },   
 
     "createPost": "Create Post",
     "@createPost": {
@@ -170,6 +202,10 @@
     "reply": "Reply",
     "@reply": {
       "description": "reply"
+    },
+    "writeAComment": "Write a comment",
+    "@writeAComment": {
+      "description": "writeAComment"
     },
 
     "description": "Description",
@@ -230,6 +266,10 @@
       "description": "unFriend"
     },
 
+    "role": "Role",
+    "@role": {
+      "description": "role"
+    },
     "speaking": "Speaking",
     "@speaking": {
       "description": "speaking"
@@ -241,6 +281,146 @@
     "teaching": "Teaching",
     "@teaching": {
       "description": "teaching"
+    },
+
+    "passWordIsRequired": "Password is required",
+    "@passWordIsRequired": {
+      "description": "passWordIsRequired"
+    },
+    "passWordIs6Char": "Password is at least 6 characters",
+    "@passWordIs6Char": {
+      "description": "passWordIs6Char"
+    },
+    "passWordDoesNotMatch": "Password does not match",
+    "@passWordDoesNotMatch": {
+      "description": "passWordDoesNotMatch"
+    },
+    "emailIsRequired": "Email is required",
+    "@emailIsRequired": {
+      "description": "emailIsRequired"
+    },
+    "emailIsInvalid": "Email is invalid",
+    "@emailIsInvalid": {
+      "description": "emailIsInvalid"
+    },
+
+    "enterLearning": "Enter learning",
+    "@enterLearning": {
+      "description": "enterLearning"
+    },
+    "enterSpeaking": "Enter speaking",
+    "@enterSpeaking": {
+      "description": "enterSpeaking"
+    },
+
+    "createNewPost": "Create new post",
+    "@createNewPost": {
+      "description": "createNewPost"
+    },
+    "addATitle": "Add a title",
+    "@addATitle": {
+      "description": "addATitle"
+    },
+    "shareYourThoughts": "Share your thoughts",
+    "@shareYourThoughts": {
+      "description": "shareYourThoughts"
+    },
+
+    "filterScreenTitle1": "Looking for your partner",
+    "@filterScreenTitle1": {
+      "description": "filterScreenTitle1"
+    },
+    "filterScreenTitle2": "Helping you connect with people",
+    "@filterScreenTitle2": {
+      "description": "filterScreenTitle2"
+    },
+    "filterScreenTitle3": "around the world",
+    "@filterScreenTitle3": {
+      "description": "filterScreenTitle3"
+    },
+
+
+    "error": "Error",
+    "@error": {
+      "description": "error"
+    },
+    "youMustJoinThisGroup": "You must join this group",
+    "@youMustJoinThisGroup": {
+      "description": "youMustJoinThisGroup"
+    },
+    "authenError": "Authentication error",
+    "@authenError": {
+      "description": "authenError"
+    },
+    "createBlogError": "Create blog error",
+    "@createBlogError": {
+      "description": "createBlogError"
+    },
+    "createGroupError": "Create group error",
+    "@createGroupError": {
+      "description": "createGroupError"
+    },
+    "mustBeTeacherToCreateGroup": "Only teachers can create groups",
+    "@mustBeTeacherToCreateGroup": {
+      "description": "mustBeTeacherToCreateGroup"
+    },
+    "createPostError": "Create post error",
+    "@createPostError": {
+      "description": "createPostError"
+    },
+    "registerTeacherError": "Register teacher error",
+    "@registerTeacherError": {
+      "description": "registerTeacherError"
+    },
+    "updateProfileError": "Update profile error",
+    "@updateProfileError": {
+      "description": "updateProfileError"
+    },
+    "sendOTPError": "Send OTP error",
+    "@sendOTPError": {
+      "description": "sendOTPError"
+    },
+    "verificationError": "Verification error",
+    "@verificationError": {
+      "description": "verificationError"
+    },
+
+    "newImage": "New image",
+    "@newImage": {
+      "description": "newImage"
+    },
+    "pickImage": "Pick image",
+    "@pickImage": {
+      "description": "pickImage"
+    },
+    "takeImage": "Take image",
+    "@takeImage": {
+      "description": "takeImage"
+    },
+    "pleaseEnterSomeText": "Please enter some text",
+    "@pleaseEnterSomeText": {
+      "description": "pleaseEnterSomeText"
+    },
+    "thereAreSomeError": "There are some error",
+    "@thereAreSomeError": {
+      "description": "thereAreSomeError"
+    },
+    "refresh": "Refresh",
+    "@refresh": {
+      "description": "refresh"
+    },
+
+    "resendCode": "Resend code",
+    "@resendCode": {
+      "description": "resendCode"
+    },
+    "verificationTitle1": "Enter the 6-digit code we have sent to",
+    "@verificationTitle1": {
+      "description": "verificationTitle1"
+    },
+    "verificationTitle2": "Didn’t receive the code?",
+    "@verificationTitle2": {
+      "description": "verificationTitle2"
     }
 }
 

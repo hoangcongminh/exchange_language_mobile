@@ -22,3 +22,5 @@ class FilterResult extends FilterState {
 }
 
 class FilterFailure extends FilterState {}
+
+class FilterLoading extends FilterState {}

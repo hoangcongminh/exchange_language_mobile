@@ -2,6 +2,8 @@
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "password": "MẬT KHẨU",
+    "name": "TÊN",
+    "introduction": "GIỚI THIỆU",
     "enterEmail": "Nhập email",
     "enterPassword": "Nhập mật khẩu",
     "retypePassword": "Nhập lại mật khẩu",
@@ -28,6 +30,9 @@
     "group": "Nhóm",
     "blog": "Bài viết",
     "createBlog": "Tạo bài viết",
+    "blogCreated": "Tạo bài viết thành công",
+    "groupCreated": "Tạo nhóm thành công",
+    "postCreated": "Tạo bài đăng thành công",
     "location": "Vị trí",
     "userNotFound": "Không tìm thấy người dùng",
     "search": "Tìm kiếm",
@@ -42,11 +47,15 @@
 
      "createGroup": "Tạo nhóm mới",
      "nameOfTheGroup": "Tên nhóm",
+     "leaveGroup": "Rời nhóm",
+     "joinGroupSuccess": "Tham gia nhóm thành công",
+     "leaveGroupSuccess": "Rời nhóm thành công",
 
      "createPost": "Tạo bài đăng",
 
      "like": "Thích",
-     "reply": "Trả lời",   
+     "reply": "Trả lời",
+     "writeAComment": "Viết bình luận",
 
      "description": "Mô tả",
      "language": "Ngôn ngữ",
@@ -65,7 +74,48 @@
      "requestSent": "Đã gửi lời mời kết bạn",
      "unFriend": "Huỷ kết bạn",
 
+     "role": "Vai trò",
      "speaking": "Ngôn ngữ nói",
      "learning": "Ngôn ngữ học",
-     "teaching": "Ngôn ngữ dạy"
+     "teaching": "Ngôn ngữ dạy",
+
+     "passWordIsRequired": "Mật khẩu trống",
+     "passWordIs6Char": "Mật khẩu có ít nhất 6 ký tự",
+     "passWordDoesNotMatch": "Mật khẩu không trùng khớp",
+     "emailIsRequired": "Email trống",
+     "emailIsInvalid": "Email không đúng",
+
+     "enterLearning": "Nhập ngôn ngữ học",
+     "enterSpeaking": "Nhập ngôn ngữ nói",
+     
+     "createNewPost": "Tạo bài đăng",
+     "addATitle": "Thêm tiêu đề",
+     "shareYourThoughts": "Chia sẻ những suy nghĩ của bạn",
+
+     "filterScreenTitle1": "Tìm kiếm người dùng",
+     "filterScreenTitle2": "Giúp bạn kết nối với mọi người",
+     "filterScreenTitle3": "trên khắp thế giới",
+
+     "error": "Lỗi",
+     "youMustJoinThisGroup": "Bạn phải là thành viên của nhóm",
+     "authenError": "Lỗi xác thực",
+     "createBlogError": "Lỗi tạo bài viết",
+     "createGroupError": "Lỗi tạo nhóm",
+     "mustBeTeacherToCreateGroup": "Chỉ có giáo viên mới có thể tạo nhóm",
+     "createPostError": "Lỗi tạo bài đăng",
+     "registerTeacherError": "Lỗi đăng ký giáo viên",
+     "updateProfileError": "Lỗi cập nhật thông tin",
+     "sendOTPError": "Lỗi khi gửi OTP",
+     "verificationError": "Lỗi xác minh",
+
+     "newImage": "Tải ảnh lên",
+     "pickImage": "Chọn ảnh",
+     "takeImage": "Chụp ảnh",
+     "pleaseEnterSomeText": "Trống",
+     "thereAreSomeError": "Đã có lỗi xảy ra",
+     "refresh": "Thử lại",
+
+     "resendCode": "Gửi lại mã",
+     "verificationTitle1": "Nhập mã gồm 6 chữ số mà chúng tôi đã gửi đến",
+     "verificationTitle2": "Bạn không nhận được mã?"
 }

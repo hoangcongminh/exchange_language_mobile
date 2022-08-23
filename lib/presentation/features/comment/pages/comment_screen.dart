@@ -162,7 +162,7 @@ class _CommentScreenState extends State<CommentScreen> {
                             children: [
                               RichText(
                                 text: TextSpan(
-                                  text: 'Replying to ',
+                                  text: '${l10n.reply} ',
                                   style: const TextStyle(color: Colors.black),
                                   children: [
                                     TextSpan(

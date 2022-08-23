@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CommentBox extends StatefulWidget {
@@ -18,6 +19,7 @@ class _CommentBoxState extends State<CommentBox> {
   final TextEditingController _contentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 6),
       decoration: BoxDecoration(
@@ -44,13 +46,13 @@ class _CommentBoxState extends State<CommentBox> {
               focusNode: widget.focusNode,
               autofocus: true,
               maxLines: null,
-              decoration: const InputDecoration(
-                hintText: 'Write a comment...',
+              decoration: InputDecoration(
+                hintText: '${l10n.writeAComment}...',
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 9, bottom: 6),
+                contentPadding: const EdgeInsets.only(top: 9, bottom: 6),
               ),
               onChanged: (String text) {
                 if (text.isNotEmpty) {

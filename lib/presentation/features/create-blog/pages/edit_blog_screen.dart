@@ -52,7 +52,7 @@ class _EditBlogScreenState extends State<EditBlogScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-              errorTitle: 'Create blog error',
+              errorTitle: l10n.createBlogError,
               errorMessage: state.error,
             ),
           );
@@ -129,8 +129,8 @@ class _EditBlogScreenState extends State<EditBlogScreen> {
                                   autofocus: true,
                                   controller: _titleController,
                                   style: createBlogTitle,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Add a title',
+                                  decoration: InputDecoration(
+                                    hintText: l10n.addATitle,
                                     hintStyle: createBlogTitleHint,
                                   ),
                                 ),

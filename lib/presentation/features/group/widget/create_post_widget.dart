@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +14,7 @@ class CreatePostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       color: Colors.white,
       child: Padding(
@@ -39,13 +41,13 @@ class CreatePostWidget extends StatelessWidget {
                         );
                       });
                 },
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 4.0),
+                    padding: const EdgeInsets.only(left: 4.0),
                     child: Text(
-                      'Create new post',
-                      style: TextStyle(
+                      l10n.createNewPost,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black54,
                       ),

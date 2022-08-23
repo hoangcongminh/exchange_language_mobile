@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:exchange_language_mobile/common/helpers/photo_helper.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/widgets/dialog/dialog_loading.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'package:sizer/sizer.dart';
 class CustomImagePicker {
   Future openImagePicker({
     required BuildContext context,
-    String text = 'New Image',
     bool isRequireCrop = true,
     Function? handleFinish,
   }) {
@@ -39,7 +39,7 @@ class CustomImagePicker {
                   height: 30.sp,
                 ),
                 Text(
-                  text,
+                  context.l10n.newImage,
                   style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class CustomImagePicker {
                 CustomImagePickerItem(
                   index: 0,
                   icon: Icons.image,
-                  text: 'Pick Image',
+                  text: context.l10n.pickImage,
                   source: ImageSource.gallery,
                   handleFinish: handleFinish,
                 ),
@@ -64,7 +64,7 @@ class CustomImagePicker {
                 CustomImagePickerItem(
                   index: 0,
                   icon: Icons.camera,
-                  text: 'Take Image',
+                  text: context.l10n.takeImage,
                   source: ImageSource.camera,
                   handleFinish: handleFinish,
                 ),

@@ -65,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showDialog(
               context: context,
               builder: (context) => ErrorDialog(
-                  errorTitle: 'Register error', errorMessage: state.error));
+                  errorTitle: l10n.authenError, errorMessage: state.error));
         }
       }, builder: (context, state) {
         return Stack(
@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           TextfieldWidget(
                             keyboardType: TextInputType.emailAddress,
-                            labelText: 'NAME',
+                            labelText: l10n.name,
                             hintText: l10n.enterEmail,
                             controller: _nameController,
                           ),
@@ -135,9 +135,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _passwordController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Password is required';
+                                    return l10n.passWordIsRequired;
                                   } else if (value.trim().length < 6) {
-                                    return 'Password is at least 6 characters';
+                                    return l10n.passWordIs6Char;
                                   } else {
                                     return null;
                                   }
@@ -166,12 +166,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _retypePasswordController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Password is required';
+                                    return l10n.passWordIsRequired;
                                   } else if (value.trim().length < 6) {
-                                    return 'Password is at least 6 characters';
+                                    return l10n.passWordIs6Char;
                                   } else if (value.trim() !=
                                       _passwordController.text) {
-                                    return 'Password is not match';
+                                    return l10n.passWordDoesNotMatch;
                                   } else {
                                     return null;
                                   }
@@ -192,12 +192,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           space,
                           PickSelectWidget(
-                            title: 'Enter speaking',
+                            title: l10n.enterSpeaking,
                             selectedLanguages: speaking,
                             onTap: () => onTapSelectLanguage(true),
                           ),
                           PickSelectWidget(
-                            title: 'Enter learning',
+                            title: l10n.enterLearning,
                             selectedLanguages: learning,
                             onTap: () => onTapSelectLanguage(false),
                           ),

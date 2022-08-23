@@ -37,7 +37,7 @@ class _RegisterTeacherScreenState extends State<RegisterTeacherScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-              errorTitle: 'Register teacher error',
+              errorTitle: l10n.registerTeacherError,
               errorMessage: state.message,
             ),
           );
@@ -58,7 +58,7 @@ class _RegisterTeacherScreenState extends State<RegisterTeacherScreen> {
                         alignment: Alignment.centerLeft,
                         child: Text(l10n.teaching)),
                     PickSelectWidget(
-                      title: 'Enter language',
+                      title: l10n.enterLanguage,
                       selectedLanguages: teaching,
                       onTap: () async {
                         AppBloc.filterBloc.add(SelectLanguageEvent());

@@ -210,10 +210,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   UserInfoItem(
-                                    title: 'Role',
+                                    title: l10n.role,
                                     value: state.user.role == 1
-                                        ? 'Teacher'
-                                        : 'Leaner',
+                                        ? l10n.teacher
+                                        : l10n.learner,
                                   ),
                                   const VerticalDivider(
                                     thickness: 2,

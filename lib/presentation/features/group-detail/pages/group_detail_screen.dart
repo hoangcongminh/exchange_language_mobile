@@ -84,7 +84,7 @@ class _GroupDetailState extends State<GroupDetail> {
                         const Icon(Icons.exit_to_app_outlined),
                         SizedBox(width: 12.sp),
                         Text(
-                          'Leave group',
+                          context.l10n.leaveGroup,
                           style: TextStyle(
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w400,
@@ -114,10 +114,10 @@ class _GroupDetailState extends State<GroupDetail> {
       listener: (context, state) {
         if (state is GroupDetailLeaveSuccess) {
           AppNavigator().pushNamedAndRemoveUntil(RouteConstants.home);
-          toast('leave group success');
+          toast(context.l10n.leaveGroupSuccess);
         } else if (state is GroupDetailJoinSuccess) {
           AppBloc.groupDetailBloc.add(FetchGroupDetail(slug: state.slug));
-          toast('join group success');
+          toast(context.l10n.joinGroupSuccess);
         }
       },
       builder: (context, groupState) {
@@ -262,10 +262,10 @@ class _GroupDetailState extends State<GroupDetail> {
                                         .contains(UserLocal().getUser()!.id)) {
                                       showDialog(
                                         context: context,
-                                        builder: (context) => const ErrorDialog(
-                                          errorTitle: 'Error',
+                                        builder: (context) => ErrorDialog(
+                                          errorTitle: l10n.error,
                                           errorMessage:
-                                              'You must join this group',
+                                              l10n.youMustJoinThisGroup,
                                         ),
                                       );
                                     } else {
@@ -282,10 +282,10 @@ class _GroupDetailState extends State<GroupDetail> {
                                         .contains(UserLocal().getUser()!.id)) {
                                       showDialog(
                                         context: context,
-                                        builder: (context) => const ErrorDialog(
-                                          errorTitle: 'Error',
+                                        builder: (context) => ErrorDialog(
+                                          errorTitle: l10n.error,
                                           errorMessage:
-                                              'You must join this group',
+                                              l10n.youMustJoinThisGroup,
                                         ),
                                       );
                                     } else {

@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -14,10 +15,10 @@ class ErrorScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('There are some error'),
+          Text(context.l10n.thereAreSomeError),
           TextButton(
             onPressed: onTapRefresh,
-            child: const Text('Refresh'),
+            child: Text(context.l10n.refresh),
           )
         ],
       ),

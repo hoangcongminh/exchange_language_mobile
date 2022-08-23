@@ -45,13 +45,13 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
-              errorTitle: 'Create blog error',
+              errorTitle: l10n.createBlogError,
               errorMessage: state.error,
             ),
           );
         } else if (state is CreateBlogSuccess) {
           AppNavigator().pop();
-          toast('Blog created');
+          toast(l10n.blogCreated);
         }
       },
       builder: (context, state) {
@@ -99,8 +99,8 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                                   autofocus: true,
                                   controller: _titleController,
                                   style: createBlogTitle,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Add a title',
+                                  decoration: InputDecoration(
+                                    hintText: l10n.addATitle,
                                     hintStyle: createBlogTitleHint,
                                   ),
                                 ),

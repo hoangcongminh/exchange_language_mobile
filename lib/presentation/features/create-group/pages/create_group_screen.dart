@@ -54,13 +54,13 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             showDialog(
               context: context,
               builder: (context) => ErrorDialog(
-                errorTitle: 'Create group error',
+                errorTitle: l10n.createGroupError,
                 errorMessage: state.message,
               ),
             );
           } else if (state is CreateGroupSuccess) {
             AppNavigator().pop();
-            toast('Group created');
+            toast(l10n.groupCreated);
           }
         },
         builder: (context, state) {

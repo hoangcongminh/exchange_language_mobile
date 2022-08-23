@@ -51,12 +51,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           if (state is CreatePostSuccess) {
             AppBloc.postBloc.add(RefreshPostEvent(groupId: widget.groupId));
             AppNavigator().pop();
-            toast('Post created');
+            toast(l10n.postCreated);
           } else if (state is CreatePostFailure) {
             showDialog(
               context: context,
               builder: (context) => ErrorDialog(
-                errorTitle: 'Create post error',
+                errorTitle: l10n.createPostError,
                 errorMessage: state.message,
               ),
             );
@@ -73,8 +73,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   autofocus: true,
                   controller: _titleController,
                   style: createPostTitle,
-                  decoration: const InputDecoration(
-                    hintText: 'Add a title',
+                  decoration: InputDecoration(
+                    hintText: l10n.addATitle,
                     hintStyle: createPostTitleHint,
                   ),
                 ),
@@ -84,8 +84,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   keyboardType: TextInputType.multiline,
                   controller: _contentController,
                   style: createPostContent,
-                  decoration: const InputDecoration(
-                    hintText: 'Share your thought...',
+                  decoration: InputDecoration(
+                    hintText: '${l10n.shareYourThoughts}...',
                     hintStyle: createPostContentHint,
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,

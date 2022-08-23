@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
             showDialog(
                 context: context,
                 builder: (context) => ErrorDialog(
-                    errorTitle: 'Login error', errorMessage: state.error));
+                    errorTitle: l10n.authenError, errorMessage: state.error));
           }
         },
         builder: (context, state) {
@@ -76,9 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Email is required';
+                                  return l10n.emailIsRequired;
                                 } else if (!value.isEmail) {
-                                  return 'Email is invalid';
+                                  return l10n.emailIsInvalid;
                                 } else {
                                   return null;
                                 }
@@ -95,9 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: _passwordController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Password is required';
+                                      return l10n.passWordIsRequired;
                                     } else if (value.trim().length < 6) {
-                                      return 'Password is at least 6 characters';
+                                      return l10n.passWordIs6Char;
                                     } else {
                                       return null;
                                     }

@@ -34,7 +34,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           showDialog(
               context: context,
               builder: (context) => ErrorDialog(
-                  errorTitle: 'Login error', errorMessage: state.error));
+                  errorTitle: l10n.authenError, errorMessage: state.error));
         }
       },
       builder: (context, state) {
@@ -64,9 +64,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   controller: _passwordController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Password is required';
+                                      return l10n.passWordIsRequired;
                                     } else if (value.trim().length < 6) {
-                                      return 'Password is at least 6 characters';
+                                      return l10n.passWordIs6Char;
                                     } else {
                                       return null;
                                     }
@@ -95,12 +95,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   controller: _retypePasswordController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Password is required';
+                                      return l10n.passWordIsRequired;
                                     } else if (value.trim().length < 6) {
-                                      return 'Password is at least 6 characters';
+                                      return l10n.passWordIs6Char;
                                     } else if (_passwordController.text !=
                                         value) {
-                                      return 'Password does not match';
+                                      return l10n.passWordDoesNotMatch;
                                     } else {
                                       return null;
                                     }
