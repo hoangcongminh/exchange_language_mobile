@@ -2,7 +2,6 @@ import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:sizer/sizer.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../../../data/datasources/local/user_local_data.dart';

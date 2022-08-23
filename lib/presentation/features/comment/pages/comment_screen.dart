@@ -98,10 +98,28 @@ class _CommentScreenState extends State<CommentScreen> {
                             ),
                             avatarChild: (context, data) => PreferredSize(
                               preferredSize: const Size.fromRadius(12),
-                              child: AvatarWidget(
-                                height: 38,
-                                width: 38,
-                                imageUrl: data.avatar,
+                              child: GestureDetector(
+                                onTap: () {
+                                  AppBloc.userProfileBloc.add(
+                                      GetUserProfileEvent(
+                                          userId: comment.replys
+                                                  ?.where((element) =>
+                                                      element.author.fullname ==
+                                                          data.userName &&
+                                                      element.content ==
+                                                          data.content)
+                                                  .first
+                                                  .author
+                                                  .id ??
+                                              ''));
+                                  AppNavigator()
+                                      .push(RouteConstants.userProfile);
+                                },
+                                child: AvatarWidget(
+                                  height: 38,
+                                  width: 38,
+                                  imageUrl: data.avatar,
+                                ),
                               ),
                             ),
                             contentRoot: (context, data) {

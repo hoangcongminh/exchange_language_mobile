@@ -279,7 +279,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           );
         } else {
-          return const LoadingWidget();
+          return Scaffold(appBar: AppBar(), body: const LoadingWidget());
         }
       }),
     );
