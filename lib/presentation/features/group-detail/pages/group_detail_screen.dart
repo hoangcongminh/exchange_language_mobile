@@ -2,6 +2,7 @@ import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/presentation/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
@@ -113,8 +114,10 @@ class _GroupDetailState extends State<GroupDetail> {
       listener: (context, state) {
         if (state is GroupDetailLeaveSuccess) {
           AppNavigator().pushNamedAndRemoveUntil(RouteConstants.home);
+          toast('leave group success');
         } else if (state is GroupDetailJoinSuccess) {
           AppBloc.groupDetailBloc.add(FetchGroupDetail(slug: state.slug));
+          toast('join group success');
         }
       },
       builder: (context, groupState) {

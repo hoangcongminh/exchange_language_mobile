@@ -1,6 +1,7 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -50,6 +51,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           if (state is CreatePostSuccess) {
             AppBloc.postBloc.add(RefreshPostEvent(groupId: widget.groupId));
             AppNavigator().pop();
+            toast('Post created');
           } else if (state is CreatePostFailure) {
             showDialog(
               context: context,

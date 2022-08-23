@@ -5,6 +5,7 @@ import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -50,6 +51,7 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
           );
         } else if (state is CreateBlogSuccess) {
           AppNavigator().pop();
+          toast('Blog created');
         }
       },
       builder: (context, state) {

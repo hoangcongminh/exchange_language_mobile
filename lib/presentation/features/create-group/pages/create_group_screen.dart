@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
@@ -48,16 +49,19 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         title: Text(l10n.createGroup),
       ),
       body: BlocConsumer<CreateGroupBloc, CreateGroupState>(
-        listener: (context, state) => {
-          if (state is CreateGroupFailure)
+        listener: (context, state) {
+          if (state is CreateGroupFailure) {
             showDialog(
               context: context,
               builder: (context) => ErrorDialog(
                 errorTitle: 'Create group error',
                 errorMessage: state.message,
               ),
-            ),
-          if (state is CreateGroupSuccess) AppNavigator().pop()
+            );
+          } else if (state is CreateGroupSuccess) {
+            AppNavigator().pop();
+            toast('Group created');
+          }
         },
         builder: (context, state) {
           return Stack(

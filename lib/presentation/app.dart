@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
@@ -48,44 +49,46 @@ class _ApplicationState extends State<Application> {
               if (state is ApplicationAuthorized) {
                 screen = const ScaffoldWrapper(child: DashboardScreen());
               }
-              return Sizer(
-                builder: (context, orientation, deviceType) {
-                  return MaterialApp(
-                    navigatorKey: AppNavigator().navigatorKey,
-                    debugShowCheckedModeBanner: false,
-                    title: 'Exchange Language',
-                    //DevicePreview
-                    /* useInheritedMediaQuery: true, */
-                    /* locale: DevicePreview.locale(context), */
-                    /* builder: DevicePreview.appBuilder, */
-                    //DevicePreview
-                    theme: defaultTheme(),
-                    localizationsDelegates: const [
-                      RefreshLocalizations.delegate,
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    supportedLocales: const [
-                      Locale('en'),
-                      Locale('vi'),
-                    ],
-                    locale: locale,
-                    localeResolutionCallback:
-                        (locale, Iterable<Locale> supportedLocales) {
-                      //print("change language");
-                      return locale;
-                    },
-                    onGenerateRoute: (settings) =>
-                        AppNavigator().getRoute(settings),
-                    navigatorObservers: [
-                      AppNavigatorObserver(),
-                    ],
-                    home: screen,
-                    // home: const ScaffoldWrapper(child: DashboardScreen()),
-                  );
-                },
+              return OverlaySupport.global(
+                child: Sizer(
+                  builder: (context, orientation, deviceType) {
+                    return MaterialApp(
+                      navigatorKey: AppNavigator().navigatorKey,
+                      debugShowCheckedModeBanner: false,
+                      title: 'Exchange Language',
+                      //DevicePreview
+                      /* useInheritedMediaQuery: true, */
+                      /* locale: DevicePreview.locale(context), */
+                      /* builder: DevicePreview.appBuilder, */
+                      //DevicePreview
+                      theme: defaultTheme(),
+                      localizationsDelegates: const [
+                        RefreshLocalizations.delegate,
+                        AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      supportedLocales: const [
+                        Locale('en'),
+                        Locale('vi'),
+                      ],
+                      locale: locale,
+                      localeResolutionCallback:
+                          (locale, Iterable<Locale> supportedLocales) {
+                        //print("change language");
+                        return locale;
+                      },
+                      onGenerateRoute: (settings) =>
+                          AppNavigator().getRoute(settings),
+                      navigatorObservers: [
+                        AppNavigatorObserver(),
+                      ],
+                      home: screen,
+                      // home: const ScaffoldWrapper(child: DashboardScreen()),
+                    );
+                  },
+                ),
               );
             },
           );

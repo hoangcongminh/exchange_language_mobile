@@ -27,8 +27,6 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   _fetchMessages(FetchMessage event, Emitter emit) async {
-    if (hasReachedMax) {
-    } else {}
     Either<Failure, DataMessage> result =
         await chatRepository.getMessagesByConversation(
       conversationId: event.conversationId,
@@ -38,6 +36,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     result.fold((failue) {
       emit(ConversationFailure());
     }, (dataMessages) {
+      conversationId = dataMessages.conversationInfo.id;
       if (dataMessages.messages.isEmpty) {
         hasReachedMax == true;
       } else {
@@ -63,6 +62,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }, (dataMessages) {
       hasReachedMax == false;
       messages = dataMessages.messages;
+      conversationId = dataMessages.conversationInfo.id;
+
       emit(ConversationLoaded(
         messages: messages,
         isScroll: true,
@@ -80,6 +81,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       result.fold((failue) {
         emit(ConversationFailure());
       }, (dataMessages) {
+        conversationId = dataMessages.conversationInfo.id;
         hasReachedMax == false;
         messages = dataMessages.messages;
         emit(ConversationLoaded(
@@ -93,11 +95,21 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
   _receiveNewMessage(ReceiveNewMessage event, Emitter emit) {
     emit(ConversationLoading());
-    messages.add(event.message);
-    emit(ConversationLoaded(
+
+    if (event.message.conversationId == conversationId) {
+      messages.add(event.message);
+      emit(ConversationLoaded(
         messages: messages,
         isScroll: true,
-        conversationId: event.message.conversationId));
+        conversationId: event.message.conversationId,
+      ));
+    } else {
+      emit(ConversationLoaded(
+        messages: messages,
+        isScroll: true,
+        conversationId: event.message.conversationId,
+      ));
+    }
   }
 
   _sendMessage(SendMessage event, Emitter emit) async {
@@ -179,6 +191,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   List<Message> messages = [];
   int limit = 20;
   bool hasReachedMax = false;
+  String? conversationId;
   ChatRepository chatRepository;
   MediaRepository mediaRepository;
 }
