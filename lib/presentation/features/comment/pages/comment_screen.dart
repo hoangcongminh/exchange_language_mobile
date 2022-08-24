@@ -2,6 +2,7 @@ import 'package:comment_tree/data/comment.dart';
 import 'package:comment_tree/widgets/comment_tree_widget.dart';
 import 'package:comment_tree/widgets/tree_theme_data.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/group/widget/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +14,7 @@ import '../../../common/app_bloc.dart';
 import '../../../widgets/avatar_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../comment/bloc/comment_bloc.dart';
+import '../../group-detail/bloc/post-bloc/post_bloc.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../widgets/comment_box.dart';
 
@@ -46,7 +48,13 @@ class _CommentScreenState extends State<CommentScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          // title: const PostHeader(),
+          titleSpacing: 0,
+          title: PostHeader(
+            authorName: widget.post.author.fullname,
+            createdAt: widget.post.createdAt,
+            authorAvatar: widget.post.author.avatar?.src,
+            onTap: () {},
+          ),
           centerTitle: false,
         ),
         body: BlocBuilder<CommentBloc, CommentState>(
@@ -55,106 +63,264 @@ class _CommentScreenState extends State<CommentScreen> {
               return Column(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.sp),
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        itemCount: state.comments.length,
-                        itemBuilder: (context, index) {
-                          final comment = state.comments[index];
-                          return CommentTreeWidget<Comment, Comment>(
-                            Comment(
-                                avatar:
-                                    '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
-                                userName: comment.author.fullname,
-                                content: comment.content),
-                            comment.replys == null && comment.replys!.isEmpty
-                                ? []
-                                : comment.replys!
-                                    .map((comment) => Comment(
-                                        avatar:
-                                            '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
-                                        userName: comment.author.fullname,
-                                        content: comment.content))
-                                    .toList(),
-                            treeThemeData: TreeThemeData(
-                                lineColor: Colors.grey.shade300, lineWidth: 2),
-                            avatarRoot: (context, data) => PreferredSize(
-                              preferredSize: const Size.fromRadius(18),
-                              child: GestureDetector(
-                                onTap: () {
-                                  AppBloc.userProfileBloc.add(
-                                      GetUserProfileEvent(
-                                          userId: comment.author.id));
-                                  AppNavigator()
-                                      .push(RouteConstants.userProfile);
-                                },
-                                child: AvatarWidget(
-                                  height: 40,
-                                  width: 40,
-                                  imageUrl: data.avatar,
-                                ),
-                              ),
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.sp, vertical: 6.sp),
+                            child: BlocBuilder<PostBloc, PostState>(
+                              builder: (context, state) {
+                                if (state is PostLoaded) {
+                                  return PostItem(
+                                    isPostDetail: true,
+                                    post: state.posts
+                                        .where((element) =>
+                                            element.id == widget.post.id)
+                                        .first,
+                                    isLiked: state.likedPosts
+                                        .contains(widget.post.id),
+                                    onTapLike: () {
+                                      AppBloc.postBloc.add(
+                                        LikePostEvent(
+                                          postId: widget.post.id,
+                                          groupId: widget.post.group,
+                                        ),
+                                      );
+                                    },
+                                    onTapComment: () {},
+                                    onTapPostHeader: () {},
+                                  );
+                                } else {
+                                  return PostItem(
+                                    isPostDetail: true,
+                                    post: widget.post,
+                                    isLiked: AppBloc.postBloc.likedPosts
+                                        .contains(widget.post.id),
+                                    onTapLike: () {
+                                      AppBloc.postBloc.add(
+                                        LikePostEvent(
+                                          postId: widget.post.id,
+                                          groupId: widget.post.group,
+                                        ),
+                                      );
+                                    },
+                                    onTapComment: () {},
+                                    onTapPostHeader: () {},
+                                  );
+                                }
+                              },
                             ),
-                            avatarChild: (context, data) => PreferredSize(
-                              preferredSize: const Size.fromRadius(12),
-                              child: GestureDetector(
-                                onTap: () {
-                                  AppBloc.userProfileBloc.add(
-                                      GetUserProfileEvent(
-                                          userId: comment.replys
-                                                  ?.where((element) =>
-                                                      element.author.fullname ==
-                                                          data.userName &&
-                                                      element.content ==
-                                                          data.content)
-                                                  .first
-                                                  .author
-                                                  .id ??
-                                              ''));
-                                  AppNavigator()
-                                      .push(RouteConstants.userProfile);
-                                },
-                                child: AvatarWidget(
-                                  height: 38,
-                                  width: 38,
-                                  imageUrl: data.avatar,
-                                ),
-                              ),
+                          ),
+                        ),
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                          sliver: SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                final comment = state.comments[index];
+                                return CommentTreeWidget<Comment, Comment>(
+                                  Comment(
+                                      avatar:
+                                          '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
+                                      userName: comment.author.fullname,
+                                      content: comment.content),
+                                  comment.replys == null &&
+                                          comment.replys!.isEmpty
+                                      ? []
+                                      : comment.replys!
+                                          .map((comment) => Comment(
+                                              avatar:
+                                                  '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
+                                              userName: comment.author.fullname,
+                                              content: comment.content))
+                                          .toList(),
+                                  treeThemeData: TreeThemeData(
+                                      lineColor: Colors.grey.shade300,
+                                      lineWidth: 2),
+                                  avatarRoot: (context, data) => PreferredSize(
+                                    preferredSize: const Size.fromRadius(18),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        AppBloc.userProfileBloc.add(
+                                            GetUserProfileEvent(
+                                                userId: comment.author.id));
+                                        AppNavigator()
+                                            .push(RouteConstants.userProfile);
+                                      },
+                                      child: AvatarWidget(
+                                        height: 40,
+                                        width: 40,
+                                        imageUrl: data.avatar,
+                                      ),
+                                    ),
+                                  ),
+                                  avatarChild: (context, data) => PreferredSize(
+                                    preferredSize: const Size.fromRadius(12),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        AppBloc.userProfileBloc.add(
+                                            GetUserProfileEvent(
+                                                userId: comment.replys
+                                                        ?.where((element) =>
+                                                            element.author
+                                                                    .fullname ==
+                                                                data.userName &&
+                                                            element.content ==
+                                                                data.content)
+                                                        .first
+                                                        .author
+                                                        .id ??
+                                                    ''));
+                                        AppNavigator()
+                                            .push(RouteConstants.userProfile);
+                                      },
+                                      child: AvatarWidget(
+                                        height: 38,
+                                        width: 38,
+                                        imageUrl: data.avatar,
+                                      ),
+                                    ),
+                                  ),
+                                  contentRoot: (context, data) {
+                                    return CommentItem(
+                                      userName: data.userName,
+                                      content: data.content,
+                                      // onTapLike: () {},
+                                      onTapReply: () {
+                                        setState(() {
+                                          replyTo = comment.author.fullname;
+                                          idReplyTo = comment.id;
+                                        });
+                                        _focusNode.requestFocus();
+                                      },
+                                    );
+                                  },
+                                  contentChild: (context, data) {
+                                    return CommentItem(
+                                      userName: data.userName,
+                                      content: data.content,
+                                      // onTapLike: () {},
+                                      onTapReply: () {
+                                        setState(() {
+                                          replyTo = comment.author.fullname;
+                                          idReplyTo = comment.id;
+                                          _focusNode.requestFocus();
+                                        });
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                              childCount:
+                                  state.comments.length, // 1000 list items
                             ),
-                            contentRoot: (context, data) {
-                              return CommentItem(
-                                userName: data.userName,
-                                content: data.content,
-                                // onTapLike: () {},
-                                onTapReply: () {
-                                  setState(() {
-                                    replyTo = comment.author.fullname;
-                                    idReplyTo = comment.id;
-                                  });
-                                  _focusNode.requestFocus();
-                                },
-                              );
-                            },
-                            contentChild: (context, data) {
-                              return CommentItem(
-                                userName: data.userName,
-                                content: data.content,
-                                // onTapLike: () {},
-                                onTapReply: () {
-                                  setState(() {
-                                    replyTo = comment.author.fullname;
-                                    idReplyTo = comment.id;
-                                    _focusNode.requestFocus();
-                                  });
-                                },
-                              );
-                            },
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: EdgeInsets.all(8.sp),
+                  //     child: ListView.builder(
+                  //       controller: _scrollController,
+                  //       itemCount: state.comments.length,
+                  //       itemBuilder: (context, index) {
+                  //         final comment = state.comments[index];
+                  //         return CommentTreeWidget<Comment, Comment>(
+                  //           Comment(
+                  //               avatar:
+                  //                   '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
+                  //               userName: comment.author.fullname,
+                  //               content: comment.content),
+                  //           comment.replys == null && comment.replys!.isEmpty
+                  //               ? []
+                  //               : comment.replys!
+                  //                   .map((comment) => Comment(
+                  //                       avatar:
+                  //                           '${AppConstants.baseImageUrl}${comment.author.avatar?.src}',
+                  //                       userName: comment.author.fullname,
+                  //                       content: comment.content))
+                  //                   .toList(),
+                  //           treeThemeData: TreeThemeData(
+                  //               lineColor: Colors.grey.shade300, lineWidth: 2),
+                  //           avatarRoot: (context, data) => PreferredSize(
+                  //             preferredSize: const Size.fromRadius(18),
+                  //             child: GestureDetector(
+                  //               onTap: () {
+                  //                 AppBloc.userProfileBloc.add(
+                  //                     GetUserProfileEvent(
+                  //                         userId: comment.author.id));
+                  //                 AppNavigator()
+                  //                     .push(RouteConstants.userProfile);
+                  //               },
+                  //               child: AvatarWidget(
+                  //                 height: 40,
+                  //                 width: 40,
+                  //                 imageUrl: data.avatar,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           avatarChild: (context, data) => PreferredSize(
+                  //             preferredSize: const Size.fromRadius(12),
+                  //             child: GestureDetector(
+                  //               onTap: () {
+                  //                 AppBloc.userProfileBloc.add(
+                  //                     GetUserProfileEvent(
+                  //                         userId: comment.replys
+                  //                                 ?.where((element) =>
+                  //                                     element.author.fullname ==
+                  //                                         data.userName &&
+                  //                                     element.content ==
+                  //                                         data.content)
+                  //                                 .first
+                  //                                 .author
+                  //                                 .id ??
+                  //                             ''));
+                  //                 AppNavigator()
+                  //                     .push(RouteConstants.userProfile);
+                  //               },
+                  //               child: AvatarWidget(
+                  //                 height: 38,
+                  //                 width: 38,
+                  //                 imageUrl: data.avatar,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           contentRoot: (context, data) {
+                  //             return CommentItem(
+                  //               userName: data.userName,
+                  //               content: data.content,
+                  //               // onTapLike: () {},
+                  //               onTapReply: () {
+                  //                 setState(() {
+                  //                   replyTo = comment.author.fullname;
+                  //                   idReplyTo = comment.id;
+                  //                 });
+                  //                 _focusNode.requestFocus();
+                  //               },
+                  //             );
+                  //           },
+                  //           contentChild: (context, data) {
+                  //             return CommentItem(
+                  //               userName: data.userName,
+                  //               content: data.content,
+                  //               // onTapLike: () {},
+                  //               onTapReply: () {
+                  //                 setState(() {
+                  //                   replyTo = comment.author.fullname;
+                  //                   idReplyTo = comment.id;
+                  //                   _focusNode.requestFocus();
+                  //                 });
+                  //               },
+                  //             );
+                  //           },
+                  //         );
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                   replyTo != null
                       ? Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.sp),
