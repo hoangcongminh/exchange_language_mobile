@@ -29,4 +29,9 @@ abstract class UserRestClient {
   Future<ApiResponseModel> registerTeacher(
     @Body() Map<String, dynamic> body,
   );
+
+  @POST('/users/rating')
+  Future<ApiResponseModel> rateTeacher(
+    @Body() Map<String, dynamic> body,
+  );
 }

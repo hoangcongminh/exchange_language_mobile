@@ -22,7 +22,7 @@ class _SearchBoxState extends State<SearchBox> {
     return Container(
       height: 35.sp,
       width: 100.w,
-      margin: EdgeInsets.symmetric(horizontal: 16.sp),
+      margin: EdgeInsets.symmetric(horizontal: 8.sp),
       decoration: BoxDecoration(
         color: colorBackgroundSearch,
         borderRadius: BorderRadius.circular(50.sp),

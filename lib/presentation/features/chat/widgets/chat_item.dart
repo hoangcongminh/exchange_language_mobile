@@ -22,9 +22,11 @@ class ChatItem extends StatefulWidget {
 class _ChatItemState extends State<ChatItem> {
   @override
   Widget build(BuildContext context) {
-    final user = widget.conversation.members
-        .where((element) => element.id != UserLocal().getUser()!.id)
-        .first;
+    final user = widget.conversation.members.length > 1
+        ? widget.conversation.members
+            .where((element) => element.id != UserLocal().getUser()!.id)
+            .first
+        : widget.conversation.members.first;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sp),
@@ -50,7 +52,9 @@ class _ChatItemState extends State<ChatItem> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          user.fullname,
+                          widget.conversation.conversationName == null
+                              ? user.fullname
+                              : widget.conversation.conversationName!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(
@@ -60,7 +64,9 @@ class _ChatItemState extends State<ChatItem> {
                         ),
                         SizedBox(height: 4.sp),
                         Text(
-                          widget.conversation.lastMessage?.content ?? '',
+                          widget.conversation.lastMessage == null
+                              ? ''
+                              : '${widget.conversation.lastMessage!.author.fullname}: ${widget.conversation.lastMessage!.content ?? ''}',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyle(

@@ -24,4 +24,9 @@ abstract class UserRepository {
   Future<Either<Failure, void>> registerTeacher({
     required List<Language> teaching,
   });
+
+  Future<Either<Failure, void>> rateTeacher({
+    required String userId,
+    required int star,
+  });
 }

@@ -6,7 +6,6 @@ import '../../domain/repository/user_repository.dart';
 import '../datasources/remote/app_api_service.dart';
 import '../datasources/remote/user_rest_client.dart';
 import '../failure.dart';
-import '../models/api_response_model.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRestClient _userRestClient = AppApiService().userRestClient;
@@ -78,6 +77,25 @@ class UserRepositoryImpl implements UserRepository {
     try {
       final response = await _userRestClient.registerTeacher({
         'teach': teaching.map((e) => e.id).toList(),
+      });
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> rateTeacher(
+      {required String userId, required int star}) async {
+    try {
+      final response = await _userRestClient.rateTeacher({
+        'IDUserRating': userId,
+        'star': star,
       });
       if (response.error == false) {
         return const Right(null);

@@ -13,7 +13,12 @@ class UserProfileLoading extends UserProfileState {}
 
 class UserProfileLoaded extends UserProfileState {
   final User user;
-  const UserProfileLoaded({required this.user});
+  final int? star;
+  final int? rated;
+  const UserProfileLoaded({required this.user, this.star, this.rated});
+
+  @override
+  List<Object> get props => [user];
 }
 
 class UserProfileLoadFailure extends UserProfileState {

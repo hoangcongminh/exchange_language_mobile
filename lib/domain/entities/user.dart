@@ -41,13 +41,29 @@ class User extends Equatable {
 class Teacher extends Equatable {
   final String id;
   final List<Language>? teachingLanguage;
+  final List<Rate> rate;
   const Teacher({
     required this.id,
+    required this.rate,
     this.teachingLanguage,
   });
 
   @override
   List<Object?> get props => [id, teachingLanguage];
+}
+
+class Rate extends Equatable {
+  final String id;
+  final String author;
+  final int star;
+  const Rate({
+    required this.id,
+    required this.author,
+    required this.star,
+  });
+
+  @override
+  List<Object?> get props => [id, author, star];
 }
 
 class Avatar extends Equatable {

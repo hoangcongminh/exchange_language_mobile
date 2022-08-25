@@ -53,12 +53,28 @@ TeacherModel _$TeacherModelFromJson(Map<String, dynamic> json) => TeacherModel(
       (json['teach'] as List<dynamic>?)
           ?.map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      (json['rating'] as List<dynamic>)
+          .map((e) => RateModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TeacherModelToJson(TeacherModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'teach': instance.teachingLanguage?.map((e) => e.toJson()).toList(),
+      'rating': instance.rate.map((e) => e.toJson()).toList(),
+    };
+
+RateModel _$RateModelFromJson(Map<String, dynamic> json) => RateModel(
+      json['_id'] as String,
+      json['author'] as String,
+      json['star'] as int,
+    );
+
+Map<String, dynamic> _$RateModelToJson(RateModel instance) => <String, dynamic>{
+      '_id': instance.id,
+      'author': instance.author,
+      'star': instance.star,
     };
 
 AvatarModel _$AvatarModelFromJson(Map<String, dynamic> json) => AvatarModel(

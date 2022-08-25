@@ -48,7 +48,7 @@ void connectAndListen() {
       if (AppBloc.conversationBloc.state is ConversationLoaded &&
           AppNavigator().currentRoute() == RouteConstants.conversation) {
         final state = AppBloc.conversationBloc.state as ConversationLoaded;
-        if (state.conversationId == message.conversationId) {
+        if (state.conversation.id == message.conversationId) {
           return;
         }
       }

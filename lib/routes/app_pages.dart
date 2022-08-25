@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/create-chat-group/pages/create_chat_group_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/update-profile-info/pages/register_teacher_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -133,6 +134,11 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
           ConversationScreen(
             user: arguments?['user'],
           ),
+        );
+      case RouteConstants.createChatGroup:
+        return _buildRoute(
+          settings,
+          const CreateChatGroupScreen(),
         );
       case RouteConstants.userProfile:
         return _buildRoute(

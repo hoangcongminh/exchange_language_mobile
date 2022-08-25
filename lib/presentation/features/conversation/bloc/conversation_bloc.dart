@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -8,6 +7,7 @@ import 'package:exchange_language_mobile/domain/repository/media_repository.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data/failure.dart';
+import '../../../../domain/entities/conversation.dart';
 import '../../../../domain/entities/message.dart';
 import '../../../../domain/repository/chat_repository.dart';
 
@@ -36,7 +36,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     result.fold((failue) {
       emit(ConversationFailure());
     }, (dataMessages) {
-      conversationId = dataMessages.conversationInfo.id;
+      conversation = dataMessages.conversationInfo;
       if (dataMessages.messages.isEmpty) {
         hasReachedMax == true;
       } else {
@@ -44,7 +44,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         emit(ConversationLoaded(
             messages: messages,
             isScroll: false,
-            conversationId: dataMessages.conversationInfo.id));
+            conversation: dataMessages.conversationInfo));
       }
     });
   }
@@ -62,12 +62,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }, (dataMessages) {
       hasReachedMax == false;
       messages = dataMessages.messages;
-      conversationId = dataMessages.conversationInfo.id;
+      conversation = dataMessages.conversationInfo;
 
       emit(ConversationLoaded(
         messages: messages,
         isScroll: true,
-        conversationId: dataMessages.conversationInfo.id,
+        conversation: dataMessages.conversationInfo,
       ));
     });
   }
@@ -81,13 +81,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       result.fold((failue) {
         emit(ConversationFailure());
       }, (dataMessages) {
-        conversationId = dataMessages.conversationInfo.id;
+        conversation = dataMessages.conversationInfo;
         hasReachedMax == false;
         messages = dataMessages.messages;
         emit(ConversationLoaded(
           messages: messages,
           isScroll: true,
-          conversationId: dataMessages.conversationInfo.id,
+          conversation: dataMessages.conversationInfo,
         ));
       });
     });
@@ -96,18 +96,18 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   _receiveNewMessage(ReceiveNewMessage event, Emitter emit) {
     emit(ConversationLoading());
 
-    if (event.message.conversationId == conversationId) {
+    if (event.message.conversationId == conversation!.id) {
       messages.add(event.message);
       emit(ConversationLoaded(
         messages: messages,
         isScroll: true,
-        conversationId: event.message.conversationId,
+        conversation: conversation!,
       ));
     } else {
       emit(ConversationLoaded(
         messages: messages,
         isScroll: true,
-        conversationId: event.message.conversationId,
+        conversation: conversation!,
       ));
     }
   }
@@ -128,7 +128,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         emit(ConversationLoaded(
             messages: messages,
             isScroll: true,
-            conversationId: dataMessage.conversationInfo.id));
+            conversation: dataMessage.conversationInfo));
       });
     });
   }
@@ -156,7 +156,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
                 emit(ConversationLoaded(
                   messages: messages,
                   isScroll: true,
-                  conversationId: dataMessage.conversationInfo.id,
+                  conversation: dataMessage.conversationInfo,
                 ));
               },
             );
@@ -183,7 +183,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         emit(ConversationLoaded(
             messages: messages,
             isScroll: true,
-            conversationId: dataMessage.conversationInfo.id));
+            conversation: dataMessage.conversationInfo));
       });
     });
   }
@@ -191,7 +191,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   List<Message> messages = [];
   int limit = 20;
   bool hasReachedMax = false;
-  String? conversationId;
+  Conversation? conversation;
+
   ChatRepository chatRepository;
   MediaRepository mediaRepository;
 }

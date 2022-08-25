@@ -3,6 +3,8 @@ import 'package:exchange_language_mobile/presentation/features/conversation/bloc
 import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:exchange_language_mobile/presentation/widgets/app_button_widget.dart';
 import 'package:exchange_language_mobile/presentation/widgets/loading_widget.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -46,6 +48,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   floatHeaderSlivers: true,
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
+                      centerTitle: true,
                       leading: AppNavigator().canPop
                           ? IconButton(
                               onPressed: () {
@@ -61,6 +64,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           : null,
                       title: Text(state.user.fullname),
                       actions: [
+                        if (state.user.role == 1)
+                          TextButton.icon(
+                            onPressed: null,
+                            icon: const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            label: Text(
+                              state.star.toString(),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
                         isMe
                             ? IconButton(
                                 icon: const Icon(Icons.settings),
@@ -119,6 +134,29 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               state.user.introduction ?? '',
                               style: userIntroduction,
                             ),
+                            SizedBox(height: 8.sp),
+
+                            // 1 is teacher
+                            if (state.user.role == 1 && !isMe)
+                              RatingBar.builder(
+                                initialRating: state.rated?.toDouble() ?? 0.0,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: false,
+                                itemCount: 5,
+                                glow: false,
+                                tapOnlyMode: true,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                itemBuilder: (context, _) =>
+                                    const Icon(Icons.star, color: Colors.amber),
+                                onRatingUpdate: (rating) {
+                                  AppBloc.userProfileBloc.add(RateTeacherEvent(
+                                    userId: state.user.id,
+                                    star: rating.toInt(),
+                                  ));
+                                },
+                              ),
                             if (!isMe)
                               Padding(
                                 padding: EdgeInsets.only(
@@ -189,20 +227,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   ],
                                 ),
                               ),
-                            // RatingBar.builder(
-                            //   initialRating: 3,
-                            //   minRating: 1,
-                            //   direction: Axis.horizontal,
-                            //   allowHalfRating: true,
-                            //   itemCount: 5,
-                            //   glow: false,
-                            //   tapOnlyMode: true,
-                            //   itemPadding:
-                            //       const EdgeInsets.symmetric(horizontal: 4.0),
-                            //   itemBuilder: (context, _) =>
-                            //       const Icon(Icons.star, color: Colors.amber),
-                            //   onRatingUpdate: (rating) {},
-                            // ),
                             SizedBox(height: 20.sp),
                             IntrinsicHeight(
                               child: Row(

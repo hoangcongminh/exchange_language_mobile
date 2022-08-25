@@ -16,6 +16,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc(this._userRepository) : super(UserProfileInitial()) {
     on<UserProfileEvent>((event, emit) {});
     on<GetUserProfileEvent>(_getUserProfile);
+    on<RateTeacherEvent>(_rateTeacher);
   }
 
   Future<void> _getUserProfile(
@@ -28,9 +29,43 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         if (user.id != UserLocal().getUser()!.id) {
           AppBloc.friendBloc.add(CheckFriendEvent(userId: user.id));
         }
-        emit(UserProfileLoaded(user: user));
+        if (user.role == 1) {
+          int starSum = 0;
+          int rated = 0;
+          for (Rate star in user.teacher?.rate ?? []) {
+            if (star.author == UserLocal().getUser()!.id) {
+              rated = star.star;
+            }
+            starSum += star.star;
+          }
+          emit(UserProfileLoaded(
+            user: user,
+            star: starSum == 0 ? 0 : starSum ~/ user.teacher!.rate.length,
+            rated: rated,
+          ));
+        } else {
+          emit(UserProfileLoaded(user: user));
+        }
       });
     });
+  }
+
+  Future<void> _rateTeacher(
+      RateTeacherEvent event, Emitter<UserProfileState> emit) async {
+    await _userRepository
+        .rateTeacher(userId: event.userId, star: event.star)
+        .then(
+      (result) {
+        result.fold(
+          (failure) {
+            return null;
+          },
+          (_) {
+            return null;
+          },
+        );
+      },
+    );
   }
 
   final UserRepository _userRepository;

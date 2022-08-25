@@ -65,4 +65,26 @@ class ChatRepositoryImpl implements ChatRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Conversation>> createConversation({
+    String? thumbnailId,
+    required String groupChatName,
+    required List<String> memberIds,
+  }) async {
+    try {
+      final response = await _chatRestClient.createConversation({
+        'name': groupChatName,
+        'members': memberIds,
+        'avatar': thumbnailId,
+      });
+      if (response.error == false) {
+        return Right(response.data!.toEntity());
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

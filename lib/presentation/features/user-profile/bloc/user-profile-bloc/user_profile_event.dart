@@ -11,3 +11,9 @@ class GetUserProfileEvent extends UserProfileEvent {
   final String userId;
   const GetUserProfileEvent({required this.userId});
 }
+
+class RateTeacherEvent extends UserProfileEvent {
+  final String userId;
+  final int star;
+  const RateTeacherEvent({required this.userId, required this.star});
+}

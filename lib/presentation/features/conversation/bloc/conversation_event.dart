@@ -76,3 +76,25 @@ class SendIconMessage extends ConversationEvent {
     required this.content,
   });
 }
+
+class InviteUser extends ConversationEvent {
+  final String conversationId;
+  final String userId;
+  const InviteUser({
+    required this.conversationId,
+    required this.userId,
+  });
+
+  @override
+  List<Object> get props => [conversationId, userId];
+}
+
+class LeaveConversation extends ConversationEvent {
+  final String conversationId;
+  const LeaveConversation({
+    required this.conversationId,
+  });
+
+  @override
+  List<Object> get props => [conversationId];
+}

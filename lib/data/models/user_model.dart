@@ -72,9 +72,13 @@ class TeacherModel {
   @JsonKey(name: 'teach')
   final List<LanguageModel>? teachingLanguage;
 
+  @JsonKey(name: 'rating')
+  final List<RateModel> rate;
+
   TeacherModel(
     this.id,
     this.teachingLanguage,
+    this.rate,
   );
 
   factory TeacherModel.fromJson(Map<String, dynamic> json) =>
@@ -84,7 +88,33 @@ class TeacherModel {
 
   Teacher toEntity() => Teacher(
         id: id,
+        rate: rate.map((e) => e.toEntity()).toList(),
         teachingLanguage: teachingLanguage?.map((e) => e.toEntity()).toList(),
+      );
+}
+
+@JsonSerializable(explicitToJson: true)
+class RateModel {
+  @JsonKey(name: '_id')
+  final String id;
+
+  @JsonKey(name: 'author')
+  final String author;
+
+  @JsonKey(name: 'star')
+  final int star;
+
+  RateModel(this.id, this.author, this.star);
+
+  factory RateModel.fromJson(Map<String, dynamic> json) =>
+      _$RateModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RateModelToJson(this);
+
+  Rate toEntity() => Rate(
+        id: id,
+        author: author,
+        star: star,
       );
 }
 

@@ -36,97 +36,105 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChatBloc, ChatState>(
-      builder: (context, state) {
-        if (state is ChatLoaded) {
-          return SmartRefresher(
-            header: const WaterDropHeader(),
-            onRefresh: _onRefresh,
-            controller: _refreshController,
-            // onLoading: _onLoading,
-            // enablePullUp: true,
-            child: ListView.builder(
-              itemCount: state.conversations.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onLongPress: () {},
-                  onTap: () {
-                    AppBloc.conversationBloc.add(RefreshMessage(
-                        conversationId: state.conversations[index].id));
-                    AppNavigator()
-                        .push(RouteConstants.conversation, arguments: {
-                      'user': state.conversations[index].members
-                          .where((element) =>
-                              element.id != UserLocal().getUser()!.id)
-                          .first,
-                    });
-                  },
-                  child: ChatItem(conversation: state.conversations[index]),
-                );
-              },
-            ),
-          );
-          // return CustomScrollView(
-          //   slivers: [
-          //     // SliverToBoxAdapter(
-          //     //   child: SizedBox(
-          //     //     height: 10.h,
-          //     //     child: Center(
-          //     //       child: ListView.builder(
-          //     //         scrollDirection: Axis.horizontal,
-          //     //         itemBuilder: (context, index) {
-          //     //           return AvatarWidget(
-          //     //             imageUrl:
-          //     //                 'https://www.w3schools.com/howto/img_avatar.png',
-          //     //             height: 40.sp,
-          //     //             width: 40.sp,
-          //     //             margin: EdgeInsets.symmetric(horizontal: 12.sp),
-          //     //           );
-          //     //         },
-          //     //         itemCount: 10,
-          //     //       ),
-          //     //     ),
-          //     //   ),
-          //     // ),
-          //     // SliverToBoxAdapter(
-          //     //   child: Column(
-          //     //     children: [
-          //     //       SizedBox(height: 8.sp),
-          //     //       SearchBox(
-          //     //         onChanged: (text) {},
-          //     //       ),
-          //     //       SizedBox(height: 8.sp),
-          //     //     ],
-          //     //   ),
-          //     // ),
-          //     SliverList(
-          //       delegate: SliverChildBuilderDelegate(
-          //         (context, index) {
-          //           return GestureDetector(
-          //             onLongPress: () {},
-          //             onTap: () {
-          //               AppBloc.conversationBloc.add(RefreshMessage(
-          //                   conversationId: state.conversations[index].id));
-          //               AppNavigator()
-          //                   .push(RouteConstants.conversation, arguments: {
-          //                 'user': state.conversations[index].members
-          //                     .where((element) =>
-          //                         element.id != UserLocal().getUser()!.id)
-          //                     .first,
-          //               });
-          //             },
-          //             child: ChatItem(conversation: state.conversations[index]),
-          //           );
-          //         },
-          //         childCount: state.conversations.length, // 1000 list items
-          //       ),
-          //     ),
-          //   ],
-          // );
-        } else {
-          return const ChatListShimmer();
-        }
-      },
+    return Scaffold(
+      body: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          if (state is ChatLoaded) {
+            return SmartRefresher(
+              header: const WaterDropHeader(),
+              onRefresh: _onRefresh,
+              controller: _refreshController,
+              // onLoading: _onLoading,
+              // enablePullUp: true,
+              child: ListView.builder(
+                itemCount: state.conversations.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onLongPress: () {},
+                    onTap: () {
+                      AppBloc.conversationBloc.add(RefreshMessage(
+                          conversationId: state.conversations[index].id));
+                      AppNavigator()
+                          .push(RouteConstants.conversation, arguments: {
+                        'user': state.conversations[index].members
+                            .where((element) =>
+                                element.id != UserLocal().getUser()!.id)
+                            .first,
+                      });
+                    },
+                    child: ChatItem(conversation: state.conversations[index]),
+                  );
+                },
+              ),
+            );
+            // return CustomScrollView(
+            //   slivers: [
+            //     // SliverToBoxAdapter(
+            //     //   child: SizedBox(
+            //     //     height: 10.h,
+            //     //     child: Center(
+            //     //       child: ListView.builder(
+            //     //         scrollDirection: Axis.horizontal,
+            //     //         itemBuilder: (context, index) {
+            //     //           return AvatarWidget(
+            //     //             imageUrl:
+            //     //                 'https://www.w3schools.com/howto/img_avatar.png',
+            //     //             height: 40.sp,
+            //     //             width: 40.sp,
+            //     //             margin: EdgeInsets.symmetric(horizontal: 12.sp),
+            //     //           );
+            //     //         },
+            //     //         itemCount: 10,
+            //     //       ),
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //     // SliverToBoxAdapter(
+            //     //   child: Column(
+            //     //     children: [
+            //     //       SizedBox(height: 8.sp),
+            //     //       SearchBox(
+            //     //         onChanged: (text) {},
+            //     //       ),
+            //     //       SizedBox(height: 8.sp),
+            //     //     ],
+            //     //   ),
+            //     // ),
+            //     SliverList(
+            //       delegate: SliverChildBuilderDelegate(
+            //         (context, index) {
+            //           return GestureDetector(
+            //             onLongPress: () {},
+            //             onTap: () {
+            //               AppBloc.conversationBloc.add(RefreshMessage(
+            //                   conversationId: state.conversations[index].id));
+            //               AppNavigator()
+            //                   .push(RouteConstants.conversation, arguments: {
+            //                 'user': state.conversations[index].members
+            //                     .where((element) =>
+            //                         element.id != UserLocal().getUser()!.id)
+            //                     .first,
+            //               });
+            //             },
+            //             child: ChatItem(conversation: state.conversations[index]),
+            //           );
+            //         },
+            //         childCount: state.conversations.length, // 1000 list items
+            //       ),
+            //     ),
+            //   ],
+            // );
+          } else {
+            return const ChatListShimmer();
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        key: const Key('message_fab'),
+        heroTag: 'message_fab',
+        onPressed: () => AppNavigator().push(RouteConstants.createChatGroup),
+        child: const Icon(Icons.group_add),
+      ),
     );
   }
 }

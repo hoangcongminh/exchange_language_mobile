@@ -12,6 +12,7 @@ class RouteConstants {
 
   //chat
   static const conversation = "/conversation";
+  static const createChatGroup = "/createChatGroup";
   //setting
   static const setting = "/setting";
   //filter

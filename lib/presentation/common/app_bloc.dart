@@ -20,6 +20,7 @@ import '../features/chat/bloc/friend-list/friend_list_bloc.dart';
 import '../features/comment/bloc/comment_bloc.dart';
 import '../features/conversation/bloc/conversation_bloc.dart';
 import '../features/create-blog/bloc/create_blog_bloc.dart';
+import '../features/create-chat-group/bloc/create_chat_group_bloc.dart';
 import '../features/create-group/bloc/create_group_bloc.dart';
 import '../features/create-post/bloc/create_post_bloc.dart';
 import '../features/dashboard/bloc/dashboard_bloc.dart';
@@ -47,6 +48,8 @@ class AppBloc {
   static final userProfileBloc = UserProfileBloc(UserRepositoryImpl());
   static final friendBloc = FriendBloc(FriendRepositoryImpl());
   static final chatBloc = ChatBloc(ChatRepositoryImpl());
+  static final createChatGroupBloc =
+      CreateChatGroupBloc(ChatRepositoryImpl(), MediaRepositoryImpl());
   static final friendListBloc = FriendListBloc(FriendRepositoryImpl());
   static final conversationBloc =
       ConversationBloc(ChatRepositoryImpl(), MediaRepositoryImpl());
@@ -102,6 +105,9 @@ class AppBloc {
     ),
     BlocProvider<ChatBloc>(
       create: (context) => chatBloc,
+    ),
+    BlocProvider<CreateChatGroupBloc>(
+      create: (context) => createChatGroupBloc,
     ),
     BlocProvider<FriendListBloc>(
       create: (context) => friendListBloc,

@@ -12,15 +12,15 @@ class ConversationInitial extends ConversationState {}
 class ConversationLoaded extends ConversationState {
   final List<Message> messages;
   final bool isScroll;
-  final String conversationId;
+  final Conversation conversation;
   const ConversationLoaded({
     required this.messages,
     required this.isScroll,
-    required this.conversationId,
+    required this.conversation,
   });
 
   @override
-  List<Object> get props => [messages, isScroll];
+  List<Object> get props => [messages, isScroll, conversation];
 }
 
 class ConversationLoading extends ConversationState {}
