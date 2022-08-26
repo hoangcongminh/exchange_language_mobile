@@ -5,6 +5,7 @@ class User extends Equatable {
   final String id;
   final String fullname;
   final int? role;
+  final List<String>? friends;
   final String? email;
   final Avatar? avatar;
   final List<Language>? learningLanguage;
@@ -15,6 +16,7 @@ class User extends Equatable {
   const User({
     required this.id,
     required this.fullname,
+    this.friends,
     this.role,
     this.email,
     this.avatar,

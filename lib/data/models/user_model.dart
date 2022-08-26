@@ -16,6 +16,9 @@ class UserModel {
   @JsonKey(name: 'role')
   final int? role;
 
+  @JsonKey(name: 'friends')
+  final List<String>? friends;
+
   @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
 
@@ -38,6 +41,7 @@ class UserModel {
     this.id,
     this.fullName,
     this.role,
+    this.friends,
     this.email,
     this.avatar,
     this.learningLanguage,
@@ -55,6 +59,7 @@ class UserModel {
         id: id,
         fullname: fullName,
         role: role,
+        friends: friends,
         email: email,
         avatar: avatar?.toEntity(),
         learningLanguage: learningLanguage?.map((e) => e.toEntity()).toList(),

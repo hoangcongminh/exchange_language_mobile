@@ -1,4 +1,6 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_icon.dart';
@@ -6,14 +8,17 @@ import 'package:exchange_language_mobile/presentation/features/conversation/widg
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common/constants/constants.dart';
-import '../../../../domain/entities/user.dart';
+import '../../../../domain/entities/conversation.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../chat/bloc/chat_bloc.dart';
+import '../../chat/bloc/friend-list/friend_list_bloc.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/conversation_bloc.dart';
 import '../widgets/conversation_input.dart';
@@ -21,10 +26,8 @@ import '../widgets/conversation_list_shimmer.dart';
 import '../widgets/message_audio.dart';
 
 class ConversationScreen extends StatefulWidget {
-  final User user;
   const ConversationScreen({
     Key? key,
-    required this.user,
   }) : super(key: key);
 
   @override
@@ -50,6 +53,160 @@ class _ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
+  void _onTapMoreVert(BuildContext context, Conversation conversation) {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: 150.sp,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.sp),
+                topRight: Radius.circular(20.sp),
+              ),
+              color: Colors.white,
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.sp),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    showCupertinoModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Scaffold(
+                          appBar: AppBar(
+                            backgroundColor: Colors.white,
+                            elevation: 0,
+                            automaticallyImplyLeading: false,
+                            leading: IconButton(
+                              onPressed: () {
+                                AppNavigator().pop();
+                              },
+                              icon:
+                                  const Icon(Icons.close, color: Colors.black),
+                            ),
+                            title: Text(
+                              context.l10n.addMember,
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          body: BlocBuilder<FriendListBloc, FriendListState>(
+                            builder: (context, state) {
+                              if (state is FriendListLoaded) {
+                                return ListView.builder(
+                                  itemCount: state.friends.length,
+                                  itemBuilder: (context, index) {
+                                    final friend = state.friends[index];
+                                    return Column(
+                                      children: [
+                                        ListTile(
+                                          leading: AvatarWidget(
+                                              shape: BoxShape.circle,
+                                              height: 35.sp,
+                                              width: 35.sp,
+                                              imageUrl:
+                                                  '${AppConstants.baseImageUrl}${friend.avatar!.src}'),
+                                          title: Text(
+                                            friend.fullname,
+                                          ),
+                                          trailing: conversation.members
+                                                  .map((e) => e.id)
+                                                  .contains(friend.id)
+                                              ? const Icon(Icons.check)
+                                              : IconButton(
+                                                  onPressed: () {
+                                                    AppBloc.conversationBloc
+                                                        .add(InviteUser(
+                                                      conversationId:
+                                                          conversation.id,
+                                                      userId: friend.id,
+                                                    ));
+                                                    AppBloc.conversationBloc
+                                                        .add(FetchMessage(
+                                                            conversationId:
+                                                                conversation
+                                                                    .id));
+                                                    AppNavigator().pop();
+                                                  },
+                                                  icon: const Icon(Icons.add)),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 50.sp),
+                                          child: Divider(thickness: 1.sp),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.person_add),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          context.l10n.invite,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    AppBloc.conversationBloc.add(
+                        LeaveConversation(conversationId: conversation.id));
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.close),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          context.l10n.leaveGroup,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: const Color(0xFFC5D0CF),
+                  thickness: 0.3.sp,
+                  height: 0.3.sp,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   String audioFile = '';
 
   @override
@@ -63,9 +220,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
             });
           }
         }
+        if (state is ConversationLeaveSuccess) {
+          AppBloc.chatBloc.add(FetchConversations());
+          AppNavigator().pushNamedAndRemoveUntil(RouteConstants.home);
+        }
       },
       builder: (context, state) {
         if (state is ConversationLoaded) {
+          final user = state.conversation.members.firstWhere(
+            (user) => user.id != UserLocal().getUser()!.id,
+          );
           return Scaffold(
             extendBodyBehindAppBar: true,
             resizeToAvoidBottomInset: true,
@@ -77,31 +241,35 @@ class _ConversationScreenState extends State<ConversationScreen> {
               centerTitle: false,
               titleSpacing: 0,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert),
-                )
+                if (state.conversation.members.length > 2)
+                  IconButton(
+                    onPressed: () =>
+                        _onTapMoreVert(context, state.conversation),
+                    icon: const Icon(Icons.more_vert),
+                  )
               ],
               title: GestureDetector(
-                onTap: () {
-                  AppBloc.userProfileBloc.add(
-                    GetUserProfileEvent(userId: widget.user.id),
-                  );
-                  AppNavigator().push(RouteConstants.userProfile);
-                },
+                onTap: state.conversation.members.length > 2
+                    ? () {}
+                    : () {
+                        AppBloc.userProfileBloc.add(
+                          GetUserProfileEvent(userId: user.id),
+                        );
+                        AppNavigator().push(RouteConstants.userProfile);
+                      },
                 child: Row(
                   children: [
                     AvatarWidget(
                       width: 40,
                       height: 40,
-                      imageUrl: widget.user.avatar == null
-                          ? null
-                          : '${AppConstants.baseImageUrl}${widget.user.avatar!.src}',
+                      imageUrl: state.conversation.members.length > 2
+                          ? '${AppConstants.baseImageUrl}${state.conversation.avatar?.src}'
+                          : '${AppConstants.baseImageUrl}${user.avatar!.src}',
                     ),
                     const SizedBox(width: 8),
                     Text(
                       state.conversation.conversationName == null
-                          ? widget.user.fullname
+                          ? user.fullname
                           : state.conversation.conversationName!,
                     ),
                   ],

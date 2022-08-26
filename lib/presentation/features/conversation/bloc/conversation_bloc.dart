@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -24,6 +25,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<SendIconMessage>(_sendIconMessage);
     on<RefreshMessage>(_refreshMessage);
     on<CreateOrGetMessage>(_createOrGetMessage);
+    on<InviteUser>(_inviteUser);
+    on<LeaveConversation>(_leaveConversation);
   }
 
   _fetchMessages(FetchMessage event, Emitter emit) async {
@@ -186,6 +189,23 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
             conversation: dataMessage.conversationInfo));
       });
     });
+  }
+
+  Future<void> _leaveConversation(
+      LeaveConversation event, Emitter<ConversationState> emit) async {
+    await chatRepository
+        .leaveGroupChat(conversationId: event.conversationId)
+        .then(
+      (result) {
+        emit(ConversationLeaveSuccess());
+      },
+    );
+  }
+
+  Future<void> _inviteUser(
+      InviteUser event, Emitter<ConversationState> emit) async {
+    await chatRepository.inviteMemberToGroupChat(
+        conversationId: event.conversationId, userId: event.userId);
   }
 
   List<Message> messages = [];

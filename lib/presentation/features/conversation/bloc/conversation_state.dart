@@ -26,3 +26,7 @@ class ConversationLoaded extends ConversationState {
 class ConversationLoading extends ConversationState {}
 
 class ConversationFailure extends ConversationState {}
+
+class ConversationAddMemberSuccess extends ConversationState {}
+
+class ConversationLeaveSuccess extends ConversationState {}

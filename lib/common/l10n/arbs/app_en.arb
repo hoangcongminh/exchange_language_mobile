@@ -421,6 +421,23 @@
     "verificationTitle2": "Didn’t receive the code?",
     "@verificationTitle2": {
       "description": "verificationTitle2"
+    },
+
+    "createGroupChat": "Create Group Chat",
+    "@createGroupChat": {
+      "description": "createGroupChat"
+    },
+    "groupChatName": "Group chat name",
+    "@groupChatName": {
+      "description": "groupChatName"
+    },
+    "invite": "Invite",
+    "@invite": {
+      "description": "invite"
+    },
+    "addMember": "Add member",
+    "@addMember": {
+      "description": "addMember"
     }
 }
 

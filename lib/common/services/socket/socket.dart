@@ -58,9 +58,7 @@ void connectAndListen() {
             onTap: () {
               AppBloc.conversationBloc
                   .add(RefreshMessage(conversationId: message.conversationId));
-              AppNavigator().push(RouteConstants.conversation, arguments: {
-                'user': message.author,
-              });
+              AppNavigator().push(RouteConstants.conversation);
             },
             child: Container(
               color: Colors.transparent,

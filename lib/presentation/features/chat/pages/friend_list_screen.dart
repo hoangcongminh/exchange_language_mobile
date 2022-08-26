@@ -84,10 +84,7 @@ class FriendListScreen extends StatelessWidget {
                           onPressed: () {
                             AppBloc.conversationBloc
                                 .add(CreateOrGetMessage(userId: friend.id));
-                            AppNavigator()
-                                .push(RouteConstants.conversation, arguments: {
-                              'user': friend,
-                            });
+                            AppNavigator().push(RouteConstants.conversation);
                           },
                           icon: Icon(
                             Icons.chat_outlined,

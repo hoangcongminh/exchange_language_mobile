@@ -117,5 +117,10 @@
 
      "resendCode": "Gửi lại mã",
      "verificationTitle1": "Nhập mã gồm 6 chữ số mà chúng tôi đã gửi đến",
-     "verificationTitle2": "Bạn không nhận được mã?"
+     "verificationTitle2": "Bạn không nhận được mã?",
+
+     "createGroupChat": "Tạo nhóm chat",
+     "groupChatName": "Tên nhóm chat",
+     "invite": "Mời",
+     "addMember": "Thêm thành viên"
 }

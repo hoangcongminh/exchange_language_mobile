@@ -14,6 +14,7 @@ import '../../../../common/constants/constants.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/blog_style.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/pick_image_widget.dart';
 import '../../chat/bloc/chat_bloc.dart';
 
@@ -35,7 +36,7 @@ class _CreateChatGroupScreenState extends State<CreateChatGroupScreen> {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Group Chat'),
+        title: Text(l10n.createGroupChat),
         actions: [
           IconButton(
             onPressed: () {
@@ -54,7 +55,15 @@ class _CreateChatGroupScreenState extends State<CreateChatGroupScreen> {
       ),
       body: BlocConsumer<CreateChatGroupBloc, CreateChatGroupState>(
         listener: (context, state) {
-          if (state is CreateChatGroupSuccess) {
+          if (state is CreateChatGroupFailure) {
+            showDialog(
+              context: context,
+              builder: (context) => ErrorDialog(
+                errorTitle: l10n.createBlogError,
+                errorMessage: state.message,
+              ),
+            );
+          } else if (state is CreateChatGroupSuccess) {
             AppBloc.chatBloc.add(FetchConversations());
             AppNavigator().pop();
           }
@@ -89,7 +98,7 @@ class _CreateChatGroupScreenState extends State<CreateChatGroupScreen> {
                             controller: _nameController,
                             style: createBlogTitle,
                             decoration: InputDecoration(
-                              hintText: 'Group Name',
+                              hintText: l10n.groupChatName,
                               hintStyle: createBlogTitleHint,
                             ),
                             validator: (value) {

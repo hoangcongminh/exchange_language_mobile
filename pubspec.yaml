@@ -46,6 +46,7 @@ dependencies:
   audio_waveforms: ^0.1.4
   flutter_rating_bar: ^4.0.1
   overlay_support: ^2.0.1
+  modal_bottom_sheet: ^2.1.0
 
 dev_dependencies:
   build_runner: ^2.1.8

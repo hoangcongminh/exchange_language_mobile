@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/data/models/media_model.dart';
 import 'package:exchange_language_mobile/data/models/message_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,6 +17,8 @@ class ConversationModel {
   final List<UserModel> members;
   @JsonKey(name: 'modifiedAt')
   final DateTime modifiedAt;
+  @JsonKey(name: 'avatar')
+  final MediaModel? avatar;
   @JsonKey(name: 'lastMessage')
   final MessageItemModel? lastMessage;
 
@@ -24,6 +27,7 @@ class ConversationModel {
     this.conversationName,
     this.members,
     this.modifiedAt,
+    this.avatar,
     this.lastMessage,
   );
 
@@ -37,6 +41,7 @@ class ConversationModel {
         conversationName: conversationName,
         members: members.map((e) => e.toEntity()).toList(),
         modifiedAt: modifiedAt,
+        avatar: avatar?.toEntity(),
         lastMessage: lastMessage?.toEntity(),
       );
 }

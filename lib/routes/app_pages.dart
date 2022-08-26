@@ -131,9 +131,7 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
       case RouteConstants.conversation:
         return _buildRoute(
           settings,
-          ConversationScreen(
-            user: arguments?['user'],
-          ),
+          const ConversationScreen(),
         );
       case RouteConstants.createChatGroup:
         return _buildRoute(

@@ -14,6 +14,7 @@ import '../../../theme/blog_style.dart';
 import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/pick_image_widget.dart';
+import '../../blog/bloc/blog_bloc.dart';
 import '../../create-blog/bloc/create_blog_bloc.dart';
 
 class CreateBlogScreen extends StatefulWidget {
@@ -50,25 +51,26 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
             ),
           );
         } else if (state is CreateBlogSuccess) {
+          AppBloc.blogBloc.add(RefreshBlogsEvent());
           AppNavigator().pop();
           toast(l10n.blogCreated);
         }
       },
       builder: (context, state) {
-        return Stack(
-          fit: StackFit.expand,
-          children: [
-            Scaffold(
-              appBar: AppBar(
-                title: Text(l10n.createBlog),
-                actions: [
-                  IconButton(
-                    onPressed: _onCreateBlog,
-                    icon: const Icon(Icons.check),
-                  ),
-                ],
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(l10n.createBlog),
+            actions: [
+              IconButton(
+                onPressed: _onCreateBlog,
+                icon: const Icon(Icons.check),
               ),
-              body: RawKeyboardListener(
+            ],
+          ),
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              RawKeyboardListener(
                 focusNode: FocusNode(),
                 child: SafeArea(
                   child: Padding(
@@ -147,14 +149,14 @@ class _CreateBlogScreenState extends State<CreateBlogScreen> {
                   ),
                 ),
               ),
-            ),
-            if (state is CreateBlogLoading)
-              const Opacity(
-                opacity: 0.8,
-                child: ModalBarrier(dismissible: false, color: Colors.black),
-              ),
-            if (state is CreateBlogLoading) const LoadingWidget()
-          ],
+              if (state is CreateBlogLoading)
+                const Opacity(
+                  opacity: 0.8,
+                  child: ModalBarrier(dismissible: false, color: Colors.black),
+                ),
+              if (state is CreateBlogLoading) const LoadingWidget()
+            ],
+          ),
         );
       },
     );

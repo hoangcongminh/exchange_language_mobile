@@ -27,6 +27,7 @@ class _ChatItemState extends State<ChatItem> {
             .where((element) => element.id != UserLocal().getUser()!.id)
             .first
         : widget.conversation.members.first;
+    final isChatGroup = widget.conversation.members.length > 2;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sp),
@@ -39,9 +40,9 @@ class _ChatItemState extends State<ChatItem> {
               child: Row(
                 children: [
                   AvatarWidget(
-                    imageUrl: user.avatar == null
-                        ? null
-                        : '${AppConstants.baseImageUrl}${user.avatar!.src}',
+                    imageUrl: isChatGroup
+                        ? '${AppConstants.baseImageUrl}${widget.conversation.avatar?.src}'
+                        : '${AppConstants.baseImageUrl}${user.avatar?.src}',
                     width: 40.sp,
                     height: 40.sp,
                   ),

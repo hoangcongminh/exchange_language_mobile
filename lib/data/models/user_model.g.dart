@@ -10,6 +10,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       json['_id'] as String,
       json['fullname'] as String,
       json['role'] as int?,
+      (json['friends'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['email'] as String?,
       json['avatar'] == null
           ? null
@@ -31,6 +32,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) {
     '_id': instance.id,
     'fullname': instance.fullName,
     'role': instance.role,
+    'friends': instance.friends,
   };
 
   void writeNotNull(String key, dynamic value) {

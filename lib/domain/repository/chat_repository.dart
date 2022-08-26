@@ -22,4 +22,13 @@ abstract class ChatRepository {
   Future<Either<Failure, DataMessage>> createOrGetMessageByUserId({
     required String userId,
   });
+
+  Future<Either<Failure, void>> inviteMemberToGroupChat({
+    required String conversationId,
+    required String userId,
+  });
+
+  Future<Either<Failure, void>> leaveGroupChat({
+    required String conversationId,
+  });
 }

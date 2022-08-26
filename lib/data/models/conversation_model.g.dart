@@ -14,6 +14,9 @@ ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) =>
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       DateTime.parse(json['modifiedAt'] as String),
+      json['avatar'] == null
+          ? null
+          : MediaModel.fromJson(json['avatar'] as Map<String, dynamic>),
       json['lastMessage'] == null
           ? null
           : MessageItemModel.fromJson(
@@ -34,6 +37,7 @@ Map<String, dynamic> _$ConversationModelToJson(ConversationModel instance) {
   writeNotNull('name', instance.conversationName);
   val['members'] = instance.members;
   val['modifiedAt'] = instance.modifiedAt.toIso8601String();
+  val['avatar'] = instance.avatar;
   val['lastMessage'] = instance.lastMessage;
   return val;
 }

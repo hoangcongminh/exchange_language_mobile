@@ -33,4 +33,14 @@ abstract class ChatRestCient {
   Future<ApiResponseModel<MessageModel>> createOrGetMessageByUserId({
     @Path('userId') required String userId,
   });
+
+  @POST('/conversation/invite')
+  Future<ApiResponseModel> inviteMemberToGroupChat(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST('/conversation/leave')
+  Future<ApiResponseModel> leaveGroupChat(
+    @Body() Map<String, dynamic> body,
+  );
 }

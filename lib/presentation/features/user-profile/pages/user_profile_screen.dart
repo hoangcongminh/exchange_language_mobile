@@ -217,11 +217,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                         AppBloc.conversationBloc.add(
                                             CreateOrGetMessage(
                                                 userId: state.user.id));
-                                        AppNavigator().push(
-                                            RouteConstants.conversation,
-                                            arguments: {
-                                              'user': state.user,
-                                            });
+                                        AppNavigator()
+                                            .push(RouteConstants.conversation);
                                       },
                                     )
                                   ],

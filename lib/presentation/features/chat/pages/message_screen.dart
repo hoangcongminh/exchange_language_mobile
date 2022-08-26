@@ -54,13 +54,7 @@ class MessageScreen extends StatelessWidget {
                     onTap: () {
                       AppBloc.conversationBloc.add(RefreshMessage(
                           conversationId: state.conversations[index].id));
-                      AppNavigator()
-                          .push(RouteConstants.conversation, arguments: {
-                        'user': state.conversations[index].members
-                            .where((element) =>
-                                element.id != UserLocal().getUser()!.id)
-                            .first,
-                      });
+                      AppNavigator().push(RouteConstants.conversation);
                     },
                     child: ChatItem(conversation: state.conversations[index]),
                   );

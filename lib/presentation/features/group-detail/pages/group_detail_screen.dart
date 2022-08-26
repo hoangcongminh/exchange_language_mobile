@@ -81,7 +81,7 @@ class _GroupDetailState extends State<GroupDetail> {
                     padding: EdgeInsets.symmetric(vertical: 10.sp),
                     child: Row(
                       children: [
-                        const Icon(Icons.exit_to_app_outlined),
+                        const Icon(Icons.close),
                         SizedBox(width: 12.sp),
                         Text(
                           context.l10n.leaveGroup,

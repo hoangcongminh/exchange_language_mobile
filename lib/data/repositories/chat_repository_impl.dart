@@ -87,4 +87,39 @@ class ChatRepositoryImpl implements ChatRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> inviteMemberToGroupChat(
+      {required String conversationId, required String userId}) async {
+    try {
+      final response = await _chatRestClient.inviteMemberToGroupChat({
+        'IDConversation': conversationId,
+        'IDInvite': userId,
+      });
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> leaveGroupChat(
+      {required String conversationId}) async {
+    try {
+      final response = await _chatRestClient.leaveGroupChat({
+        'IDConversation': conversationId,
+      });
+      if (response.error == false) {
+        return const Right(null);
+      } else {
+        return Left(ServerFailure(response.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
