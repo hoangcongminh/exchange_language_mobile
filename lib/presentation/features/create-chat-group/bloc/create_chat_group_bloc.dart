@@ -23,7 +23,7 @@ class CreateChatGroupBloc
       CreateGroupChat event, Emitter<CreateChatGroupState> emit) async {
     emit(CreateChatGroupLoading());
     if (event.avatar == null) {
-      emit(CreateChatGroupFailure(message: 'Invalid image'));
+      emit(const CreateChatGroupFailure(message: 'Invalid image'));
     } else {
       await _mediaRepository.uploadImage(event.avatar!).then((result) async {
         await result.fold((failure) {
