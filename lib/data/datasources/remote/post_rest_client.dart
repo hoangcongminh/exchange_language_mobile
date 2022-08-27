@@ -17,6 +17,11 @@ abstract class PostRestClient {
     @Query("limit") int? limit,
   });
 
+  @GET('/groups/post-details/{idPost}')
+  Future<ApiResponseModel<PostModel>> getDetailPost({
+    @Path('idPost') required String postId,
+  });
+
   @POST('/groups/posts/{groupId}')
   Future<ApiResponseModel> createPost(
     @Body() Map<String, dynamic> body, {

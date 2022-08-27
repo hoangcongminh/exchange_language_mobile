@@ -36,6 +36,7 @@ class PostItem extends StatelessWidget {
         isPostDetail
             ? const SizedBox.shrink()
             : PostHeader(
+                isPostDetail: false,
                 authorName: post.author.fullname,
                 createdAt: post.createdAt,
                 authorAvatar: post.author.avatar?.src,
@@ -90,12 +91,15 @@ class PostHeader extends StatelessWidget {
   final String createdAt;
   final String? authorAvatar;
   final VoidCallback onTap;
+  final bool isPostDetail;
+
   const PostHeader({
     Key? key,
     required this.authorName,
     required this.createdAt,
     required this.authorAvatar,
     required this.onTap,
+    required this.isPostDetail,
   }) : super(key: key);
 
   @override
@@ -117,11 +121,15 @@ class PostHeader extends StatelessWidget {
             children: [
               Text(
                 authorName,
-                style: postAuthorInfo,
+                style: isPostDetail
+                    ? postAuthorInfo.copyWith(color: Colors.white)
+                    : postAuthorInfo,
               ),
               Text(
                 createdAt.formatTime,
-                style: postTime,
+                style: isPostDetail
+                    ? postTime.copyWith(color: Colors.white)
+                    : postTime,
               ),
             ],
           )

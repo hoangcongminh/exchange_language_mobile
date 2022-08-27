@@ -67,7 +67,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, Conversation>> createConversation({
+  Future<Either<Failure, void>> createConversation({
     String? thumbnailId,
     required String groupChatName,
     required List<String> memberIds,
@@ -79,7 +79,7 @@ class ChatRepositoryImpl implements ChatRepository {
         'avatar': thumbnailId,
       });
       if (response.error == false) {
-        return Right(response.data!.toEntity());
+        return const Right(null);
       } else {
         return Left(ServerFailure(response.message));
       }

@@ -50,6 +50,7 @@ class _CommentScreenState extends State<CommentScreen> {
         appBar: AppBar(
           titleSpacing: 0,
           title: PostHeader(
+            isPostDetail: true,
             authorName: widget.post.author.fullname,
             createdAt: widget.post.createdAt,
             authorAvatar: widget.post.author.avatar?.src,

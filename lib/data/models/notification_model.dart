@@ -69,3 +69,18 @@ class ListNotificationModel {
         total: total,
       );
 }
+
+@JsonSerializable(explicitToJson: true)
+class SocketNotificationModel {
+  @JsonKey(name: 'infoNoti')
+  final NotificationModel infoNoti;
+
+  const SocketNotificationModel(
+    this.infoNoti,
+  );
+
+  factory SocketNotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$SocketNotificationModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SocketNotificationModelToJson(this);
+}

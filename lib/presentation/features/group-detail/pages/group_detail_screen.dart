@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:exchange_language_mobile/presentation/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,7 +117,7 @@ class _GroupDetailState extends State<GroupDetail> {
           AppNavigator().pushNamedAndRemoveUntil(RouteConstants.home);
           toast(context.l10n.leaveGroupSuccess);
         } else if (state is GroupDetailJoinSuccess) {
-          AppBloc.groupDetailBloc.add(FetchGroupDetail(slug: state.slug));
+          AppBloc.groupDetailBloc.add(FetchGroupDetail(groupId: state.groupId));
           toast(context.l10n.joinGroupSuccess);
         }
       },
@@ -200,33 +201,59 @@ class _GroupDetailState extends State<GroupDetail> {
                                   group.description,
                                   style: groupInfoDescription,
                                 ),
+                                SizedBox(height: 6.sp),
+                                Row(
+                                  children: [
+                                    Text(
+                                      l10n.aGroupBy,
+                                      style: groupInfoDescription,
+                                    ),
+                                    SizedBox(width: 2.sp),
+                                    GestureDetector(
+                                      onTap: () {
+                                        AppBloc.userProfileBloc.add(
+                                            GetUserProfileEvent(
+                                                userId: group.author.id));
+                                        AppNavigator()
+                                            .push(RouteConstants.userProfile);
+                                      },
+                                      child: Text(
+                                        group.author.fullname,
+                                        style: groupInfoDescription.copyWith(
+                                            color: AppColors.primaryColor),
+                                      ),
+                                    )
+                                  ],
+                                )
                               ],
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Center(
-                            child: isContainUser
-                                ? AppButtonWidget(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.sp),
+                          if (group.author.id != UserLocal().getUser()!.id)
+                            Center(
+                              child: isContainUser
+                                  ? AppButtonWidget(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.sp),
+                                      ),
+                                      onPressed: () => _onTapJoined(context,
+                                          id: group.id, slug: group.slug),
+                                      label: Text(l10n.joined),
+                                    )
+                                  : AppButtonWidget(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.sp),
+                                      ),
+                                      onPressed: () =>
+                                          AppBloc.groupDetailBloc.add(
+                                        JoinGroup(
+                                            id: group.id, groupId: group.id),
+                                      ),
+                                      label: Text(l10n.join),
                                     ),
-                                    onPressed: () => _onTapJoined(context,
-                                        id: group.id, slug: group.slug),
-                                    label: Text(l10n.joined),
-                                  )
-                                : AppButtonWidget(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.sp),
-                                    ),
-                                    onPressed: () =>
-                                        AppBloc.groupDetailBloc.add(
-                                      JoinGroup(id: group.id, slug: group.slug),
-                                    ),
-                                    label: Text(l10n.join),
-                                  ),
-                          ),
+                            ),
                           const SizedBox(height: 8),
                         ],
                       ),
@@ -314,10 +341,12 @@ class _GroupDetailState extends State<GroupDetail> {
                       } else if (state is PostLoading) {
                         return const SliverToBoxAdapter(child: LoadingWidget());
                       } else {
-                        return ErrorScreen(
-                            onTapRefresh: () => AppBloc.postBloc.add(
-                                RefreshPostEvent(
-                                    groupId: groupState.group.id)));
+                        return SliverToBoxAdapter(
+                          child: ErrorScreen(
+                              onTapRefresh: () => AppBloc.postBloc.add(
+                                  RefreshPostEvent(
+                                      groupId: groupState.group.id))),
+                        );
                       }
                     },
                   ),

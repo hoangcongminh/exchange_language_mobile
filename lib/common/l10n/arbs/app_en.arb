@@ -261,7 +261,7 @@
     "@requestSent": {
       "description": "requestSent"
     },
-    "unFriend": "Un friend",
+    "unFriend": "Unfriend",
     "@unFriend": {
       "description": "unFriend"
     },
@@ -438,6 +438,38 @@
     "addMember": "Add member",
     "@addMember": {
       "description": "addMember"
-    }
+    },
+    "sentYouAFriendRequest": "sent you a friend request",
+    "@sentYouAFriendRequest": {
+      "description": "sentYouAFriendRequest"
+    },
+    "acceptedYourFriendRequest": "accepted your friend request",
+    "@acceptedYourFriendRequest": {
+      "description": "acceptedYourFriendRequest"
+    },
+    "likedYourPost": "liked your post",
+    "@likedYourPost": {
+      "description": "likedYourPost"
+    },
+    "commentedOnYourPost": "commented on your post",
+    "@commentedOnYourPost": {
+      "description": "commentedOnYourPost"
+    },
+    "hasJoined": "has joined",
+    "@hasJoined": {
+      "description": "hasJoined"
+    },
+    "ratedYou": "rated you",
+    "@ratedYou": {
+      "description": "ratedYou"
+    },
+    "aGroupBy": "A group by",
+    "@aGroupBy": {
+      "description": "aGroupBy"
+    },
+    "invalidImage": "Invalid image",
+    "@invalidImage": {
+      "description": "invalidImage"
+    },
 }
 

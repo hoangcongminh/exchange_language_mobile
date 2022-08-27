@@ -19,12 +19,47 @@ class NotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? avatar;
+    String? title;
+    String? subTitle;
     // return ListTile(
     //   tileColor: isSeen ? colorBackgroundNotificationSeen : null,
     //   leading: AvatarWidget(height: 40.sp, width: 40.sp),
     //   title: const Text('Notification'),
     //   subtitle: const Text('Notification'),
     // );
+    switch (notification.type) {
+      case 1:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.sentYouAFriendRequest}';
+        break;
+      case 2:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.acceptedYourFriendRequest}';
+        break;
+      case 3:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.likedYourPost}';
+        break;
+      case 4:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender?.fullname} ${context.l10n.commentedOnYourPost}';
+        break;
+      case 5:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.hasJoined} ${notification.dataTarget}';
+        break;
+      case 6:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.ratedYou} ${notification.dataTarget}';
+        break;
+    }
     return Slidable(
       // Specify a key if the Slidable is dismissible.
       key: const ValueKey(0),
@@ -52,12 +87,11 @@ class NotificationItem extends StatelessWidget {
         leading: AvatarWidget(
           height: 40.sp,
           width: 40.sp,
-          imageUrl: notification.userSender?.avatar == null
-              ? null
-              : '${AppConstants.baseImageUrl}${notification.userSender?.avatar!.src}',
+          imageUrl:
+              avatar == null ? null : '${AppConstants.baseImageUrl}$avatar',
         ),
-        title: Text(notification.userSender?.fullname ?? ''),
-        subtitle: Text(notification.dataTarget ?? ''),
+        title: Text(title ?? ''),
+        subtitle: Text(subTitle ?? ''),
       ),
     );
   }

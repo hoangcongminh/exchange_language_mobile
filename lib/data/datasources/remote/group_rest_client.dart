@@ -16,9 +16,9 @@ abstract class GroupRestClient {
     @Query("limit") int? limit,
   });
 
-  @GET('/groups/{slug}')
+  @GET('/groups/by-id/{groupId}')
   Future<ApiResponseModel<GroupModel>> fetchGroupDetail({
-    @Path('slug') required String slug,
+    @Path('groupId') required String groupId,
   });
 
   @POST('/groups')

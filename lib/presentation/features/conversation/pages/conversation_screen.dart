@@ -1,6 +1,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
 import 'package:exchange_language_mobile/data/datasources/local/user_local_data.dart';
+import 'package:exchange_language_mobile/domain/entities/user.dart';
 import 'package:exchange_language_mobile/presentation/common/app_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_bubble.dart';
 import 'package:exchange_language_mobile/presentation/features/conversation/widgets/message_icon.dart';
@@ -227,9 +228,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
       },
       builder: (context, state) {
         if (state is ConversationLoaded) {
-          final user = state.conversation.members.firstWhere(
-            (user) => user.id != UserLocal().getUser()!.id,
-          );
+          User user;
+          if (state.conversation.members.length < 2) {
+            user = UserLocal().getUser()!;
+          } else {
+            user = state.conversation.members.firstWhere(
+              (user) => user.id != UserLocal().getUser()!.id,
+            );
+          }
+
           return Scaffold(
             extendBodyBehindAppBar: true,
             resizeToAvoidBottomInset: true,

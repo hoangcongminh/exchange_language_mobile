@@ -252,13 +252,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     thickness: 2,
                                   ),
                                   UserInfoItem(
-                                    title: l10n.learning,
-                                    value: state.user.learningLanguage ==
-                                                null ||
-                                            state.user.learningLanguage!.isEmpty
-                                        ? ''
-                                        : state
-                                            .user.learningLanguage!.first.name,
+                                    title: state.user.role == 1
+                                        ? l10n.teaching
+                                        : l10n.learning,
+                                    value: state.user.role == 1
+                                        ? state.user.teacher?.teachingLanguage
+                                                ?.first.name ??
+                                            ''
+                                        : state.user.learningLanguage == null ||
+                                                state.user.learningLanguage!
+                                                    .isEmpty
+                                            ? ''
+                                            : state.user.learningLanguage!.first
+                                                .name,
                                   ),
                                 ],
                               ),

@@ -12,12 +12,7 @@ class CreateChatGroupInitial extends CreateChatGroupState {}
 class CreateChatGroupLoading extends CreateChatGroupState {}
 
 class CreateChatGroupSuccess extends CreateChatGroupState {
-  final Conversation conversation;
-
-  const CreateChatGroupSuccess({required this.conversation});
-
-  @override
-  List<Object> get props => [conversation];
+  const CreateChatGroupSuccess();
 }
 
 class CreateChatGroupFailure extends CreateChatGroupState {

@@ -74,7 +74,7 @@ class _GroupScreenState extends State<GroupScreen> {
                           return GestureDetector(
                             onTap: () {
                               AppBloc.groupDetailBloc
-                                  .add(FetchGroupDetail(slug: group.slug));
+                                  .add(FetchGroupDetail(groupId: group.id));
                               AppBloc.postBloc
                                   .add(RefreshPostEvent(groupId: group.id));
                               AppNavigator().push(RouteConstants.groupDetail);

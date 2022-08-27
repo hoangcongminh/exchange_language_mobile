@@ -86,4 +86,19 @@ class PostRepositoryImpl implements PostRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Post>> getPostDetail({required String postId}) async {
+    try {
+      final response = await _postRestClient.getDetailPost(postId: postId);
+      if (response.error == false) {
+        return Right(response.data!.toEntity());
+      } else {
+        String message = response.message;
+        return Left(ServerFailure(message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

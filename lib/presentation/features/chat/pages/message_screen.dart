@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../common/constants/constants.dart';
-import '../../../../data/datasources/local/user_local_data.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../conversation/bloc/conversation_bloc.dart';

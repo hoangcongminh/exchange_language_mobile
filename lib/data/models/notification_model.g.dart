@@ -47,3 +47,15 @@ Map<String, dynamic> _$ListNotificationModelToJson(
       'data': instance.data.map((e) => e.toJson()).toList(),
       'total': instance.total,
     };
+
+SocketNotificationModel _$SocketNotificationModelFromJson(
+        Map<String, dynamic> json) =>
+    SocketNotificationModel(
+      NotificationModel.fromJson(json['infoNoti'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SocketNotificationModelToJson(
+        SocketNotificationModel instance) =>
+    <String, dynamic>{
+      'infoNoti': instance.infoNoti.toJson(),
+    };

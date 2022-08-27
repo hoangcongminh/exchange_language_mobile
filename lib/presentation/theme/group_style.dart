@@ -38,6 +38,12 @@ TextStyle groupInfoDescription = const TextStyle(
   color: Colors.black,
 );
 
+TextStyle groupInfoAuthor = const TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.normal,
+  color: Colors.grey,
+);
+
 TextStyle postAuthorInfo = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w600,

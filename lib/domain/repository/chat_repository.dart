@@ -5,7 +5,7 @@ import '../entities/conversation.dart';
 import '../entities/message.dart';
 
 abstract class ChatRepository {
-  Future<Either<Failure, Conversation>> createConversation({
+  Future<Either<Failure, void>> createConversation({
     String? thumbnailId,
     required String groupChatName,
     required List<String> memberIds,

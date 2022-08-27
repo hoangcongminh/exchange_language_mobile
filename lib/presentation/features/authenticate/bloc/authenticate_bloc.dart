@@ -32,7 +32,7 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
   _register(RegisterEvent event, Emitter emit) async {
     emit(Authenticating());
     if (event.avatar == null) {
-      emit(const AuthenticationFail(error: 'Invalid avatar'));
+      emit(AuthenticationFail(error: 'Invalid image'));
     } else {
       Either<Failure, Media> imageResult =
           await _mediaRepository.uploadImage(event.avatar!);

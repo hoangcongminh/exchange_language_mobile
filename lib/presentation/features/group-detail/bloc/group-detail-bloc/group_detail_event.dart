@@ -8,23 +8,23 @@ abstract class GroupDetailEvent extends Equatable {
 }
 
 class FetchGroupDetail extends GroupDetailEvent {
-  final String slug;
-  const FetchGroupDetail({required this.slug});
+  final String groupId;
+  const FetchGroupDetail({required this.groupId});
 
   @override
-  List<Object> get props => [slug];
+  List<Object> get props => [groupId];
 }
 
 class JoinGroup extends GroupDetailEvent {
   final String id;
-  final String slug;
+  final String groupId;
   const JoinGroup({
     required this.id,
-    required this.slug,
+    required this.groupId,
   });
 
   @override
-  List<Object> get props => [id, slug];
+  List<Object> get props => [id, groupId];
 }
 
 class LeaveGroup extends GroupDetailEvent {

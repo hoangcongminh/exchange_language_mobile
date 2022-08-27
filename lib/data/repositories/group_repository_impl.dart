@@ -27,9 +27,10 @@ class GroupRepositoryImpl implements GroupRepository {
 
   @override
   Future<Either<Failure, Group>> fetchGroupDetail(
-      {required String slug}) async {
+      {required String groupId}) async {
     try {
-      final response = await _groupRestClient.fetchGroupDetail(slug: slug);
+      final response =
+          await _groupRestClient.fetchGroupDetail(groupId: groupId);
       if (response.error == false) {
         return Right(response.data!.toEntity());
       } else {

@@ -28,12 +28,12 @@ class GroupDetailFailure extends GroupDetailState {
 }
 
 class GroupDetailJoinSuccess extends GroupDetailState {
-  final String slug;
+  final String groupId;
 
-  const GroupDetailJoinSuccess(this.slug);
+  const GroupDetailJoinSuccess(this.groupId);
 
   @override
-  List<Object> get props => [slug];
+  List<Object> get props => [groupId];
 }
 
 class GroupDetailLeaveSuccess extends GroupDetailState {}

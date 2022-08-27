@@ -23,7 +23,7 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
       FetchGroupDetail event, Emitter<GroupDetailState> emit) async {
     emit(GroupDetailLoading());
     Either<Failure, Group> result =
-        await _groupRepository.fetchGroupDetail(slug: event.slug);
+        await _groupRepository.fetchGroupDetail(groupId: event.groupId);
     result.fold(
       (failure) {
         emit(GroupDetailFailure(message: failure.message));
@@ -44,7 +44,7 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
             emit(GroupDetailFailure(message: failure.message));
           },
           (_) async {
-            emit(GroupDetailJoinSuccess(event.slug));
+            emit(GroupDetailJoinSuccess(event.groupId));
           },
         );
       },

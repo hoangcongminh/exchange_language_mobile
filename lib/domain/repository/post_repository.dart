@@ -9,6 +9,9 @@ abstract class PostRepository {
     int? skip,
     int? limit,
   });
+  Future<Either<Failure, Post>> getPostDetail({
+    required String postId,
+  });
   Future<Either<Failure, void>> createPost({
     required String groupId,
     required String postTitle,

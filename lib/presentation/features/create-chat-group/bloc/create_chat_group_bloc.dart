@@ -6,7 +6,6 @@ import 'package:exchange_language_mobile/data/datasources/local/user_local_data.
 import 'package:exchange_language_mobile/domain/repository/chat_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../domain/entities/conversation.dart';
 import '../../../../domain/repository/media_repository.dart';
 
 part 'create_chat_group_event.dart';
@@ -39,8 +38,8 @@ class CreateChatGroupBloc
               .then((result) {
             result.fold((failure) {
               emit(CreateChatGroupFailure(message: failure.message));
-            }, (conversation) {
-              emit(CreateChatGroupSuccess(conversation: conversation));
+            }, (_) {
+              emit(const CreateChatGroupSuccess());
             });
           });
         });

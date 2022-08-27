@@ -36,7 +36,8 @@ class _GroupRestClient implements GroupRestClient {
   }
 
   @override
-  Future<ApiResponseModel<GroupModel>> fetchGroupDetail({required slug}) async {
+  Future<ApiResponseModel<GroupModel>> fetchGroupDetail(
+      {required groupId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -44,7 +45,7 @@ class _GroupRestClient implements GroupRestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponseModel<GroupModel>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/groups/${slug}',
+                .compose(_dio.options, '/groups/by-id/${groupId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponseModel<GroupModel>.fromJson(

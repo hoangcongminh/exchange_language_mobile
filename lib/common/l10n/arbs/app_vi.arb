@@ -122,5 +122,12 @@
      "createGroupChat": "Tạo nhóm chat",
      "groupChatName": "Tên nhóm chat",
      "invite": "Mời",
-     "addMember": "Thêm thành viên"
+     "addMember": "Thêm thành viên",
+     "sentYouAFriendRequest": "đã gửi cho bạn lời mời kết bạn",
+     "acceptedYourFriendRequest": "đã chấp nhận lời mời kết bạn",
+     "likedYourPost": "đã thích bài đăng của bạn",
+     "commentedOnYourPost": "đã bình luận vào bài đăng của bạn",
+     "hasJoined": "đã tham gia vào",
+     "ratedYou": "đã thêm đánh giá",
+     "aGroupBy": "Group được tạo bởi"
 }

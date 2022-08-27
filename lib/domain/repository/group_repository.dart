@@ -7,7 +7,7 @@ import '../entities/language.dart';
 abstract class GroupRepository {
   Future<Either<Failure, ListGroup>> fetchGroups({int? skip});
 
-  Future<Either<Failure, Group>> fetchGroupDetail({required String slug});
+  Future<Either<Failure, Group>> fetchGroupDetail({required String groupId});
 
   Future<Either<Failure, void>> createGroup({
     required String title,
