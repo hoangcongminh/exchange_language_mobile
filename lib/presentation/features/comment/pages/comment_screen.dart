@@ -75,10 +75,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                 if (state is PostLoaded) {
                                   return PostItem(
                                     isPostDetail: true,
-                                    post: state.posts
-                                        .where((element) =>
-                                            element.id == widget.post.id)
-                                        .first,
+                                    post: widget.post,
                                     isLiked: state.likedPosts
                                         .contains(widget.post.id),
                                     onTapLike: () {

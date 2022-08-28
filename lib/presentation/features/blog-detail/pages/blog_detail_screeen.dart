@@ -102,7 +102,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                           ),
                         );
                       },
-                      icon: const Icon(Icons.more_vert))
+                      icon: const Icon(Icons.edit))
               ],
               title: GestureDetector(
                 onTap: () {

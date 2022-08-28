@@ -470,6 +470,6 @@
     "invalidImage": "Invalid image",
     "@invalidImage": {
       "description": "invalidImage"
-    },
+    }
 }
 
