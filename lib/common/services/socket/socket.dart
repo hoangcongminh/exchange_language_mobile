@@ -194,8 +194,7 @@ void connectAndListen() {
           notify(
             onTap: () {},
             avatar: notification.userSender?.avatar,
-            title:
-                '${notification.userSender!.fullname} rated you ${notification.dataTarget}',
+            title: '${notification.userSender!.fullname} rated you',
           );
           return;
       }

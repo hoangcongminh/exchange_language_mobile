@@ -96,9 +96,13 @@
     "@blog": {
       "description": "blog"
     },
-    "createBlog": "Create Blog",
+    "createBlog": "Create blog",
     "@createBlog": {
       "description": "createBlog"
+    },
+    "editBlog": "Edit blog",
+    "@editBlog": {
+      "description": "editBlog"
     },
     "blogCreated": "Blog created",
     "@blogCreated": {
@@ -470,6 +474,7 @@
     "invalidImage": "Invalid image",
     "@invalidImage": {
       "description": "invalidImage"
-    }
+    },
+    "editBlog": "Chỉnh sửa bài viết"
 }
 

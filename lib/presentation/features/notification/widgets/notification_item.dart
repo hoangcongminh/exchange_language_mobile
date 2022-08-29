@@ -56,8 +56,7 @@ class NotificationItem extends StatelessWidget {
         break;
       case 6:
         avatar = notification.userSender?.avatar?.src;
-        title =
-            '${notification.userSender!.fullname} ${context.l10n.ratedYou} ${notification.dataTarget}';
+        title = '${notification.userSender!.fullname} ${context.l10n.ratedYou}';
         break;
     }
     return Slidable(

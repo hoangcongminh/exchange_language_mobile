@@ -121,7 +121,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextfieldWidget(
                             keyboardType: TextInputType.emailAddress,
                             labelText: l10n.name,
-                            hintText: l10n.enterEmail,
                             controller: _nameController,
                           ),
                           space,

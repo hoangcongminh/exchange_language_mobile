@@ -150,7 +150,6 @@ class _UpdateProfileInfoScreenState extends State<UpdateProfileInfoScreen> {
                           TextfieldWidget(
                             keyboardType: TextInputType.emailAddress,
                             labelText: l10n.introduction,
-                            hintText: l10n.enterEmail,
                             controller: _introductionController,
                           ),
                           space,

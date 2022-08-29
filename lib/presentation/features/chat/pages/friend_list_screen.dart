@@ -10,6 +10,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../common/app_bloc.dart';
 import '../../../theme/chat_style.dart';
 import '../../../widgets/avatar_widget.dart';
+import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/friend-list/friend_list_bloc.dart';
 
 class FriendListScreen extends StatelessWidget {
@@ -55,28 +56,35 @@ class FriendListScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Row(
-                            children: [
-                              AvatarWidget(
-                                imageUrl: friend.avatar == null
-                                    ? null
-                                    : '${AppConstants.baseImageUrl}${friend.avatar!.src}',
-                                width: 40.sp,
-                                height: 40.sp,
-                              ),
-                              SizedBox(width: 12.sp),
-                              Expanded(
-                                child: Text(
-                                  friend.fullname,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          child: GestureDetector(
+                            onTap: () {
+                              AppBloc.userProfileBloc
+                                  .add(GetUserProfileEvent(userId: friend.id));
+                              AppNavigator().push(RouteConstants.userProfile);
+                            },
+                            child: Row(
+                              children: [
+                                AvatarWidget(
+                                  imageUrl: friend.avatar == null
+                                      ? null
+                                      : '${AppConstants.baseImageUrl}${friend.avatar!.src}',
+                                  width: 40.sp,
+                                  height: 40.sp,
                                 ),
-                              )
-                            ],
+                                SizedBox(width: 12.sp),
+                                Expanded(
+                                  child: Text(
+                                    friend.fullname,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(width: 10.sp),

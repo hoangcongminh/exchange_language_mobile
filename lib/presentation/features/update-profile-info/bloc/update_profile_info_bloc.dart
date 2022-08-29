@@ -114,6 +114,7 @@ class UpdateProfileInfoBloc
 
   Future<void> _onRegisterTeacher(
       RegisterTeacherEvent event, Emitter<UpdateProfileInfoState> emit) async {
+    emit(UpdateProfileInfoLoading());
     await _userRepository.registerTeacher(teaching: event.teach).then((result) {
       result.fold(
         (failure) {

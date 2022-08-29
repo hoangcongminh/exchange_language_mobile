@@ -130,9 +130,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               ],
                             ),
                             SizedBox(height: 8.sp),
-                            Text(
-                              state.user.introduction ?? '',
-                              style: userIntroduction,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                              child: Text(
+                                state.user.introduction ?? '',
+                                style: userIntroduction,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             SizedBox(height: 8.sp),
 

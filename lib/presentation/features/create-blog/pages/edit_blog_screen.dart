@@ -68,7 +68,7 @@ class _EditBlogScreenState extends State<EditBlogScreen> {
           children: [
             Scaffold(
               appBar: AppBar(
-                title: Text(l10n.createBlog),
+                title: Text(l10n.editBlog),
                 actions: [
                   IconButton(
                     onPressed: _onCreateBlog,

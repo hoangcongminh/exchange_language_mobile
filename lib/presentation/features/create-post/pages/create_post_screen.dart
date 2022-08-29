@@ -80,7 +80,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ),
                 TextFormField(
                   minLines: 10,
-                  maxLines: 10,
+                  maxLines: 40,
                   keyboardType: TextInputType.multiline,
                   controller: _contentController,
                   style: createPostContent,
