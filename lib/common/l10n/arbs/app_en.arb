@@ -475,6 +475,9 @@
     "@invalidImage": {
       "description": "invalidImage"
     },
-    "editBlog": "Chỉnh sửa bài viết"
+    "editBlog": "Edit blog",
+    "@editBlog": {
+      "description": "editBlog"
+    }
 }
 

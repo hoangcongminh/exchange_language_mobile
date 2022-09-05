@@ -130,5 +130,6 @@
      "hasJoined": "đã tham gia vào",
      "ratedYou": "đã thêm đánh giá",
      "aGroupBy": "Group được tạo bởi",
-     "invalidImage": "Ảnh không hợp lệ"
+     "invalidImage": "Ảnh không hợp lệ",
+     "editBlog": "Chỉnh sửa bài viết"
 }
