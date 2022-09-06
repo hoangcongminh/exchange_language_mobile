@@ -10,6 +10,8 @@ class Group extends Equatable {
   final String title;
   final String slug;
   final Media? thumbnail;
+  final bool? isPrivate;
+  final List<String>? request;
   final User author;
   final String description;
 
@@ -20,6 +22,8 @@ class Group extends Equatable {
     required this.title,
     required this.slug,
     required this.thumbnail,
+    this.isPrivate,
+    this.request,
     required this.author,
     required this.description,
   });
@@ -32,6 +36,8 @@ class Group extends Equatable {
         title,
         slug,
         thumbnail,
+        isPrivate,
+        request,
         author,
         description,
       ];

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -40,6 +41,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  bool isPrivate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +109,18 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         selectedLanguages: language,
                         onTap: onTapSelectLanguage,
                       ),
+                      CheckboxListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(l10n.privateGroup),
+                        value: isPrivate,
+                        activeColor: AppColors.primaryColor,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        onChanged: (newValue) {
+                          setState(() {
+                            isPrivate = !isPrivate;
+                          });
+                        },
+                      ),
                       const Spacer(),
                       AppButtonWidget(
                         label: Text(l10n.createGroup),
@@ -116,6 +130,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           title: _titleController.text.trim(),
                           description: _descriptionController.text.trim(),
                           topics: language,
+                          isPrivate: isPrivate,
                         )),
                       ),
                     ],

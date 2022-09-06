@@ -478,6 +478,26 @@
     "editBlog": "Edit blog",
     "@editBlog": {
       "description": "editBlog"
+    },
+    "requestSent": "Request sent",
+    "@requestSent": {
+      "description": "requestSent"
+    },
+    "privateGroup": "Private group",
+    "@privateGroup": {
+      "description": "privateGroup"
+    },
+    "requestJoinGroup": "requested to join your group",
+    "@requestJoinGroup": {
+      "description": "requestJoinGroup"
+    },
+    "requestAcceptGroup": "accepted your join group request",
+    "@requestAcceptGroup": {
+      "description": "requestAcceptGroup"
+    },
+    "joinGroupRequests": "Join group requests",
+    "@joinGroupRequests": {
+      "description": "joinGroupRequests"
     }
 }
 

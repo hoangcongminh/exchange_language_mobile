@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/presentation/features/create-chat-group/pages/create_chat_group_screen.dart';
+import 'package:exchange_language_mobile/presentation/features/group-detail-members/group_detail_members_screen.dart';
 import 'package:exchange_language_mobile/presentation/features/update-profile-info/pages/register_teacher_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -98,6 +99,13 @@ class AppNavigator extends RouteObserver<PageRoute<dynamic>> {
         return _buildRoute(
           settings,
           const GroupDetail(),
+        );
+      case RouteConstants.groupDetailMembers:
+        return _buildRoute(
+          settings,
+          GroupDetailMembers(
+            groupId: arguments?['groupId'],
+          ),
         );
       case RouteConstants.comment:
         return _buildRoute(

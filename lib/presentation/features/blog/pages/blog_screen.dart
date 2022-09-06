@@ -89,6 +89,7 @@ class _BlogScreenState extends State<BlogScreen> {
                           return BlogItem(
                             title: blog.title,
                             thumbnail: blog.thumbnail,
+                            author: blog.author.fullname,
                             createdAt: blog.createdAt,
                             onTap: () {
                               AppBloc.blogDetailBloc.add(

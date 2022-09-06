@@ -1,4 +1,5 @@
 import 'package:exchange_language_mobile/common/helpers/utils/string_extension.dart';
+import 'package:exchange_language_mobile/presentation/theme/blog_style.dart';
 import 'package:exchange_language_mobile/presentation/widgets/app_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -9,12 +10,14 @@ import '../../../../domain/entities/media.dart';
 class BlogItem extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
+  final String author;
   final Media? thumbnail;
   final String createdAt;
   const BlogItem({
     Key? key,
     required this.onTap,
     required this.title,
+    required this.author,
     required this.thumbnail,
     required this.createdAt,
   }) : super(key: key);
@@ -38,9 +41,11 @@ class BlogItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title),
+                  Text(title, style: blogItemTitle),
                   SizedBox(height: 8.sp),
-                  Text(createdAt.formatTime),
+                  Text(author),
+                  SizedBox(height: 8.sp),
+                  Text(createdAt.formatTime, style: blogItemTime),
                 ],
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:exchange_language_mobile/presentation/features/group-detail-members/bloc/group_detail_members_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/auth_repository_impl.dart';
@@ -59,6 +60,8 @@ class AppBloc {
   );
   static final groupBloc = GroupBloc(GroupRepositoryImpl());
   static final groupDetailBloc = GroupDetailBloc(GroupRepositoryImpl());
+  static final groupDetailMembersBloc =
+      GroupDetailMembersBloc(GroupRepositoryImpl());
   static final createGroupBloc = CreateGroupBloc(
     GroupRepositoryImpl(),
     MediaRepositoryImpl(),
@@ -123,6 +126,9 @@ class AppBloc {
     ),
     BlocProvider<GroupDetailBloc>(
       create: (context) => groupDetailBloc,
+    ),
+    BlocProvider<GroupDetailMembersBloc>(
+      create: (context) => groupDetailMembersBloc,
     ),
     BlocProvider<CreateGroupBloc>(
       create: (context) => createGroupBloc,

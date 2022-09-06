@@ -38,3 +38,13 @@ class LeaveGroup extends GroupDetailEvent {
   @override
   List<Object> get props => [id, slug];
 }
+
+class CancelJoinRequest extends GroupDetailEvent {
+  final String id;
+  const CancelJoinRequest({
+    required this.id,
+  });
+
+  @override
+  List<Object> get props => [id];
+}

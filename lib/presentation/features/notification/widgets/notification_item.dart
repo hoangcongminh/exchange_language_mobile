@@ -58,6 +58,16 @@ class NotificationItem extends StatelessWidget {
         avatar = notification.userSender?.avatar?.src;
         title = '${notification.userSender!.fullname} ${context.l10n.ratedYou}';
         break;
+      case 7:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.requestJoinGroup}';
+        break;
+      case 8:
+        avatar = notification.userSender?.avatar?.src;
+        title =
+            '${notification.userSender!.fullname} ${context.l10n.requestAcceptGroup}';
+        break;
     }
     return Slidable(
       // Specify a key if the Slidable is dismissible.

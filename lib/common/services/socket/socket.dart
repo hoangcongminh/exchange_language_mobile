@@ -2,6 +2,8 @@ import 'package:exchange_language_mobile/common/constants/route_constants.dart';
 import 'package:exchange_language_mobile/data/models/notification_model.dart';
 import 'package:exchange_language_mobile/data/repositories/post_repository_impl.dart';
 import 'package:exchange_language_mobile/domain/entities/user.dart';
+import 'package:exchange_language_mobile/presentation/features/group-detail-members/bloc/group_detail_members_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -12,6 +14,7 @@ import '../../../data/models/message_model.dart';
 import '../../../presentation/common/app_bloc.dart';
 import '../../../presentation/features/comment/bloc/comment_bloc.dart';
 import '../../../presentation/features/conversation/bloc/conversation_bloc.dart';
+import '../../../presentation/features/group-detail/bloc/post-bloc/post_bloc.dart';
 import '../../../presentation/features/user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../../../presentation/widgets/avatar_widget.dart';
 import '../../constants/app_constants.dart';
@@ -195,6 +198,33 @@ void connectAndListen() {
             onTap: () {},
             avatar: notification.userSender?.avatar,
             title: '${notification.userSender!.fullname} rated you',
+          );
+          return;
+        case 7:
+          notify(
+            onTap: () {
+              AppBloc.groupDetailMembersBloc
+                  .add(FetchGroupRequests(groupId: notification.dataTarget!));
+              AppNavigator().push(RouteConstants.groupDetailMembers,
+                  arguments: {'groupId': notification.dataTarget!});
+            },
+            avatar: notification.userSender?.avatar,
+            title:
+                '${notification.userSender!.fullname} requested to join your group',
+          );
+          return;
+        case 8:
+          notify(
+            onTap: () {
+              AppBloc.groupDetailBloc
+                  .add(FetchGroupDetail(groupId: notification.dataTarget!));
+              AppBloc.postBloc
+                  .add(RefreshPostEvent(groupId: notification.dataTarget!));
+              AppNavigator().push(RouteConstants.groupDetail);
+            },
+            avatar: notification.userSender?.avatar,
+            title:
+                '${notification.userSender!.fullname} accepted your join group request',
           );
           return;
       }

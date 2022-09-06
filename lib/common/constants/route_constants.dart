@@ -26,6 +26,7 @@ class RouteConstants {
   static const groupDetail = "/groupDetail";
   static const createGroup = "/createGroup";
   static const comment = "/comment";
+  static const groupDetailMembers = "/groupDetailMembers";
 
   //user
   static const userProfile = "/userProfile";

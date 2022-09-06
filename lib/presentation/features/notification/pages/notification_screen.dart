@@ -1,4 +1,6 @@
 import 'package:exchange_language_mobile/common/l10n/l10n.dart';
+import 'package:exchange_language_mobile/presentation/features/group-detail-members/bloc/group_detail_members_bloc.dart';
+import 'package:exchange_language_mobile/presentation/features/group-detail/bloc/group-detail-bloc/group_detail_bloc.dart';
 import 'package:exchange_language_mobile/presentation/features/notification/widgets/notification_shimmer_list.dart';
 import 'package:exchange_language_mobile/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import '../../../../common/constants/constants.dart';
 import '../../../../data/repositories/post_repository_impl.dart';
 import '../../../common/app_bloc.dart';
 import '../../comment/bloc/comment_bloc.dart';
+import '../../group-detail/bloc/post-bloc/post_bloc.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
 import '../bloc/notification_bloc.dart';
 import '../widgets/notification_item.dart';
@@ -101,6 +104,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         case 5:
                           break;
                         case 6:
+                          break;
+                        case 7:
+                          AppBloc.groupDetailMembersBloc.add(FetchGroupRequests(
+                              groupId: state.notifications[index].dataTarget!));
+                          AppNavigator().push(RouteConstants.groupDetailMembers,
+                              arguments: {
+                                'groupId':
+                                    state.notifications[index].dataTarget!
+                              });
+                          break;
+                        case 8:
+                          AppBloc.groupDetailBloc.add(FetchGroupDetail(
+                              groupId: state.notifications[index].dataTarget!));
+                          AppBloc.postBloc.add(RefreshPostEvent(
+                              groupId: state.notifications[index].dataTarget!));
+                          AppNavigator().push(RouteConstants.groupDetail);
                           break;
                       }
                       AppBloc.notificationBloc.add(SeenNotification(

@@ -20,6 +20,10 @@ class GroupModel {
   final String slug;
   @JsonKey(name: 'thumbnail')
   final MediaModel? thumbnail;
+  @JsonKey(name: 'isPrivate')
+  final bool? isPrivate;
+  @JsonKey(name: 'request')
+  final List<String>? request;
   @JsonKey(name: 'author')
   final UserModel author;
   @JsonKey(name: 'description')
@@ -32,6 +36,8 @@ class GroupModel {
     this.title,
     this.slug,
     this.thumbnail,
+    this.isPrivate,
+    this.request,
     this.author,
     this.description,
   );
@@ -47,6 +53,8 @@ class GroupModel {
         title: title,
         members: members,
         thumbnail: thumbnail?.toEntity(),
+        isPrivate: isPrivate,
+        request: request,
         author: author.toEntity(),
         createdAt: createdAt,
         description: description,

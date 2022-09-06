@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:exchange_language_mobile/domain/entities/user.dart';
 
 import '../../data/failure.dart';
 import '../entities/group.dart';
@@ -14,9 +15,24 @@ abstract class GroupRepository {
     required String thumbnailId,
     required String description,
     required List<Language> topics,
+    required bool isPrivate,
   });
 
   Future<Either<Failure, void>> joinGroup({required String groupId});
+
+  Future<Either<Failure, List<User>>> getListRequest({required String groupId});
+
+  Future<Either<Failure, void>> cancelRequestJoin({required String groupId});
+
+  Future<Either<Failure, void>> acceptRequestJoin({
+    required String groupId,
+    required String userId,
+  });
+
+  Future<Either<Failure, void>> rejectRequestJoin({
+    required String groupId,
+    required String userId,
+  });
 
   Future<Either<Failure, void>> leaveGroup({required String groupId});
 }

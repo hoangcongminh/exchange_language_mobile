@@ -80,13 +80,15 @@ class _GroupScreenState extends State<GroupScreen> {
                               AppNavigator().push(RouteConstants.groupDetail);
                             },
                             child: GroupItem(
-                                groupName: group.title,
-                                author: group.author,
-                                thumbnail: group.thumbnail,
-                                description: group.description,
-                                memberCount: group.members.length,
-                                isJoined: group.members
-                                    .contains(UserLocal().getUser()!.id)),
+                              groupName: group.title,
+                              author: group.author,
+                              thumbnail: group.thumbnail,
+                              description: group.description,
+                              memberCount: group.members.length,
+                              isJoined: group.members
+                                  .contains(UserLocal().getUser()!.id),
+                              isPrivate: group.isPrivate ?? false,
+                            ),
                           );
                         },
                         itemCount: widget.isUserProfile

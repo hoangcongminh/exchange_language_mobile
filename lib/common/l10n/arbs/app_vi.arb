@@ -131,5 +131,10 @@
      "ratedYou": "đã thêm đánh giá",
      "aGroupBy": "Group được tạo bởi",
      "invalidImage": "Ảnh không hợp lệ",
-     "editBlog": "Chỉnh sửa bài viết"
+     "editBlog": "Chỉnh sửa bài viết",
+     "requestSent": "Đã gửi yêu cầu tham gia",
+     "privateGroup": "Nhóm kín",
+     "requestJoinGroup": "đã gửi yêu cầu tham gia vào nhóm của bạn",
+     "requestAcceptGroup": "đã đồng ý yêu cầu tham gia vào nhóm của bạn",
+     "joinGroupRequests": "Yêu cầu tham gia vào nhóm" 
 }

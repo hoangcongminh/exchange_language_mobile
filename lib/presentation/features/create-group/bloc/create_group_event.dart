@@ -12,12 +12,14 @@ class CreateNewGroup extends CreateGroupEvent {
   final String description;
   final File? thumbnail;
   final List<Language> topics;
+  final bool isPrivate;
 
   const CreateNewGroup({
     required this.title,
     required this.description,
     this.thumbnail,
     required this.topics,
+    required this.isPrivate,
   });
 
   @override

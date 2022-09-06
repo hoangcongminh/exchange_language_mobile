@@ -16,6 +16,7 @@ class GroupItem extends StatelessWidget {
   final String description;
   final int memberCount;
   final bool isJoined;
+  final bool isPrivate;
   const GroupItem({
     Key? key,
     required this.groupName,
@@ -24,6 +25,7 @@ class GroupItem extends StatelessWidget {
     required this.description,
     required this.memberCount,
     required this.isJoined,
+    required this.isPrivate,
   }) : super(key: key);
 
   @override
@@ -51,7 +53,19 @@ class GroupItem extends StatelessWidget {
                       : '${AppConstants.baseImageUrl}${thumbnail!.src}',
                 ),
                 title: Text(groupName, style: groupItemTitle),
-                subtitle: Text(author.fullname, style: groupItemAuthorName),
+                subtitle: Row(
+                  children: [
+                    Icon(
+                      isPrivate ? Icons.lock : Icons.public,
+                      color: Colors.grey,
+                      size: 10.sp,
+                    ),
+                    SizedBox(width: 2.sp),
+                    const Text('-'),
+                    SizedBox(width: 2.sp),
+                    Text(author.fullname, style: groupItemAuthorName),
+                  ],
+                ),
               ),
               const SizedBox(height: 5),
               Align(

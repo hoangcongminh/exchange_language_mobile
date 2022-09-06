@@ -15,6 +15,8 @@ GroupModel _$GroupModelFromJson(Map<String, dynamic> json) => GroupModel(
       json['thumbnail'] == null
           ? null
           : MediaModel.fromJson(json['thumbnail'] as Map<String, dynamic>),
+      json['isPrivate'] as bool?,
+      (json['request'] as List<dynamic>?)?.map((e) => e as String).toList(),
       UserModel.fromJson(json['author'] as Map<String, dynamic>),
       json['description'] as String,
     );
@@ -27,6 +29,8 @@ Map<String, dynamic> _$GroupModelToJson(GroupModel instance) =>
       'title': instance.title,
       'slug': instance.slug,
       'thumbnail': instance.thumbnail?.toJson(),
+      'isPrivate': instance.isPrivate,
+      'request': instance.request,
       'author': instance.author.toJson(),
       'description': instance.description,
     };

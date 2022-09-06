@@ -37,6 +37,7 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
                         thumbnailId: thumbnail.id,
                         description: event.description,
                         topics: event.topics,
+                        isPrivate: event.isPrivate,
                       )
                       .then(
                         (result) => result.fold((failure) {

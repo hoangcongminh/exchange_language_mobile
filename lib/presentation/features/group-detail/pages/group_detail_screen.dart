@@ -18,6 +18,7 @@ import '../../../widgets/error_dialog_widget.dart';
 import '../../../widgets/error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../comment/bloc/comment_bloc.dart';
+import '../../group-detail-members/bloc/group_detail_members_bloc.dart';
 import '../../group/widget/create_post_widget.dart';
 import '../../group/widget/post_item.dart';
 import '../../user-profile/bloc/user-profile-bloc/user_profile_bloc.dart';
@@ -108,6 +109,62 @@ class _GroupDetailState extends State<GroupDetail> {
     );
   }
 
+  void _onTapRequested(BuildContext context,
+      {required String id, required String slug}) {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: 100.sp,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.sp),
+                topRight: Radius.circular(20.sp),
+              ),
+              color: Colors.white,
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.sp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.sp),
+                TextButton(
+                  onPressed: () =>
+                      AppBloc.groupDetailBloc.add(CancelJoinRequest(id: id)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.close),
+                        SizedBox(width: 12.sp),
+                        Text(
+                          'cancel',
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: const Color(0xFFC5D0CF),
+                  thickness: 0.3.sp,
+                  height: 0.3.sp,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -126,6 +183,8 @@ class _GroupDetailState extends State<GroupDetail> {
           final group = groupState.group;
           final isContainUser =
               group.members.contains(UserLocal().getUser()!.id);
+          final isRequested = group.request != null &&
+              group.request!.contains(UserLocal().getUser()!.id);
           return Scaffold(
             backgroundColor: const Color(0xffC4C4C4),
             appBar: AppBar(
@@ -147,6 +206,18 @@ class _GroupDetailState extends State<GroupDetail> {
                           });
                         },
                       ),
+                      if (group.author.id == UserLocal().getUser()!.id)
+                        IconButton(
+                          icon: const Icon(Icons.person_add),
+                          onPressed: () {
+                            AppBloc.groupDetailMembersBloc
+                                .add(FetchGroupRequests(groupId: group.id));
+                            AppNavigator().push(
+                              RouteConstants.groupDetailMembers,
+                              arguments: {'groupId': group.id},
+                            );
+                          },
+                        ),
                     ]
                   : null,
             ),
@@ -241,18 +312,31 @@ class _GroupDetailState extends State<GroupDetail> {
                                           id: group.id, slug: group.slug),
                                       label: Text(l10n.joined),
                                     )
-                                  : AppButtonWidget(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.sp),
-                                      ),
-                                      onPressed: () =>
-                                          AppBloc.groupDetailBloc.add(
-                                        JoinGroup(
-                                            id: group.id, groupId: group.id),
-                                      ),
-                                      label: Text(l10n.join),
-                                    ),
+                                  : isRequested
+                                      ? AppButtonWidget(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.sp),
+                                          ),
+                                          onPressed: () => _onTapRequested(
+                                              context,
+                                              id: group.id,
+                                              slug: group.slug),
+                                          label: Text(context.l10n.requestSent),
+                                        )
+                                      : AppButtonWidget(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.sp),
+                                          ),
+                                          onPressed: () =>
+                                              AppBloc.groupDetailBloc.add(
+                                            JoinGroup(
+                                                id: group.id,
+                                                groupId: group.id),
+                                          ),
+                                          label: Text(l10n.join),
+                                        ),
                             ),
                           const SizedBox(height: 8),
                         ],
@@ -268,88 +352,92 @@ class _GroupDetailState extends State<GroupDetail> {
                         ),
                       ),
                     ),
-                  BlocBuilder<PostBloc, PostState>(
-                    builder: (context, state) {
-                      if (state is PostLoaded) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              final post = state.posts[index];
-                              final isLiked =
-                                  state.likedPosts.contains(post.id);
-                              return Container(
-                                color: Colors.white,
-                                margin: EdgeInsets.only(top: 5.sp),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.sp, vertical: 8.sp),
-                                child: PostItem(
-                                  isLiked: isLiked,
-                                  onTapLike: () {
-                                    if (!groupState.group.members
-                                        .contains(UserLocal().getUser()!.id)) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => ErrorDialog(
-                                          errorTitle: l10n.error,
-                                          errorMessage:
-                                              l10n.youMustJoinThisGroup,
-                                        ),
-                                      );
-                                    } else {
-                                      AppBloc.postBloc.add(
-                                        LikePostEvent(
-                                          postId: post.id,
-                                          groupId: post.group,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  onTapComment: () {
-                                    if (!groupState.group.members
-                                        .contains(UserLocal().getUser()!.id)) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => ErrorDialog(
-                                          errorTitle: l10n.error,
-                                          errorMessage:
-                                              l10n.youMustJoinThisGroup,
-                                        ),
-                                      );
-                                    } else {
-                                      AppBloc.commentBloc.add(
-                                          FetchCommentEvent(postId: post.id));
-                                      AppNavigator().push(
-                                          RouteConstants.comment,
-                                          arguments: {'post': post});
-                                    }
-                                  },
-                                  onTapPostHeader: () {
-                                    AppBloc.userProfileBloc.add(
-                                        GetUserProfileEvent(
-                                            userId: post.author.id));
-                                    AppNavigator()
-                                        .push(RouteConstants.userProfile);
-                                  },
-                                  isPostDetail: false,
-                                  post: post,
-                                ),
-                              );
-                            },
-                            childCount: state.posts.length,
-                          ),
-                        );
-                      } else if (state is PostLoading) {
-                        return const SliverToBoxAdapter(child: LoadingWidget());
-                      } else {
-                        return SliverToBoxAdapter(
-                          child: ErrorScreen(
-                              onTapRefresh: () => AppBloc.postBloc.add(
-                                  RefreshPostEvent(
-                                      groupId: groupState.group.id))),
-                        );
-                      }
-                    },
-                  ),
+                  if (isContainUser && group.isPrivate == true ||
+                      group.isPrivate == false ||
+                      group.isPrivate == null)
+                    BlocBuilder<PostBloc, PostState>(
+                      builder: (context, state) {
+                        if (state is PostLoaded) {
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                final post = state.posts[index];
+                                final isLiked =
+                                    state.likedPosts.contains(post.id);
+                                return Container(
+                                  color: Colors.white,
+                                  margin: EdgeInsets.only(top: 5.sp),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16.sp, vertical: 8.sp),
+                                  child: PostItem(
+                                    isLiked: isLiked,
+                                    onTapLike: () {
+                                      if (!groupState.group.members.contains(
+                                          UserLocal().getUser()!.id)) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => ErrorDialog(
+                                            errorTitle: l10n.error,
+                                            errorMessage:
+                                                l10n.youMustJoinThisGroup,
+                                          ),
+                                        );
+                                      } else {
+                                        AppBloc.postBloc.add(
+                                          LikePostEvent(
+                                            postId: post.id,
+                                            groupId: post.group,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    onTapComment: () {
+                                      if (!groupState.group.members.contains(
+                                          UserLocal().getUser()!.id)) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => ErrorDialog(
+                                            errorTitle: l10n.error,
+                                            errorMessage:
+                                                l10n.youMustJoinThisGroup,
+                                          ),
+                                        );
+                                      } else {
+                                        AppBloc.commentBloc.add(
+                                            FetchCommentEvent(postId: post.id));
+                                        AppNavigator().push(
+                                            RouteConstants.comment,
+                                            arguments: {'post': post});
+                                      }
+                                    },
+                                    onTapPostHeader: () {
+                                      AppBloc.userProfileBloc.add(
+                                          GetUserProfileEvent(
+                                              userId: post.author.id));
+                                      AppNavigator()
+                                          .push(RouteConstants.userProfile);
+                                    },
+                                    isPostDetail: false,
+                                    post: post,
+                                  ),
+                                );
+                              },
+                              childCount: state.posts.length,
+                            ),
+                          );
+                        } else if (state is PostLoading) {
+                          return const SliverToBoxAdapter(
+                              child: LoadingWidget());
+                        } else {
+                          return SliverToBoxAdapter(
+                            child: ErrorScreen(
+                                onTapRefresh: () => AppBloc.postBloc.add(
+                                    RefreshPostEvent(
+                                        groupId: groupState.group.id))),
+                          );
+                        }
+                      },
+                    ),
                 ],
               ),
             ),

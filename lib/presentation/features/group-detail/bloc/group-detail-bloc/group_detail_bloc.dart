@@ -17,6 +17,7 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
     on<FetchGroupDetail>(_fetchGroupDetail);
     on<JoinGroup>(_joinGroup);
     on<LeaveGroup>(_leaveGroup);
+    on<CancelJoinRequest>(_cancelJoinRequest);
   }
 
   Future<void> _fetchGroupDetail(
@@ -68,4 +69,20 @@ class GroupDetailBloc extends Bloc<GroupDetailEvent, GroupDetailState> {
   }
 
   final GroupRepository _groupRepository;
+
+  Future<void> _cancelJoinRequest(
+      CancelJoinRequest event, Emitter<GroupDetailState> emit) async {
+    await _groupRepository.cancelRequestJoin(groupId: event.id).then(
+      (result) {
+        result.fold(
+          (failure) {
+            emit(GroupDetailFailure(message: failure.message));
+          },
+          (_) async {
+            emit(GroupDetailLeaveSuccess());
+          },
+        );
+      },
+    );
+  }
 }
